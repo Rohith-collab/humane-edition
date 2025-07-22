@@ -105,13 +105,18 @@ export default function PracticeSession({
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      const response = await fetch('/api/chat', {
+      // Try to use the original fetch, but with additional headers to avoid interference
+      const response = await (window.fetch || fetch)('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache',
+          'X-Requested-With': 'XMLHttpRequest'
         },
         body: JSON.stringify(requestBody),
-        signal: controller.signal
+        signal: controller.signal,
+        credentials: 'same-origin'
       });
 
       clearTimeout(timeoutId);
