@@ -44,6 +44,7 @@ export default function PracticeSession({
 
   const initializeSession = async () => {
     try {
+      setIsLoading(true);
       const welcomeMessage = await getGPTReply("Hello, let's start the practice session.");
       setReply(welcomeMessage);
       typeReply(welcomeMessage);
@@ -58,6 +59,9 @@ export default function PracticeSession({
       if (soundEnabled) {
         speakText(fallbackMessage);
       }
+    } finally {
+      setIsLoading(false);
+      setSessionInitialized(true);
     }
   };
 
