@@ -1,19 +1,5 @@
 import { RequestHandler } from "express";
-
-export interface ChatRequest {
-  messages: Array<{
-    role: 'system' | 'user' | 'assistant';
-    content: string;
-  }>;
-  temperature?: number;
-  max_tokens?: number;
-}
-
-export interface ChatResponse {
-  response: string;
-  success: boolean;
-  error?: string;
-}
+import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
