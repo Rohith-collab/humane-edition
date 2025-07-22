@@ -426,8 +426,8 @@ export default function PracticeSession({
                   </div>
                 )}
 
-                <div className="flex items-start space-x-4">
-                  <div className="w-16 h-16 flex-shrink-0">
+                <div className="flex items-start space-x-6">
+                  <div className="w-20 h-20 flex-shrink-0">
                     {avatar ? avatar(speaking || isLoading) : (
                       <div className={`w-full h-full bg-gradient-to-br from-nova-500 to-electric-500 rounded-full flex items-center justify-center transition-all duration-300 ${speaking ? 'scale-110 glow-electric' : ''}`}>
                         <span className="text-white font-bold text-lg">AI</span>
