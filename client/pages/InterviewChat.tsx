@@ -1,7 +1,6 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
-import { AnimatedAvatar } from '../components/AnimatedAvatar';
-import { Briefcase } from "lucide-react";
+import { HumanAvatar } from '../components/HumanAvatar';
 
 const systemPrompt = `You are a professional AI interviewer conducting a job interview for a Software Developer position. 
 
