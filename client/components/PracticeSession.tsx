@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Mic, 
-  MicOff, 
-  Send, 
-  Volume2, 
+import { ChatRequest, ChatResponse } from "@shared/api";
+import {
+  Mic,
+  MicOff,
+  Send,
+  Volume2,
   VolumeX,
   ArrowLeft,
   RotateCcw
