@@ -1,10 +1,11 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
+import { AnimatedAvatar } from '../components/AnimatedAvatar';
 import { Badge } from "@/components/ui/badge";
-import { 
-  BookOpen, 
-  GraduationCap, 
-  Clock, 
+import {
+  BookOpen,
+  GraduationCap,
+  Clock,
   Target,
   CheckCircle,
   PenTool,
