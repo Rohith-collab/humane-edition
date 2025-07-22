@@ -319,6 +319,20 @@ export default function PracticeSession({
                 <RotateCcw className="w-4 h-4" />
                 Reset
               </Button>
+              {apiError && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setApiError('');
+                    initializeSession();
+                  }}
+                  className="gap-2 text-red-500 border-red-500/50 hover:bg-red-500/10"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Retry Connection
+                </Button>
+              )}
             </div>
           </div>
         </div>
