@@ -152,6 +152,19 @@ export default function ShoppingPractice() {
       scenario="Shopping Experience"
       systemPrompt={systemPrompt}
       environment={<ShoppingEnvironment />}
+      avatar={(speaking) => (
+        <div className="w-full h-full relative">
+          <AnimatedAvatar
+            type="ai"
+            speaking={speaking}
+            emotion="happy"
+            className="w-full h-full"
+          />
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
+            <ShoppingBag className="w-2 h-2 text-white" />
+          </div>
+        </div>
+      )}
     />
   );
 }
