@@ -31,21 +31,11 @@ export default function GrammarChat() {
       systemPrompt={systemPrompt}
       environment={<div></div>}
       avatar={(speaking) => (
-        <div className="w-full h-full relative">
-          <AnimatedAvatar
-            type="human-teacher"
-            speaking={speaking}
-            emotion="thinking"
-            className="w-full h-full"
-          />
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-            <GraduationCap className="w-2 h-2 text-white" />
-          </div>
-          {/* Teacher name overlay */}
-          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-green-800/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
-            Grammar Teacher
-          </div>
-        </div>
+        <HumanAvatar
+          type="teacher"
+          speaking={speaking}
+          className="w-full h-full"
+        />
       )}
     />
   );
