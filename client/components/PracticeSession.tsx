@@ -142,17 +142,19 @@ export default function PracticeSession({
         return getGPTReply(userInput, retryCount + 1);
       }
 
-      // If all retries failed, return a helpful error message
+      // If all retries failed, set error state and return a helpful error message
+      let errorMessage = 'Sorry, I could not process that right now. Please try again in a moment.';
+
       if (err instanceof Error) {
         if (err.name === 'AbortError') {
-          return 'Sorry, the request timed out. Please try again.';
+          errorMessage = 'Sorry, the request timed out. Please try again.';
+        } else if (err.message.includes('Failed to fetch')) {
+          errorMessage = 'Sorry, there seems to be a connection issue. Please check your internet connection and try again.';
         }
-        if (err.message.includes('Failed to fetch')) {
-          return 'Sorry, there seems to be a connection issue. Please check your internet connection and try again.';
-        }
+        setApiError(err.message);
       }
 
-      return 'Sorry, I could not process that right now. Please try again in a moment.';
+      return errorMessage;
     }
   };
 
