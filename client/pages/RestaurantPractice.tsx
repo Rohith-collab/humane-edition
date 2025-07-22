@@ -142,11 +142,26 @@ GRAMMAR CORRECTION:
 Start by welcoming the customer to the restaurant and asking if they'd like to see the menu or have any questions.`;
 
 export default function RestaurantPractice() {
+  const [speaking, setSpeaking] = React.useState(false);
+
   return (
     <PracticeSession
       scenario="Restaurant Dining"
       systemPrompt={systemPrompt}
       environment={<RestaurantEnvironment />}
+      avatar={
+        <div className="w-full h-full relative">
+          <AnimatedAvatar
+            type="waiter"
+            speaking={speaking}
+            emotion="happy"
+            className="w-full h-full"
+          />
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center">
+            <UtensilsCrossed className="w-2 h-2 text-white" />
+          </div>
+        </div>
+      }
     />
   );
 }
