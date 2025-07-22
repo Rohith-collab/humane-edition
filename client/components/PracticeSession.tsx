@@ -18,6 +18,7 @@ interface PracticeSessionProps {
   scenario: string;
   systemPrompt: string;
   environment: React.ReactNode;
+  avatar?: React.ReactNode;
   onComplete?: () => void;
 }
 
