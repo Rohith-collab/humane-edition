@@ -41,6 +41,39 @@ export default function PracticeSession({
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>('');
 
+  // XMLHttpRequest fallback function
+  const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/api/chat', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.timeout = 30000;
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data: ChatResponse = JSON.parse(xhr.responseText);
+            if (data.success) {
+              resolve(data.response || 'No response from bot.');
+            } else {
+              reject(new Error(data.error || 'Failed to get AI response'));
+            }
+          } catch (parseErr) {
+            reject(new Error('Failed to parse response'));
+          }
+        } else {
+          reject(new Error(`XHR error! status: ${xhr.status}`));
+        }
+      };
+
+      xhr.onerror = () => reject(new Error('XHR network error'));
+      xhr.ontimeout = () => reject(new Error('XHR timeout'));
+
+      xhr.send(JSON.stringify(requestBody));
+    });
+  };
+
   // Initialize session with welcome message
   useEffect(() => {
     initializeSession();
