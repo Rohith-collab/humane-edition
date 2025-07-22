@@ -68,7 +68,7 @@ export default function PracticeSession({
     }
   };
 
-  const getGPTReply = async (userInput: string) => {
+  const getGPTReply = async (userInput: string, retryCount = 0): Promise<string> => {
     try {
       const requestBody: ChatRequest = {
         messages: [
@@ -82,19 +82,30 @@ export default function PracticeSession({
         max_tokens: 800
       };
 
+      console.log('Making API request to /api/chat...');
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(requestBody),
+        signal: controller.signal
       });
 
+      clearTimeout(timeoutId);
+
+      console.log('API response status:', response.status);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
       }
 
       const data: ChatResponse = await response.json();
+      console.log('API response data:', data);
 
       if (!data.success) {
         throw new Error(data.error || 'Failed to get AI response');
@@ -102,8 +113,26 @@ export default function PracticeSession({
 
       return data.response || 'No response from bot.';
     } catch (err) {
-      console.error('Chat API Error:', err);
-      return 'Sorry, I could not process that right now. Please try again.';
+      console.error('Chat API Error (attempt ' + (retryCount + 1) + '):', err);
+
+      // Retry logic - retry up to 2 times with exponential backoff
+      if (retryCount < 2) {
+        console.log('Retrying in', (retryCount + 1) * 1000, 'ms...');
+        await new Promise(resolve => setTimeout(resolve, (retryCount + 1) * 1000));
+        return getGPTReply(userInput, retryCount + 1);
+      }
+
+      // If all retries failed, return a helpful error message
+      if (err instanceof Error) {
+        if (err.name === 'AbortError') {
+          return 'Sorry, the request timed out. Please try again.';
+        }
+        if (err.message.includes('Failed to fetch')) {
+          return 'Sorry, there seems to be a connection issue. Please check your internet connection and try again.';
+        }
+      }
+
+      return 'Sorry, I could not process that right now. Please try again in a moment.';
     }
   };
 
