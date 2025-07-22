@@ -39,6 +39,7 @@ export default function PracticeSession({
   const [conversation, setConversation] = useState<Array<{user: string, bot: string, timestamp: Date}>>([]);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [sessionInitialized, setSessionInitialized] = useState(false);
+  const [apiError, setApiError] = useState<string>('');
 
   // Initialize session with welcome message
   useEffect(() => {
