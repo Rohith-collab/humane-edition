@@ -290,8 +290,12 @@ export default function PracticeSession({
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className={`w-12 h-12 bg-gradient-to-br from-nova-500 to-electric-500 rounded-full flex items-center justify-center transition-all duration-300 ${speaking ? 'scale-110 glow-electric' : ''}`}>
-                    <span className="text-white font-bold text-lg">AI</span>
+                  <div className="w-16 h-16 flex-shrink-0">
+                    {avatar || (
+                      <div className={`w-full h-full bg-gradient-to-br from-nova-500 to-electric-500 rounded-full flex items-center justify-center transition-all duration-300 ${speaking ? 'scale-110 glow-electric' : ''}`}>
+                        <span className="text-white font-bold text-lg">AI</span>
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1">
                     <div className="bg-gradient-to-r from-nova-500/10 to-electric-500/10 rounded-lg p-4 border border-nova-500/20">
