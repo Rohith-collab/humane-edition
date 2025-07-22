@@ -90,19 +90,51 @@ const App = () => (
           />
           <Route
             path="/practice/interview"
-            element={<InterviewPractice />}
+            element={
+              <Layout>
+                <InterviewPractice />
+              </Layout>
+            }
           />
           <Route
             path="/practice/restaurant"
-            element={<RestaurantPractice />}
+            element={
+              <Layout>
+                <RestaurantPractice />
+              </Layout>
+            }
           />
           <Route
             path="/practice/shopping"
-            element={<ShoppingPractice />}
+            element={
+              <Layout>
+                <ShoppingPractice />
+              </Layout>
+            }
           />
           <Route
             path="/grammar"
-            element={<GrammarTutor />}
+            element={
+              <Layout>
+                <GrammarTutor />
+              </Layout>
+            }
+          />
+          <Route
+            path="/practice/interview/chat"
+            element={<InterviewChat />}
+          />
+          <Route
+            path="/practice/restaurant/chat"
+            element={<RestaurantChat />}
+          />
+          <Route
+            path="/practice/shopping/chat"
+            element={<ShoppingChat />}
+          />
+          <Route
+            path="/grammar/chat"
+            element={<GrammarChat />}
           />
           <Route
             path="/pronunciation"
