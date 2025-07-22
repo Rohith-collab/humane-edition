@@ -79,7 +79,7 @@ const InterviewEnvironment = () => {
           <li>• Speak clearly and confidently</li>
           <li>• Use specific examples (STAR method)</li>
           <li>• Ask thoughtful questions</li>
-          <li>• Maintain professional tone</li>
+          <li>�� Maintain professional tone</li>
         </ul>
       </div>
 
@@ -118,6 +118,19 @@ export default function InterviewPractice() {
       scenario="Job Interview"
       systemPrompt={systemPrompt}
       environment={<InterviewEnvironment />}
+      avatar={(speaking) => (
+        <div className="w-full h-full relative">
+          <AnimatedAvatar
+            type="ai"
+            speaking={speaking}
+            emotion="neutral"
+            className="w-full h-full"
+          />
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center">
+            <Briefcase className="w-2 h-2 text-white" />
+          </div>
+        </div>
+      )}
     />
   );
 }
