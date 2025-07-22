@@ -52,29 +52,31 @@ export default function PracticeSession({
 
   const getGPTReply = async (userInput: string) => {
     try {
+      const requestBody: ChatRequest = {
+        messages: [
+          {
+            role: 'system',
+            content: systemPrompt
+          },
+          { role: 'user', content: userInput }
+        ],
+        temperature: 0.7,
+        max_tokens: 800
+      };
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          messages: [
-            {
-              role: 'system',
-              content: systemPrompt
-            },
-            { role: 'user', content: userInput }
-          ],
-          temperature: 0.7,
-          max_tokens: 800
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: ChatResponse = await response.json();
 
       if (!data.success) {
         throw new Error(data.error || 'Failed to get AI response');
