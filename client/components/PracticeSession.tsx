@@ -389,14 +389,10 @@ export default function PracticeSession({
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 mt-10">
           {/* Environment Section */}
-          <div className="space-y-6">
+          <div className="space-y-6 mt-px">
             <Card className="bg-gradient-to-br from-nova-500/5 via-electric-500/5 to-cyber-500/5 border-border/50">
-              <CardContent className="p-6">
-                <h2 className="text-lg font-semibold text-foreground mb-4">Practice Environment</h2>
-                {environment}
-              </CardContent>
             </Card>
           </div>
 
