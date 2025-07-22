@@ -30,14 +30,18 @@ export default function InterviewChat() {
       environment={<div></div>}
       avatar={(speaking) => (
         <div className="w-full h-full relative">
-          <AnimatedAvatar 
-            type="ai" 
-            speaking={speaking} 
+          <AnimatedAvatar
+            type="human-interviewer"
+            speaking={speaking}
             emotion="neutral"
             className="w-full h-full"
           />
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center">
             <Briefcase className="w-2 h-2 text-white" />
+          </div>
+          {/* Professional title overlay */}
+          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-slate-800/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+            Senior Interviewer
           </div>
         </div>
       )}
