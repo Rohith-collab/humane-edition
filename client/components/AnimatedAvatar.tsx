@@ -271,6 +271,120 @@ export function AnimatedAvatar({
           </div>
         );
 
+      case 'human-interviewer':
+        return (
+          <div className="relative w-full h-full">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={cn(
+                "w-full h-full rounded-full overflow-hidden border-2 border-nova-500/50 transition-all duration-300",
+                speaking && "scale-105 border-nova-500 shadow-lg shadow-nova-500/30"
+              )}>
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+                  alt="Professional Interviewer"
+                  className={cn(
+                    "w-full h-full object-cover transition-all duration-300",
+                    speaking && "brightness-110"
+                  )}
+                />
+                {/* Speaking overlay */}
+                {speaking && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-nova-500/20 to-electric-500/20 animate-pulse"></div>
+                )}
+              </div>
+            </div>
+
+            {/* Voice waves */}
+            {speaking && (
+              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+                <div className="flex space-x-1">
+                  <div className="w-1 h-3 bg-nova-500 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1 h-4 bg-electric-500 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-1 h-5 bg-cyber-500 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
+                  <div className="w-1 h-4 bg-electric-500 rounded-full animate-pulse" style={{ animationDelay: '450ms' }}></div>
+                  <div className="w-1 h-3 bg-nova-500 rounded-full animate-pulse" style={{ animationDelay: '600ms' }}></div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
+      case 'human-teacher':
+        return (
+          <div className="relative w-full h-full">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={cn(
+                "w-full h-full rounded-full overflow-hidden border-2 border-emerald-500/50 transition-all duration-300",
+                speaking && "scale-105 border-emerald-500 shadow-lg shadow-emerald-500/30"
+              )}>
+                <img
+                  src="https://images.unsplash.com/photo-1559209172-e8d4c2d4b5e3?w=150&h=150&fit=crop&crop=face"
+                  alt="Grammar Teacher"
+                  className={cn(
+                    "w-full h-full object-cover transition-all duration-300",
+                    speaking && "brightness-110"
+                  )}
+                />
+                {/* Speaking overlay */}
+                {speaking && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-green-500/20 animate-pulse"></div>
+                )}
+              </div>
+            </div>
+
+            {/* Voice waves */}
+            {speaking && (
+              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+                <div className="flex space-x-1">
+                  <div className="w-1 h-3 bg-emerald-500 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1 h-4 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-1 h-5 bg-teal-500 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
+                  <div className="w-1 h-4 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '450ms' }}></div>
+                  <div className="w-1 h-3 bg-emerald-500 rounded-full animate-pulse" style={{ animationDelay: '600ms' }}></div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
+      case 'human-assistant':
+        return (
+          <div className="relative w-full h-full">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className={cn(
+                "w-full h-full rounded-full overflow-hidden border-2 border-blue-500/50 transition-all duration-300",
+                speaking && "scale-105 border-blue-500 shadow-lg shadow-blue-500/30"
+              )}>
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face"
+                  alt="Customer Assistant"
+                  className={cn(
+                    "w-full h-full object-cover transition-all duration-300",
+                    speaking && "brightness-110"
+                  )}
+                />
+                {/* Speaking overlay */}
+                {speaking && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 animate-pulse"></div>
+                )}
+              </div>
+            </div>
+
+            {/* Voice waves */}
+            {speaking && (
+              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+                <div className="flex space-x-1">
+                  <div className="w-1 h-3 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1 h-4 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-1 h-5 bg-pink-500 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
+                  <div className="w-1 h-4 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: '450ms' }}></div>
+                  <div className="w-1 h-3 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '600ms' }}></div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
       default:
         return null;
     }
