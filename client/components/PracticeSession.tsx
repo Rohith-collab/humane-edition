@@ -48,17 +48,34 @@ export default function PracticeSession({
   const initializeSession = async () => {
     try {
       setIsLoading(true);
+      console.log('Initializing practice session...');
+
       const welcomeMessage = await getGPTReply("Hello, let's start the practice session.");
+
+      console.log('Welcome message received:', welcomeMessage);
       setReply(welcomeMessage);
       typeReply(welcomeMessage);
+
       if (soundEnabled) {
         speakText(welcomeMessage);
       }
     } catch (error) {
       console.error('Failed to initialize session:', error);
-      const fallbackMessage = "Welcome! I'm ready to help you practice. How can I assist you today?";
+
+      // Use a more specific fallback based on the scenario
+      const fallbackMessages = {
+        'Job Interview': "Hello! I'm your AI interviewer. I'm ready to start your interview practice. Please tell me about yourself.",
+        'Restaurant Dining': "Welcome to our restaurant! I'm your server for today. Would you like to see our menu?",
+        'Shopping Experience': "Hello! Welcome to our store. How can I help you find what you're looking for today?",
+        'Grammar Tutor': "Hello! I'm your grammar tutor. I'm here to help you improve your English. What would you like to work on?"
+      };
+
+      const fallbackMessage = fallbackMessages[scenario as keyof typeof fallbackMessages] ||
+        "Welcome! I'm ready to help you practice. How can I assist you today?";
+
       setReply(fallbackMessage);
       typeReply(fallbackMessage);
+
       if (soundEnabled) {
         speakText(fallbackMessage);
       }
