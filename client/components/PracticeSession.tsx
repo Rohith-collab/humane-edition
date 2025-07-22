@@ -42,11 +42,21 @@ export default function PracticeSession({
   }, []);
 
   const initializeSession = async () => {
-    const welcomeMessage = await getGPTReply("Hello, let's start the practice session.");
-    setReply(welcomeMessage);
-    typeReply(welcomeMessage);
-    if (soundEnabled) {
-      speakText(welcomeMessage);
+    try {
+      const welcomeMessage = await getGPTReply("Hello, let's start the practice session.");
+      setReply(welcomeMessage);
+      typeReply(welcomeMessage);
+      if (soundEnabled) {
+        speakText(welcomeMessage);
+      }
+    } catch (error) {
+      console.error('Failed to initialize session:', error);
+      const fallbackMessage = "Welcome! I'm ready to help you practice. How can I assist you today?";
+      setReply(fallbackMessage);
+      typeReply(fallbackMessage);
+      if (soundEnabled) {
+        speakText(fallbackMessage);
+      }
     }
   };
 
