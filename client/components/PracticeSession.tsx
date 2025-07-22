@@ -461,8 +461,8 @@ export default function PracticeSession({
             {transcript && (
               <Card className="bg-secondary/50 border-border/50">
                 <CardContent className="p-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-12 h-12 flex-shrink-0">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-16 h-16 flex-shrink-0">
                       <AnimatedAvatar
                         type="user"
                         speaking={false}
