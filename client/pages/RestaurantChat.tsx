@@ -1,7 +1,6 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
-import { AnimatedAvatar } from '../components/AnimatedAvatar';
-import { UtensilsCrossed } from "lucide-react";
+import { HumanAvatar } from '../components/HumanAvatar';
 
 const systemPrompt = `You are a friendly and professional restaurant server/waiter. 
 
