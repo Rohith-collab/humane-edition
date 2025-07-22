@@ -140,6 +140,18 @@ export default function PracticeSession({
     } catch (err) {
       console.error('Chat API Error (attempt ' + (retryCount + 1) + '):', err);
 
+      // Try XMLHttpRequest as fallback if fetch fails
+      if (retryCount === 0 && err instanceof Error && err.message.includes('Failed to fetch')) {
+        console.log('Fetch failed, trying XMLHttpRequest fallback...');
+        try {
+          const result = await makeXHRRequest(requestBody);
+          setApiError('');
+          return result;
+        } catch (xhrErr) {
+          console.error('XMLHttpRequest also failed:', xhrErr);
+        }
+      }
+
       // Retry logic - retry up to 2 times with exponential backoff
       if (retryCount < 2) {
         console.log('Retrying in', (retryCount + 1) * 1000, 'ms...');
