@@ -230,14 +230,17 @@ export default function Practice() {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3 pt-4">
-                      <Button 
+                      <Button
                         className={`flex-1 bg-gradient-to-r ${scenario.gradient} hover:opacity-90 text-white font-semibold glow-electric transition-all duration-300 group`}
+                        asChild
                       >
-                        <Mic className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                        Start Practice
+                        <Link to={`/practice/${scenario.id}`}>
+                          <Mic className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                          Start Practice
+                        </Link>
                       </Button>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
                         className="border-border/50 hover:bg-background/80"
                       >
