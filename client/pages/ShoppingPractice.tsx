@@ -1,10 +1,11 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
+import { AnimatedAvatar } from '../components/AnimatedAvatar';
 import { Badge } from "@/components/ui/badge";
-import { 
-  ShoppingBag, 
-  Store, 
-  Clock, 
+import {
+  ShoppingBag,
+  Store,
+  Clock,
   CreditCard,
   CheckCircle,
   Tag,
