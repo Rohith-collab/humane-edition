@@ -355,6 +355,27 @@ export default function PracticeSession({
             {/* AI Avatar & Response */}
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardContent className="p-6">
+                {/* Connection Status */}
+                {apiError && (
+                  <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <span className="text-sm text-red-400">Connection Error</span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setApiError('');
+                          initializeSession();
+                        }}
+                        className="ml-auto text-red-400 hover:text-red-300"
+                      >
+                        Retry
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex items-start space-x-4">
                   <div className="w-16 h-16 flex-shrink-0">
                     {avatar ? avatar(speaking || isLoading) : (
