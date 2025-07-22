@@ -51,33 +51,38 @@ export default function PracticeSession({
 
   const getGPTReply = async (userInput: string) => {
     try {
-      const response = await fetch(
-        'https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'api-key': 'A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n'
-          },
-          body: JSON.stringify({
-            messages: [
-              {
-                role: 'system',
-                content: systemPrompt
-              },
-              { role: 'user', content: userInput }
-            ],
-            temperature: 0.7,
-            max_tokens: 800
-          })
-        }
-      );
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'system',
+              content: systemPrompt
+            },
+            { role: 'user', content: userInput }
+          ],
+          temperature: 0.7,
+          max_tokens: 800
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
-      return (data.choices?.[0]?.message?.content || 'No response from bot.').trim();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to get AI response');
+      }
+
+      return data.response || 'No response from bot.';
     } catch (err) {
-      console.error('Azure OpenAI Error:', err);
-      return 'Sorry, I could not process that.';
+      console.error('Chat API Error:', err);
+      return 'Sorry, I could not process that right now. Please try again.';
     }
   };
 
