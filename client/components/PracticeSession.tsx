@@ -400,7 +400,7 @@ export default function PracticeSession({
           <div className="space-y-6">
             {/* AI Avatar & Response */}
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-              <CardContent className="p-6">
+              <CardContent className="my-12 mx-0 p-6">
                 {/* Connection Status */}
                 {apiError && (
                   <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
@@ -422,7 +422,7 @@ export default function PracticeSession({
                   </div>
                 )}
 
-                <div className="flex items-start space-x-6">
+                <div className="flex items-start space-x-6 mt-9">
                   <div className="w-24 h-24 flex-shrink-0">
                     {avatar ? avatar(speaking || isLoading) : (
                       <div className={`w-full h-full bg-gradient-to-br from-nova-500 to-electric-500 rounded-full flex items-center justify-center transition-all duration-300 ${speaking ? 'scale-110 glow-electric' : ''}`}>
