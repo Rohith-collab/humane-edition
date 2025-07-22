@@ -22,11 +22,12 @@ interface PracticeSessionProps {
   onComplete?: () => void;
 }
 
-export default function PracticeSession({ 
-  scenario, 
-  systemPrompt, 
-  environment, 
-  onComplete 
+export default function PracticeSession({
+  scenario,
+  systemPrompt,
+  environment,
+  avatar,
+  onComplete
 }: PracticeSessionProps) {
   const [transcript, setTranscript] = useState('');
   const [reply, setReply] = useState('');
