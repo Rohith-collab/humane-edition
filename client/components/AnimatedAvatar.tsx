@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from "@/lib/utils";
 
 interface AnimatedAvatarProps {
-  type: 'waiter' | 'customer' | 'ai' | 'user';
+  type: 'waiter' | 'customer' | 'ai' | 'user' | 'human-interviewer' | 'human-teacher' | 'human-assistant';
   speaking?: boolean;
   emotion?: 'happy' | 'neutral' | 'thinking';
   className?: string;
