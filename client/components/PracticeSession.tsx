@@ -129,6 +129,8 @@ export default function PracticeSession({
         throw new Error(data.error || 'Failed to get AI response');
       }
 
+      // Clear any previous errors on successful response
+      setApiError('');
       return data.response || 'No response from bot.';
     } catch (err) {
       console.error('Chat API Error (attempt ' + (retryCount + 1) + '):', err);
