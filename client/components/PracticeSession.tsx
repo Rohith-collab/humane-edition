@@ -325,8 +325,13 @@ export default function PracticeSession({
               <Card className="bg-secondary/50 border-border/50">
                 <CardContent className="p-4">
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-cyber-500 to-nova-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">You</span>
+                    <div className="w-12 h-12 flex-shrink-0">
+                      <AnimatedAvatar
+                        type="user"
+                        speaking={false}
+                        emotion="neutral"
+                        className="w-full h-full"
+                      />
                     </div>
                     <div className="flex-1">
                       <p className="text-foreground"><strong>You said:</strong> {transcript}</p>
