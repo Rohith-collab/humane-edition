@@ -1,7 +1,6 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
-import { AnimatedAvatar } from '../components/AnimatedAvatar';
-import { GraduationCap } from "lucide-react";
+import { HumanAvatar } from '../components/HumanAvatar';
 
 const systemPrompt = `You are an expert English grammar tutor with a patient and encouraging teaching style.
 
