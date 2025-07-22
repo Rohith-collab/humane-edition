@@ -1,13 +1,15 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
+import { AnimatedAvatar } from '../components/AnimatedAvatar';
 import { Badge } from "@/components/ui/badge";
-import { 
-  Building2, 
-  Users, 
-  Clock, 
+import {
+  Building2,
+  Users,
+  Clock,
   Target,
   CheckCircle,
-  TrendingUp
+  TrendingUp,
+  Briefcase
 } from "lucide-react";
 
 const InterviewEnvironment = () => {
