@@ -1,7 +1,6 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
-import { AnimatedAvatar } from '../components/AnimatedAvatar';
-import { ShoppingBag } from "lucide-react";
+import { HumanAvatar } from '../components/HumanAvatar';
 
 const systemPrompt = `You are a helpful and knowledgeable retail sales associate in a department store.
 
