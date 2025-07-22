@@ -15,6 +15,8 @@ import {
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
+import { LipSyncAvatar } from "./LipSyncAvatar";
+
 interface ChatbotLayoutProps {
   scenario: string;
   systemPrompt: string;
