@@ -13,6 +13,10 @@ import InterviewPractice from "./pages/InterviewPractice";
 import RestaurantPractice from "./pages/RestaurantPractice";
 import ShoppingPractice from "./pages/ShoppingPractice";
 import GrammarTutor from "./pages/GrammarTutor";
+import InterviewChat from "./pages/InterviewChat";
+import RestaurantChat from "./pages/RestaurantChat";
+import ShoppingChat from "./pages/ShoppingChat";
+import GrammarChat from "./pages/GrammarChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
