@@ -158,6 +158,19 @@ export default function GrammarTutor() {
       scenario="Grammar Tutor"
       systemPrompt={systemPrompt}
       environment={<GrammarEnvironment />}
+      avatar={(speaking) => (
+        <div className="w-full h-full relative">
+          <AnimatedAvatar
+            type="ai"
+            speaking={speaking}
+            emotion="thinking"
+            className="w-full h-full"
+          />
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
+            <GraduationCap className="w-2 h-2 text-white" />
+          </div>
+        </div>
+      )}
     />
   );
 }
