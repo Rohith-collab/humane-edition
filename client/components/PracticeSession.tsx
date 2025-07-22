@@ -291,7 +291,7 @@ export default function PracticeSession({
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-16 h-16 flex-shrink-0">
-                    {avatar || (
+                    {avatar ? avatar(speaking || isLoading) : (
                       <div className={`w-full h-full bg-gradient-to-br from-nova-500 to-electric-500 rounded-full flex items-center justify-center transition-all duration-300 ${speaking ? 'scale-110 glow-electric' : ''}`}>
                         <span className="text-white font-bold text-lg">AI</span>
                       </div>
