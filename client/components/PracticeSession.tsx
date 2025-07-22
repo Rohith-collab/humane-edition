@@ -217,6 +217,7 @@ export default function PracticeSession({
     setTranscript('');
     setReply('');
     setTypedText('');
+    setSessionInitialized(false);
     initializeSession();
   };
 
