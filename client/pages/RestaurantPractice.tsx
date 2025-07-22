@@ -1,10 +1,11 @@
 import React from 'react';
 import PracticeSession from '../components/PracticeSession';
+import { AnimatedAvatar } from '../components/AnimatedAvatar';
 import { Badge } from "@/components/ui/badge";
-import { 
-  UtensilsCrossed, 
-  ChefHat, 
-  Clock, 
+import {
+  UtensilsCrossed,
+  ChefHat,
+  Clock,
   MapPin,
   CheckCircle,
   Coffee,
