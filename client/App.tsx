@@ -75,10 +75,9 @@ const App = () => (
           <Route
             path="/practice"
             element={
-              <PlaceholderPage
-                title="Practice Mode"
-                description="Interactive practice sessions with your AI tutor."
-              />
+              <Layout>
+                <Practice />
+              </Layout>
             }
           />
           <Route
