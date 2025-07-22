@@ -9,6 +9,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import Index from "./pages/Index";
 import Practice from "./pages/Practice";
+import InterviewPractice from "./pages/InterviewPractice";
+import RestaurantPractice from "./pages/RestaurantPractice";
+import ShoppingPractice from "./pages/ShoppingPractice";
+import GrammarTutor from "./pages/GrammarTutor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
