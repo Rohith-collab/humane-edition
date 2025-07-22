@@ -293,10 +293,20 @@ export default function PracticeSession({
                   </div>
                   <div className="flex-1">
                     <div className="bg-gradient-to-r from-nova-500/10 to-electric-500/10 rounded-lg p-4 border border-nova-500/20">
-                      {reply ? (
+                      {isLoading ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
+                          <p className="text-muted-foreground">AI is thinking...</p>
+                        </div>
+                      ) : reply ? (
                         <p className="text-foreground">{reply}</p>
+                      ) : !sessionInitialized ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
+                          <p className="text-muted-foreground">Initializing session...</p>
+                        </div>
                       ) : (
-                        <p className="text-muted-foreground">AI is thinking...</p>
+                        <p className="text-muted-foreground">AI is ready to chat!</p>
                       )}
                     </div>
                   </div>
