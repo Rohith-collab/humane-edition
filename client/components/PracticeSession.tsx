@@ -212,9 +212,14 @@ export default function PracticeSession({
               </Link>
               <div>
                 <h1 className="text-xl font-semibold text-foreground">{scenario} Practice</h1>
-                <Badge variant="secondary" className="text-xs mt-1">
-                  AI-Powered Session
-                </Badge>
+                <div className="flex gap-2 mt-1">
+                  <Badge variant="secondary" className="text-xs">
+                    AI-Powered Session
+                  </Badge>
+                  <Badge className="text-xs bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30">
+                    Grammar Correction Enabled
+                  </Badge>
+                </div>
               </div>
             </div>
             
