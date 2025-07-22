@@ -10,3 +10,21 @@
 export interface DemoResponse {
   message: string;
 }
+
+/**
+ * Chat API types
+ */
+export interface ChatRequest {
+  messages: Array<{
+    role: 'system' | 'user' | 'assistant';
+    content: string;
+  }>;
+  temperature?: number;
+  max_tokens?: number;
+}
+
+export interface ChatResponse {
+  response: string;
+  success: boolean;
+  error?: string;
+}
