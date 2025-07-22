@@ -130,9 +130,10 @@ export default function Index() {
         </div>
 
         {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-32 h-32 bg-gradient-to-br from-electric-500/20 to-cyber-500/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-br from-cyber-500/20 to-nova-500/20 rounded-full blur-xl animate-pulse delay-500"></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-full blur-xl animate-float"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 bg-gradient-to-br from-electric-500/20 to-cyber-500/20 rounded-full blur-xl float delay-1000"></div>
+        <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-br from-cyber-500/20 to-nova-500/20 rounded-full blur-xl animate-bounce-slow delay-500"></div>
+        <div className="absolute top-60 right-1/4 w-12 h-12 bg-gradient-to-br from-nova-500/30 to-cyber-500/30 rounded-full blur-lg animate-glow"></div>
       </section>
 
       {/* Stats Section */}
