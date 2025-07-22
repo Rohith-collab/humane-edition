@@ -85,13 +85,20 @@ const App = () => (
             }
           />
           <Route
+            path="/practice/interview"
+            element={<InterviewPractice />}
+          />
+          <Route
+            path="/practice/restaurant"
+            element={<RestaurantPractice />}
+          />
+          <Route
+            path="/practice/shopping"
+            element={<ShoppingPractice />}
+          />
+          <Route
             path="/grammar"
-            element={
-              <PlaceholderPage
-                title="Grammar Tutor"
-                description="Master English grammar with AI-powered lessons and corrections."
-              />
-            }
+            element={<GrammarTutor />}
           />
           <Route
             path="/pronunciation"
