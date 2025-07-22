@@ -1,74 +1,86 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { 
-  Brain, 
-  Mic, 
-  Camera, 
-  BookOpen, 
-  MessageCircle, 
-  Theater, 
-  Zap, 
-  Globe, 
+import {
+  Brain,
+  Mic,
+  Camera,
+  BookOpen,
+  MessageCircle,
+  Theater,
+  Zap,
+  Globe,
   Star,
   Play,
   ArrowRight,
   Users,
   Target,
-  Award
+  Award,
 } from "lucide-react";
 
 const features = [
   {
     icon: Brain,
     title: "AI-Powered Avatar",
-    description: "Interact with our intelligent AI tutor that adapts to your learning style and provides personalized feedback.",
+    description:
+      "Interact with our intelligent AI tutor that adapts to your learning style and provides personalized feedback.",
     color: "nova",
-    gradient: "from-nova-500 to-nova-600"
+    gradient: "from-nova-500 to-nova-600",
   },
   {
     icon: Mic,
     title: "Voice Recognition",
-    description: "Practice speaking with advanced voice input technology that analyzes your pronunciation in real-time.",
+    description:
+      "Practice speaking with advanced voice input technology that analyzes your pronunciation in real-time.",
     color: "electric",
-    gradient: "from-electric-500 to-electric-600"
+    gradient: "from-electric-500 to-electric-600",
   },
   {
     icon: Camera,
     title: "Emotion Detection",
-    description: "Our facial recognition technology reads your emotions to provide empathetic and contextual learning support.",
+    description:
+      "Our facial recognition technology reads your emotions to provide empathetic and contextual learning support.",
     color: "cyber",
-    gradient: "from-cyber-500 to-cyber-600"
+    gradient: "from-cyber-500 to-cyber-600",
   },
   {
     icon: BookOpen,
     title: "Grammar Correction",
-    description: "Get instant feedback on your grammar with detailed explanations and practice exercises.",
+    description:
+      "Get instant feedback on your grammar with detailed explanations and practice exercises.",
     color: "nova",
-    gradient: "from-nova-400 to-electric-500"
+    gradient: "from-nova-400 to-electric-500",
   },
   {
     icon: MessageCircle,
     title: "Pronunciation Coach",
-    description: "Perfect your accent with our AI pronunciation coach that provides detailed phonetic feedback.",
+    description:
+      "Perfect your accent with our AI pronunciation coach that provides detailed phonetic feedback.",
     color: "electric",
-    gradient: "from-electric-400 to-cyber-500"
+    gradient: "from-electric-400 to-cyber-500",
   },
   {
     icon: Theater,
     title: "Interactive Stories",
-    description: "Learn through immersive storytelling and role-play scenarios that make learning engaging and fun.",
+    description:
+      "Learn through immersive storytelling and role-play scenarios that make learning engaging and fun.",
     color: "cyber",
-    gradient: "from-cyber-400 to-nova-500"
-  }
+    gradient: "from-cyber-400 to-nova-500",
+  },
 ];
 
 const stats = [
   { icon: Users, label: "Active Learners", value: "50K+" },
   { icon: Globe, label: "Languages", value: "12+" },
   { icon: Award, label: "Success Rate", value: "94%" },
-  { icon: Target, label: "Accuracy", value: "98%" }
+  { icon: Target, label: "Accuracy", value: "98%" },
 ];
 
 export default function Index() {
@@ -78,7 +90,7 @@ export default function Index() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-nova-500/10 via-electric-500/10 to-cyber-500/10"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-background/50 to-background"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
           <div className="text-center space-y-8">
             {/* Badge */}
@@ -97,15 +109,16 @@ export default function Index() {
                 <span className="text-foreground">SpeakNova</span>
               </h1>
               <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Master English with our revolutionary AI tutor featuring voice recognition, 
-                emotion detection, and interactive storytelling for an immersive learning experience.
+                Master English with our revolutionary AI tutor featuring voice
+                recognition, emotion detection, and interactive storytelling for
+                an immersive learning experience.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
                 asChild
               >
@@ -114,9 +127,9 @@ export default function Index() {
                   Start Learning Now
                 </Link>
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
+              <Button
+                variant="outline"
+                size="lg"
                 className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg transition-all duration-300 group"
                 asChild
               >
@@ -148,8 +161,12 @@ export default function Index() {
                     <Icon className="w-6 h-6 text-nova-400" />
                   </div>
                   <div>
-                    <div className="text-2xl sm:text-3xl font-bold text-foreground">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {stat.label}
+                    </div>
                   </div>
                 </div>
               );
@@ -166,8 +183,8 @@ export default function Index() {
               Revolutionary Learning Features
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Experience the future of language learning with cutting-edge AI technology 
-              designed to accelerate your English mastery.
+              Experience the future of language learning with cutting-edge AI
+              technology designed to accelerate your English mastery.
             </p>
           </div>
 
@@ -180,7 +197,9 @@ export default function Index() {
                   className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10 shimmer overflow-hidden"
                 >
                   <CardHeader className="space-y-4">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300`}>
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300`}
+                    >
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <CardTitle className="text-xl font-semibold text-foreground group-hover:text-nova-400 transition-colors">
@@ -207,29 +226,26 @@ export default function Index() {
               Ready to Transform Your English?
             </h2>
             <p className="text-lg text-muted-foreground">
-              Join thousands of learners who are already mastering English with our AI-powered platform.
+              Join thousands of learners who are already mastering English with
+              our AI-powered platform.
             </p>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300"
               asChild
             >
-              <Link to="/practice">
-                Begin Your Journey
-              </Link>
+              <Link to="/practice">Begin Your Journey</Link>
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg"
               asChild
             >
-              <Link to="/dashboard">
-                Explore Features
-              </Link>
+              <Link to="/dashboard">Explore Features</Link>
             </Button>
           </div>
 

@@ -96,10 +96,13 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'aurora': 'linear-gradient(45deg, hsl(var(--nova-500)), hsl(var(--electric-500)), hsl(var(--cyber-500)), hsl(var(--nova-600)))',
-        'nova-glow': 'linear-gradient(135deg, hsl(var(--nova-400)) 0%, hsl(var(--electric-500)) 50%, hsl(var(--cyber-400)) 100%)',
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        aurora:
+          "linear-gradient(45deg, hsl(var(--nova-500)), hsl(var(--electric-500)), hsl(var(--cyber-500)), hsl(var(--nova-600)))",
+        "nova-glow":
+          "linear-gradient(135deg, hsl(var(--nova-400)) 0%, hsl(var(--electric-500)) 50%, hsl(var(--cyber-400)) 100%)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -123,25 +126,25 @@ export default {
             height: "0",
           },
         },
-        "float": {
+        float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-10px)" },
         },
-        "glow": {
+        glow: {
           "0%, 100%": { opacity: 1 },
           "50%": { opacity: 0.5 },
         },
-        "gradient": {
+        gradient: {
           "0%, 100%": {
             "background-size": "200% 200%",
-            "background-position": "left center"
+            "background-position": "left center",
           },
           "50%": {
             "background-size": "200% 200%",
-            "background-position": "right center"
+            "background-position": "right center",
           },
         },
-        "shimmer": {
+        shimmer: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
         },
@@ -159,10 +162,10 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 3s ease-in-out infinite",
-        "glow": "glow 2s ease-in-out infinite alternate",
-        "gradient": "gradient 8s ease infinite",
-        "shimmer": "shimmer 2s linear infinite",
+        float: "float 3s ease-in-out infinite",
+        glow: "glow 2s ease-in-out infinite alternate",
+        gradient: "gradient 8s ease infinite",
+        shimmer: "shimmer 2s linear infinite",
         "bounce-slow": "bounce-slow 3s infinite",
       },
     },

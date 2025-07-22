@@ -21,7 +21,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
 );
 
 // Placeholder component for unimplemented pages
-const PlaceholderPage = ({ title, description }: { title: string; description: string }) => (
+const PlaceholderPage = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => (
   <Layout>
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
       <div className="text-center space-y-6 max-w-md mx-auto px-4">
@@ -33,7 +39,8 @@ const PlaceholderPage = ({ title, description }: { title: string; description: s
           <p className="text-muted-foreground">{description}</p>
         </div>
         <p className="text-sm text-muted-foreground">
-          This page is under development. Continue prompting to help build out this section!
+          This page is under development. Continue prompting to help build out
+          this section!
         </p>
       </div>
     </div>
@@ -47,53 +54,77 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={
-            <Layout>
-              <Index />
-            </Layout>
-          } />
-          <Route path="/dashboard" element={
-            <PlaceholderPage
-              title="Dashboard"
-              description="View your learning progress, achievements, and personalized insights."
-            />
-          } />
-          <Route path="/practice" element={
-            <PlaceholderPage
-              title="Practice Mode"
-              description="Interactive practice sessions with your AI tutor."
-            />
-          } />
-          <Route path="/grammar" element={
-            <PlaceholderPage
-              title="Grammar Tutor"
-              description="Master English grammar with AI-powered lessons and corrections."
-            />
-          } />
-          <Route path="/pronunciation" element={
-            <PlaceholderPage
-              title="Pronunciation Coach"
-              description="Perfect your pronunciation with real-time feedback and coaching."
-            />
-          } />
-          <Route path="/stories" element={
-            <PlaceholderPage
-              title="Story Mode"
-              description="Learn through immersive storytelling and interactive role-play."
-            />
-          } />
-          <Route path="/settings" element={
-            <PlaceholderPage
-              title="Settings"
-              description="Customize your learning experience and manage your account."
-            />
-          } />
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <Index />
+              </Layout>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PlaceholderPage
+                title="Dashboard"
+                description="View your learning progress, achievements, and personalized insights."
+              />
+            }
+          />
+          <Route
+            path="/practice"
+            element={
+              <PlaceholderPage
+                title="Practice Mode"
+                description="Interactive practice sessions with your AI tutor."
+              />
+            }
+          />
+          <Route
+            path="/grammar"
+            element={
+              <PlaceholderPage
+                title="Grammar Tutor"
+                description="Master English grammar with AI-powered lessons and corrections."
+              />
+            }
+          />
+          <Route
+            path="/pronunciation"
+            element={
+              <PlaceholderPage
+                title="Pronunciation Coach"
+                description="Perfect your pronunciation with real-time feedback and coaching."
+              />
+            }
+          />
+          <Route
+            path="/stories"
+            element={
+              <PlaceholderPage
+                title="Story Mode"
+                description="Learn through immersive storytelling and interactive role-play."
+              />
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PlaceholderPage
+                title="Settings"
+                description="Customize your learning experience and manage your account."
+              />
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={
-            <Layout>
-              <NotFound />
-            </Layout>
-          } />
+          <Route
+            path="*"
+            element={
+              <Layout>
+                <NotFound />
+              </Layout>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

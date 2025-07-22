@@ -139,7 +139,11 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 
   /* Smooth scrolling and enhanced animations */
@@ -149,35 +153,53 @@
 
   /* Glow effects */
   .glow {
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.3), 0 0 40px rgba(138, 43, 226, 0.2);
+    box-shadow:
+      0 0 20px rgba(138, 43, 226, 0.3),
+      0 0 40px rgba(138, 43, 226, 0.2);
     transition: box-shadow 0.3s ease-in-out;
   }
 
   .glow:hover {
-    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5), 0 0 60px rgba(138, 43, 226, 0.3);
+    box-shadow:
+      0 0 30px rgba(138, 43, 226, 0.5),
+      0 0 60px rgba(138, 43, 226, 0.3);
   }
 
   .glow-electric {
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4), 0 0 40px rgba(0, 191, 255, 0.2);
+    box-shadow:
+      0 0 20px rgba(0, 191, 255, 0.4),
+      0 0 40px rgba(0, 191, 255, 0.2);
     transition: box-shadow 0.3s ease-in-out;
   }
 
   .glow-electric:hover {
-    box-shadow: 0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 191, 255, 0.4);
+    box-shadow:
+      0 0 30px rgba(0, 191, 255, 0.6),
+      0 0 60px rgba(0, 191, 255, 0.4);
   }
 
   .glow-cyber {
-    box-shadow: 0 0 20px rgba(0, 255, 127, 0.4), 0 0 40px rgba(0, 255, 127, 0.2);
+    box-shadow:
+      0 0 20px rgba(0, 255, 127, 0.4),
+      0 0 40px rgba(0, 255, 127, 0.2);
     transition: box-shadow 0.3s ease-in-out;
   }
 
   .glow-cyber:hover {
-    box-shadow: 0 0 30px rgba(0, 255, 127, 0.6), 0 0 60px rgba(0, 255, 127, 0.4);
+    box-shadow:
+      0 0 30px rgba(0, 255, 127, 0.6),
+      0 0 60px rgba(0, 255, 127, 0.4);
   }
 
   /* Animated gradient backgrounds */
   .bg-gradient-animated {
-    background: linear-gradient(-45deg, hsl(var(--nova-500)), hsl(var(--electric-500)), hsl(var(--cyber-500)), hsl(var(--nova-600)));
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--nova-500)),
+      hsl(var(--electric-500)),
+      hsl(var(--cyber-500)),
+      hsl(var(--nova-600))
+    );
     background-size: 400% 400%;
     animation: gradient 8s ease infinite;
   }
@@ -189,7 +211,7 @@
   }
 
   .shimmer::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -216,7 +238,13 @@
 
   /* Text gradient animations */
   .text-gradient-animated {
-    background: linear-gradient(-45deg, hsl(var(--nova-400)), hsl(var(--electric-400)), hsl(var(--cyber-400)), hsl(var(--nova-500)));
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--nova-400)),
+      hsl(var(--electric-400)),
+      hsl(var(--cyber-400)),
+      hsl(var(--nova-500))
+    );
     background-size: 400% 400%;
     background-clip: text;
     -webkit-background-clip: text;

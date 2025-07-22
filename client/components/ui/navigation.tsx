@@ -1,16 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
-import { 
-  Home, 
-  LayoutDashboard, 
-  Play, 
-  BookOpen, 
-  Mic, 
-  Theater, 
+import {
+  Home,
+  LayoutDashboard,
+  Play,
+  BookOpen,
+  Mic,
+  Theater,
   Settings,
   Menu,
-  X
+  X,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -44,7 +44,9 @@ export function Navigation() {
               <span className="text-lg font-bold bg-gradient-to-r from-nova-400 via-electric-400 to-cyber-400 bg-clip-text text-transparent">
                 HUMANE
               </span>
-              <span className="text-sm text-muted-foreground -mt-1">SpeakNova</span>
+              <span className="text-sm text-muted-foreground -mt-1">
+                SpeakNova
+              </span>
             </div>
           </Link>
 
@@ -53,7 +55,7 @@ export function Navigation() {
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
-              
+
               return (
                 <Link
                   key={item.name}
@@ -62,7 +64,7 @@ export function Navigation() {
                     "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 group relative",
                     isActive
                       ? "text-nova-400 bg-nova-500/10 glow"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent",
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -77,9 +79,7 @@ export function Navigation() {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button 
-              className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-medium glow-electric transition-all duration-300"
-            >
+            <Button className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-medium glow-electric transition-all duration-300">
               Start Learning
             </Button>
           </div>
@@ -92,7 +92,11 @@ export function Navigation() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-foreground"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </Button>
           </div>
         </div>
@@ -103,7 +107,7 @@ export function Navigation() {
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
-              
+
               return (
                 <Link
                   key={item.name}
@@ -113,7 +117,7 @@ export function Navigation() {
                     "block px-4 py-3 text-sm font-medium transition-all duration-200 flex items-center space-x-3 rounded-lg mx-2",
                     isActive
                       ? "text-nova-400 bg-nova-500/10 glow"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent",
                   )}
                 >
                   <Icon className="w-5 h-5" />
@@ -122,9 +126,7 @@ export function Navigation() {
               );
             })}
             <div className="px-2 pt-4">
-              <Button 
-                className="w-full bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-medium glow-electric transition-all duration-300"
-              >
+              <Button className="w-full bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-medium glow-electric transition-all duration-300">
                 Start Learning
               </Button>
             </div>
