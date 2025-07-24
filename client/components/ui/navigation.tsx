@@ -25,6 +25,11 @@ const navigation = [
   { name: "Practice Mode", href: "/practice", icon: Play },
   { name: "Grammar Tutor", href: "/grammar", icon: BookOpen },
   { name: "Pronunciation Coach", href: "/pronunciation", icon: Mic },
+  { name: "Presentation Skills", href: "/presentation", icon: Presentation },
+  { name: "Social Conversation", href: "/social", icon: Users },
+  { name: "Business English", href: "/business", icon: Briefcase },
+  { name: "Public Speaking", href: "/speaking", icon: Megaphone },
+  { name: "Cultural Communication", href: "/cultural", icon: Globe2 },
   { name: "Story Mode", href: "/stories", icon: Theater },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
