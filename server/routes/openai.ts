@@ -1,9 +1,9 @@
 import { RequestHandler } from "express";
-import { ChatRequest, ChatResponse } from "@shared/api";
+import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
-    const { messages, temperature = 0.7, max_tokens = 800 } = req.body as ChatRequest;
+    const { messages, temperature = 0.7, max_tokens = 800, emotionData } = req.body as ChatRequest;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({
