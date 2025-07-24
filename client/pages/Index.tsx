@@ -57,28 +57,76 @@ const features = [
     gradient: "from-cyber-500 to-cyber-600",
   },
   {
+    icon: Presentation,
+    title: "Presentation Skills",
+    description:
+      "Master the art of public presentations with structured practice sessions, slide narration, and confidence building exercises.",
+    color: "nova",
+    gradient: "from-nova-400 to-electric-500",
+  },
+  {
+    icon: Users,
+    title: "Social Conversation",
+    description:
+      "Practice everyday conversations, small talk, and social interactions to build natural communication skills.",
+    color: "electric",
+    gradient: "from-electric-400 to-cyber-500",
+  },
+  {
+    icon: Briefcase,
+    title: "Business English",
+    description:
+      "Develop professional communication skills for meetings, negotiations, emails, and workplace conversations.",
+    color: "cyber",
+    gradient: "from-cyber-400 to-nova-500",
+  },
+  {
+    icon: Megaphone,
+    title: "Public Speaking",
+    description:
+      "Build confidence and eloquence in public speaking with speech coaching, body language tips, and delivery practice.",
+    color: "nova",
+    gradient: "from-nova-500 to-electric-400",
+  },
+  {
+    icon: Globe2,
+    title: "Cultural Communication",
+    description:
+      "Learn cultural nuances, etiquette, and context-appropriate communication for global interactions.",
+    color: "electric",
+    gradient: "from-electric-500 to-cyber-400",
+  },
+  {
     icon: BookOpen,
     title: "Grammar Correction",
     description:
       "Get instant feedback on your grammar with detailed explanations and practice exercises.",
-    color: "nova",
-    gradient: "from-nova-400 to-electric-500",
+    color: "cyber",
+    gradient: "from-cyber-500 to-nova-400",
   },
   {
     icon: MessageCircle,
     title: "Pronunciation Coach",
     description:
       "Perfect your accent with our AI pronunciation coach that provides detailed phonetic feedback.",
-    color: "electric",
-    gradient: "from-electric-400 to-cyber-500",
+    color: "nova",
+    gradient: "from-nova-400 to-electric-600",
   },
   {
     icon: Theater,
     title: "Interactive Stories",
     description:
       "Learn through immersive storytelling and role-play scenarios that make learning engaging and fun.",
+    color: "electric",
+    gradient: "from-electric-400 to-cyber-600",
+  },
+  {
+    icon: Heart,
+    title: "Confidence Building",
+    description:
+      "Develop self-assurance in English communication through positive reinforcement and progressive challenges.",
     color: "cyber",
-    gradient: "from-cyber-400 to-nova-500",
+    gradient: "from-cyber-400 to-nova-600",
   },
 ];
 
