@@ -16,6 +16,7 @@ const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Practice Mode", href: "/practice", icon: Play },
+  { name: "Humanoid Tutor", href: "/humanoid", icon: Bot },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
