@@ -383,12 +383,23 @@ export default function ChatbotLayout({
   return (
     <div className="min-h-screen bg-black flex">
       {/* Left Side - Full D-ID Avatar */}
-      <div className="w-1/2 h-screen relative">
+      <div
+        className="w-1/2 h-screen relative"
+        style={{
+          backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {backgroundImage && (
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]" />
+        )}
         <LipSyncAvatar
-          type={avatarType}
+          type={avatarType || "assistant"}
           speaking={speaking || isLoading}
           isLoading={isLoading}
-          className="w-full h-full"
+          className="w-full h-full relative z-10"
         />
 
         {/* Connection Error Overlay */}
