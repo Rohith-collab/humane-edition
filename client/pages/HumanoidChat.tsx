@@ -439,7 +439,33 @@ Please acknowledge my emotional state naturally in your response and adapt your 
     setTypedText("");
     setTranscript("");
     setSessionInitialized(false);
+    setCurrentEmotion(null);
+    setLastEmotionResponse("");
     initializeSession();
+  };
+
+  // Handle emotion detection results
+  const handleEmotionDetected = (result: FaceDetectionResult) => {
+    setCurrentEmotion(result);
+
+    // If there's a significant emotion change, potentially trigger a response
+    if (result.faceDetected && result.emotions.confidence > 0.6) {
+      const { dominant } = result.emotions;
+
+      // Check if we should proactively respond to strong emotions
+      if (['sad', 'angry', 'fearful'].includes(dominant) && !isLoading) {
+        const emotionalContext = emotionDetectionService.analyzeEmotionalContext(result.emotions);
+        if (emotionalContext !== lastEmotionResponse) {
+          // Optionally trigger automatic emotional response
+          console.log('Strong emotion detected:', dominant, 'Context:', emotionalContext);
+        }
+      }
+    }
+  };
+
+  // Toggle emotion detection
+  const toggleEmotionDetection = () => {
+    setEmotionDetectionActive(!emotionDetectionActive);
   };
 
   return (
