@@ -18,10 +18,16 @@ import { cn } from "@/lib/utils";
 import { LipSyncAvatar } from "./LipSyncAvatar";
 
 interface ChatbotLayoutProps {
-  scenario: string;
+  // New interface
+  title?: string;
+  welcomeMessage?: string;
   systemPrompt: string;
-  backUrl: string;
-  avatarType: "interviewer" | "teacher" | "waiter" | "assistant";
+  backgroundImage?: string;
+  theme?: string;
+  // Legacy interface
+  scenario?: string;
+  backUrl?: string;
+  avatarType?: "interviewer" | "teacher" | "waiter" | "assistant";
   onComplete?: () => void;
 }
 
