@@ -519,6 +519,12 @@ Please acknowledge my emotional state naturally in your response and adapt your 
                   <Video className="w-3 h-3 mr-1" />
                   D-ID Enhanced
                 </Badge>
+                {emotionDetectionActive && currentEmotion?.faceDetected && (
+                  <Badge variant="outline" className="text-xs bg-purple-500/10 border-purple-500/30">
+                    <Heart className="w-3 h-3 mr-1 text-purple-500" />
+                    {currentEmotion.emotions.dominant} {Math.round(currentEmotion.emotions.confidence * 100)}%
+                  </Badge>
+                )}
                 {userPreferences && (
                   <Badge variant="outline" className="text-xs">
                     {userPreferences.voice}
