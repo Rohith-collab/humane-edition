@@ -159,6 +159,14 @@ export default function GrammarTutor() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/grammar/chat"
+        title="Grammar Tutor"
+      />
     </div>
   );
 }
