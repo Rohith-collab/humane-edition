@@ -90,8 +90,14 @@ export default function ChatbotLayout({
     });
   };
 
-  // Initialize session with welcome message
+  // Load user preferences and initialize session
   useEffect(() => {
+    // Load user preferences from localStorage
+    const savedPreferences = localStorage.getItem('aangilam_preferences');
+    if (savedPreferences) {
+      setUserPreferences(JSON.parse(savedPreferences));
+    }
+
     initializeSession();
   }, []);
 
