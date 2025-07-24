@@ -28,6 +28,7 @@ import SocialChat from "./pages/SocialChat";
 import BusinessChat from "./pages/BusinessChat";
 import SpeakingChat from "./pages/SpeakingChat";
 import CulturalChat from "./pages/CulturalChat";
+import HumanoidChat from "./pages/HumanoidChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
