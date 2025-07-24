@@ -255,7 +255,9 @@ I can see your face and detect that you are currently feeling: ${emotionContext.
 Based on your emotional state:
 ${emotionContext.emotionalContext}
 
-Please acknowledge my emotional state naturally in your response and adapt your tone accordingly. If I seem sad, be compassionate. If I'm happy, share in my joy. If I'm angry or frustrated, be understanding and help me work through it. If I'm surprised, show curiosity about what happened. Always respond with human-like emotional intelligence.`;
+Please acknowledge my emotional state naturally in your response and adapt your tone accordingly. If I seem sad, be compassionate. If I'm happy, share in my joy. If I'm angry or frustrated, be understanding and help me work through it. If I'm surprised, show curiosity about what happened. Always respond with human-like emotional intelligence.
+
+REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging my feelings and offering brief support.`;
     }
 
     return basePrompt;
