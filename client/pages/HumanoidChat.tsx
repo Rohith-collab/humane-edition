@@ -325,7 +325,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     const requestBody: ChatRequest = {
       messages,
       temperature: 0.8,
-      max_tokens: 500,
+      max_tokens: 150, // Reduced for shorter responses
       emotionData: emotionContext,
     };
 
