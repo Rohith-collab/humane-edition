@@ -62,6 +62,8 @@ const features = [
 ];
 
 export default function PresentationPractice() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-nova-50/50 via-background to-electric-50/50">
       {/* Hero Section */}
