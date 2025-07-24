@@ -159,6 +159,14 @@ export default function RestaurantPractice() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/practice/restaurant/chat"
+        title="Restaurant Dining Practice"
+      />
     </div>
   );
 }
