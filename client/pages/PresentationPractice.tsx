@@ -88,13 +88,15 @@ export default function PresentationPractice() {
             </p>
           </div>
 
-          <Link to="/presentation/chat">
-            <Button size="lg" className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group">
-              <Presentation className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              Start Presentation Practice
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <Button
+            size="lg"
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
+          >
+            <Presentation className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+            Start Presentation Practice
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </section>
 
