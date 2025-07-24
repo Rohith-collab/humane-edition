@@ -209,6 +209,18 @@ const App = () => (
             element={<CulturalChat />}
           />
           <Route
+            path="/humanoid"
+            element={
+              <Layout>
+                <HumanoidPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/humanoid/chat"
+            element={<HumanoidChat />}
+          />
+          <Route
             path="/pronunciation"
             element={
               <PlaceholderPage
