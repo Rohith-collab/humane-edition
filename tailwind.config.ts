@@ -57,7 +57,7 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // HUMANE SpeakNova brand colors
+        // Aangilam brand colors
         nova: {
           50: "hsl(var(--nova-50))",
           100: "hsl(var(--nova-100))",
