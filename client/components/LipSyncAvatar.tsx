@@ -38,7 +38,7 @@ const avatarData = {
   },
   assistant: {
     image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=600&fit=crop&crop=face",
+      "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
     name: "Emma Chen",
     title: "Sales Associate",
     colors: "from-purple-500 to-pink-600",
@@ -193,7 +193,7 @@ export function LipSyncAvatar({
 
           {/* Name Plate */}
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="bg-black/80 backdrop-blur-md text-white rounded-xl px-6 py-3 border border-white/20">
+            <div className="bg-black/80 backdrop-blur-md text-white rounded-xl px-6 py-3 border border-white/20" style={{ marginTop: '172px' }}>
               <div className="text-center">
                 <p className="font-semibold text-lg">{avatar.name}</p>
                 <p className="text-sm opacity-80">{avatar.title}</p>
