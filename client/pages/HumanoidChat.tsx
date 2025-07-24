@@ -289,16 +289,32 @@ Please acknowledge my emotional state naturally in your response and adapt your 
   };
 
   const getGPTReply = async (message: string): Promise<string> => {
-    const requestBody: ChatRequest = {
-      message: message,
-      conversationHistory: conversation.map(conv => ({
+    // Prepare emotion data if available
+    let emotionContext: EmotionContext | undefined;
+    if (currentEmotion?.faceDetected) {
+      emotionContext = emotionDetectionService.formatEmotionData(currentEmotion);
+    }
+
+    const messages = [
+      {
+        role: 'system' as const,
+        content: getSystemPrompt(emotionContext)
+      },
+      ...conversation.flatMap(conv => [
+        { role: 'user' as const, content: conv.user },
+        { role: 'assistant' as const, content: conv.bot }
+      ]),
+      {
         role: 'user' as const,
-        content: conv.user
-      })).concat(conversation.map(conv => ({
-        role: 'assistant' as const,
-        content: conv.bot
-      }))),
-      systemPrompt: systemPrompt,
+        content: message
+      }
+    ];
+
+    const requestBody: ChatRequest = {
+      messages,
+      temperature: 0.8,
+      max_tokens: 500,
+      emotionData: emotionContext,
     };
 
     try {
