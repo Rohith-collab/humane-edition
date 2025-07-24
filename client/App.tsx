@@ -147,6 +147,66 @@ const App = () => (
             element={<GrammarChat />}
           />
           <Route
+            path="/presentation"
+            element={
+              <Layout>
+                <PresentationPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/presentation/chat"
+            element={<PresentationChat />}
+          />
+          <Route
+            path="/social"
+            element={
+              <Layout>
+                <SocialPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/social/chat"
+            element={<SocialChat />}
+          />
+          <Route
+            path="/business"
+            element={
+              <Layout>
+                <BusinessPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/business/chat"
+            element={<BusinessChat />}
+          />
+          <Route
+            path="/speaking"
+            element={
+              <Layout>
+                <SpeakingPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/speaking/chat"
+            element={<SpeakingChat />}
+          />
+          <Route
+            path="/cultural"
+            element={
+              <Layout>
+                <CulturalPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/cultural/chat"
+            element={<CulturalChat />}
+          />
+          <Route
             path="/pronunciation"
             element={
               <PlaceholderPage
