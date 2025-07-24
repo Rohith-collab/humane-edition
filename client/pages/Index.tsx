@@ -103,10 +103,8 @@ export default function Index() {
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="bg-gradient-to-r from-nova-400 via-electric-400 to-cyber-400 bg-clip-text text-transparent">
-                  HUMANE
+                  Aangilam
                 </span>
-                <br />
-                <span className="text-foreground">SpeakNova</span>
               </h1>
               <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Master English with our revolutionary AI tutor featuring voice
