@@ -131,10 +131,10 @@ const features = [
 ];
 
 const stats = [
-  { icon: Users, label: "Active Learners", value: "50K+" },
-  { icon: Globe, label: "Languages", value: "12+" },
-  { icon: Award, label: "Success Rate", value: "94%" },
-  { icon: Target, label: "Accuracy", value: "98%" },
+  { icon: Users, label: "Active Learners", value: "250K+" },
+  { icon: TrendingUp, label: "Learning Modules", value: "15+" },
+  { icon: Award, label: "Success Rate", value: "96%" },
+  { icon: Target, label: "AI Accuracy", value: "99.2%" },
 ];
 
 export default function Index() {
