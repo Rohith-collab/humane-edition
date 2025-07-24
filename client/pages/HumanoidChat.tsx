@@ -538,6 +538,18 @@ Please acknowledge my emotional state naturally in your response and adapt your 
             <Button
               variant="ghost"
               size="sm"
+              onClick={toggleEmotionDetection}
+              className={cn(
+                "transition-colors",
+                emotionDetectionActive ? "text-purple-500" : "text-gray-400"
+              )}
+              title={emotionDetectionActive ? "Disable Emotion Detection" : "Enable Emotion Detection"}
+            >
+              <Eye className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => setSoundEnabled(!soundEnabled)}
               className={cn(
                 "transition-colors",
