@@ -209,6 +209,9 @@ export default function HumanoidChat() {
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
   const [selectedPersonality, setSelectedPersonality] = useState<"professional" | "creative" | "educational">("professional");
+  const [emotionDetectionActive, setEmotionDetectionActive] = useState(false);
+  const [currentEmotion, setCurrentEmotion] = useState<FaceDetectionResult | null>(null);
+  const [lastEmotionResponse, setLastEmotionResponse] = useState<string>("");
 
   // Enhanced system prompt for humanoid conversations
   const systemPrompt = `You are an advanced AI humanoid tutor with a photorealistic human appearance and natural conversational abilities. You can discuss any topic like ChatGPT but with enhanced emotional intelligence and human-like interaction.
