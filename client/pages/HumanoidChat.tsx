@@ -329,7 +329,13 @@ Please acknowledge my emotional state naturally in your response and adapt your 
       }
 
       const data: ChatResponse = await response.json();
-      return data.message;
+
+      // Handle emotion-aware response
+      if (data.emotionDetected && data.emotionalResponse) {
+        setLastEmotionResponse(data.emotionalResponse);
+      }
+
+      return data.response;
     } catch (error) {
       console.warn('Fetch failed, trying XMLHttpRequest fallback:', error);
       return await makeXHRRequest(requestBody);
