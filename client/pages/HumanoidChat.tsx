@@ -569,6 +569,17 @@ Please acknowledge my emotional state naturally in your response and adapt your 
           </div>
         </div>
 
+        {/* Emotion Detection Panel */}
+        {emotionDetectionActive && (
+          <div className="border-b border-border/50 bg-background/30 p-4">
+            <WebcamEmotionDetector
+              onEmotionDetected={handleEmotionDetected}
+              isActive={emotionDetectionActive}
+              className="max-w-sm"
+            />
+          </div>
+        )}
+
         {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {sessionInitialized ? (
