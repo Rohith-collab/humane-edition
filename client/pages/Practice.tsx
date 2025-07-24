@@ -1,43 +1,55 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
-import { 
-  Briefcase, 
-  UtensilsCrossed, 
-  ShoppingBag, 
-  Play, 
-  Clock, 
-  Star,
+import VoiceLanguageModal from "@/components/VoiceLanguageModal";
+import {
+  Briefcase,
+  UtensilsCrossed,
+  ShoppingBag,
+  BookOpen,
+  Presentation,
   Users,
+  Megaphone,
+  Globe2,
   Mic,
-  Video,
-  CheckCircle,
   ArrowRight,
+  Clock,
   Target,
-  TrendingUp
+  Star,
+  TrendingUp,
+  Eye,
+  MessageSquare,
+  Volume2,
+  Brain,
+  Heart,
+  Lightbulb,
+  BarChart3,
+  Handshake,
+  Coffee,
+  Zap,
 } from "lucide-react";
 
-const scenarios = [
+const practiceCategories = [
   {
     id: "interview",
     title: "Job Interview",
-    description: "Practice professional interviews with AI interviewers. Master common questions, body language, and confident responses.",
+    description: "Master professional interviews with AI interviewers and build confidence for any position",
     icon: Briefcase,
     difficulty: "Advanced",
     duration: "15-30 min",
-    participants: "1-on-1",
+    chatPath: "/practice/interview/chat",
     gradient: "from-nova-500 to-nova-600",
-    bgGradient: "from-nova-500/10 to-nova-600/5",
+    bgGradient: "from-nova-50/50 via-background to-electric-50/50",
     features: [
       "Common interview questions",
-      "Behavioral assessment",
+      "Behavioral assessment", 
       "Professional communication",
       "Confidence building"
     ],
     scenarios: [
       "Software Developer Interview",
-      "Sales Representative Interview", 
+      "Sales Representative Interview",
       "Manager Position Interview",
       "Customer Service Interview"
     ]
@@ -45,208 +57,276 @@ const scenarios = [
   {
     id: "restaurant",
     title: "Restaurant Dining",
-    description: "Navigate dining experiences from ordering to payment. Learn food vocabulary, polite requests, and cultural etiquette.",
+    description: "Navigate dining experiences from ordering to payment with perfect etiquette",
     icon: UtensilsCrossed,
     difficulty: "Intermediate",
-    duration: "10-20 min",
-    participants: "Customer & Staff",
-    gradient: "from-electric-500 to-electric-600",
-    bgGradient: "from-electric-500/10 to-electric-600/5",
+    duration: "12-20 min",
+    chatPath: "/practice/restaurant/chat",
+    gradient: "from-amber-500 to-orange-600",
+    bgGradient: "from-amber-50/50 via-background to-orange-50/50",
     features: [
-      "Menu vocabulary",
-      "Ordering etiquette",
-      "Dietary requirements",
-      "Payment conversations"
+      "Food vocabulary",
+      "Polite requests",
+      "Cultural etiquette",
+      "Payment interactions"
     ],
     scenarios: [
       "Fine Dining Experience",
-      "Fast Casual Ordering",
-      "Coffee Shop Interaction",
-      "Dietary Restrictions Discussion"
+      "Casual Restaurant Visit",
+      "Fast Food Ordering",
+      "Special Dietary Requests"
     ]
   },
   {
     id: "shopping",
     title: "Shopping Experience",
-    description: "Master retail conversations from browsing to purchasing. Practice negotiations, returns, and customer service interactions.",
+    description: "Master retail conversations from browsing to purchasing with confidence",
     icon: ShoppingBag,
     difficulty: "Beginner",
-    duration: "8-15 min",
-    participants: "Shopper & Assistant",
-    gradient: "from-cyber-500 to-cyber-600",
-    bgGradient: "from-cyber-500/10 to-cyber-600/5",
+    duration: "10-15 min",
+    chatPath: "/practice/shopping/chat",
+    gradient: "from-blue-500 to-purple-600",
+    bgGradient: "from-blue-50/50 via-background to-purple-50/50",
     features: [
       "Product inquiries",
       "Price negotiations",
-      "Size and fit discussions",
-      "Return procedures"
+      "Return policies",
+      "Customer service"
     ],
     scenarios: [
-      "Clothing Store Visit",
-      "Electronics Shopping",
-      "Grocery Store Trip",
-      "Online Support Chat"
+      "Clothing Store Shopping",
+      "Electronics Purchase",
+      "Grocery Shopping",
+      "Online Store Support"
+    ]
+  },
+  {
+    id: "grammar",
+    title: "Grammar Tutor",
+    description: "Perfect your English grammar with personalized AI tutoring and real-time corrections",
+    icon: BookOpen,
+    difficulty: "All Levels",
+    duration: "20-30 min",
+    chatPath: "/grammar/chat",
+    gradient: "from-green-500 to-emerald-600",
+    bgGradient: "from-green-50/50 via-background to-emerald-50/50",
+    features: [
+      "Real-time corrections",
+      "Grammar explanations",
+      "Practice exercises",
+      "Progress tracking"
+    ],
+    scenarios: [
+      "Basic Grammar Rules",
+      "Advanced Sentence Structure",
+      "Business Writing",
+      "Academic Writing"
+    ]
+  },
+  {
+    id: "presentation",
+    title: "Presentation Skills",
+    description: "Master the art of presenting with confidence, clarity, and compelling delivery",
+    icon: Presentation,
+    difficulty: "Intermediate",
+    duration: "15-25 min",
+    chatPath: "/presentation/chat",
+    gradient: "from-nova-500 to-electric-500",
+    bgGradient: "from-nova-50/50 via-background to-electric-50/50",
+    features: [
+      "Body language analysis",
+      "Speech flow coaching",
+      "Audience engagement",
+      "Slide presentation"
+    ],
+    scenarios: [
+      "Business Presentation",
+      "Product Pitch",
+      "Team Meeting",
+      "Academic Defense"
+    ]
+  },
+  {
+    id: "social",
+    title: "Social Conversation",
+    description: "Build natural social connections through everyday conversations and networking",
+    icon: Users,
+    difficulty: "Intermediate",
+    duration: "12-18 min",
+    chatPath: "/social/chat",
+    gradient: "from-electric-500 to-cyber-500",
+    bgGradient: "from-electric-50/50 via-background to-cyber-50/50",
+    features: [
+      "Small talk mastery",
+      "Networking skills",
+      "Cultural awareness",
+      "Relationship building"
+    ],
+    scenarios: [
+      "Coffee Shop Conversations",
+      "Party Networking",
+      "Dating Conversations",
+      "Workplace Social Events"
+    ]
+  },
+  {
+    id: "business",
+    title: "Business English",
+    description: "Excel in professional communication for meetings, negotiations, and corporate success",
+    icon: Briefcase,
+    difficulty: "Advanced",
+    duration: "20-30 min",
+    chatPath: "/business/chat",
+    gradient: "from-cyber-500 to-nova-500",
+    bgGradient: "from-cyber-50/50 via-background to-nova-50/50",
+    features: [
+      "Meeting facilitation",
+      "Email communication",
+      "Negotiation tactics",
+      "Professional etiquette"
+    ],
+    scenarios: [
+      "Board Meetings",
+      "Client Negotiations",
+      "Team Leadership",
+      "International Business"
+    ]
+  },
+  {
+    id: "speaking",
+    title: "Public Speaking",
+    description: "Overcome stage fright and deliver powerful speeches that inspire any audience",
+    icon: Megaphone,
+    difficulty: "Advanced",
+    duration: "18-25 min",
+    chatPath: "/speaking/chat",
+    gradient: "from-nova-500 to-cyber-500",
+    bgGradient: "from-nova-50/50 via-background to-cyber-50/50",
+    features: [
+      "Confidence building",
+      "Voice projection",
+      "Audience engagement",
+      "Persuasion techniques"
+    ],
+    scenarios: [
+      "Keynote Speech",
+      "Wedding Toast",
+      "Political Speech",
+      "Motivational Talk"
+    ]
+  },
+  {
+    id: "cultural",
+    title: "Cultural Communication",
+    description: "Navigate cross-cultural interactions with sensitivity and global awareness",
+    icon: Globe2,
+    difficulty: "Intermediate",
+    duration: "15-20 min",
+    chatPath: "/cultural/chat",
+    gradient: "from-cyber-500 to-electric-500",
+    bgGradient: "from-cyber-50/50 via-background to-electric-50/50",
+    features: [
+      "Cultural etiquette",
+      "Global customs",
+      "Business protocols",
+      "Inclusive communication"
+    ],
+    scenarios: [
+      "International Business",
+      "Cultural Events",
+      "Travel Interactions",
+      "Diplomatic Conversations"
     ]
   }
 ];
 
-const stats = [
-  { icon: Users, label: "Active Sessions", value: "1.2K+", color: "nova" },
-  { icon: Target, label: "Success Rate", value: "89%", color: "electric" },
-  { icon: TrendingUp, label: "Improvement", value: "+45%", color: "cyber" },
-  { icon: Star, label: "Avg Rating", value: "4.8", color: "nova" }
+const coreFeatures = [
+  {
+    icon: Brain,
+    title: "AI-Powered Coaching",
+    description: "Advanced AI analyzes your speech patterns and provides personalized feedback for rapid improvement",
+    color: "nova",
+  },
+  {
+    icon: Mic,
+    title: "Voice Recognition",
+    description: "Real-time pronunciation analysis with detailed phonetic feedback and accent coaching",
+    color: "electric",
+  },
+  {
+    icon: Eye,
+    title: "Body Language Analysis",
+    description: "Visual AI assessment of posture, gestures, and facial expressions for confident presence",
+    color: "cyber",
+  },
+  {
+    icon: Target,
+    title: "Progress Tracking",
+    description: "Detailed analytics and improvement metrics to track your English learning journey",
+    color: "nova",
+  },
 ];
 
 export default function Practice() {
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-nova-500/5 via-electric-500/5 to-cyber-500/5"></div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6 mb-16">
-            <Badge className="bg-gradient-to-r from-nova-500/20 via-electric-500/20 to-cyber-500/20 text-foreground border-nova-500/30 glow">
-              <Play className="w-3 h-3 mr-1" />
-              Interactive Practice Mode
-            </Badge>
-            
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-6xl font-bold text-foreground">
-                Scenario-Based Learning
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Practice real-world conversations with AI-powered scenarios. Build confidence through 
-                immersive role-play experiences tailored to your learning goals.
-              </p>
-            </div>
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalConfig, setModalConfig] = useState<{chatPath: string, title: string}>({chatPath: "", title: ""});
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-              {stats.map((stat, index) => {
-                const Icon = stat.icon;
-                return (
-                  <div key={index} className="text-center space-y-2">
-                    <div className={`w-10 h-10 bg-gradient-to-br from-${stat.color}-500/20 to-${stat.color}-600/20 rounded-lg flex items-center justify-center mx-auto glow`}>
-                      <Icon className={`w-5 h-5 text-${stat.color}-400`} />
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-foreground">{stat.value}</div>
-                      <div className="text-xs text-muted-foreground">{stat.label}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+  const handleStartPractice = (category: typeof practiceCategories[0]) => {
+    setModalConfig({
+      chatPath: category.chatPath,
+      title: category.title
+    });
+    setShowModal(true);
+  };
+
+  return (
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-background via-background/95 to-muted/30">
+      {/* Hero Section */}
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto text-center space-y-8">
+          <div className="flex justify-center">
+            <Badge className="bg-gradient-to-r from-nova-500/20 via-electric-500/20 to-cyber-500/20 text-foreground border-nova-500/30 px-4 py-2">
+              <Zap className="w-4 h-4 mr-2" />
+              Comprehensive English Practice
+            </Badge>
+          </div>
+          
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
+              Master English with{" "}
+              <span className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 bg-clip-text text-transparent">
+                AI-Powered Practice
+              </span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+              Choose from 9 comprehensive practice modes designed to build confidence in every aspect of English communication - from job interviews to public speaking.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Scenarios Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Choose Your Learning Scenario
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Select from our curated scenarios designed to improve your English in real-world situations.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {scenarios.map((scenario, index) => {
-              const Icon = scenario.icon;
+      {/* Core Features */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+            Advanced AI Features
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {coreFeatures.map((feature, index) => {
+              const Icon = feature.icon;
               return (
-                <Card 
-                  key={scenario.id}
-                  className={`group relative overflow-hidden bg-gradient-to-br ${scenario.bgGradient} border-border/50 hover:border-nova-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-nova-500/20`}
-                >
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-5">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
-                  </div>
-
-                  <CardHeader className="relative space-y-4 pb-6">
-                    <div className="flex items-center justify-between">
-                      <div className={`w-14 h-14 bg-gradient-to-br ${scenario.gradient} rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                      <Badge variant="secondary" className="text-xs font-medium">
-                        {scenario.difficulty}
-                      </Badge>
+                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10">
+                  <CardHeader className="text-center space-y-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-nova-500 to-electric-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-                    
-                    <div>
-                      <CardTitle className="text-2xl font-bold text-foreground group-hover:text-nova-400 transition-colors">
-                        {scenario.title}
-                      </CardTitle>
-                      <CardDescription className="text-muted-foreground mt-2 leading-relaxed">
-                        {scenario.description}
-                      </CardDescription>
-                    </div>
+                    <CardTitle className="text-lg font-semibold">{feature.title}</CardTitle>
                   </CardHeader>
-
-                  <CardContent className="relative space-y-6">
-                    {/* Session Info */}
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {scenario.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        {scenario.participants}
-                      </div>
-                    </div>
-
-                    {/* Features */}
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-foreground">What You'll Practice:</h4>
-                      <div className="grid grid-cols-1 gap-2">
-                        {scenario.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <CheckCircle className="w-3 h-3 text-green-400 flex-shrink-0" />
-                            {feature}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Available Scenarios */}
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-foreground">Available Scenarios:</h4>
-                      <div className="space-y-2">
-                        {scenario.scenarios.slice(0, 2).map((item, idx) => (
-                          <div key={idx} className="text-sm text-muted-foreground bg-background/50 rounded-lg px-3 py-2">
-                            {item}
-                          </div>
-                        ))}
-                        <div className="text-xs text-muted-foreground text-center py-1">
-                          +{scenario.scenarios.length - 2} more scenarios
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-3 pt-4">
-                      <Button
-                        className={`flex-1 bg-gradient-to-r ${scenario.gradient} hover:opacity-90 text-white font-semibold glow-electric transition-all duration-300 group`}
-                        asChild
-                      >
-                        <Link to={`/practice/${scenario.id}`}>
-                          <Mic className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                          Start Practice
-                        </Link>
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-border/50 hover:bg-background/80"
-                      >
-                        <Video className="w-4 h-4" />
-                      </Button>
-                    </div>
+                  <CardContent>
+                    <CardDescription className="text-muted-foreground text-center">
+                      {feature.description}
+                    </CardDescription>
                   </CardContent>
                 </Card>
               );
@@ -255,47 +335,142 @@ export default function Practice() {
         </div>
       </section>
 
-      {/* Quick Start Section */}
-      <section className="py-16 bg-gradient-to-r from-card/30 via-background to-card/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-foreground">
-              Ready to Start Practicing?
+      {/* Practice Categories */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-3xl sm:text-5xl font-bold text-foreground">
+              Choose Your Practice Mode
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Choose any scenario above or let our AI recommend the best practice session for your current level.
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Each mode is designed with specific scenarios, AI coaching, and personalized feedback to accelerate your English mastery.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300"
-            >
-              AI Recommended Session
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg group"
-              asChild
-            >
-              <Link to="/dashboard">
-                View Progress
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {practiceCategories.map((category, index) => {
+              const Icon = category.icon;
+              return (
+                <Card
+                  key={category.id}
+                  className={`group cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-nova-500/20 border-border/50 hover:border-nova-500/50 overflow-hidden ${
+                    selectedCategory === category.id ? 'ring-2 ring-nova-500 border-nova-500' : ''
+                  }`}
+                  onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
+                >
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className={`w-12 h-12 bg-gradient-to-br ${category.gradient} rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge variant="outline" className="text-xs">
+                          {category.difficulty}
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          <Clock className="w-3 h-3 mr-1" />
+                          {category.duration}
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <CardTitle className="text-xl font-semibold group-hover:text-nova-400 transition-colors">
+                        {category.title}
+                      </CardTitle>
+                      <CardDescription className="text-muted-foreground mt-2">
+                        {category.description}
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
 
-          {/* Progress Indicator */}
-          <div className="pt-6 text-sm text-muted-foreground">
-            <div className="flex items-center justify-center space-x-2">
-              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span>Complete 3 scenarios to unlock advanced practice modes</span>
-            </div>
+                  <CardContent className="space-y-4">
+                    {/* Features List */}
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-foreground">Key Features:</p>
+                      <div className="grid grid-cols-2 gap-1">
+                        {category.features.map((feature, featureIndex) => (
+                          <div key={featureIndex} className="flex items-center space-x-2">
+                            <Star className="w-3 h-3 text-nova-400 fill-nova-400" />
+                            <span className="text-xs text-muted-foreground">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Scenarios - Show when expanded */}
+                    {selectedCategory === category.id && (
+                      <div className="space-y-3 animate-in slide-in-from-top duration-300">
+                        <p className="text-sm font-medium text-foreground">Practice Scenarios:</p>
+                        <div className="space-y-1">
+                          {category.scenarios.map((scenario, scenarioIndex) => (
+                            <div key={scenarioIndex} className="flex items-center space-x-2">
+                              <Target className="w-3 h-3 text-electric-400" />
+                              <span className="text-xs text-muted-foreground">{scenario}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Action Button */}
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStartPractice(category);
+                      }}
+                      className={`w-full bg-gradient-to-r ${category.gradient} hover:opacity-90 text-white font-semibold transition-all duration-300 group/btn`}
+                    >
+                      <Mic className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
+                      Start Practice
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      {/* Stats Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/50 via-background to-card/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Users, label: "Practice Modes", value: "9" },
+              { icon: Target, label: "AI Accuracy", value: "99.2%" },
+              { icon: TrendingUp, label: "Success Rate", value: "96%" },
+              { icon: Heart, label: "User Satisfaction", value: "4.9/5" },
+            ].map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="text-center space-y-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-xl flex items-center justify-center mx-auto glow">
+                    <Icon className="w-6 h-6 text-nova-400" />
+                  </div>
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath={modalConfig.chatPath}
+        title={modalConfig.title}
+      />
     </div>
   );
 }
