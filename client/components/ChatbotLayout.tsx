@@ -446,9 +446,16 @@ export default function ChatbotLayout({
             )}
             <div>
               <h1 className="font-semibold text-foreground">{title || scenario}</h1>
-              <Badge variant="secondary" className="text-xs">
-                AI Conversation
-              </Badge>
+              <div className="flex items-center space-x-2">
+                <Badge variant="secondary" className="text-xs">
+                  AI Conversation
+                </Badge>
+                {userPreferences && (
+                  <Badge variant="outline" className="text-xs">
+                    {userPreferences.voice} • {userPreferences.language}
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
 
