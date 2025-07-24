@@ -130,6 +130,14 @@ export default function InterviewPractice() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/practice/interview/chat"
+        title="Interview Practice"
+      />
     </div>
   );
 }
