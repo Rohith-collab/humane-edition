@@ -55,6 +55,7 @@ export default function ChatbotLayout({
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
+  const [userPreferences, setUserPreferences] = useState<any>(null);
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
