@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChatRequest, ChatResponse } from "@shared/api";
+import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
 import {
   Mic,
   MicOff,
@@ -18,9 +18,13 @@ import {
   Camera,
   Video,
   User,
+  Eye,
+  Heart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LipSyncAvatar } from "@/components/LipSyncAvatar";
+import WebcamEmotionDetector from "@/components/WebcamEmotionDetector";
+import { FaceDetectionResult, emotionDetectionService } from "@/lib/emotionDetection";
 
 // Enhanced D-ID Avatar Component with Customization
 const AdvancedHumanoidAvatar = ({ 
