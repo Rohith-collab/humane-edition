@@ -1,164 +1,192 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import { 
   BookOpen, 
-  GraduationCap, 
   Clock, 
   Target,
+  ArrowRight,
+  Play,
   CheckCircle,
-  PenTool,
+  Lightbulb,
   FileText,
-  ArrowLeft,
-  Play
+  MessageSquare,
+  TrendingUp,
+  Zap,
+  Brain
 } from "lucide-react";
+
+const scenarios = [
+  {
+    title: "Basic Grammar Rules",
+    description: "Master fundamental grammar concepts including tenses, articles, and sentence structure",
+    difficulty: "Beginner",
+    duration: "15-20 min",
+    skills: ["Present/Past tenses", "Articles usage", "Subject-verb agreement", "Basic punctuation"],
+    icon: BookOpen,
+  },
+  {
+    title: "Advanced Sentence Structure",
+    description: "Complex sentences, conditional statements, and sophisticated grammar patterns",
+    difficulty: "Advanced",
+    duration: "25-30 min",
+    skills: ["Complex conditionals", "Passive voice", "Relative clauses", "Advanced conjunctions"],
+    icon: Brain,
+  },
+  {
+    title: "Business Writing",
+    description: "Professional communication, formal writing, and business-specific grammar rules",
+    difficulty: "Intermediate",
+    duration: "20-25 min",
+    skills: ["Formal tone", "Business vocabulary", "Email structure", "Professional grammar"],
+    icon: FileText,
+  },
+];
+
+const features = [
+  {
+    icon: Zap,
+    title: "Real-Time Corrections",
+    description: "Instant feedback on grammar mistakes with detailed explanations and examples",
+  },
+  {
+    icon: Lightbulb,
+    title: "Concept Explanation",
+    description: "Clear explanations of grammar rules with practical examples and usage tips",
+  },
+  {
+    icon: TrendingUp,
+    title: "Progress Tracking",
+    description: "Monitor your improvement across different grammar topics and difficulty levels",
+  },
+];
 
 export default function GrammarTutor() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-16 z-40">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link to="/practice">
-                <Button variant="outline" size="sm" className="gap-2">
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to Practice
-                </Button>
-              </Link>
-              <div>
-                <h1 className="text-xl font-semibold text-foreground">Grammar Tutor</h1>
-                <Badge variant="secondary" className="text-xs mt-1">
-                  Learning Environment
-                </Badge>
-              </div>
-            </div>
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-green-50/50 via-background to-emerald-50/50">
+      {/* Hero Section */}
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="flex justify-center">
+            <Badge className="bg-gradient-to-r from-green-500/20 via-emerald-500/20 to-teal-500/20 text-foreground border-green-500/30 px-4 py-2">
+              <BookOpen className="w-4 h-4 mr-2" />
+              Grammar Tutor
+            </Badge>
+          </div>
+          
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
+              Perfect Your{" "}
+              <span className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                Grammar
+              </span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Master English grammar with personalized AI tutoring. Get real-time corrections, detailed explanations, and practice exercises tailored to your level.
+            </p>
+          </div>
+
+          <Button 
+            size="lg" 
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
+          >
+            <BookOpen className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+            Start Grammar Practice
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+            AI-Powered Grammar Learning
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10">
+                  <CardHeader className="space-y-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-muted-foreground">
+                      {feature.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-teal-500/5 border-border/50">
-          <CardContent className="p-8">
-            {/* Study Room Scene */}
-            <div className="space-y-8">
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-8 border-2 border-dashed border-green-300 dark:border-green-600">
-                <div className="flex items-center justify-center mb-6">
-                  <GraduationCap className="w-12 h-12 text-green-600 dark:text-green-400" />
-                </div>
-                <h3 className="text-center text-2xl font-semibold text-green-700 dark:text-green-300 mb-3">
-                  Grammar Learning Studio
-                </h3>
-                <p className="text-center text-lg text-green-600 dark:text-green-400">
-                  Interactive grammar lessons and corrections
-                </p>
-              </div>
-
-              {/* Session Info */}
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-nova-500/10 rounded-lg p-6 border border-nova-500/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Target className="w-5 h-5 text-nova-500" />
-                    <span className="font-medium text-foreground">Focus</span>
-                  </div>
-                  <p className="text-muted-foreground">Grammar Correction</p>
-                </div>
-                
-                <div className="bg-electric-500/10 rounded-lg p-6 border border-electric-500/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Clock className="w-5 h-5 text-electric-500" />
-                    <span className="font-medium text-foreground">Duration</span>
-                  </div>
-                  <p className="text-muted-foreground">20-40 minutes</p>
-                </div>
-              </div>
-
-              {/* Grammar Topics */}
-              <div className="space-y-4">
-                <h4 className="text-xl font-semibold text-foreground flex items-center gap-3">
-                  <BookOpen className="w-5 h-5 text-emerald-500" />
-                  Today's Grammar Focus
-                </h4>
-                <div className="bg-background/50 rounded-lg p-6 border border-border/50">
-                  <div className="grid grid-cols-2 gap-6 text-base">
-                    <div>
-                      <p className="font-medium text-foreground mb-2">Tenses</p>
-                      <p className="text-muted-foreground">Present, Past, Future</p>
+      {/* Grammar Topics */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center space-y-4 mb-12">
+            <h2 className="text-3xl font-bold text-foreground">Grammar Focus Areas</h2>
+            <p className="text-lg text-muted-foreground">
+              Comprehensive grammar training from basic rules to advanced concepts
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {scenarios.map((scenario, index) => {
+              const Icon = scenario.icon;
+              return (
+                <Card key={index} className="group hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-border/50 hover:border-green-500/50">
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {scenario.difficulty}
+                      </Badge>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground mb-2">Articles</p>
-                      <p className="text-muted-foreground">A, An, The</p>
+                    <CardTitle className="text-lg font-semibold">{scenario.title}</CardTitle>
+                    <CardDescription>{scenario.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                      <div className="flex items-center">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {scenario.duration}
+                      </div>
+                      <div className="flex items-center">
+                        <Target className="w-4 h-4 mr-1" />
+                        {scenario.skills.length} topics
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground mb-2">Prepositions</p>
-                      <p className="text-muted-foreground">In, On, At, By</p>
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-foreground">Grammar Topics:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {scenario.skills.map((skill, skillIndex) => (
+                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground mb-2">Sentence Structure</p>
-                      <p className="text-muted-foreground">Subject-Verb-Object</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Learning Activities */}
-              <div className="space-y-4">
-                <h4 className="text-xl font-semibold text-foreground flex items-center gap-3">
-                  <PenTool className="w-5 h-5 text-cyber-500" />
-                  Learning Activities
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {[
-                    'Sentence correction exercises',
-                    'Grammar rule explanations',
-                    'Interactive examples',
-                    'Common mistake identification',
-                    'Writing practice with feedback',
-                    'Real-time corrections'
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-3 text-base">
-                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Study Tips */}
-              <div className="bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-lg p-6 border border-emerald-500/20">
-                <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-3">
-                  <FileText className="w-5 h-5 text-emerald-500" />
-                  Study Tips
-                </h4>
-                <ul className="text-muted-foreground space-y-2 text-base">
-                  <li>• Practice with real examples</li>
-                  <li>• Ask for explanations when confused</li>
-                  <li>• Try forming your own sentences</li>
-                  <li>• Review corrections carefully</li>
-                </ul>
-              </div>
-
-              {/* Start Practice Button */}
-              <div className="text-center pt-8">
-                <Button
-                  size="lg"
-                  onClick={() => setShowModal(true)}
-                  className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 text-white font-semibold px-12 py-6 text-lg glow-electric transition-all duration-300 group"
-                >
-                  <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                  Start Grammar Tutor
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Voice/Language Selection Modal */}
       <VoiceLanguageModal
