@@ -18,6 +18,7 @@ import SocialPractice from "./pages/SocialPractice";
 import BusinessPractice from "./pages/BusinessPractice";
 import SpeakingPractice from "./pages/SpeakingPractice";
 import CulturalPractice from "./pages/CulturalPractice";
+import HumanoidPractice from "./pages/HumanoidPractice";
 import InterviewChat from "./pages/InterviewChat";
 import RestaurantChat from "./pages/RestaurantChat";
 import ShoppingChat from "./pages/ShoppingChat";
