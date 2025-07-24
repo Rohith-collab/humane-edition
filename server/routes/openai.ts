@@ -35,10 +35,24 @@ export const handleChat: RequestHandler = async (req, res) => {
     const data = await response.json();
     const chatResponse = data.choices?.[0]?.message?.content || 'No response from bot.';
 
-    res.json({
+    // Prepare response with emotion awareness
+    const responseData: ChatResponse = {
       success: true,
-      response: chatResponse.trim()
-    } as ChatResponse);
+      response: chatResponse.trim(),
+      emotionDetected: emotionData?.faceDetected || false,
+      emotionalResponse: emotionData?.emotionalContext || undefined
+    };
+
+    // Log emotion data for monitoring (optional)
+    if (emotionData?.faceDetected) {
+      console.log('Emotion-aware response:', {
+        emotion: emotionData.emotions.dominant,
+        confidence: emotionData.emotions.confidence,
+        context: emotionData.emotionalContext
+      });
+    }
+
+    res.json(responseData);
 
   } catch (error) {
     console.error('Azure OpenAI Error:', error);
