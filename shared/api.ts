@@ -50,4 +50,6 @@ export interface ChatResponse {
   response: string;
   success: boolean;
   error?: string;
+  emotionDetected?: boolean;
+  emotionalResponse?: string;
 }
