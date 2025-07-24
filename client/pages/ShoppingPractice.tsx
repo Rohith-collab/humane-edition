@@ -142,15 +142,13 @@ export default function ShoppingPractice() {
 
               {/* Start Practice Button */}
               <div className="text-center pt-8">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
+                  onClick={() => setShowModal(true)}
                   className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white font-semibold px-12 py-6 text-lg glow-electric transition-all duration-300 group"
-                  asChild
                 >
-                  <Link to="/practice/shopping/chat">
-                    <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                    Start Shopping Practice
-                  </Link>
+                  <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+                  Start Shopping Practice
                 </Button>
               </div>
             </div>
