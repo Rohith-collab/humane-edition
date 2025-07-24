@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import {
   Briefcase,
   ArrowRight,
@@ -66,6 +67,8 @@ const businessSkills = [
 ];
 
 export default function BusinessPractice() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-cyber-50/50 via-background to-nova-50/50">
       {/* Hero Section */}
@@ -90,13 +93,15 @@ export default function BusinessPractice() {
             </p>
           </div>
 
-          <Link to="/business/chat">
-            <Button size="lg" className="bg-gradient-to-r from-cyber-500 via-nova-500 to-electric-500 hover:from-cyber-600 hover:via-nova-600 hover:to-electric-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group">
-              <Briefcase className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              Start Business Practice
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <Button
+            size="lg"
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-cyber-500 via-nova-500 to-electric-500 hover:from-cyber-600 hover:via-nova-600 hover:to-electric-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
+          >
+            <Briefcase className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+            Start Business Practice
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </section>
 
@@ -184,6 +189,14 @@ export default function BusinessPractice() {
           </div>
         </div>
       </section>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/business/chat"
+        title="Business English Practice"
+      />
     </div>
   );
 }
