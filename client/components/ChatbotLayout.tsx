@@ -419,14 +419,22 @@ export default function ChatbotLayout({
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl">
           <div className="flex items-center space-x-3">
-            <Link to={backUrl}>
-              <Button variant="ghost" size="sm" className="gap-2">
+            {backUrl && (
+              <Link to={backUrl}>
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="w-4 h-4" />
+                  Back
+                </Button>
+              </Link>
+            )}
+            {!backUrl && (
+              <Button variant="ghost" size="sm" className="gap-2" onClick={() => window.history.back()}>
                 <ArrowLeft className="w-4 h-4" />
                 Back
               </Button>
-            </Link>
+            )}
             <div>
-              <h1 className="font-semibold text-foreground">{scenario}</h1>
+              <h1 className="font-semibold text-foreground">{title || scenario}</h1>
               <Badge variant="secondary" className="text-xs">
                 AI Conversation
               </Badge>
