@@ -222,4 +222,7 @@ class EmotionDetectionService {
   }
 }
 
-export const emotionDetectionService = new EmotionDetectionService();
+// Use fallback service for immediate testing
+// export const emotionDetectionService = new EmotionDetectionService();
+import { fallbackEmotionDetectionService } from './emotionDetectionFallback';
+export const emotionDetectionService = fallbackEmotionDetectionService;
