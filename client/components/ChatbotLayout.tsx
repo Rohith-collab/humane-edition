@@ -121,7 +121,7 @@ export default function ChatbotLayout({
       typeReply(welcomeMsg);
 
       if (soundEnabled) {
-        speakText(welcomeMessage);
+        speakText(welcomeMsg);
       }
     } catch (error) {
       console.error("Failed to initialize session:", error);
