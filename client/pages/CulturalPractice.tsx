@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import {
   Globe2,
   ArrowRight,
@@ -66,6 +67,8 @@ const culturalTopics = [
 ];
 
 export default function CulturalPractice() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-cyber-50/50 via-background to-electric-50/50">
       {/* Hero Section */}
@@ -90,13 +93,15 @@ export default function CulturalPractice() {
             </p>
           </div>
 
-          <Link to="/cultural/chat">
-            <Button size="lg" className="bg-gradient-to-r from-cyber-500 via-electric-500 to-nova-500 hover:from-cyber-600 hover:via-electric-600 hover:to-nova-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group">
-              <Globe2 className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              Start Cultural Practice
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <Button
+            size="lg"
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-cyber-500 via-electric-500 to-nova-500 hover:from-cyber-600 hover:via-electric-600 hover:to-nova-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
+          >
+            <Globe2 className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+            Start Cultural Practice
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </section>
 
@@ -184,6 +189,14 @@ export default function CulturalPractice() {
           </div>
         </div>
       </section>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/cultural/chat"
+        title="Cultural Communication Practice"
+      />
     </div>
   );
 }
