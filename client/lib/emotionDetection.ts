@@ -1,5 +1,6 @@
 // Emotion Detection Service using face-api.js
-import * as faceapi from 'face-api.js';
+// Note: Fallback service available in emotionDetectionFallback.ts
+// import * as faceapi from 'face-api.js';
 
 export interface EmotionData {
   happy: number;
