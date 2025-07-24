@@ -12,6 +12,28 @@ export interface DemoResponse {
 }
 
 /**
+ * Emotion Detection Types
+ */
+export interface EmotionData {
+  happy: number;
+  sad: number;
+  angry: number;
+  fearful: number;
+  disgusted: number;
+  surprised: number;
+  neutral: number;
+  dominant: string;
+  confidence: number;
+}
+
+export interface EmotionContext {
+  faceDetected: boolean;
+  emotions: EmotionData;
+  timestamp: number;
+  emotionalContext: string;
+}
+
+/**
  * Chat API types
  */
 export interface ChatRequest {
@@ -21,6 +43,7 @@ export interface ChatRequest {
   }>;
   temperature?: number;
   max_tokens?: number;
+  emotionData?: EmotionContext;
 }
 
 export interface ChatResponse {
