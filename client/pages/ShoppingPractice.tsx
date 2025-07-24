@@ -155,6 +155,14 @@ export default function ShoppingPractice() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/practice/shopping/chat"
+        title="Shopping Practice"
+      />
     </div>
   );
 }
