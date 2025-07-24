@@ -184,6 +184,14 @@ export default function PresentationPractice() {
           </div>
         </div>
       </section>
+
+      {/* Voice/Language Selection Modal */}
+      <VoiceLanguageModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        chatPath="/presentation/chat"
+        title="Presentation Skills Practice"
+      />
     </div>
   );
 }
