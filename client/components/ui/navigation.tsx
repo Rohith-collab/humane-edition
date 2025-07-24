@@ -11,6 +11,11 @@ import {
   Settings,
   Menu,
   X,
+  Presentation,
+  Users,
+  Briefcase,
+  Megaphone,
+  Globe2,
 } from "lucide-react";
 import { useState } from "react";
 
