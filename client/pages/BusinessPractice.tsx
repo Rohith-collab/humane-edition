@@ -55,7 +55,7 @@ const businessSkills = [
     description: "Create clear, concise business reports and professional documentation",
   },
   {
-    icon: PresentationChart,
+    icon: BarChart3,
     title: "Data Presentation",
     description: "Present complex data clearly and make data-driven recommendations",
   },
