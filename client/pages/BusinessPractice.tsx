@@ -13,7 +13,7 @@ import {
   TrendingUp,
   Handshake,
   Calendar,
-  PresentationChart,
+  BarChart3,
 } from "lucide-react";
 
 const scenarios = [
