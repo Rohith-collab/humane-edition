@@ -32,8 +32,13 @@ interface ChatbotLayoutProps {
 }
 
 export default function ChatbotLayout({
-  scenario,
+  title,
+  welcomeMessage,
   systemPrompt,
+  backgroundImage,
+  theme,
+  // Legacy props
+  scenario,
   backUrl,
   avatarType,
   onComplete,
