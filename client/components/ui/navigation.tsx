@@ -42,10 +42,7 @@ export function Navigation() {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold bg-gradient-to-r from-nova-400 via-electric-400 to-cyber-400 bg-clip-text text-transparent">
-                HUMANE
-              </span>
-              <span className="text-sm text-muted-foreground -mt-1">
-                SpeakNova
+                Aangilam
               </span>
             </div>
           </Link>
