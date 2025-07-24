@@ -106,13 +106,19 @@ export default function ChatbotLayout({
       setIsLoading(true);
       console.log("Initializing practice session...");
 
-      const welcomeMessage = await getGPTReply(
-        "Hello, let's start the practice session.",
-      );
+      // Use provided welcome message or get from AI
+      let welcomeMsg;
+      if (welcomeMessage) {
+        welcomeMsg = welcomeMessage;
+      } else {
+        welcomeMsg = await getGPTReply(
+          "Hello, let's start the practice session.",
+        );
+      }
 
-      console.log("Welcome message received:", welcomeMessage);
-      setReply(welcomeMessage);
-      typeReply(welcomeMessage);
+      console.log("Welcome message received:", welcomeMsg);
+      setReply(welcomeMsg);
+      typeReply(welcomeMsg);
 
       if (soundEnabled) {
         speakText(welcomeMessage);
