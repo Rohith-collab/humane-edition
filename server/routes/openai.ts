@@ -59,7 +59,8 @@ export const handleChat: RequestHandler = async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get response from AI',
-      response: 'Sorry, I could not process that right now.'
+      response: 'Sorry, I could not process that right now.',
+      emotionDetected: false
     } as ChatResponse);
   }
 };
