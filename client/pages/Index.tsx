@@ -23,6 +23,12 @@ import {
   Users,
   Target,
   Award,
+  Presentation,
+  Briefcase,
+  Megaphone,
+  Globe2,
+  Heart,
+  TrendingUp,
 } from "lucide-react";
 
 const features = [
