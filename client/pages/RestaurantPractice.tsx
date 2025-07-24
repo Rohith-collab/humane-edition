@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import { 
   UtensilsCrossed, 
   ChefHat, 
@@ -16,6 +17,8 @@ import {
 } from "lucide-react";
 
 export default function RestaurantPractice() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -143,15 +146,13 @@ export default function RestaurantPractice() {
 
               {/* Start Practice Button */}
               <div className="text-center pt-8">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
+                  onClick={() => setShowModal(true)}
                   className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white font-semibold px-12 py-6 text-lg glow-electric transition-all duration-300 group"
-                  asChild
                 >
-                  <Link to="/practice/restaurant/chat">
-                    <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                    Start Dining Practice
-                  </Link>
+                  <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+                  Start Dining Practice
                 </Button>
               </div>
             </div>
