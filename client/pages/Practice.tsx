@@ -28,6 +28,7 @@ import {
   Handshake,
   Coffee,
   Zap,
+  Bot,
 } from "lucide-react";
 
 const practiceCategories = [
