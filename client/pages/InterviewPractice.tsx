@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import { 
   Building2, 
   Users, 
@@ -15,6 +16,8 @@ import {
 } from "lucide-react";
 
 export default function InterviewPractice() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -114,15 +117,13 @@ export default function InterviewPractice() {
 
               {/* Start Practice Button */}
               <div className="text-center pt-8">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
+                  onClick={() => setShowModal(true)}
                   className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-12 py-6 text-lg glow-electric transition-all duration-300 group"
-                  asChild
                 >
-                  <Link to="/practice/interview/chat">
-                    <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                    Start Interview Practice
-                  </Link>
+                  <Play className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+                  Start Interview Practice
                 </Button>
               </div>
             </div>
