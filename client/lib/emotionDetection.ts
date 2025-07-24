@@ -32,8 +32,8 @@ class EmotionDetectionService {
 
     try {
       // Load face-api.js models
-      const MODEL_URL = '/models'; // You'll need to add face-api.js models to public/models
-      
+      const MODEL_URL = "/models"; // You'll need to add face-api.js models to public/models
+
       await Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
         faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
@@ -41,35 +41,35 @@ class EmotionDetectionService {
       ]);
 
       this.isInitialized = true;
-      console.log('Emotion detection models loaded successfully');
+      console.log("Emotion detection models loaded successfully");
     } catch (error) {
-      console.error('Failed to load emotion detection models:', error);
-      throw new Error('Emotion detection initialization failed');
+      console.error("Failed to load emotion detection models:", error);
+      throw new Error("Emotion detection initialization failed");
     }
   }
 
   async startWebcam(): Promise<MediaStream> {
     try {
       this.stream = await navigator.mediaDevices.getUserMedia({
-        video: { 
-          width: 640, 
+        video: {
+          width: 640,
           height: 480,
-          facingMode: 'user'
+          facingMode: "user",
         },
-        audio: false
+        audio: false,
       });
 
       return this.stream;
     } catch (error) {
-      console.error('Failed to access webcam:', error);
-      throw new Error('Webcam access denied');
+      console.error("Failed to access webcam:", error);
+      throw new Error("Webcam access denied");
     }
   }
 
   attachVideoElement(video: HTMLVideoElement, canvas: HTMLCanvasElement): void {
     this.videoElement = video;
     this.canvas = canvas;
-    
+
     if (this.stream) {
       video.srcObject = this.stream;
     }
@@ -77,30 +77,39 @@ class EmotionDetectionService {
 
   async detectEmotion(): Promise<FaceDetectionResult> {
     if (!this.videoElement || !this.canvas || !this.isInitialized) {
-      throw new Error('Emotion detection not properly initialized');
+      throw new Error("Emotion detection not properly initialized");
     }
 
     try {
       // Detect face and expressions
       const detection = await faceapi
-        .detectSingleFace(this.videoElement, new faceapi.TinyFaceDetectorOptions())
+        .detectSingleFace(
+          this.videoElement,
+          new faceapi.TinyFaceDetectorOptions(),
+        )
         .withFaceLandmarks()
         .withFaceExpressions();
 
       if (!detection) {
         return {
           emotions: {
-            happy: 0, sad: 0, angry: 0, fearful: 0,
-            disgusted: 0, surprised: 0, neutral: 1,
-            dominant: 'neutral', confidence: 0
+            happy: 0,
+            sad: 0,
+            angry: 0,
+            fearful: 0,
+            disgusted: 0,
+            surprised: 0,
+            neutral: 1,
+            dominant: "neutral",
+            confidence: 0,
           },
           faceDetected: false,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
       }
 
       const expressions = detection.expressions;
-      
+
       // Find dominant emotion
       const emotions = {
         happy: expressions.happy,
@@ -110,14 +119,14 @@ class EmotionDetectionService {
         disgusted: expressions.disgusted,
         surprised: expressions.surprised,
         neutral: expressions.neutral,
-        dominant: '',
-        confidence: 0
+        dominant: "",
+        confidence: 0,
       };
 
       // Determine dominant emotion
       let maxValue = 0;
-      let dominantEmotion = 'neutral';
-      
+      let dominantEmotion = "neutral";
+
       Object.entries(expressions).forEach(([emotion, value]) => {
         if (value > maxValue) {
           maxValue = value;
@@ -131,25 +140,31 @@ class EmotionDetectionService {
       return {
         emotions,
         faceDetected: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
-      console.error('Emotion detection failed:', error);
+      console.error("Emotion detection failed:", error);
       return {
         emotions: {
-          happy: 0, sad: 0, angry: 0, fearful: 0,
-          disgusted: 0, surprised: 0, neutral: 1,
-          dominant: 'neutral', confidence: 0
+          happy: 0,
+          sad: 0,
+          angry: 0,
+          fearful: 0,
+          disgusted: 0,
+          surprised: 0,
+          neutral: 1,
+          dominant: "neutral",
+          confidence: 0,
         },
         faceDetected: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     }
   }
 
   startContinuousDetection(
     callback: (result: FaceDetectionResult) => void,
-    interval: number = 2000
+    interval: number = 2000,
   ): void {
     if (this.detectionInterval) {
       clearInterval(this.detectionInterval);
@@ -160,7 +175,7 @@ class EmotionDetectionService {
         const result = await this.detectEmotion();
         callback(result);
       } catch (error) {
-        console.error('Continuous emotion detection error:', error);
+        console.error("Continuous emotion detection error:", error);
       }
     }, interval);
   }
@@ -174,10 +189,10 @@ class EmotionDetectionService {
 
   stopWebcam(): void {
     if (this.stream) {
-      this.stream.getTracks().forEach(track => track.stop());
+      this.stream.getTracks().forEach((track) => track.stop());
       this.stream = null;
     }
-    
+
     if (this.videoElement) {
       this.videoElement.srcObject = null;
     }
@@ -188,23 +203,23 @@ class EmotionDetectionService {
   // Analyze emotional context for AI response
   analyzeEmotionalContext(emotions: EmotionData): string {
     const { dominant, confidence } = emotions;
-    
+
     if (confidence < 0.3) {
       return "I notice you're here with me. How are you feeling right now?";
     }
 
     switch (dominant) {
-      case 'sad':
+      case "sad":
         return "I can see you seem a bit down. Would you like to talk about what's bothering you? I'm here to listen and help.";
-      case 'angry':
+      case "angry":
         return "I sense you might be feeling frustrated or upset. Sometimes it helps to talk through these feelings. What's on your mind?";
-      case 'fearful':
+      case "fearful":
         return "You seem worried or anxious about something. Take a deep breath - I'm here to support you. What's causing you concern?";
-      case 'surprised':
+      case "surprised":
         return "You look surprised! Did something unexpected happen? I'd love to hear about it.";
-      case 'happy':
+      case "happy":
         return "I can see you're in a good mood! That's wonderful. What's making you happy today?";
-      case 'disgusted':
+      case "disgusted":
         return "You seem bothered by something. Want to talk about what's troubling you?";
       default:
         return "I'm here and ready to chat with you. What would you like to explore today?";
@@ -217,12 +232,12 @@ class EmotionDetectionService {
       faceDetected: result.faceDetected,
       emotions: result.emotions,
       timestamp: result.timestamp,
-      emotionalContext: this.analyzeEmotionalContext(result.emotions)
+      emotionalContext: this.analyzeEmotionalContext(result.emotions),
     };
   }
 }
 
 // Use fallback service for immediate testing
 // export const emotionDetectionService = new EmotionDetectionService();
-import { fallbackEmotionDetectionService } from './emotionDetectionFallback';
+import { fallbackEmotionDetectionService } from "./emotionDetectionFallback";
 export const emotionDetectionService = fallbackEmotionDetectionService;

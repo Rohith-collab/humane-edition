@@ -193,7 +193,10 @@ export function LipSyncAvatar({
 
           {/* Name Plate */}
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-            <div className="bg-black/80 backdrop-blur-md text-white rounded-xl px-6 py-3 border border-white/20" style={{ marginTop: '172px' }}>
+            <div
+              className="bg-black/80 backdrop-blur-md text-white rounded-xl px-6 py-3 border border-white/20"
+              style={{ marginTop: "172px" }}
+            >
               <div className="text-center">
                 <p className="font-semibold text-lg">{avatar.name}</p>
                 <p className="text-sm opacity-80">{avatar.title}</p>

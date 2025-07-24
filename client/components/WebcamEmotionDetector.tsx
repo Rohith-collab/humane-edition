@@ -1,23 +1,27 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
-  Camera, 
-  CameraOff, 
-  Eye, 
-  EyeOff, 
-  Smile, 
+import React, { useRef, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Camera,
+  CameraOff,
+  Eye,
+  EyeOff,
+  Smile,
   Frown,
   Angry,
   Meh,
   AlertTriangle,
   Zap,
   Heart,
-  Settings
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { emotionDetectionService, FaceDetectionResult, EmotionData } from '@/lib/emotionDetection';
+  Settings,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  emotionDetectionService,
+  FaceDetectionResult,
+  EmotionData,
+} from "@/lib/emotionDetection";
 
 interface WebcamEmotionDetectorProps {
   onEmotionDetected: (result: FaceDetectionResult) => void;
@@ -33,32 +37,33 @@ const emotionIcons = {
   neutral: Meh,
   fearful: AlertTriangle,
   surprised: Zap,
-  disgusted: EyeOff
+  disgusted: EyeOff,
 };
 
 // Emotion colors
 const emotionColors = {
-  happy: 'text-green-500',
-  sad: 'text-blue-500',
-  angry: 'text-red-500',
-  neutral: 'text-gray-500',
-  fearful: 'text-yellow-500',
-  surprised: 'text-purple-500',
-  disgusted: 'text-orange-500'
+  happy: "text-green-500",
+  sad: "text-blue-500",
+  angry: "text-red-500",
+  neutral: "text-gray-500",
+  fearful: "text-yellow-500",
+  surprised: "text-purple-500",
+  disgusted: "text-orange-500",
 };
 
 export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
   onEmotionDetected,
   isActive,
-  className
+  className,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isWebcamActive, setIsWebcamActive] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [currentEmotion, setCurrentEmotion] = useState<FaceDetectionResult | null>(null);
+  const [currentEmotion, setCurrentEmotion] =
+    useState<FaceDetectionResult | null>(null);
   const [permissionGranted, setPermissionGranted] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const [showPreview, setShowPreview] = useState(true);
   const [isDetecting, setIsDetecting] = useState(false);
 
@@ -69,8 +74,8 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
         await emotionDetectionService.initialize();
         setIsInitialized(true);
       } catch (err) {
-        setError('Failed to initialize emotion detection');
-        console.error('Emotion detection init error:', err);
+        setError("Failed to initialize emotion detection");
+        console.error("Emotion detection init error:", err);
       }
     };
 
@@ -80,28 +85,31 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
   // Start webcam and emotion detection
   const startWebcam = async () => {
     if (!isInitialized) {
-      setError('Emotion detection not initialized');
+      setError("Emotion detection not initialized");
       return;
     }
 
     try {
-      setError('');
+      setError("");
       const stream = await emotionDetectionService.startWebcam();
-      
+
       if (videoRef.current && canvasRef.current) {
-        emotionDetectionService.attachVideoElement(videoRef.current, canvasRef.current);
+        emotionDetectionService.attachVideoElement(
+          videoRef.current,
+          canvasRef.current,
+        );
         videoRef.current.srcObject = stream;
         await videoRef.current.play();
-        
+
         setIsWebcamActive(true);
         setPermissionGranted(true);
-        
+
         // Start continuous emotion detection
         startEmotionDetection();
       }
     } catch (err) {
-      setError('Failed to access webcam. Please allow camera permissions.');
-      console.error('Webcam error:', err);
+      setError("Failed to access webcam. Please allow camera permissions.");
+      console.error("Webcam error:", err);
     }
   };
 
@@ -139,12 +147,15 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
   }, [isActive, isWebcamActive, isInitialized]);
 
   const getDominantEmotionIcon = (emotion: string) => {
-    const IconComponent = emotionIcons[emotion as keyof typeof emotionIcons] || Meh;
+    const IconComponent =
+      emotionIcons[emotion as keyof typeof emotionIcons] || Meh;
     return IconComponent;
   };
 
   const getDominantEmotionColor = (emotion: string) => {
-    return emotionColors[emotion as keyof typeof emotionColors] || 'text-gray-500';
+    return (
+      emotionColors[emotion as keyof typeof emotionColors] || "text-gray-500"
+    );
   };
 
   return (
@@ -164,7 +175,11 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
                 onClick={() => setShowPreview(!showPreview)}
                 className="text-muted-foreground"
               >
-                {showPreview ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                {showPreview ? (
+                  <Eye className="w-4 h-4" />
+                ) : (
+                  <EyeOff className="w-4 h-4" />
+                )}
               </Button>
               <Button
                 variant={isWebcamActive ? "destructive" : "default"}
@@ -172,7 +187,8 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
                 onClick={isWebcamActive ? stopWebcam : startWebcam}
                 disabled={!isInitialized}
                 className={cn(
-                  !isWebcamActive && "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600"
+                  !isWebcamActive &&
+                    "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600",
                 )}
               >
                 {isWebcamActive ? (
@@ -190,7 +206,7 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
             </div>
           </div>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
           {/* Error Display */}
           {error && (
@@ -202,30 +218,38 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
           {/* Status Indicators */}
           <div className="flex items-center space-x-4 text-sm">
             <div className="flex items-center space-x-2">
-              <div className={cn(
-                "w-2 h-2 rounded-full",
-                isInitialized ? "bg-green-500 animate-pulse" : "bg-gray-400"
-              )} />
+              <div
+                className={cn(
+                  "w-2 h-2 rounded-full",
+                  isInitialized ? "bg-green-500 animate-pulse" : "bg-gray-400",
+                )}
+              />
               <span className="text-muted-foreground">
                 {isInitialized ? "Models Loaded" : "Loading..."}
               </span>
             </div>
-            
+
             <div className="flex items-center space-x-2">
-              <div className={cn(
-                "w-2 h-2 rounded-full",
-                isWebcamActive ? "bg-blue-500 animate-pulse" : "bg-gray-400"
-              )} />
+              <div
+                className={cn(
+                  "w-2 h-2 rounded-full",
+                  isWebcamActive ? "bg-blue-500 animate-pulse" : "bg-gray-400",
+                )}
+              />
               <span className="text-muted-foreground">
                 {isWebcamActive ? "Camera Active" : "Camera Off"}
               </span>
             </div>
-            
+
             <div className="flex items-center space-x-2">
-              <div className={cn(
-                "w-2 h-2 rounded-full",
-                currentEmotion?.faceDetected ? "bg-purple-500 animate-pulse" : "bg-gray-400"
-              )} />
+              <div
+                className={cn(
+                  "w-2 h-2 rounded-full",
+                  currentEmotion?.faceDetected
+                    ? "bg-purple-500 animate-pulse"
+                    : "bg-gray-400",
+                )}
+              />
               <span className="text-muted-foreground">
                 {currentEmotion?.faceDetected ? "Face Detected" : "No Face"}
               </span>
@@ -239,16 +263,13 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
                 ref={videoRef}
                 className={cn(
                   "w-full h-32 object-cover rounded-lg bg-black",
-                  !isWebcamActive && "hidden"
+                  !isWebcamActive && "hidden",
                 )}
                 muted
                 playsInline
               />
-              <canvas
-                ref={canvasRef}
-                className="hidden"
-              />
-              
+              <canvas ref={canvasRef} className="hidden" />
+
               {!isWebcamActive && (
                 <div className="w-full h-32 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
                   <div className="text-center">
@@ -264,16 +285,20 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
           {currentEmotion && currentEmotion.faceDetected && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-foreground">Current Emotion:</span>
+                <span className="text-sm font-medium text-foreground">
+                  Current Emotion:
+                </span>
                 <div className="flex items-center space-x-2">
                   {React.createElement(
                     getDominantEmotionIcon(currentEmotion.emotions.dominant),
-                    { 
+                    {
                       className: cn(
                         "w-5 h-5",
-                        getDominantEmotionColor(currentEmotion.emotions.dominant)
-                      )
-                    }
+                        getDominantEmotionColor(
+                          currentEmotion.emotions.dominant,
+                        ),
+                      ),
+                    },
                   )}
                   <Badge variant="outline" className="text-xs capitalize">
                     {currentEmotion.emotions.dominant}
@@ -286,14 +311,22 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
 
               {/* Emotion Breakdown */}
               <div className="space-y-2">
-                <p className="text-xs text-muted-foreground">Emotion Analysis:</p>
+                <p className="text-xs text-muted-foreground">
+                  Emotion Analysis:
+                </p>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   {Object.entries(currentEmotion.emotions)
-                    .filter(([key]) => !['dominant', 'confidence'].includes(key))
+                    .filter(
+                      ([key]) => !["dominant", "confidence"].includes(key),
+                    )
                     .map(([emotion, value]) => (
                       <div key={emotion} className="flex justify-between">
-                        <span className="capitalize text-muted-foreground">{emotion}:</span>
-                        <span className="font-medium">{Math.round((value as number) * 100)}%</span>
+                        <span className="capitalize text-muted-foreground">
+                          {emotion}:
+                        </span>
+                        <span className="font-medium">
+                          {Math.round((value as number) * 100)}%
+                        </span>
                       </div>
                     ))}
                 </div>
@@ -304,7 +337,8 @@ export const WebcamEmotionDetector: React.FC<WebcamEmotionDetectorProps> = ({
           {/* Privacy Notice */}
           <div className="bg-muted/30 rounded-lg p-3">
             <p className="text-xs text-muted-foreground">
-              🔒 Your webcam data is processed locally for emotion detection. No video is stored or transmitted.
+              🔒 Your webcam data is processed locally for emotion detection. No
+              video is stored or transmitted.
             </p>
           </div>
         </CardContent>

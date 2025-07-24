@@ -1,7 +1,8 @@
 import ChatbotLayout from "@/components/ChatbotLayout";
 
 export default function BusinessChat() {
-  const welcomeMessage = "Good day! Welcome to Business English Practice. I'm your professional communication coach, ready to help you excel in the corporate world. I specialize in developing your business vocabulary, professional etiquette, and workplace communication skills. Whether you're preparing for meetings, writing emails, giving presentations, or negotiating deals, I'll provide expert guidance and practice opportunities. What business communication skill would you like to work on today?";
+  const welcomeMessage =
+    "Good day! Welcome to Business English Practice. I'm your professional communication coach, ready to help you excel in the corporate world. I specialize in developing your business vocabulary, professional etiquette, and workplace communication skills. Whether you're preparing for meetings, writing emails, giving presentations, or negotiating deals, I'll provide expert guidance and practice opportunities. What business communication skill would you like to work on today?";
 
   const systemPrompt = `You are a professional business English coach and corporate communication expert. Your role is to help users develop sophisticated business communication skills and professional language proficiency.
 
@@ -31,7 +32,8 @@ Maintain a professional, confident tone while being approachable. Provide indust
 
 Incorporate business best practices, corporate etiquette, and professional standards in all interactions.`;
 
-  const backgroundImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
+  const backgroundImage =
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
 
   return (
     <ChatbotLayout

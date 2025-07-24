@@ -132,22 +132,13 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/practice/interview/chat"
-            element={<InterviewChat />}
-          />
+          <Route path="/practice/interview/chat" element={<InterviewChat />} />
           <Route
             path="/practice/restaurant/chat"
             element={<RestaurantChat />}
           />
-          <Route
-            path="/practice/shopping/chat"
-            element={<ShoppingChat />}
-          />
-          <Route
-            path="/grammar/chat"
-            element={<GrammarChat />}
-          />
+          <Route path="/practice/shopping/chat" element={<ShoppingChat />} />
+          <Route path="/grammar/chat" element={<GrammarChat />} />
           <Route
             path="/presentation"
             element={
@@ -156,10 +147,7 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/presentation/chat"
-            element={<PresentationChat />}
-          />
+          <Route path="/presentation/chat" element={<PresentationChat />} />
           <Route
             path="/social"
             element={
@@ -168,10 +156,7 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/social/chat"
-            element={<SocialChat />}
-          />
+          <Route path="/social/chat" element={<SocialChat />} />
           <Route
             path="/business"
             element={
@@ -180,10 +165,7 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/business/chat"
-            element={<BusinessChat />}
-          />
+          <Route path="/business/chat" element={<BusinessChat />} />
           <Route
             path="/speaking"
             element={
@@ -192,10 +174,7 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/speaking/chat"
-            element={<SpeakingChat />}
-          />
+          <Route path="/speaking/chat" element={<SpeakingChat />} />
           <Route
             path="/cultural"
             element={
@@ -204,10 +183,7 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/cultural/chat"
-            element={<CulturalChat />}
-          />
+          <Route path="/cultural/chat" element={<CulturalChat />} />
           <Route
             path="/humanoid"
             element={
@@ -216,10 +192,7 @@ const App = () => (
               </Layout>
             }
           />
-          <Route
-            path="/humanoid/chat"
-            element={<HumanoidChat />}
-          />
+          <Route path="/humanoid/chat" element={<HumanoidChat />} />
           <Route
             path="/pronunciation"
             element={

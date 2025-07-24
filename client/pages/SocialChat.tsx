@@ -1,7 +1,8 @@
 import ChatbotLayout from "@/components/ChatbotLayout";
 
 export default function SocialChat() {
-  const welcomeMessage = "Hey there! Welcome to Social Conversation Practice! I'm your friendly AI conversation partner. I'm here to help you build confidence in social interactions, master small talk, and develop natural conversation skills for any social setting. Whether you're looking to improve networking, dating conversations, or just casual chats with friends, I'll guide you through fun and realistic practice scenarios. What kind of social situation would you like to practice today?";
+  const welcomeMessage =
+    "Hey there! Welcome to Social Conversation Practice! I'm your friendly AI conversation partner. I'm here to help you build confidence in social interactions, master small talk, and develop natural conversation skills for any social setting. Whether you're looking to improve networking, dating conversations, or just casual chats with friends, I'll guide you through fun and realistic practice scenarios. What kind of social situation would you like to practice today?";
 
   const systemPrompt = `You are a warm, friendly, and socially intelligent AI conversation coach. Your role is to help users develop natural social conversation skills and build confidence in various social interactions.
 
@@ -31,7 +32,8 @@ Always maintain a relaxed, encouraging tone. Provide gentle corrections for gram
 
 Be culturally sensitive and teach appropriate boundaries in different social contexts.`;
 
-  const backgroundImage = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2532&q=80";
+  const backgroundImage =
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2532&q=80";
 
   return (
     <ChatbotLayout

@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
-import { 
-  BookOpen, 
-  Clock, 
+import {
+  BookOpen,
+  Clock,
   Target,
   ArrowRight,
   Play,
@@ -16,32 +22,50 @@ import {
   MessageSquare,
   TrendingUp,
   Zap,
-  Brain
+  Brain,
 } from "lucide-react";
 
 const scenarios = [
   {
     title: "Basic Grammar Rules",
-    description: "Master fundamental grammar concepts including tenses, articles, and sentence structure",
+    description:
+      "Master fundamental grammar concepts including tenses, articles, and sentence structure",
     difficulty: "Beginner",
     duration: "15-20 min",
-    skills: ["Present/Past tenses", "Articles usage", "Subject-verb agreement", "Basic punctuation"],
+    skills: [
+      "Present/Past tenses",
+      "Articles usage",
+      "Subject-verb agreement",
+      "Basic punctuation",
+    ],
     icon: BookOpen,
   },
   {
     title: "Advanced Sentence Structure",
-    description: "Complex sentences, conditional statements, and sophisticated grammar patterns",
+    description:
+      "Complex sentences, conditional statements, and sophisticated grammar patterns",
     difficulty: "Advanced",
     duration: "25-30 min",
-    skills: ["Complex conditionals", "Passive voice", "Relative clauses", "Advanced conjunctions"],
+    skills: [
+      "Complex conditionals",
+      "Passive voice",
+      "Relative clauses",
+      "Advanced conjunctions",
+    ],
     icon: Brain,
   },
   {
     title: "Business Writing",
-    description: "Professional communication, formal writing, and business-specific grammar rules",
+    description:
+      "Professional communication, formal writing, and business-specific grammar rules",
     difficulty: "Intermediate",
     duration: "20-25 min",
-    skills: ["Formal tone", "Business vocabulary", "Email structure", "Professional grammar"],
+    skills: [
+      "Formal tone",
+      "Business vocabulary",
+      "Email structure",
+      "Professional grammar",
+    ],
     icon: FileText,
   },
 ];
@@ -50,17 +74,20 @@ const features = [
   {
     icon: Zap,
     title: "Real-Time Corrections",
-    description: "Instant feedback on grammar mistakes with detailed explanations and examples",
+    description:
+      "Instant feedback on grammar mistakes with detailed explanations and examples",
   },
   {
     icon: Lightbulb,
     title: "Concept Explanation",
-    description: "Clear explanations of grammar rules with practical examples and usage tips",
+    description:
+      "Clear explanations of grammar rules with practical examples and usage tips",
   },
   {
     icon: TrendingUp,
     title: "Progress Tracking",
-    description: "Monitor your improvement across different grammar topics and difficulty levels",
+    description:
+      "Monitor your improvement across different grammar topics and difficulty levels",
   },
 ];
 
@@ -78,7 +105,7 @@ export default function GrammarTutor() {
               Grammar Tutor
             </Badge>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
               Perfect Your{" "}
@@ -87,12 +114,14 @@ export default function GrammarTutor() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Master English grammar with personalized AI tutoring. Get real-time corrections, detailed explanations, and practice exercises tailored to your level.
+              Master English grammar with personalized AI tutoring. Get
+              real-time corrections, detailed explanations, and practice
+              exercises tailored to your level.
             </p>
           </div>
 
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             onClick={() => setShowModal(true)}
             className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
           >
@@ -113,12 +142,17 @@ export default function GrammarTutor() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10"
+                >
                   <CardHeader className="space-y-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                    <CardTitle className="text-xl font-semibold">
+                      {feature.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground">
@@ -136,17 +170,23 @@ export default function GrammarTutor() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold text-foreground">Grammar Focus Areas</h2>
+            <h2 className="text-3xl font-bold text-foreground">
+              Grammar Focus Areas
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Comprehensive grammar training from basic rules to advanced concepts
+              Comprehensive grammar training from basic rules to advanced
+              concepts
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {scenarios.map((scenario, index) => {
               const Icon = scenario.icon;
               return (
-                <Card key={index} className="group hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-border/50 hover:border-green-500/50">
+                <Card
+                  key={index}
+                  className="group hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-border/50 hover:border-green-500/50"
+                >
                   <CardHeader className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
@@ -156,7 +196,9 @@ export default function GrammarTutor() {
                         {scenario.difficulty}
                       </Badge>
                     </div>
-                    <CardTitle className="text-lg font-semibold">{scenario.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {scenario.title}
+                    </CardTitle>
                     <CardDescription>{scenario.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -171,10 +213,16 @@ export default function GrammarTutor() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Grammar Topics:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Grammar Topics:
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {scenario.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                          <Badge
+                            key={skillIndex}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}

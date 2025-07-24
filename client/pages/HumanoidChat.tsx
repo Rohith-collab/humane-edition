@@ -24,15 +24,18 @@ import {
 import { cn } from "@/lib/utils";
 import { LipSyncAvatar } from "@/components/LipSyncAvatar";
 import WebcamEmotionDetector from "@/components/WebcamEmotionDetector";
-import { FaceDetectionResult, emotionDetectionService } from "@/lib/emotionDetection";
+import {
+  FaceDetectionResult,
+  emotionDetectionService,
+} from "@/lib/emotionDetection";
 
 // Enhanced D-ID Avatar Component with Customization
-const AdvancedHumanoidAvatar = ({ 
-  speaking, 
-  isLoading, 
-  className, 
+const AdvancedHumanoidAvatar = ({
+  speaking,
+  isLoading,
+  className,
   personality = "professional",
-  customization 
+  customization,
 }: {
   speaking: boolean;
   isLoading: boolean;
@@ -47,23 +50,29 @@ const AdvancedHumanoidAvatar = ({
   const getAvatarConfig = () => {
     const configs = {
       professional: {
-        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
         name: "Dr. Sarah Mitchell",
         title: "Professional Mentor",
-        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop"
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
       creative: {
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=face",
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=face",
         name: "Alex Rivera",
-        title: "Creative Companion", 
-        background: "https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?w=1920&h=1080&fit=crop"
+        title: "Creative Companion",
+        background:
+          "https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?w=1920&h=1080&fit=crop",
       },
       educational: {
-        avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=600&fit=crop&crop=face",
+        avatar:
+          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=600&fit=crop&crop=face",
         name: "Prof. Emma Chen",
         title: "Learning Buddy",
-        background: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop"
-      }
+        background:
+          "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop",
+      },
     };
     return configs[personality];
   };
@@ -75,7 +84,7 @@ const AdvancedHumanoidAvatar = ({
     const initializeVideo = async () => {
       try {
         // Simulate D-ID API initialization
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         setIsVideoReady(true);
       } catch (error) {
         console.error("Failed to initialize D-ID video:", error);
@@ -86,18 +95,18 @@ const AdvancedHumanoidAvatar = ({
   }, []);
 
   return (
-    <div 
+    <div
       className={cn("relative overflow-hidden", className)}
       style={{
         backgroundImage: `url(${avatarConfig.background})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/40" />
-      
+
       {/* D-ID Video Container */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         {!isVideoReady ? (
@@ -124,15 +133,15 @@ const AdvancedHumanoidAvatar = ({
                   className={cn(
                     "w-full h-full object-cover transition-all duration-300",
                     speaking && "brightness-110 contrast-105 scale-105",
-                    isLoading && "animate-pulse"
+                    isLoading && "animate-pulse",
                   )}
                 />
-                
+
                 {/* Speaking Animation Overlay */}
                 {speaking && (
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 animate-pulse" />
                 )}
-                
+
                 {/* Lip Sync Indicator */}
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
                   <div className="relative">
@@ -143,27 +152,31 @@ const AdvancedHumanoidAvatar = ({
                 </div>
               </div>
             </div>
-            
+
             {/* AI Status Indicators */}
             <div className="absolute top-6 left-6 flex items-center space-x-3">
               <div className="flex items-center space-x-2 bg-black/50 backdrop-blur-md rounded-lg px-3 py-2">
-                <div className={cn(
-                  "w-2 h-2 rounded-full",
-                  isVideoReady ? "bg-green-400 animate-pulse" : "bg-red-400"
-                )} />
+                <div
+                  className={cn(
+                    "w-2 h-2 rounded-full",
+                    isVideoReady ? "bg-green-400 animate-pulse" : "bg-red-400",
+                  )}
+                />
                 <span className="text-white text-xs font-medium">
                   {isVideoReady ? "D-ID Active" : "Connecting..."}
                 </span>
               </div>
-              
+
               {speaking && (
                 <div className="flex items-center space-x-2 bg-indigo-500/50 backdrop-blur-md rounded-lg px-3 py-2">
                   <Volume2 className="w-3 h-3 text-white" />
-                  <span className="text-white text-xs font-medium">Speaking</span>
+                  <span className="text-white text-xs font-medium">
+                    Speaking
+                  </span>
                 </div>
               )}
             </div>
-            
+
             {/* Avatar Info Plate */}
             <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
               <div className="bg-black/70 backdrop-blur-md text-white rounded-xl px-6 py-3 border border-white/20">
@@ -171,12 +184,20 @@ const AdvancedHumanoidAvatar = ({
                   <p className="font-semibold text-lg">{avatarConfig.name}</p>
                   <p className="text-sm opacity-80">{avatarConfig.title}</p>
                   <div className="flex items-center justify-center space-x-2 mt-2">
-                    <div className={cn(
-                      "w-2 h-2 rounded-full",
-                      speaking || isLoading ? "bg-indigo-400 animate-pulse" : "bg-gray-400"
-                    )} />
+                    <div
+                      className={cn(
+                        "w-2 h-2 rounded-full",
+                        speaking || isLoading
+                          ? "bg-indigo-400 animate-pulse"
+                          : "bg-gray-400",
+                      )}
+                    />
                     <span className="text-xs opacity-70">
-                      {isLoading ? "Thinking..." : speaking ? "Speaking" : "Listening"}
+                      {isLoading
+                        ? "Thinking..."
+                        : speaking
+                          ? "Speaking"
+                          : "Listening"}
                     </span>
                   </div>
                 </div>
@@ -185,10 +206,14 @@ const AdvancedHumanoidAvatar = ({
           </div>
         )}
       </div>
-      
+
       {/* Customization Panel (Hidden by default) */}
       <div className="absolute top-6 right-6 z-20">
-        <Button variant="ghost" size="sm" className="bg-black/30 backdrop-blur-md text-white hover:bg-black/50">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="bg-black/30 backdrop-blur-md text-white hover:bg-black/50"
+        >
           <Settings className="w-4 h-4" />
         </Button>
       </div>
@@ -203,14 +228,19 @@ export default function HumanoidChat() {
   const [speaking, setSpeaking] = useState(false);
   const [listening, setListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [conversation, setConversation] = useState<Array<{ user: string; bot: string; timestamp: Date }>>([]);
+  const [conversation, setConversation] = useState<
+    Array<{ user: string; bot: string; timestamp: Date }>
+  >([]);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
-  const [selectedPersonality, setSelectedPersonality] = useState<"professional" | "creative" | "educational">("professional");
+  const [selectedPersonality, setSelectedPersonality] = useState<
+    "professional" | "creative" | "educational"
+  >("professional");
   const [emotionDetectionActive, setEmotionDetectionActive] = useState(false);
-  const [currentEmotion, setCurrentEmotion] = useState<FaceDetectionResult | null>(null);
+  const [currentEmotion, setCurrentEmotion] =
+    useState<FaceDetectionResult | null>(null);
   const [lastEmotionResponse, setLastEmotionResponse] = useState<string>("");
 
   // Enhanced system prompt for emotion-aware humanoid conversations
@@ -265,7 +295,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
 
   // Load user preferences
   useEffect(() => {
-    const savedPreferences = localStorage.getItem('aangilam_preferences');
+    const savedPreferences = localStorage.getItem("aangilam_preferences");
     if (savedPreferences) {
       setUserPreferences(JSON.parse(savedPreferences));
     }
@@ -276,26 +306,26 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/chat');
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      
+      xhr.open("POST", "/api/chat");
+      xhr.setRequestHeader("Content-Type", "application/json");
+
       xhr.onload = () => {
         if (xhr.status === 200) {
           try {
             const response: ChatResponse = JSON.parse(xhr.responseText);
             resolve(response.message);
           } catch (error) {
-            reject(new Error('Failed to parse response'));
+            reject(new Error("Failed to parse response"));
           }
         } else {
           reject(new Error(`HTTP ${xhr.status}: ${xhr.statusText}`));
         }
       };
-      
-      xhr.onerror = () => reject(new Error('Network error'));
-      xhr.ontimeout = () => reject(new Error('Request timeout'));
+
+      xhr.onerror = () => reject(new Error("Network error"));
+      xhr.ontimeout = () => reject(new Error("Request timeout"));
       xhr.timeout = 30000;
-      
+
       xhr.send(JSON.stringify(requestBody));
     });
   };
@@ -304,22 +334,23 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     // Prepare emotion data if available
     let emotionContext: EmotionContext | undefined;
     if (currentEmotion?.faceDetected) {
-      emotionContext = emotionDetectionService.formatEmotionData(currentEmotion);
+      emotionContext =
+        emotionDetectionService.formatEmotionData(currentEmotion);
     }
 
     const messages = [
       {
-        role: 'system' as const,
-        content: getSystemPrompt(emotionContext)
+        role: "system" as const,
+        content: getSystemPrompt(emotionContext),
       },
-      ...conversation.flatMap(conv => [
-        { role: 'user' as const, content: conv.user },
-        { role: 'assistant' as const, content: conv.bot }
+      ...conversation.flatMap((conv) => [
+        { role: "user" as const, content: conv.user },
+        { role: "assistant" as const, content: conv.bot },
       ]),
       {
-        role: 'user' as const,
-        content: message
-      }
+        role: "user" as const,
+        content: message,
+      },
     ];
 
     const requestBody: ChatRequest = {
@@ -330,9 +361,9 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     };
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
 
@@ -349,7 +380,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
 
       return data.response;
     } catch (error) {
-      console.warn('Fetch failed, trying XMLHttpRequest fallback:', error);
+      console.warn("Fetch failed, trying XMLHttpRequest fallback:", error);
       return await makeXHRRequest(requestBody);
     }
   };
@@ -359,7 +390,8 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
       setIsLoading(true);
       console.log("Initializing humanoid session...");
 
-      const welcomeMessage = "Hello! I'm your AI humanoid companion. I'm here to have meaningful conversations with you about anything you'd like to explore. What's on your mind today?";
+      const welcomeMessage =
+        "Hello! I'm your AI humanoid companion. I'm here to have meaningful conversations with you about anything you'd like to explore. What's on your mind today?";
 
       console.log("Welcome message ready:", welcomeMessage);
       setReply(welcomeMessage);
@@ -370,7 +402,8 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
       }
     } catch (error) {
       console.error("Failed to initialize session:", error);
-      const fallbackMessage = "Hello! I'm your AI humanoid tutor. I'm ready to help you with anything you'd like to discuss. How can I assist you today?";
+      const fallbackMessage =
+        "Hello! I'm your AI humanoid tutor. I'm ready to help you with anything you'd like to discuss. How can I assist you today?";
       setReply(fallbackMessage);
       typeReply(fallbackMessage);
       setApiError("Connection issue - using offline mode");
@@ -394,19 +427,19 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   };
 
   const speakText = (text: string) => {
-    if ('speechSynthesis' in window && soundEnabled) {
+    if ("speechSynthesis" in window && soundEnabled) {
       setSpeaking(true);
       const utterance = new SpeechSynthesisUtterance(text);
-      
+
       // Apply user preferences
       if (userPreferences) {
         utterance.rate = userPreferences.speechSpeed || 1.0;
-        utterance.lang = userPreferences.language || 'en-US';
+        utterance.lang = userPreferences.language || "en-US";
       }
-      
+
       utterance.onend = () => setSpeaking(false);
       utterance.onerror = () => setSpeaking(false);
-      
+
       speechSynthesis.speak(utterance);
     }
   };
@@ -422,22 +455,23 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
 
     try {
       const response = await getGPTReply(userMessage);
-      
-      setConversation(prev => [
+
+      setConversation((prev) => [
         ...prev,
-        { user: userMessage, bot: response, timestamp: new Date() }
+        { user: userMessage, bot: response, timestamp: new Date() },
       ]);
-      
+
       setReply(response);
       typeReply(response);
-      
+
       if (soundEnabled) {
         speakText(response);
       }
     } catch (error) {
       console.error("Failed to get response:", error);
       setApiError("Failed to connect to AI service");
-      const errorMessage = "I'm experiencing some technical difficulties. Could you please try again?";
+      const errorMessage =
+        "I'm experiencing some technical difficulties. Could you please try again?";
       setReply(errorMessage);
       typeReply(errorMessage);
     } finally {
@@ -465,11 +499,17 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
       const { dominant } = result.emotions;
 
       // Check if we should proactively respond to strong emotions
-      if (['sad', 'angry', 'fearful'].includes(dominant) && !isLoading) {
-        const emotionalContext = emotionDetectionService.analyzeEmotionalContext(result.emotions);
+      if (["sad", "angry", "fearful"].includes(dominant) && !isLoading) {
+        const emotionalContext =
+          emotionDetectionService.analyzeEmotionalContext(result.emotions);
         if (emotionalContext !== lastEmotionResponse) {
           // Optionally trigger automatic emotional response
-          console.log('Strong emotion detected:', dominant, 'Context:', emotionalContext);
+          console.log(
+            "Strong emotion detected:",
+            dominant,
+            "Context:",
+            emotionalContext,
+          );
         }
       }
     }
@@ -490,7 +530,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
           personality={selectedPersonality}
           className="w-full h-full"
         />
-        
+
         {/* Connection Error Overlay */}
         {apiError && (
           <div className="absolute top-4 left-4 right-4 z-30">
@@ -517,12 +557,19 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl">
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" size="sm" className="gap-2" onClick={() => window.history.back()}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2"
+              onClick={() => window.history.back()}
+            >
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
             <div>
-              <h1 className="font-semibold text-foreground">Humanoid AI Tutor</h1>
+              <h1 className="font-semibold text-foreground">
+                Humanoid AI Tutor
+              </h1>
               <div className="flex items-center space-x-2">
                 <Badge variant="secondary" className="text-xs">
                   GPT-4 Powered
@@ -532,9 +579,13 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                   D-ID Enhanced
                 </Badge>
                 {emotionDetectionActive && currentEmotion?.faceDetected && (
-                  <Badge variant="outline" className="text-xs bg-purple-500/10 border-purple-500/30">
+                  <Badge
+                    variant="outline"
+                    className="text-xs bg-purple-500/10 border-purple-500/30"
+                  >
                     <Heart className="w-3 h-3 mr-1 text-purple-500" />
-                    {currentEmotion.emotions.dominant} {Math.round(currentEmotion.emotions.confidence * 100)}%
+                    {currentEmotion.emotions.dominant}{" "}
+                    {Math.round(currentEmotion.emotions.confidence * 100)}%
                   </Badge>
                 )}
                 {userPreferences && (
@@ -553,9 +604,13 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               onClick={toggleEmotionDetection}
               className={cn(
                 "transition-colors",
-                emotionDetectionActive ? "text-purple-500" : "text-gray-400"
+                emotionDetectionActive ? "text-purple-500" : "text-gray-400",
               )}
-              title={emotionDetectionActive ? "Disable Emotion Detection" : "Enable Emotion Detection"}
+              title={
+                emotionDetectionActive
+                  ? "Disable Emotion Detection"
+                  : "Enable Emotion Detection"
+              }
             >
               <Eye className="w-4 h-4" />
             </Button>
@@ -565,10 +620,14 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               onClick={() => setSoundEnabled(!soundEnabled)}
               className={cn(
                 "transition-colors",
-                soundEnabled ? "text-green-500" : "text-red-500"
+                soundEnabled ? "text-green-500" : "text-red-500",
               )}
             >
-              {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+              {soundEnabled ? (
+                <Volume2 className="w-4 h-4" />
+              ) : (
+                <VolumeX className="w-4 h-4" />
+              )}
             </Button>
             <Button
               variant="ghost"
@@ -629,7 +688,9 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                     <div className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl p-4 border border-indigo-500/30 max-w-[80%]">
                       <div className="flex items-center space-x-2 mb-2">
                         <User className="w-4 h-4 text-indigo-400" />
-                        <span className="text-sm font-medium text-foreground">You</span>
+                        <span className="text-sm font-medium text-foreground">
+                          You
+                        </span>
                         <span className="text-xs text-muted-foreground">
                           {conv.timestamp.toLocaleTimeString()}
                         </span>
@@ -646,7 +707,9 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
-                          <span className="text-sm font-medium text-foreground">AI Tutor</span>
+                          <span className="text-sm font-medium text-foreground">
+                            AI Tutor
+                          </span>
                           <span className="text-xs text-muted-foreground">
                             {conv.timestamp.toLocaleTimeString()}
                           </span>
@@ -663,7 +726,9 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
           ) : (
             <div className="flex items-center space-x-3">
               <Sparkles className="w-6 h-6 text-indigo-500 animate-pulse" />
-              <span className="text-muted-foreground">Initializing your AI companion...</span>
+              <span className="text-muted-foreground">
+                Initializing your AI companion...
+              </span>
             </div>
           )}
         </div>
@@ -689,7 +754,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                 <Mic className="w-4 h-4 text-white" />
               )}
             </Button>
-            
+
             <input
               type="text"
               value={typedText}
@@ -699,7 +764,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               disabled={isLoading}
               className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
             />
-            
+
             <Button
               onClick={handleSendMessage}
               disabled={!typedText.trim() || isLoading}

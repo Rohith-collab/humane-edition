@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import {
@@ -35,7 +41,8 @@ const practiceCategories = [
   {
     id: "interview",
     title: "Job Interview",
-    description: "Master professional interviews with AI interviewers and build confidence for any position",
+    description:
+      "Master professional interviews with AI interviewers and build confidence for any position",
     icon: Briefcase,
     difficulty: "Advanced",
     duration: "15-30 min",
@@ -44,21 +51,22 @@ const practiceCategories = [
     bgGradient: "from-nova-50/50 via-background to-electric-50/50",
     features: [
       "Common interview questions",
-      "Behavioral assessment", 
+      "Behavioral assessment",
       "Professional communication",
-      "Confidence building"
+      "Confidence building",
     ],
     scenarios: [
       "Software Developer Interview",
       "Sales Representative Interview",
       "Manager Position Interview",
-      "Customer Service Interview"
-    ]
+      "Customer Service Interview",
+    ],
   },
   {
     id: "restaurant",
     title: "Restaurant Dining",
-    description: "Navigate dining experiences from ordering to payment with perfect etiquette",
+    description:
+      "Navigate dining experiences from ordering to payment with perfect etiquette",
     icon: UtensilsCrossed,
     difficulty: "Intermediate",
     duration: "12-20 min",
@@ -69,19 +77,20 @@ const practiceCategories = [
       "Food vocabulary",
       "Polite requests",
       "Cultural etiquette",
-      "Payment interactions"
+      "Payment interactions",
     ],
     scenarios: [
       "Fine Dining Experience",
       "Casual Restaurant Visit",
       "Fast Food Ordering",
-      "Special Dietary Requests"
-    ]
+      "Special Dietary Requests",
+    ],
   },
   {
     id: "shopping",
     title: "Shopping Experience",
-    description: "Master retail conversations from browsing to purchasing with confidence",
+    description:
+      "Master retail conversations from browsing to purchasing with confidence",
     icon: ShoppingBag,
     difficulty: "Beginner",
     duration: "10-15 min",
@@ -92,19 +101,20 @@ const practiceCategories = [
       "Product inquiries",
       "Price negotiations",
       "Return policies",
-      "Customer service"
+      "Customer service",
     ],
     scenarios: [
       "Clothing Store Shopping",
       "Electronics Purchase",
       "Grocery Shopping",
-      "Online Store Support"
-    ]
+      "Online Store Support",
+    ],
   },
   {
     id: "grammar",
     title: "Grammar Tutor",
-    description: "Perfect your English grammar with personalized AI tutoring and real-time corrections",
+    description:
+      "Perfect your English grammar with personalized AI tutoring and real-time corrections",
     icon: BookOpen,
     difficulty: "All Levels",
     duration: "20-30 min",
@@ -115,19 +125,20 @@ const practiceCategories = [
       "Real-time corrections",
       "Grammar explanations",
       "Practice exercises",
-      "Progress tracking"
+      "Progress tracking",
     ],
     scenarios: [
       "Basic Grammar Rules",
       "Advanced Sentence Structure",
       "Business Writing",
-      "Academic Writing"
-    ]
+      "Academic Writing",
+    ],
   },
   {
     id: "presentation",
     title: "Presentation Skills",
-    description: "Master the art of presenting with confidence, clarity, and compelling delivery",
+    description:
+      "Master the art of presenting with confidence, clarity, and compelling delivery",
     icon: Presentation,
     difficulty: "Intermediate",
     duration: "15-25 min",
@@ -138,19 +149,20 @@ const practiceCategories = [
       "Body language analysis",
       "Speech flow coaching",
       "Audience engagement",
-      "Slide presentation"
+      "Slide presentation",
     ],
     scenarios: [
       "Business Presentation",
       "Product Pitch",
       "Team Meeting",
-      "Academic Defense"
-    ]
+      "Academic Defense",
+    ],
   },
   {
     id: "social",
     title: "Social Conversation",
-    description: "Build natural social connections through everyday conversations and networking",
+    description:
+      "Build natural social connections through everyday conversations and networking",
     icon: Users,
     difficulty: "Intermediate",
     duration: "12-18 min",
@@ -161,19 +173,20 @@ const practiceCategories = [
       "Small talk mastery",
       "Networking skills",
       "Cultural awareness",
-      "Relationship building"
+      "Relationship building",
     ],
     scenarios: [
       "Coffee Shop Conversations",
       "Party Networking",
       "Dating Conversations",
-      "Workplace Social Events"
-    ]
+      "Workplace Social Events",
+    ],
   },
   {
     id: "business",
     title: "Business English",
-    description: "Excel in professional communication for meetings, negotiations, and corporate success",
+    description:
+      "Excel in professional communication for meetings, negotiations, and corporate success",
     icon: Briefcase,
     difficulty: "Advanced",
     duration: "20-30 min",
@@ -184,19 +197,20 @@ const practiceCategories = [
       "Meeting facilitation",
       "Email communication",
       "Negotiation tactics",
-      "Professional etiquette"
+      "Professional etiquette",
     ],
     scenarios: [
       "Board Meetings",
       "Client Negotiations",
       "Team Leadership",
-      "International Business"
-    ]
+      "International Business",
+    ],
   },
   {
     id: "speaking",
     title: "Public Speaking",
-    description: "Overcome stage fright and deliver powerful speeches that inspire any audience",
+    description:
+      "Overcome stage fright and deliver powerful speeches that inspire any audience",
     icon: Megaphone,
     difficulty: "Advanced",
     duration: "18-25 min",
@@ -207,19 +221,20 @@ const practiceCategories = [
       "Confidence building",
       "Voice projection",
       "Audience engagement",
-      "Persuasion techniques"
+      "Persuasion techniques",
     ],
     scenarios: [
       "Keynote Speech",
       "Wedding Toast",
       "Political Speech",
-      "Motivational Talk"
-    ]
+      "Motivational Talk",
+    ],
   },
   {
     id: "cultural",
     title: "Cultural Communication",
-    description: "Navigate cross-cultural interactions with sensitivity and global awareness",
+    description:
+      "Navigate cross-cultural interactions with sensitivity and global awareness",
     icon: Globe2,
     difficulty: "Intermediate",
     duration: "15-20 min",
@@ -230,19 +245,20 @@ const practiceCategories = [
       "Cultural etiquette",
       "Global customs",
       "Business protocols",
-      "Inclusive communication"
+      "Inclusive communication",
     ],
     scenarios: [
       "International Business",
       "Cultural Events",
       "Travel Interactions",
-      "Diplomatic Conversations"
-    ]
+      "Diplomatic Conversations",
+    ],
   },
   {
     id: "humanoid",
     title: "Humanoid AI Tutor",
-    description: "Experience revolutionary conversations with photorealistic AI humans powered by D-ID technology",
+    description:
+      "Experience revolutionary conversations with photorealistic AI humans powered by D-ID technology",
     icon: Bot,
     difficulty: "All Levels",
     duration: "Unlimited",
@@ -253,40 +269,44 @@ const practiceCategories = [
       "D-ID integration",
       "GPT-4 intelligence",
       "Voice interaction",
-      "Unlimited topics"
+      "Unlimited topics",
     ],
     scenarios: [
       "General Knowledge",
       "Creative Brainstorming",
       "Problem Solving",
-      "Personal Development"
-    ]
-  }
+      "Personal Development",
+    ],
+  },
 ];
 
 const coreFeatures = [
   {
     icon: Brain,
     title: "AI-Powered Coaching",
-    description: "Advanced AI analyzes your speech patterns and provides personalized feedback for rapid improvement",
+    description:
+      "Advanced AI analyzes your speech patterns and provides personalized feedback for rapid improvement",
     color: "nova",
   },
   {
     icon: Mic,
     title: "Voice Recognition",
-    description: "Real-time pronunciation analysis with detailed phonetic feedback and accent coaching",
+    description:
+      "Real-time pronunciation analysis with detailed phonetic feedback and accent coaching",
     color: "electric",
   },
   {
     icon: Eye,
     title: "Body Language Analysis",
-    description: "Visual AI assessment of posture, gestures, and facial expressions for confident presence",
+    description:
+      "Visual AI assessment of posture, gestures, and facial expressions for confident presence",
     color: "cyber",
   },
   {
     icon: Target,
     title: "Progress Tracking",
-    description: "Detailed analytics and improvement metrics to track your English learning journey",
+    description:
+      "Detailed analytics and improvement metrics to track your English learning journey",
     color: "nova",
   },
 ];
@@ -294,12 +314,15 @@ const coreFeatures = [
 export default function Practice() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [modalConfig, setModalConfig] = useState<{chatPath: string, title: string}>({chatPath: "", title: ""});
+  const [modalConfig, setModalConfig] = useState<{
+    chatPath: string;
+    title: string;
+  }>({ chatPath: "", title: "" });
 
-  const handleStartPractice = (category: typeof practiceCategories[0]) => {
+  const handleStartPractice = (category: (typeof practiceCategories)[0]) => {
     setModalConfig({
       chatPath: category.chatPath,
-      title: category.title
+      title: category.title,
     });
     setShowModal(true);
   };
@@ -315,7 +338,7 @@ export default function Practice() {
               Comprehensive English Practice
             </Badge>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
               Master English with{" "}
@@ -324,7 +347,9 @@ export default function Practice() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-              Choose from 9 comprehensive practice modes designed to build confidence in every aspect of English communication - from job interviews to public speaking.
+              Choose from 9 comprehensive practice modes designed to build
+              confidence in every aspect of English communication - from job
+              interviews to public speaking.
             </p>
           </div>
         </div>
@@ -340,12 +365,17 @@ export default function Practice() {
             {coreFeatures.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10"
+                >
                   <CardHeader className="text-center space-y-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-nova-500 to-electric-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{feature.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {feature.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground text-center">
@@ -367,7 +397,8 @@ export default function Practice() {
               Choose Your Practice Mode
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Each mode is designed with specific scenarios, AI coaching, and personalized feedback to accelerate your English mastery.
+              Each mode is designed with specific scenarios, AI coaching, and
+              personalized feedback to accelerate your English mastery.
             </p>
           </div>
 
@@ -378,13 +409,21 @@ export default function Practice() {
                 <Card
                   key={category.id}
                   className={`group cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-nova-500/20 border-border/50 hover:border-nova-500/50 overflow-hidden ${
-                    selectedCategory === category.id ? 'ring-2 ring-nova-500 border-nova-500' : ''
+                    selectedCategory === category.id
+                      ? "ring-2 ring-nova-500 border-nova-500"
+                      : ""
                   }`}
-                  onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
+                  onClick={() =>
+                    setSelectedCategory(
+                      selectedCategory === category.id ? null : category.id,
+                    )
+                  }
                 >
                   <CardHeader className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${category.gradient} rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300`}>
+                      <div
+                        className={`w-12 h-12 bg-gradient-to-br ${category.gradient} rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300`}
+                      >
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex items-center space-x-2">
@@ -397,7 +436,7 @@ export default function Practice() {
                         </Badge>
                       </div>
                     </div>
-                    
+
                     <div>
                       <CardTitle className="text-xl font-semibold group-hover:text-nova-400 transition-colors">
                         {category.title}
@@ -411,12 +450,19 @@ export default function Practice() {
                   <CardContent className="space-y-4">
                     {/* Features List */}
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Key Features:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Key Features:
+                      </p>
                       <div className="grid grid-cols-2 gap-1">
                         {category.features.map((feature, featureIndex) => (
-                          <div key={featureIndex} className="flex items-center space-x-2">
+                          <div
+                            key={featureIndex}
+                            className="flex items-center space-x-2"
+                          >
                             <Star className="w-3 h-3 text-nova-400 fill-nova-400" />
-                            <span className="text-xs text-muted-foreground">{feature}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {feature}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -425,12 +471,19 @@ export default function Practice() {
                     {/* Scenarios - Show when expanded */}
                     {selectedCategory === category.id && (
                       <div className="space-y-3 animate-in slide-in-from-top duration-300">
-                        <p className="text-sm font-medium text-foreground">Practice Scenarios:</p>
+                        <p className="text-sm font-medium text-foreground">
+                          Practice Scenarios:
+                        </p>
                         <div className="space-y-1">
                           {category.scenarios.map((scenario, scenarioIndex) => (
-                            <div key={scenarioIndex} className="flex items-center space-x-2">
+                            <div
+                              key={scenarioIndex}
+                              className="flex items-center space-x-2"
+                            >
                               <Target className="w-3 h-3 text-electric-400" />
-                              <span className="text-xs text-muted-foreground">{scenario}</span>
+                              <span className="text-xs text-muted-foreground">
+                                {scenario}
+                              </span>
                             </div>
                           ))}
                         </div>

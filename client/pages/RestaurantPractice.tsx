@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
-import { 
-  UtensilsCrossed, 
-  Clock, 
+import {
+  UtensilsCrossed,
+  Clock,
   Target,
   ArrowRight,
   Play,
@@ -16,32 +22,50 @@ import {
   MessageSquare,
   Heart,
   Globe,
-  Utensils
+  Utensils,
 } from "lucide-react";
 
 const scenarios = [
   {
     title: "Fine Dining Experience",
-    description: "Navigate upscale restaurant etiquette, wine selection, and formal service",
+    description:
+      "Navigate upscale restaurant etiquette, wine selection, and formal service",
     difficulty: "Advanced",
     duration: "20-25 min",
-    skills: ["Fine dining etiquette", "Wine vocabulary", "Formal requests", "Payment protocols"],
+    skills: [
+      "Fine dining etiquette",
+      "Wine vocabulary",
+      "Formal requests",
+      "Payment protocols",
+    ],
     icon: ChefHat,
   },
   {
     title: "Casual Restaurant Visit",
-    description: "Order comfort food, handle modifications, and interact with friendly staff",
+    description:
+      "Order comfort food, handle modifications, and interact with friendly staff",
     difficulty: "Beginner",
     duration: "12-15 min",
-    skills: ["Menu navigation", "Order modifications", "Casual conversation", "Basic requests"],
+    skills: [
+      "Menu navigation",
+      "Order modifications",
+      "Casual conversation",
+      "Basic requests",
+    ],
     icon: Coffee,
   },
   {
     title: "Special Dietary Requests",
-    description: "Communicate allergies, dietary restrictions, and special meal requirements",
+    description:
+      "Communicate allergies, dietary restrictions, and special meal requirements",
     difficulty: "Intermediate",
     duration: "15-18 min",
-    skills: ["Allergy communication", "Dietary restrictions", "Ingredient questions", "Health requirements"],
+    skills: [
+      "Allergy communication",
+      "Dietary restrictions",
+      "Ingredient questions",
+      "Health requirements",
+    ],
     icon: Heart,
   },
 ];
@@ -50,17 +74,20 @@ const features = [
   {
     icon: Utensils,
     title: "Menu Navigation",
-    description: "Master food vocabulary, descriptions, and how to ask about ingredients and preparation",
+    description:
+      "Master food vocabulary, descriptions, and how to ask about ingredients and preparation",
   },
   {
     icon: MessageSquare,
     title: "Service Interaction",
-    description: "Practice polite requests, complaints handling, and building rapport with restaurant staff",
+    description:
+      "Practice polite requests, complaints handling, and building rapport with restaurant staff",
   },
   {
     icon: Globe,
     title: "Cultural Etiquette",
-    description: "Learn dining customs, tipping practices, and appropriate behavior in different restaurant settings",
+    description:
+      "Learn dining customs, tipping practices, and appropriate behavior in different restaurant settings",
   },
 ];
 
@@ -78,7 +105,7 @@ export default function RestaurantPractice() {
               Restaurant Dining Practice
             </Badge>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
               Master{" "}
@@ -87,12 +114,14 @@ export default function RestaurantPractice() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Navigate dining experiences from ordering to payment with perfect etiquette. Learn food vocabulary, polite requests, and cultural customs.
+              Navigate dining experiences from ordering to payment with perfect
+              etiquette. Learn food vocabulary, polite requests, and cultural
+              customs.
             </p>
           </div>
 
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             onClick={() => setShowModal(true)}
             className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
           >
@@ -113,12 +142,17 @@ export default function RestaurantPractice() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10"
+                >
                   <CardHeader className="space-y-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                    <CardTitle className="text-xl font-semibold">
+                      {feature.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground">
@@ -136,17 +170,23 @@ export default function RestaurantPractice() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold text-foreground">Dining Scenarios</h2>
+            <h2 className="text-3xl font-bold text-foreground">
+              Dining Scenarios
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Practice various restaurant situations from casual to fine dining experiences
+              Practice various restaurant situations from casual to fine dining
+              experiences
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {scenarios.map((scenario, index) => {
               const Icon = scenario.icon;
               return (
-                <Card key={index} className="group hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 border-border/50 hover:border-amber-500/50">
+                <Card
+                  key={index}
+                  className="group hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 border-border/50 hover:border-amber-500/50"
+                >
                   <CardHeader className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
@@ -156,7 +196,9 @@ export default function RestaurantPractice() {
                         {scenario.difficulty}
                       </Badge>
                     </div>
-                    <CardTitle className="text-lg font-semibold">{scenario.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {scenario.title}
+                    </CardTitle>
                     <CardDescription>{scenario.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -171,10 +213,16 @@ export default function RestaurantPractice() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Dining Skills:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Dining Skills:
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {scenario.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                          <Badge
+                            key={skillIndex}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}

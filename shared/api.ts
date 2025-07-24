@@ -38,7 +38,7 @@ export interface EmotionContext {
  */
 export interface ChatRequest {
   messages: Array<{
-    role: 'system' | 'user' | 'assistant';
+    role: "system" | "user" | "assistant";
     content: string;
   }>;
   temperature?: number;
