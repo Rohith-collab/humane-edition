@@ -237,6 +237,29 @@ const practiceCategories = [
       "Travel Interactions",
       "Diplomatic Conversations"
     ]
+  },
+  {
+    id: "humanoid",
+    title: "Humanoid AI Tutor",
+    description: "Experience revolutionary conversations with photorealistic AI humans powered by D-ID technology",
+    icon: Bot,
+    difficulty: "All Levels",
+    duration: "Unlimited",
+    chatPath: "/humanoid/chat",
+    gradient: "from-indigo-500 to-violet-500",
+    bgGradient: "from-indigo-50/50 via-background to-violet-50/50",
+    features: [
+      "D-ID integration",
+      "GPT-4 intelligence",
+      "Voice interaction",
+      "Unlimited topics"
+    ],
+    scenarios: [
+      "General Knowledge",
+      "Creative Brainstorming",
+      "Problem Solving",
+      "Personal Development"
+    ]
   }
 ];
 
