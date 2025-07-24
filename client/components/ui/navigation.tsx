@@ -46,7 +46,7 @@ export function Navigation() {
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <div className="w-10 h-10 bg-gradient-to-br from-nova-500 via-electric-500 to-cyber-500 rounded-xl flex items-center justify-center glow">
-                <span className="text-white font-bold text-xl">H</span>
+                <span className="text-white font-bold text-xl">A</span>
               </div>
               <div className="absolute -inset-1 bg-gradient-to-br from-nova-500 via-electric-500 to-cyber-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition-opacity"></div>
             </div>
