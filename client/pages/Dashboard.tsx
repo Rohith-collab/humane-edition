@@ -146,6 +146,14 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="fixed top-6 left-6 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span className="text-sm font-medium">Back</span>
+        </button>
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center space-x-4 mb-6">
