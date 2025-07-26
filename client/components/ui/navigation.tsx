@@ -142,9 +142,18 @@ export function Navigation() {
                 </Link>
               );
             })}
-            <div className="px-2 pt-4">
-              <Button className="w-full bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-medium glow-electric transition-all duration-300">
-                Start Learning
+            <div className="px-2 pt-4 space-y-3">
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-2">
+                <User className="w-4 h-4" />
+                <span>{currentUser?.displayName || currentUser?.email}</span>
+              </div>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                className="w-full flex items-center justify-center space-x-2 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-500"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
               </Button>
             </div>
           </div>
