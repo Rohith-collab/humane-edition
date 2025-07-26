@@ -9,8 +9,11 @@ import {
   Menu,
   X,
   Bot,
+  LogOut,
+  User,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
