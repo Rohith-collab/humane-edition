@@ -81,7 +81,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
+          <UserAnalyticsProvider>
+            <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -339,7 +340,8 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
-          </Routes>
+            </Routes>
+          </UserAnalyticsProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
