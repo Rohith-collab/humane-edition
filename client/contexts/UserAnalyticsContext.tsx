@@ -134,14 +134,9 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
             weeklyData: data.weeklyData || []
           } as UserAnalytics);
         } else {
-          // Create default analytics for new user
-          const defaultAnalytics = getDefaultAnalytics();
-          await setDoc(doc(db, 'userAnalytics', currentUser.uid), {
-            ...defaultAnalytics,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp()
-          });
-          setAnalytics(defaultAnalytics);
+          // Create sample analytics for demo purposes
+          const sampleData = await initializeSampleData(currentUser.uid);
+          setAnalytics(sampleData as UserAnalytics);
         }
       } catch (error) {
         console.error('Error loading user analytics:', error);
