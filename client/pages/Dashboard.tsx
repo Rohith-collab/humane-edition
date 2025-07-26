@@ -149,7 +149,7 @@ const Dashboard = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="fixed top-6 left-6 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="fixed top-6 right-6 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           <ArrowLeft className="h-4 w-4" />
           <span className="text-sm font-medium">Back</span>
