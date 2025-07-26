@@ -129,6 +129,18 @@ const Dashboard = () => {
 
   const fluencyLevel = getFluencyLevel(userStats.fluencyScore);
 
+  if (analyticsLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 border-4 border-nova-500/30 border-t-nova-500 rounded-full animate-spin mx-auto"></div>
+          <h2 className="text-xl font-semibold text-foreground">Loading your dashboard...</h2>
+          <p className="text-muted-foreground">Analyzing your learning progress</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -422,7 +434,7 @@ const Dashboard = () => {
 
               <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-200/20">
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-2">��</div>
+                  <div className="text-4xl mb-2">💬</div>
                   <h3 className="font-semibold">Conversation Starter</h3>
                   <p className="text-sm text-muted-foreground">Completed 10 AI conversations</p>
                   <Badge variant="secondary" className="mt-2">Earned</Badge>
