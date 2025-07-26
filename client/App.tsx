@@ -100,10 +100,7 @@ const App = () => (
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <PlaceholderPage
-                    title="Dashboard"
-                    description="View your learning progress, achievements, and personalized insights."
-                  />
+                  <Dashboard />
                 </ProtectedRoute>
               }
             />
