@@ -89,15 +89,15 @@ const Dashboard = () => {
     { module: 'Humanoid Tutor', completed: 0, total: 20, accuracy: 0, timeSpent: 0 }
   ];
 
-  const [weeklyData, setWeeklyData] = useState<WeeklyData[]>([
-    { day: 'Mon', sessions: 2, hours: 1.5, fluency: 75 },
-    { day: 'Tue', sessions: 3, hours: 2.1, fluency: 76 },
-    { day: 'Wed', sessions: 1, hours: 0.8, fluency: 74 },
-    { day: 'Thu', sessions: 4, hours: 2.8, fluency: 78 },
-    { day: 'Fri', sessions: 2, hours: 1.4, fluency: 77 },
-    { day: 'Sat', sessions: 3, hours: 2.2, fluency: 79 },
-    { day: 'Sun', sessions: 2, hours: 1.7, fluency: 78 }
-  ]);
+  const weeklyData: WeeklyData[] = analytics?.weeklyData.length ? analytics.weeklyData : [
+    { day: 'Mon', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
+    { day: 'Tue', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
+    { day: 'Wed', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
+    { day: 'Thu', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
+    { day: 'Fri', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
+    { day: 'Sat', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
+    { day: 'Sun', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) }
+  ];
 
   const fluencyLevels = [
     { name: 'Beginner', value: 15, color: '#ef4444' },
@@ -422,7 +422,7 @@ const Dashboard = () => {
 
               <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-200/20">
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-2">💬</div>
+                  <div className="text-4xl mb-2">��</div>
                   <h3 className="font-semibold">Conversation Starter</h3>
                   <p className="text-sm text-muted-foreground">Completed 10 AI conversations</p>
                   <Badge variant="secondary" className="mt-2">Earned</Badge>
