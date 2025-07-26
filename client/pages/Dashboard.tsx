@@ -71,14 +71,23 @@ const Dashboard = () => {
     pronunciationAccuracy: 0
   };
 
-  const [moduleProgress, setModuleProgress] = useState<ModuleProgress[]>([
-    { module: 'Business English', completed: 8, total: 12, accuracy: 89, timeSpent: 4.2 },
-    { module: 'Social Conversation', completed: 6, total: 10, accuracy: 82, timeSpent: 3.8 },
-    { module: 'Interview Prep', completed: 5, total: 8, accuracy: 91, timeSpent: 2.1 },
-    { module: 'Presentation Skills', completed: 7, total: 9, accuracy: 87, timeSpent: 3.5 },
-    { module: 'Cultural Communication', completed: 4, total: 7, accuracy: 78, timeSpent: 1.9 },
-    { module: 'Grammar Tutor', completed: 9, total: 15, accuracy: 93, timeSpent: 6.2 }
-  ]);
+  const moduleProgress: ModuleProgress[] = analytics ? [
+    { module: 'Business English', ...analytics.moduleProgress.business },
+    { module: 'Social Conversation', ...analytics.moduleProgress.social },
+    { module: 'Interview Prep', ...analytics.moduleProgress.interview },
+    { module: 'Presentation Skills', ...analytics.moduleProgress.presentation },
+    { module: 'Cultural Communication', ...analytics.moduleProgress.cultural },
+    { module: 'Grammar Tutor', ...analytics.moduleProgress.grammar },
+    { module: 'Humanoid Tutor', ...analytics.moduleProgress.humanoid }
+  ] : [
+    { module: 'Business English', completed: 0, total: 12, accuracy: 0, timeSpent: 0 },
+    { module: 'Social Conversation', completed: 0, total: 10, accuracy: 0, timeSpent: 0 },
+    { module: 'Interview Prep', completed: 0, total: 8, accuracy: 0, timeSpent: 0 },
+    { module: 'Presentation Skills', completed: 0, total: 9, accuracy: 0, timeSpent: 0 },
+    { module: 'Cultural Communication', completed: 0, total: 7, accuracy: 0, timeSpent: 0 },
+    { module: 'Grammar Tutor', completed: 0, total: 15, accuracy: 0, timeSpent: 0 },
+    { module: 'Humanoid Tutor', completed: 0, total: 20, accuracy: 0, timeSpent: 0 }
+  ];
 
   const [weeklyData, setWeeklyData] = useState<WeeklyData[]>([
     { day: 'Mon', sessions: 2, hours: 1.5, fluency: 75 },
