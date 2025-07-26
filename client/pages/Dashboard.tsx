@@ -6,7 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { CalendarDays, Clock, Target, TrendingUp, BookOpen, MessageSquare, Award, Zap } from 'lucide-react';
+import { CalendarDays, Clock, Target, TrendingUp, BookOpen, MessageSquare, Award, Zap, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
 interface UserStats {
