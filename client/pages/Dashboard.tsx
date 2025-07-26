@@ -43,6 +43,7 @@ interface WeeklyData {
 const Dashboard = () => {
   const { currentUser } = useAuth();
   const { analytics, loading: analyticsLoading } = useUserAnalytics();
+  const navigate = useNavigate();
 
   const userStats: UserStats = analytics ? {
     totalSessions: analytics.totalSessions,
