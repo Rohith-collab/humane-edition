@@ -41,20 +41,35 @@ interface WeeklyData {
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
-  const [userStats, setUserStats] = useState<UserStats>({
-    totalSessions: 47,
-    totalHours: 23.5,
-    currentStreak: 7,
-    longestStreak: 12,
-    fluencyScore: 78,
+  const { analytics, loading: analyticsLoading } = useUserAnalytics();
+
+  const userStats: UserStats = analytics ? {
+    totalSessions: analytics.totalSessions,
+    totalHours: analytics.totalHours,
+    currentStreak: analytics.currentStreak,
+    longestStreak: analytics.longestStreak,
+    fluencyScore: analytics.fluencyScore,
+    weeklyGoal: analytics.weeklyGoal,
+    weeklyProgress: analytics.weeklyProgress,
+    lastSessionDate: analytics.lastSessionDate,
+    practiceModulesCompleted: analytics.practiceModulesCompleted,
+    conversationsHeld: analytics.conversationsHeld,
+    wordsLearned: analytics.wordsLearned,
+    pronunciationAccuracy: analytics.pronunciationAccuracy
+  } : {
+    totalSessions: 0,
+    totalHours: 0,
+    currentStreak: 0,
+    longestStreak: 0,
+    fluencyScore: 0,
     weeklyGoal: 10,
-    weeklyProgress: 7.5,
-    lastSessionDate: new Date().toISOString().split('T')[0],
-    practiceModulesCompleted: 15,
-    conversationsHeld: 32,
-    wordsLearned: 284,
-    pronunciationAccuracy: 85
-  });
+    weeklyProgress: 0,
+    lastSessionDate: '',
+    practiceModulesCompleted: 0,
+    conversationsHeld: 0,
+    wordsLearned: 0,
+    pronunciationAccuracy: 0
+  };
 
   const [moduleProgress, setModuleProgress] = useState<ModuleProgress[]>([
     { module: 'Business English', completed: 8, total: 12, accuracy: 89, timeSpent: 4.2 },
