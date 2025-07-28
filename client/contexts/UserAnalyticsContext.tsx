@@ -126,7 +126,7 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
 
       try {
         const analyticsDoc = await getDoc(doc(db, 'userAnalytics', currentUser.uid));
-        
+
         if (analyticsDoc.exists()) {
           const data = analyticsDoc.data();
           setAnalytics({
@@ -139,8 +139,19 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           const sampleData = await initializeSampleData(currentUser.uid);
           setAnalytics(sampleData as UserAnalytics);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error loading user analytics:', error);
+
+        // If it's a network error, try to retry connection
+        if (error.code === 'unavailable' || error.message?.includes('network')) {
+          console.log('Network error detected, retrying Firebase connection...');
+          const retrySuccess = await retryFirebaseConnection();
+          if (!retrySuccess) {
+            console.log('Using default analytics due to network issues');
+          }
+        }
+
+        // Use default analytics as fallback
         setAnalytics(getDefaultAnalytics());
       } finally {
         setLoading(false);
