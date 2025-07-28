@@ -30,7 +30,7 @@ export default function Login() {
       await login(email, password);
       navigate('/');
     } catch (error: any) {
-      setError('Failed to log in. Please check your credentials.');
+      setError(error.message || 'Failed to log in. Please check your credentials.');
       console.error('Login error:', error);
     } finally {
       setLoading(false);
