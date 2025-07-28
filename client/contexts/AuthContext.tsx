@@ -37,16 +37,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Register new user
   const register = async (email: string, password: string, displayName: string) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    
-    // Update user profile with display name
-    if (userCredential.user) {
-      await updateProfile(userCredential.user, {
-        displayName: displayName
-      });
-      // Refresh the user to get updated profile
-      await userCredential.user.reload();
-      setCurrentUser(userCredential.user);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Update user profile with display name
+      if (userCredential.user) {
+        await updateProfile(userCredential.user, {
+          displayName: displayName
+        });
+        // Refresh the user to get updated profile
+        await userCredential.user.reload();
+        setCurrentUser(userCredential.user);
+      }
+    } catch (error: any) {
+      // Handle specific Firebase errors
+      if (error.code === 'auth/network-request-failed') {
+        throw new Error('Network connection failed. Please check your internet connection and try again.');
+      } else if (error.code === 'auth/email-already-in-use') {
+        throw new Error('An account with this email already exists.');
+      } else if (error.code === 'auth/invalid-email') {
+        throw new Error('Invalid email address.');
+      } else if (error.code === 'auth/weak-password') {
+        throw new Error('Password should be at least 6 characters long.');
+      } else {
+        throw new Error(error.message || 'Registration failed. Please try again.');
+      }
     }
   };
 
