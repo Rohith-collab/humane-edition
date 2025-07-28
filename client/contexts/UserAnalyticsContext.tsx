@@ -3,6 +3,7 @@ import { useAuth } from './AuthContext';
 import { db } from '@/lib/firebase';
 import { doc, setDoc, getDoc, updateDoc, increment, serverTimestamp } from 'firebase/firestore';
 import { initializeSampleData } from '@/utils/sampleDataGenerator';
+import { retryFirebaseConnection } from '@/lib/firebase';
 
 interface SessionData {
   sessionId: string;
