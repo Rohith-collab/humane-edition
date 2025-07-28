@@ -33,6 +33,7 @@ import SpeakingChat from "./pages/SpeakingChat";
 import CulturalChat from "./pages/CulturalChat";
 import HumanoidChat from "./pages/HumanoidChat";
 import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
