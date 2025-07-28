@@ -325,10 +325,9 @@ const App = () => (
                 path="/settings"
                 element={
                   <ProtectedRoute>
-                    <PlaceholderPage
-                      title="Settings"
-                      description="Customize your learning experience and manage your account."
-                    />
+                    <Layout>
+                      <Settings />
+                    </Layout>
                   </ProtectedRoute>
                 }
               />
