@@ -1,37 +1,45 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/contexts/AuthContext';
-import { AlertCircle, Mail, Lock, Bot, Sparkles, LogIn } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/contexts/AuthContext";
+import { AlertCircle, Mail, Lock, Bot, Sparkles, LogIn } from "lucide-react";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       return;
     }
 
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await login(email, password);
-      navigate('/');
+      navigate("/");
     } catch (error: any) {
-      setError(error.message || 'Failed to log in. Please check your credentials.');
-      console.error('Login error:', error);
+      setError(
+        error.message || "Failed to log in. Please check your credentials.",
+      );
+      console.error("Login error:", error);
     } finally {
       setLoading(false);
     }
@@ -85,7 +93,10 @@ export default function Login() {
 
             {/* Email Field */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium flex items-center space-x-2">
+              <Label
+                htmlFor="email"
+                className="text-sm font-medium flex items-center space-x-2"
+              >
                 <Mail className="w-4 h-4" />
                 <span>Email</span>
               </Label>
@@ -103,7 +114,10 @@ export default function Login() {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium flex items-center space-x-2">
+              <Label
+                htmlFor="password"
+                className="text-sm font-medium flex items-center space-x-2"
+              >
                 <Lock className="w-4 h-4" />
                 <span>Password</span>
               </Label>
@@ -141,9 +155,9 @@ export default function Login() {
             {/* Register Link */}
             <div className="text-center pt-4 border-t border-border/50">
               <p className="text-sm text-muted-foreground">
-                Don't have an account?{' '}
-                <Link 
-                  to="/register" 
+                Don't have an account?{" "}
+                <Link
+                  to="/register"
                   className="text-nova-500 hover:text-nova-600 font-medium transition-colors"
                 >
                   Create one here
@@ -154,7 +168,9 @@ export default function Login() {
 
           {/* Features Preview */}
           <div className="mt-6 pt-6 border-t border-border/50">
-            <p className="text-xs text-muted-foreground text-center mb-3">What you'll get access to:</p>
+            <p className="text-xs text-muted-foreground text-center mb-3">
+              What you'll get access to:
+            </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="flex items-center space-x-2">
                 <Sparkles className="w-3 h-3 text-nova-500" />

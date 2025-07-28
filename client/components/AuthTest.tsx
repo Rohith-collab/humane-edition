@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const AuthTest = () => {
-  const [email, setEmail] = useState('test@example.com');
-  const [password, setPassword] = useState('password123');
-  const [status, setStatus] = useState('');
+  const [email, setEmail] = useState("test@example.com");
+  const [password, setPassword] = useState("password123");
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const { login, register, currentUser, logout } = useAuth();
 
   const testLogin = async () => {
     setLoading(true);
-    setStatus('Testing login...');
+    setStatus("Testing login...");
     try {
       await login(email, password);
-      setStatus('✅ Login successful!');
+      setStatus("✅ Login successful!");
     } catch (error: any) {
       setStatus(`❌ Login failed: ${error.message}`);
     } finally {
@@ -26,10 +26,10 @@ export const AuthTest = () => {
 
   const testRegister = async () => {
     setLoading(true);
-    setStatus('Testing registration...');
+    setStatus("Testing registration...");
     try {
-      await register(email, password, 'Test User');
-      setStatus('✅ Registration successful!');
+      await register(email, password, "Test User");
+      setStatus("✅ Registration successful!");
     } catch (error: any) {
       setStatus(`❌ Registration failed: ${error.message}`);
     } finally {
@@ -39,10 +39,10 @@ export const AuthTest = () => {
 
   const testLogout = async () => {
     setLoading(true);
-    setStatus('Testing logout...');
+    setStatus("Testing logout...");
     try {
       await logout();
-      setStatus('✅ Logout successful!');
+      setStatus("✅ Logout successful!");
     } catch (error: any) {
       setStatus(`❌ Logout failed: ${error.message}`);
     } finally {
@@ -82,13 +82,18 @@ export const AuthTest = () => {
               <Button onClick={testLogin} disabled={loading} className="flex-1">
                 Test Login
               </Button>
-              <Button onClick={testRegister} disabled={loading} className="flex-1" variant="outline">
+              <Button
+                onClick={testRegister}
+                disabled={loading}
+                className="flex-1"
+                variant="outline"
+              >
                 Test Register
               </Button>
             </div>
           </div>
         )}
-        
+
         {status && (
           <div className="p-3 bg-muted rounded-lg">
             <p className="text-sm">{status}</p>
@@ -96,8 +101,12 @@ export const AuthTest = () => {
         )}
 
         <div className="text-xs text-muted-foreground">
-          <p>Firebase Status: {navigator.onLine ? '🟢 Online' : '🔴 Offline'}</p>
-          <p>Auth State: {currentUser ? 'Authenticated' : 'Not authenticated'}</p>
+          <p>
+            Firebase Status: {navigator.onLine ? "🟢 Online" : "🔴 Offline"}
+          </p>
+          <p>
+            Auth State: {currentUser ? "Authenticated" : "Not authenticated"}
+          </p>
         </div>
       </CardContent>
     </Card>

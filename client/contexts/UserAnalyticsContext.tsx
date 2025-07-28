@@ -1,9 +1,16 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useAuth } from './AuthContext';
-import { db } from '@/lib/firebase';
-import { doc, setDoc, getDoc, updateDoc, increment, serverTimestamp } from 'firebase/firestore';
-import { generateSampleAnalytics } from '@/utils/sampleDataGenerator';
-import { retryFirebaseConnection } from '@/lib/firebase';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
+import { db } from "@/lib/firebase";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  increment,
+  serverTimestamp,
+} from "firebase/firestore";
+import { generateSampleAnalytics } from "@/utils/sampleDataGenerator";
+import { retryFirebaseConnection } from "@/lib/firebase";
 
 interface SessionData {
   sessionId: string;
@@ -17,7 +24,7 @@ interface SessionData {
 }
 
 interface ActivityData {
-  type: 'conversation' | 'practice' | 'grammar' | 'pronunciation';
+  type: "conversation" | "practice" | "grammar" | "pronunciation";
   duration: number;
   accuracy: number;
   timestamp: Date;
@@ -37,10 +44,10 @@ interface UserAnalytics {
   conversationsHeld: number;
   wordsLearned: number;
   pronunciationAccuracy: number;
-  
+
   // Module Progress
   moduleProgress: { [key: string]: ModuleStats };
-  
+
   // Recent Activity
   recentSessions: SessionData[];
   weeklyData: WeeklyStats[];
@@ -73,12 +80,16 @@ interface UserAnalyticsContextType {
   loading: boolean;
 }
 
-const UserAnalyticsContext = createContext<UserAnalyticsContextType | undefined>(undefined);
+const UserAnalyticsContext = createContext<
+  UserAnalyticsContextType | undefined
+>(undefined);
 
 export const useUserAnalytics = () => {
   const context = useContext(UserAnalyticsContext);
   if (context === undefined) {
-    throw new Error('useUserAnalytics must be used within a UserAnalyticsProvider');
+    throw new Error(
+      "useUserAnalytics must be used within a UserAnalyticsProvider",
+    );
   }
   return context;
 };
@@ -91,28 +102,74 @@ const getDefaultAnalytics = (): UserAnalytics => ({
   fluencyScore: 0,
   weeklyGoal: 10,
   weeklyProgress: 0,
-  lastSessionDate: '',
+  lastSessionDate: "",
   practiceModulesCompleted: 0,
   conversationsHeld: 0,
   wordsLearned: 0,
   pronunciationAccuracy: 0,
   moduleProgress: {
-    'business': { completed: 0, total: 12, accuracy: 0, timeSpent: 0, lastAccessed: new Date() },
-    'social': { completed: 0, total: 10, accuracy: 0, timeSpent: 0, lastAccessed: new Date() },
-    'interview': { completed: 0, total: 8, accuracy: 0, timeSpent: 0, lastAccessed: new Date() },
-    'presentation': { completed: 0, total: 9, accuracy: 0, timeSpent: 0, lastAccessed: new Date() },
-    'cultural': { completed: 0, total: 7, accuracy: 0, timeSpent: 0, lastAccessed: new Date() },
-    'grammar': { completed: 0, total: 15, accuracy: 0, timeSpent: 0, lastAccessed: new Date() },
-    'humanoid': { completed: 0, total: 20, accuracy: 0, timeSpent: 0, lastAccessed: new Date() }
+    business: {
+      completed: 0,
+      total: 12,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
+    social: {
+      completed: 0,
+      total: 10,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
+    interview: {
+      completed: 0,
+      total: 8,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
+    presentation: {
+      completed: 0,
+      total: 9,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
+    cultural: {
+      completed: 0,
+      total: 7,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
+    grammar: {
+      completed: 0,
+      total: 15,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
+    humanoid: {
+      completed: 0,
+      total: 20,
+      accuracy: 0,
+      timeSpent: 0,
+      lastAccessed: new Date(),
+    },
   },
   recentSessions: [],
-  weeklyData: []
+  weeklyData: [],
 });
 
-export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { currentUser } = useAuth();
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null);
-  const [currentSession, setCurrentSession] = useState<SessionData | null>(null);
+  const [currentSession, setCurrentSession] = useState<SessionData | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
 
   // Load user analytics from Firestore
@@ -125,37 +182,44 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       try {
-        const analyticsDoc = await getDoc(doc(db, 'userAnalytics', currentUser.uid));
+        const analyticsDoc = await getDoc(
+          doc(db, "userAnalytics", currentUser.uid),
+        );
 
         if (analyticsDoc.exists()) {
           const data = analyticsDoc.data();
           setAnalytics({
             ...data,
             recentSessions: data.recentSessions || [],
-            weeklyData: data.weeklyData || []
+            weeklyData: data.weeklyData || [],
           } as UserAnalytics);
         } else {
           // Create sample analytics for demo purposes
           try {
             const sampleData = generateSampleAnalytics(currentUser.uid);
-            await setDoc(doc(db, 'userAnalytics', currentUser.uid), sampleData);
+            await setDoc(doc(db, "userAnalytics", currentUser.uid), sampleData);
             setAnalytics(sampleData as UserAnalytics);
           } catch (saveError) {
             // If we can't save to Firebase, just use the sample data locally
-            console.log('Using sample data in offline mode');
+            console.log("Using sample data in offline mode");
             const sampleData = generateSampleAnalytics(currentUser.uid);
             setAnalytics(sampleData as UserAnalytics);
           }
         }
       } catch (error: any) {
-        console.error('Error loading user analytics:', error);
+        console.error("Error loading user analytics:", error);
 
         // If it's a network error, try to retry connection
-        if (error.code === 'unavailable' || error.message?.includes('network')) {
-          console.log('Network error detected, retrying Firebase connection...');
+        if (
+          error.code === "unavailable" ||
+          error.message?.includes("network")
+        ) {
+          console.log(
+            "Network error detected, retrying Firebase connection...",
+          );
           const retrySuccess = await retryFirebaseConnection();
           if (!retrySuccess) {
-            console.log('Using default analytics due to network issues');
+            console.log("Using default analytics due to network issues");
           }
         }
 
@@ -178,7 +242,7 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
       module,
       activities: [],
       fluencyScores: [],
-      wordsLearned: []
+      wordsLearned: [],
     };
     setCurrentSession(newSession);
   };
@@ -188,11 +252,13 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
     if (!currentSession || !currentUser || !analytics) return;
 
     const endTime = new Date();
-    const sessionDuration = (endTime.getTime() - currentSession.startTime.getTime()) / (1000 * 60 * 60); // in hours
+    const sessionDuration =
+      (endTime.getTime() - currentSession.startTime.getTime()) /
+      (1000 * 60 * 60); // in hours
 
     const updatedSession = {
       ...currentSession,
-      endTime
+      endTime,
     };
 
     try {
@@ -201,26 +267,38 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         ...analytics,
         totalSessions: analytics.totalSessions + 1,
         totalHours: analytics.totalHours + sessionDuration,
-        lastSessionDate: endTime.toISOString().split('T')[0],
-        recentSessions: [updatedSession, ...analytics.recentSessions.slice(0, 9)] // Keep last 10 sessions
+        lastSessionDate: endTime.toISOString().split("T")[0],
+        recentSessions: [
+          updatedSession,
+          ...analytics.recentSessions.slice(0, 9),
+        ], // Keep last 10 sessions
       };
 
       // Update module progress
       if (updatedAnalytics.moduleProgress[currentSession.module]) {
-        updatedAnalytics.moduleProgress[currentSession.module].timeSpent += sessionDuration;
-        updatedAnalytics.moduleProgress[currentSession.module].lastAccessed = endTime;
+        updatedAnalytics.moduleProgress[currentSession.module].timeSpent +=
+          sessionDuration;
+        updatedAnalytics.moduleProgress[currentSession.module].lastAccessed =
+          endTime;
       }
 
       // Calculate weekly progress
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date().toISOString().split("T")[0];
       const thisWeekStart = new Date();
       thisWeekStart.setDate(thisWeekStart.getDate() - thisWeekStart.getDay());
-      
+
       const weeklyHours = updatedAnalytics.recentSessions
-        .filter(session => session.endTime && new Date(session.endTime) >= thisWeekStart)
+        .filter(
+          (session) =>
+            session.endTime && new Date(session.endTime) >= thisWeekStart,
+        )
         .reduce((total, session) => {
           if (session.endTime) {
-            return total + (session.endTime.getTime() - session.startTime.getTime()) / (1000 * 60 * 60);
+            return (
+              total +
+              (session.endTime.getTime() - session.startTime.getTime()) /
+                (1000 * 60 * 60)
+            );
           }
           return total;
         }, 0);
@@ -230,25 +308,31 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
       // Update streak
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
-      
-      if (analytics.lastSessionDate === yesterdayStr || analytics.lastSessionDate === today) {
+      const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+      if (
+        analytics.lastSessionDate === yesterdayStr ||
+        analytics.lastSessionDate === today
+      ) {
         updatedAnalytics.currentStreak = analytics.currentStreak + 1;
-        updatedAnalytics.longestStreak = Math.max(updatedAnalytics.currentStreak, analytics.longestStreak);
+        updatedAnalytics.longestStreak = Math.max(
+          updatedAnalytics.currentStreak,
+          analytics.longestStreak,
+        );
       } else if (analytics.lastSessionDate !== today) {
         updatedAnalytics.currentStreak = 1;
       }
 
       // Save to Firestore
-      await updateDoc(doc(db, 'userAnalytics', currentUser.uid), {
+      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
         ...updatedAnalytics,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
 
       setAnalytics(updatedAnalytics);
       setCurrentSession(null);
     } catch (error) {
-      console.error('Error ending session:', error);
+      console.error("Error ending session:", error);
     }
   };
 
@@ -258,7 +342,7 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const updatedSession = {
       ...currentSession,
-      activities: [...currentSession.activities, activity]
+      activities: [...currentSession.activities, activity],
     };
     setCurrentSession(updatedSession);
   };
@@ -270,24 +354,24 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const updatedAnalytics = {
         ...analytics,
-        fluencyScore: Math.round((analytics.fluencyScore + score) / 2) // Simple average
+        fluencyScore: Math.round((analytics.fluencyScore + score) / 2), // Simple average
       };
 
       if (currentSession) {
         setCurrentSession({
           ...currentSession,
-          fluencyScores: [...currentSession.fluencyScores, score]
+          fluencyScores: [...currentSession.fluencyScores, score],
         });
       }
 
-      await updateDoc(doc(db, 'userAnalytics', currentUser.uid), {
+      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
         fluencyScore: updatedAnalytics.fluencyScore,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
 
       setAnalytics(updatedAnalytics);
     } catch (error) {
-      console.error('Error updating fluency score:', error);
+      console.error("Error updating fluency score:", error);
     }
   };
 
@@ -298,24 +382,24 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const updatedAnalytics = {
         ...analytics,
-        wordsLearned: analytics.wordsLearned + words.length
+        wordsLearned: analytics.wordsLearned + words.length,
       };
 
       if (currentSession) {
         setCurrentSession({
           ...currentSession,
-          wordsLearned: [...currentSession.wordsLearned, ...words]
+          wordsLearned: [...currentSession.wordsLearned, ...words],
         });
       }
 
-      await updateDoc(doc(db, 'userAnalytics', currentUser.uid), {
+      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
         wordsLearned: updatedAnalytics.wordsLearned,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
 
       setAnalytics(updatedAnalytics);
     } catch (error) {
-      console.error('Error adding words learned:', error);
+      console.error("Error adding words learned:", error);
     }
   };
 
@@ -327,7 +411,7 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
     recordActivity,
     updateFluencyScore,
     addWordsLearned,
-    loading
+    loading,
   };
 
   return (

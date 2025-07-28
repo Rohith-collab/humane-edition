@@ -1,49 +1,63 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/contexts/AuthContext';
-import { AlertCircle, Mail, Lock, User, Bot, Sparkles, UserPlus } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  AlertCircle,
+  Mail,
+  Lock,
+  User,
+  Bot,
+  Sparkles,
+  UserPlus,
+} from "lucide-react";
 
 export default function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password || !confirmPassword || !displayName) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError("Password must be at least 6 characters");
       return;
     }
 
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await register(email, password, displayName);
-      navigate('/');
+      navigate("/");
     } catch (error: any) {
-      setError(error.message || 'Failed to create account. Please try again.');
-      console.error('Registration error:', error);
+      setError(error.message || "Failed to create account. Please try again.");
+      console.error("Registration error:", error);
     } finally {
       setLoading(false);
     }
@@ -75,7 +89,8 @@ export default function Register() {
               </span>
             </CardTitle>
             <CardDescription className="text-muted-foreground mt-2">
-              Create your account to start your AI-powered English learning journey
+              Create your account to start your AI-powered English learning
+              journey
             </CardDescription>
           </div>
 
@@ -97,7 +112,10 @@ export default function Register() {
 
             {/* Display Name Field */}
             <div className="space-y-2">
-              <Label htmlFor="displayName" className="text-sm font-medium flex items-center space-x-2">
+              <Label
+                htmlFor="displayName"
+                className="text-sm font-medium flex items-center space-x-2"
+              >
                 <User className="w-4 h-4" />
                 <span>Full Name</span>
               </Label>
@@ -115,7 +133,10 @@ export default function Register() {
 
             {/* Email Field */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium flex items-center space-x-2">
+              <Label
+                htmlFor="email"
+                className="text-sm font-medium flex items-center space-x-2"
+              >
                 <Mail className="w-4 h-4" />
                 <span>Email</span>
               </Label>
@@ -133,7 +154,10 @@ export default function Register() {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium flex items-center space-x-2">
+              <Label
+                htmlFor="password"
+                className="text-sm font-medium flex items-center space-x-2"
+              >
                 <Lock className="w-4 h-4" />
                 <span>Password</span>
               </Label>
@@ -151,7 +175,10 @@ export default function Register() {
 
             {/* Confirm Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium flex items-center space-x-2">
+              <Label
+                htmlFor="confirmPassword"
+                className="text-sm font-medium flex items-center space-x-2"
+              >
                 <Lock className="w-4 h-4" />
                 <span>Confirm Password</span>
               </Label>
@@ -189,9 +216,9 @@ export default function Register() {
             {/* Login Link */}
             <div className="text-center pt-4 border-t border-border/50">
               <p className="text-sm text-muted-foreground">
-                Already have an account?{' '}
-                <Link 
-                  to="/login" 
+                Already have an account?{" "}
+                <Link
+                  to="/login"
                   className="text-electric-500 hover:text-electric-600 font-medium transition-colors"
                 >
                   Sign in here
@@ -202,7 +229,9 @@ export default function Register() {
 
           {/* Features Preview */}
           <div className="mt-6 pt-6 border-t border-border/50">
-            <p className="text-xs text-muted-foreground text-center mb-3">What's included in your free account:</p>
+            <p className="text-xs text-muted-foreground text-center mb-3">
+              What's included in your free account:
+            </p>
             <div className="space-y-2 text-xs">
               <div className="flex items-center space-x-2">
                 <Bot className="w-3 h-3 text-electric-500" />
@@ -214,7 +243,9 @@ export default function Register() {
               </div>
               <div className="flex items-center space-x-2">
                 <User className="w-3 h-3 text-nova-500" />
-                <span>9+ practice modes: interviews, presentations, social chat</span>
+                <span>
+                  9+ practice modes: interviews, presentations, social chat
+                </span>
               </div>
               <div className="flex items-center space-x-2">
                 <Sparkles className="w-3 h-3 text-electric-500" />
