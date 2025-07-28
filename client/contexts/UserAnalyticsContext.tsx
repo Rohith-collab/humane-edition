@@ -136,8 +136,16 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           } as UserAnalytics);
         } else {
           // Create sample analytics for demo purposes
-          const sampleData = await initializeSampleData(currentUser.uid);
-          setAnalytics(sampleData as UserAnalytics);
+          try {
+            const sampleData = generateSampleAnalytics(currentUser.uid);
+            await setDoc(doc(db, 'userAnalytics', currentUser.uid), sampleData);
+            setAnalytics(sampleData as UserAnalytics);
+          } catch (saveError) {
+            // If we can't save to Firebase, just use the sample data locally
+            console.log('Using sample data in offline mode');
+            const sampleData = generateSampleAnalytics(currentUser.uid);
+            setAnalytics(sampleData as UserAnalytics);
+          }
         }
       } catch (error: any) {
         console.error('Error loading user analytics:', error);
