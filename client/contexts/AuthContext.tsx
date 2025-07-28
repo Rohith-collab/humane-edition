@@ -52,7 +52,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Login existing user
   const login = async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error: any) {
+      // Handle specific Firebase errors
+      if (error.code === 'auth/network-request-failed') {
+        throw new Error('Network connection failed. Please check your internet connection and try again.');
+      } else if (error.code === 'auth/invalid-email') {
+        throw new Error('Invalid email address.');
+      } else if (error.code === 'auth/user-disabled') {
+        throw new Error('This account has been disabled.');
+      } else if (error.code === 'auth/user-not-found') {
+        throw new Error('No account found with this email address.');
+      } else if (error.code === 'auth/wrong-password') {
+        throw new Error('Incorrect password.');
+      } else if (error.code === 'auth/too-many-requests') {
+        throw new Error('Too many failed login attempts. Please try again later.');
+      } else {
+        throw new Error(error.message || 'Login failed. Please try again.');
+      }
+    }
   };
 
   // Logout user
