@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import {
@@ -23,26 +29,44 @@ import {
 const tutorPersonalities = [
   {
     title: "Professional Mentor",
-    description: "Expert guidance for career development, business advice, and professional growth",
+    description:
+      "Expert guidance for career development, business advice, and professional growth",
     personality: "Professional",
     expertise: "Business & Career",
-    skills: ["Career coaching", "Business strategy", "Leadership development", "Interview prep"],
+    skills: [
+      "Career coaching",
+      "Business strategy",
+      "Leadership development",
+      "Interview prep",
+    ],
     icon: Users,
   },
   {
     title: "Creative Companion",
-    description: "Inspiring conversations about art, creativity, writing, and innovative thinking",
+    description:
+      "Inspiring conversations about art, creativity, writing, and innovative thinking",
     personality: "Creative",
-    expertise: "Arts & Innovation", 
-    skills: ["Creative writing", "Art appreciation", "Innovation thinking", "Design concepts"],
+    expertise: "Arts & Innovation",
+    skills: [
+      "Creative writing",
+      "Art appreciation",
+      "Innovation thinking",
+      "Design concepts",
+    ],
     icon: Lightbulb,
   },
   {
     title: "Learning Buddy",
-    description: "Patient teacher for academic subjects, explanations, and educational support",
+    description:
+      "Patient teacher for academic subjects, explanations, and educational support",
     personality: "Educational",
     expertise: "Learning & Education",
-    skills: ["Subject tutoring", "Study techniques", "Research methods", "Academic writing"],
+    skills: [
+      "Subject tutoring",
+      "Study techniques",
+      "Research methods",
+      "Academic writing",
+    ],
     icon: Brain,
   },
 ];
@@ -51,22 +75,26 @@ const features = [
   {
     icon: Video,
     title: "D-ID Integration",
-    description: "Experience conversations with photorealistic human avatars that respond in real-time with natural facial expressions",
+    description:
+      "Experience conversations with photorealistic human avatars that respond in real-time with natural facial expressions",
   },
   {
     icon: Brain,
     title: "GPT-4 Intelligence",
-    description: "Powered by advanced AI with vast knowledge, creative thinking, and natural conversation abilities",
+    description:
+      "Powered by advanced AI with vast knowledge, creative thinking, and natural conversation abilities",
   },
   {
     icon: Mic2,
     title: "Voice Interaction",
-    description: "Speak naturally and hear responses with realistic human voice synthesis and lip-sync technology",
+    description:
+      "Speak naturally and hear responses with realistic human voice synthesis and lip-sync technology",
   },
   {
     icon: Heart,
     title: "Emotional Intelligence",
-    description: "AI that understands context, emotions, and adapts its communication style to your needs",
+    description:
+      "AI that understands context, emotions, and adapts its communication style to your needs",
   },
 ];
 
@@ -74,22 +102,26 @@ const conversationTopics = [
   {
     icon: Globe,
     title: "General Knowledge",
-    description: "Discuss anything from science and history to current events and philosophy",
+    description:
+      "Discuss anything from science and history to current events and philosophy",
   },
   {
     icon: Lightbulb,
     title: "Problem Solving",
-    description: "Get help with complex problems, brainstorming, and creative solutions",
+    description:
+      "Get help with complex problems, brainstorming, and creative solutions",
   },
   {
     icon: Monitor,
     title: "Technology & AI",
-    description: "Explore cutting-edge technology, programming, and artificial intelligence topics",
+    description:
+      "Explore cutting-edge technology, programming, and artificial intelligence topics",
   },
   {
     icon: Heart,
     title: "Personal Growth",
-    description: "Discuss self-improvement, relationships, wellness, and life advice",
+    description:
+      "Discuss self-improvement, relationships, wellness, and life advice",
   },
 ];
 
@@ -107,7 +139,7 @@ export default function HumanoidPractice() {
               Humanoid AI Tutor
             </Badge>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
               Meet Your{" "}
@@ -116,12 +148,14 @@ export default function HumanoidPractice() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Experience revolutionary conversations with photorealistic AI humans. Ask anything, explore ideas, and learn through natural dialogue with intelligent virtual beings.
+              Experience revolutionary conversations with photorealistic AI
+              humans. Ask anything, explore ideas, and learn through natural
+              dialogue with intelligent virtual beings.
             </p>
           </div>
 
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             onClick={() => setShowModal(true)}
             className="bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 hover:from-indigo-600 hover:via-purple-600 hover:to-violet-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
           >
@@ -142,12 +176,17 @@ export default function HumanoidPractice() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10"
+                >
                   <CardHeader className="text-center space-y-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{feature.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {feature.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground text-center">
@@ -165,22 +204,30 @@ export default function HumanoidPractice() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold text-foreground">Unlimited Conversations</h2>
+            <h2 className="text-3xl font-bold text-foreground">
+              Unlimited Conversations
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Explore any topic with your AI companion - from casual chats to deep discussions
+              Explore any topic with your AI companion - from casual chats to
+              deep discussions
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {conversationTopics.map((topic, index) => {
               const Icon = topic.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+                >
                   <CardHeader className="text-center space-y-4">
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-500 rounded-lg flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-5 h-5 text-white" />
                     </div>
-                    <CardTitle className="text-base font-semibold">{topic.title}</CardTitle>
+                    <CardTitle className="text-base font-semibold">
+                      {topic.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground text-center text-sm">
@@ -198,17 +245,23 @@ export default function HumanoidPractice() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl font-bold text-foreground">Choose Your AI Personality</h2>
+            <h2 className="text-3xl font-bold text-foreground">
+              Choose Your AI Personality
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Each AI tutor has unique expertise and communication style to match your needs
+              Each AI tutor has unique expertise and communication style to
+              match your needs
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {tutorPersonalities.map((tutor, index) => {
               const Icon = tutor.icon;
               return (
-                <Card key={index} className="group hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 border-border/50 hover:border-indigo-500/50 overflow-hidden">
+                <Card
+                  key={index}
+                  className="group hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 border-border/50 hover:border-indigo-500/50 overflow-hidden"
+                >
                   <CardHeader className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl flex items-center justify-center glow group-hover:scale-110 transition-transform duration-300">
@@ -223,7 +276,7 @@ export default function HumanoidPractice() {
                         </Badge>
                       </div>
                     </div>
-                    
+
                     <div>
                       <CardTitle className="text-xl font-semibold group-hover:text-indigo-400 transition-colors">
                         {tutor.title}
@@ -236,10 +289,16 @@ export default function HumanoidPractice() {
 
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Specializations:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Specializations:
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {tutor.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                          <Badge
+                            key={skillIndex}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}
@@ -261,7 +320,8 @@ export default function HumanoidPractice() {
               Ready to Meet Your AI Companion?
             </h2>
             <p className="text-lg text-muted-foreground">
-              Experience the future of human-AI interaction with photorealistic conversations.
+              Experience the future of human-AI interaction with photorealistic
+              conversations.
             </p>
           </div>
 

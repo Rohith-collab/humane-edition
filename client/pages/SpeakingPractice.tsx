@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import {
@@ -19,26 +25,44 @@ import {
 const speakingAreas = [
   {
     title: "Overcoming Stage Fright",
-    description: "Conquer nervousness and build unshakeable confidence on stage",
+    description:
+      "Conquer nervousness and build unshakeable confidence on stage",
     difficulty: "Beginner",
     duration: "12-15 min",
-    skills: ["Anxiety management", "Breathing techniques", "Confidence building", "Mental preparation"],
+    skills: [
+      "Anxiety management",
+      "Breathing techniques",
+      "Confidence building",
+      "Mental preparation",
+    ],
     icon: Heart,
   },
   {
     title: "Voice & Delivery",
-    description: "Master vocal techniques, pace, and powerful delivery that captivates audiences",
+    description:
+      "Master vocal techniques, pace, and powerful delivery that captivates audiences",
     difficulty: "Intermediate",
-    duration: "18-22 min", 
-    skills: ["Voice projection", "Pace control", "Emphasis techniques", "Vocal variety"],
+    duration: "18-22 min",
+    skills: [
+      "Voice projection",
+      "Pace control",
+      "Emphasis techniques",
+      "Vocal variety",
+    ],
     icon: Volume2,
   },
   {
     title: "Persuasive Speaking",
-    description: "Learn to influence, persuade, and inspire through compelling speech",
+    description:
+      "Learn to influence, persuade, and inspire through compelling speech",
     difficulty: "Advanced",
     duration: "20-25 min",
-    skills: ["Persuasion techniques", "Emotional appeal", "Logical arguments", "Call to action"],
+    skills: [
+      "Persuasion techniques",
+      "Emotional appeal",
+      "Logical arguments",
+      "Call to action",
+    ],
     icon: Brain,
   },
 ];
@@ -47,22 +71,26 @@ const techniques = [
   {
     icon: Mic,
     title: "Voice Training",
-    description: "Develop proper breathing, projection, and vocal control for clear, powerful speech",
+    description:
+      "Develop proper breathing, projection, and vocal control for clear, powerful speech",
   },
   {
     icon: Eye,
     title: "Body Language",
-    description: "Master gestures, posture, and eye contact to enhance your message",
+    description:
+      "Master gestures, posture, and eye contact to enhance your message",
   },
   {
     icon: Timer,
     title: "Timing & Rhythm",
-    description: "Perfect your pacing, use of pauses, and speech rhythm for maximum impact",
+    description:
+      "Perfect your pacing, use of pauses, and speech rhythm for maximum impact",
   },
   {
     icon: Zap,
     title: "Engagement Techniques",
-    description: "Learn to captivate your audience and maintain their attention throughout",
+    description:
+      "Learn to captivate your audience and maintain their attention throughout",
   },
 ];
 
@@ -80,7 +108,7 @@ export default function SpeakingPractice() {
               Public Speaking Mastery
             </Badge>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
               Command Any{" "}
@@ -89,7 +117,8 @@ export default function SpeakingPractice() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Transform your public speaking skills, overcome stage fright, and deliver powerful speeches that inspire and persuade any audience.
+              Transform your public speaking skills, overcome stage fright, and
+              deliver powerful speeches that inspire and persuade any audience.
             </p>
           </div>
 
@@ -115,12 +144,17 @@ export default function SpeakingPractice() {
             {techniques.map((technique, index) => {
               const Icon = technique.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10"
+                >
                   <CardHeader className="text-center space-y-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-nova-500 to-electric-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{technique.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {technique.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground text-center">
@@ -140,15 +174,19 @@ export default function SpeakingPractice() {
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl font-bold text-foreground">Focus Areas</h2>
             <p className="text-lg text-muted-foreground">
-              Develop specific skills to become a confident and compelling public speaker
+              Develop specific skills to become a confident and compelling
+              public speaker
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {speakingAreas.map((area, index) => {
               const Icon = area.icon;
               return (
-                <Card key={index} className="group hover:shadow-lg hover:shadow-nova-500/10 transition-all duration-300 border-border/50 hover:border-nova-500/50">
+                <Card
+                  key={index}
+                  className="group hover:shadow-lg hover:shadow-nova-500/10 transition-all duration-300 border-border/50 hover:border-nova-500/50"
+                >
                   <CardHeader className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="w-10 h-10 bg-gradient-to-br from-electric-500 to-cyber-500 rounded-lg flex items-center justify-center">
@@ -158,7 +196,9 @@ export default function SpeakingPractice() {
                         {area.difficulty}
                       </Badge>
                     </div>
-                    <CardTitle className="text-lg font-semibold">{area.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {area.title}
+                    </CardTitle>
                     <CardDescription>{area.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -173,10 +213,16 @@ export default function SpeakingPractice() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Core Skills:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Core Skills:
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {area.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                          <Badge
+                            key={skillIndex}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}

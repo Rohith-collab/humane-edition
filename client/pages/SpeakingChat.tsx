@@ -1,7 +1,8 @@
 import ChatbotLayout from "@/components/ChatbotLayout";
 
 export default function SpeakingChat() {
-  const welcomeMessage = "Welcome to Public Speaking Mastery! I'm your dedicated speaking coach, here to help you become a confident, compelling, and charismatic public speaker. Whether you're dealing with stage fright, want to improve your delivery, or aspire to inspire audiences, I'll guide you through proven techniques and personalized practice. From overcoming nervousness to mastering persuasive techniques, we'll work together to unleash your speaking potential. What aspect of public speaking would you like to focus on today?";
+  const welcomeMessage =
+    "Welcome to Public Speaking Mastery! I'm your dedicated speaking coach, here to help you become a confident, compelling, and charismatic public speaker. Whether you're dealing with stage fright, want to improve your delivery, or aspire to inspire audiences, I'll guide you through proven techniques and personalized practice. From overcoming nervousness to mastering persuasive techniques, we'll work together to unleash your speaking potential. What aspect of public speaking would you like to focus on today?";
 
   const systemPrompt = `You are an expert public speaking coach and communications trainer with extensive experience in helping people overcome stage fright and develop powerful speaking skills. Your role is to provide comprehensive training in all aspects of public speaking.
 
@@ -39,7 +40,8 @@ Provide specific, actionable feedback on:
 
 Always maintain an encouraging, supportive tone while providing honest, constructive feedback. Use visualization techniques, breathing exercises, and progressive practice methods. Focus on building both technical skills and genuine confidence.`;
 
-  const backgroundImage = "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80";
+  const backgroundImage =
+    "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80";
 
   return (
     <ChatbotLayout

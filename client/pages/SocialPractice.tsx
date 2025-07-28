@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import VoiceLanguageModal from "@/components/VoiceLanguageModal";
 import {
@@ -19,26 +25,44 @@ import {
 const scenarios = [
   {
     title: "Small Talk & Networking",
-    description: "Master casual conversations at social events and professional gatherings",
+    description:
+      "Master casual conversations at social events and professional gatherings",
     difficulty: "Beginner",
     duration: "10-15 min",
-    skills: ["Ice breakers", "Weather talk", "Current events", "Professional networking"],
+    skills: [
+      "Ice breakers",
+      "Weather talk",
+      "Current events",
+      "Professional networking",
+    ],
     icon: Handshake,
   },
   {
     title: "Making Plans & Invitations",
-    description: "Learn to suggest activities, make invitations, and coordinate social events",
+    description:
+      "Learn to suggest activities, make invitations, and coordinate social events",
     difficulty: "Intermediate",
-    duration: "12-18 min", 
-    skills: ["Event planning", "Time coordination", "Polite invitations", "Group activities"],
+    duration: "12-18 min",
+    skills: [
+      "Event planning",
+      "Time coordination",
+      "Polite invitations",
+      "Group activities",
+    ],
     icon: Calendar,
   },
   {
     title: "Dating & Relationships",
-    description: "Navigate romantic conversations with confidence and cultural awareness",
+    description:
+      "Navigate romantic conversations with confidence and cultural awareness",
     difficulty: "Advanced",
     duration: "15-20 min",
-    skills: ["Flirting appropriately", "Expressing interest", "Setting boundaries", "Cultural sensitivity"],
+    skills: [
+      "Flirting appropriately",
+      "Expressing interest",
+      "Setting boundaries",
+      "Cultural sensitivity",
+    ],
     icon: Heart,
   },
 ];
@@ -62,7 +86,8 @@ const conversationTopics = [
   {
     icon: Smile,
     title: "Humor & Banter",
-    description: "Appropriate humor, playful teasing, and light-hearted conversations",
+    description:
+      "Appropriate humor, playful teasing, and light-hearted conversations",
   },
 ];
 
@@ -80,7 +105,7 @@ export default function SocialPractice() {
               Social Conversation Practice
             </Badge>
           </div>
-          
+
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
               Connect Through{" "}
@@ -89,7 +114,8 @@ export default function SocialPractice() {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Master the art of social interaction, build meaningful connections, and navigate everyday conversations with confidence.
+              Master the art of social interaction, build meaningful
+              connections, and navigate everyday conversations with confidence.
             </p>
           </div>
 
@@ -115,12 +141,17 @@ export default function SocialPractice() {
             {conversationTopics.map((topic, index) => {
               const Icon = topic.icon;
               return (
-                <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-electric-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-electric-500/10">
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-electric-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-electric-500/10"
+                >
                   <CardHeader className="text-center space-y-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-electric-500 to-cyber-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{topic.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {topic.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-muted-foreground text-center">
@@ -138,17 +169,23 @@ export default function SocialPractice() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold text-foreground">Social Scenarios</h2>
+            <h2 className="text-3xl font-bold text-foreground">
+              Social Scenarios
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Practice real-world social situations and build natural conversation skills
+              Practice real-world social situations and build natural
+              conversation skills
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {scenarios.map((scenario, index) => {
               const Icon = scenario.icon;
               return (
-                <Card key={index} className="group hover:shadow-lg hover:shadow-electric-500/10 transition-all duration-300 border-border/50 hover:border-electric-500/50">
+                <Card
+                  key={index}
+                  className="group hover:shadow-lg hover:shadow-electric-500/10 transition-all duration-300 border-border/50 hover:border-electric-500/50"
+                >
                   <CardHeader className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="w-10 h-10 bg-gradient-to-br from-cyber-500 to-nova-500 rounded-lg flex items-center justify-center">
@@ -158,7 +195,9 @@ export default function SocialPractice() {
                         {scenario.difficulty}
                       </Badge>
                     </div>
-                    <CardTitle className="text-lg font-semibold">{scenario.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">
+                      {scenario.title}
+                    </CardTitle>
                     <CardDescription>{scenario.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -173,10 +212,16 @@ export default function SocialPractice() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-sm font-medium text-foreground">Skills You'll Learn:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Skills You'll Learn:
+                      </p>
                       <div className="flex flex-wrap gap-1">
                         {scenario.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                          <Badge
+                            key={skillIndex}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}

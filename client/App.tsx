@@ -80,6 +80,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+<<<<<<< HEAD
         <AuthProvider>
           <UserAnalyticsProvider>
             <Routes>
@@ -345,6 +346,164 @@ const App = () => (
             </Routes>
           </UserAnalyticsProvider>
         </AuthProvider>
+=======
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <Index />
+              </Layout>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PlaceholderPage
+                title="Dashboard"
+                description="View your learning progress, achievements, and personalized insights."
+              />
+            }
+          />
+          <Route
+            path="/practice"
+            element={
+              <Layout>
+                <Practice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/practice/interview"
+            element={
+              <Layout>
+                <InterviewPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/practice/restaurant"
+            element={
+              <Layout>
+                <RestaurantPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/practice/shopping"
+            element={
+              <Layout>
+                <ShoppingPractice />
+              </Layout>
+            }
+          />
+          <Route
+            path="/grammar"
+            element={
+              <Layout>
+                <GrammarTutor />
+              </Layout>
+            }
+          />
+          <Route path="/practice/interview/chat" element={<InterviewChat />} />
+          <Route
+            path="/practice/restaurant/chat"
+            element={<RestaurantChat />}
+          />
+          <Route path="/practice/shopping/chat" element={<ShoppingChat />} />
+          <Route path="/grammar/chat" element={<GrammarChat />} />
+          <Route
+            path="/presentation"
+            element={
+              <Layout>
+                <PresentationPractice />
+              </Layout>
+            }
+          />
+          <Route path="/presentation/chat" element={<PresentationChat />} />
+          <Route
+            path="/social"
+            element={
+              <Layout>
+                <SocialPractice />
+              </Layout>
+            }
+          />
+          <Route path="/social/chat" element={<SocialChat />} />
+          <Route
+            path="/business"
+            element={
+              <Layout>
+                <BusinessPractice />
+              </Layout>
+            }
+          />
+          <Route path="/business/chat" element={<BusinessChat />} />
+          <Route
+            path="/speaking"
+            element={
+              <Layout>
+                <SpeakingPractice />
+              </Layout>
+            }
+          />
+          <Route path="/speaking/chat" element={<SpeakingChat />} />
+          <Route
+            path="/cultural"
+            element={
+              <Layout>
+                <CulturalPractice />
+              </Layout>
+            }
+          />
+          <Route path="/cultural/chat" element={<CulturalChat />} />
+          <Route
+            path="/humanoid"
+            element={
+              <Layout>
+                <HumanoidPractice />
+              </Layout>
+            }
+          />
+          <Route path="/humanoid/chat" element={<HumanoidChat />} />
+          <Route
+            path="/pronunciation"
+            element={
+              <PlaceholderPage
+                title="Pronunciation Coach"
+                description="Perfect your pronunciation with real-time feedback and coaching."
+              />
+            }
+          />
+          <Route
+            path="/stories"
+            element={
+              <PlaceholderPage
+                title="Story Mode"
+                description="Learn through immersive storytelling and interactive role-play."
+              />
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <PlaceholderPage
+                title="Settings"
+                description="Customize your learning experience and manage your account."
+              />
+            }
+          />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route
+            path="*"
+            element={
+              <Layout>
+                <NotFound />
+              </Layout>
+            }
+          />
+        </Routes>
+>>>>>>> 8872c1080c29f731e25d07973ae9f6208381e934
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

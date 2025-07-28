@@ -93,7 +93,7 @@ export default function ChatbotLayout({
   // Load user preferences and initialize session
   useEffect(() => {
     // Load user preferences from localStorage
-    const savedPreferences = localStorage.getItem('aangilam_preferences');
+    const savedPreferences = localStorage.getItem("aangilam_preferences");
     if (savedPreferences) {
       setUserPreferences(JSON.parse(savedPreferences));
     }
@@ -386,10 +386,12 @@ export default function ChatbotLayout({
       <div
         className="w-1/2 h-screen relative"
         style={{
-          backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundImage: backgroundImage
+            ? `url(${backgroundImage})`
+            : undefined,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       >
         {backgroundImage && (
@@ -439,13 +441,20 @@ export default function ChatbotLayout({
               </Link>
             )}
             {!backUrl && (
-              <Button variant="ghost" size="sm" className="gap-2" onClick={() => window.history.back()}>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-2"
+                onClick={() => window.history.back()}
+              >
                 <ArrowLeft className="w-4 h-4" />
                 Back
               </Button>
             )}
             <div>
-              <h1 className="font-semibold text-foreground">{title || scenario}</h1>
+              <h1 className="font-semibold text-foreground">
+                {title || scenario}
+              </h1>
               <div className="flex items-center space-x-2">
                 <Badge variant="secondary" className="text-xs">
                   AI Conversation
