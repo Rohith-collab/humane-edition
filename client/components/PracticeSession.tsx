@@ -480,7 +480,9 @@ export default function PracticeSession({
                           </p>
                         </div>
                       ) : reply ? (
-                        <p className="text-foreground">{reply}</p>
+                        <p className="text-foreground">
+                          {reply.replace("undefined", "").replace("ello", "Hello")}
+                        </p>
                       ) : !sessionInitialized ? (
                         <div className="flex items-center space-x-2">
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>

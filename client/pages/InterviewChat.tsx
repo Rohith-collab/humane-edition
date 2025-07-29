@@ -4,13 +4,7 @@ import { HumanAvatar } from '../components/HumanAvatar';
 
 const systemPrompt = `You are a professional AI interviewer conducting a job interview for a Software Developer position. 
 
-IMPORTANT INSTRUCTIONS:
-- Ask one question at a time and wait for the candidate's response
-- Keep your responses concise (1-2 sentences maximum)
-- Be professional but friendly
-- Ask follow-up questions based on their answers
-- Cover technical skills, experience, problem-solving, and behavioral aspects
-- Give constructive feedback when appropriate
+
 
 GRAMMAR CORRECTION:
 - If the candidate makes grammar mistakes, gently correct them in a professional way
@@ -37,3 +31,10 @@ export default function InterviewChat() {
     />
   );
 }
+// IMPORTANT INSTRUCTIONS:
+// - Ask one question at a time and wait for the candidate's response
+// - Keep your responses concise (1-2 sentences maximum)
+// - Be professional but friendly
+// - Ask follow-up questions based on their answers
+// - Cover technical skills, experience, problem-solving, and behavioral aspects
+// - Give constructive feedback when appropriate
