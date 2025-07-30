@@ -355,6 +355,37 @@ export default function Practice() {
         </div>
       </section>
 
+      {/* Stats Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/50 via-background to-card/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Users, label: "Practice Modes", value: "9" },
+              { icon: Target, label: "AI Accuracy", value: "99.2%" },
+              { icon: TrendingUp, label: "Success Rate", value: "96%" },
+              { icon: Heart, label: "User Satisfaction", value: "4.9/5" },
+            ].map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="text-center space-y-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-xl flex items-center justify-center mx-auto glow">
+                    <Icon className="w-6 h-6 text-nova-400" />
+                  </div>
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Practice Categories */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
