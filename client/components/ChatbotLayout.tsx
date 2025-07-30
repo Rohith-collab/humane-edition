@@ -19,6 +19,7 @@ import { PracticeTimer } from "./PracticeTimer";
 import { useUsageTracking } from "@/hooks/useUsageTracking";
 import { SessionLocked } from "./SessionLocked";
 import { usageTracker } from "@/lib/usageTracking";
+import { enhanceAIResponse, isResponseHighQuality } from "@/lib/responseQuality";
 
 import { LipSyncAvatar } from "./LipSyncAvatar";
 
