@@ -414,11 +414,11 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   };
 
   const typeReply = (text: string) => {
-    setTypedText("");
+    setReply("");
     let index = 0;
     const interval = setInterval(() => {
       if (index < text.length) {
-        setTypedText(text.slice(0, index + 1));
+        setReply(text.slice(0, index + 1));
         index++;
       } else {
         clearInterval(interval);
