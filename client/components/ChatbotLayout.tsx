@@ -50,6 +50,8 @@ export default function ChatbotLayout({
   backgroundImage,
   theme,
   practiceType,
+  environmentOverlay,
+  avatarPersonality,
   // Legacy props
   scenario,
   backUrl,
