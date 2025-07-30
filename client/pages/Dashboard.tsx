@@ -47,6 +47,10 @@ const Dashboard = () => {
   const { analytics, loading: analyticsLoading } = useUserAnalytics();
   const navigate = useNavigate();
 
+  // Usage tracking
+  const { getAllStats } = useUsageTracking();
+  const practiceStats = getAllStats();
+
   const userStats: UserStats = analytics ? {
     totalSessions: analytics.totalSessions,
     totalHours: analytics.totalHours,
