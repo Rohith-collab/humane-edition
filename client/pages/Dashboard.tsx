@@ -239,10 +239,11 @@ const Dashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="progress">Progress</TabsTrigger>
             <TabsTrigger value="modules">Modules</TabsTrigger>
+            <TabsTrigger value="usage">Daily Usage</TabsTrigger>
             <TabsTrigger value="achievements">Achievements</TabsTrigger>
           </TabsList>
 
