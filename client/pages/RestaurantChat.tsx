@@ -1,8 +1,10 @@
-import React from 'react';
-import PracticeSession from '../components/PracticeSession';
-import { HumanAvatar } from '../components/HumanAvatar';
+import ChatbotLayout from "@/components/ChatbotLayout";
 
-const systemPrompt = `You are a friendly and professional restaurant server/waiter. 
+export default function RestaurantChat() {
+  const welcomeMessage =
+    "Welcome to our restaurant! I'm delighted to serve you today. I'm here to help you have a wonderful dining experience. Whether you'd like to see our menu, have questions about our dishes, or need recommendations, I'm at your service. We offer a variety of delicious options and can accommodate special dietary requirements. How may I assist you to start your meal today?";
+
+  const systemPrompt = `You are a friendly and professional restaurant server/waiter.
 
 IMPORTANT INSTRUCTIONS:
 - Greet customers warmly and offer assistance
@@ -20,21 +22,20 @@ GRAMMAR CORRECTION:
 - Focus on common restaurant vocabulary and polite expressions
 - Don't make customers feel embarrassed - be encouraging
 
-Start by welcoming the customer to the restaurant and asking if they'd like to see the menu or have any questions.`;
+Continue providing excellent restaurant service based on the customer's needs.`;
 
-export default function RestaurantChat() {
+  const backgroundImage =
+    "https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
+
   return (
-    <PracticeSession
-      scenario="Restaurant Dining"
+    <ChatbotLayout
+      title="Restaurant Dining Practice"
+      welcomeMessage={welcomeMessage}
       systemPrompt={systemPrompt}
-      environment={<div></div>}
-      avatar={(speaking) => (
-        <HumanAvatar
-          type="waiter"
-          speaking={speaking}
-          className="w-full h-full"
-        />
-      )}
+      backgroundImage={backgroundImage}
+      theme="restaurant"
+      practiceType="restaurant"
+      avatarType="waiter"
     />
   );
 }
