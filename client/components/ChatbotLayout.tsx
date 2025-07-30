@@ -30,6 +30,12 @@ interface ChatbotLayoutProps {
   backgroundImage?: string;
   theme?: string;
   practiceType?: string; // For usage tracking
+  environmentOverlay?: React.ReactNode; // For contextual environment elements
+  avatarPersonality?: {
+    role: string;
+    appearance: string;
+    mannerisms: string[];
+  };
   // Legacy interface
   scenario?: string;
   backUrl?: string;
