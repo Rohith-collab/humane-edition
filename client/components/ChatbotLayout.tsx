@@ -164,6 +164,8 @@ export default function ChatbotLayout({
     } finally {
       setIsLoading(false);
       setSessionInitialized(true);
+      // Start the practice timer when session is ready
+      startTimer();
     }
   };
 
