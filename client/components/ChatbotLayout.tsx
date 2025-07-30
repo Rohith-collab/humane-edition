@@ -14,12 +14,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { usePracticeTimer } from "@/hooks/usePracticeTimer";
-import { PracticeTimer } from "./PracticeTimer";
-import { useUsageTracking } from "@/hooks/useUsageTracking";
-import { SessionLocked } from "./SessionLocked";
-import { usageTracker } from "@/lib/usageTracking";
-import { enhanceAIResponse, isResponseHighQuality } from "@/lib/responseQuality";
 
 import { LipSyncAvatar } from "./LipSyncAvatar";
 
@@ -30,13 +24,6 @@ interface ChatbotLayoutProps {
   systemPrompt: string;
   backgroundImage?: string;
   theme?: string;
-  practiceType?: string; // For usage tracking
-  environmentOverlay?: React.ReactNode; // For contextual environment elements
-  avatarPersonality?: {
-    role: string;
-    appearance: string;
-    mannerisms: string[];
-  };
   // Legacy interface
   scenario?: string;
   backUrl?: string;
@@ -50,9 +37,6 @@ export default function ChatbotLayout({
   systemPrompt,
   backgroundImage,
   theme,
-  practiceType,
-  environmentOverlay,
-  avatarPersonality,
   // Legacy props
   scenario,
   backUrl,
@@ -72,27 +56,6 @@ export default function ChatbotLayout({
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
-
-  // Practice timer
-  const {
-    elapsedTime,
-    formattedTime,
-    isRunning: timerRunning,
-    startTimer,
-    pauseTimer,
-    resetTimer,
-    stopTimer,
-  } = usePracticeTimer();
-
-  // Usage tracking
-  const {
-    startSession,
-    endSession,
-    updateDuration,
-    getRemainingTime,
-    isSessionLocked,
-    getUsedTime,
-  } = useUsageTracking();
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
@@ -188,12 +151,6 @@ export default function ChatbotLayout({
     } finally {
       setIsLoading(false);
       setSessionInitialized(true);
-      // Start the practice timer when session is ready
-      startTimer();
-      // Start usage tracking session
-      if (practiceType) {
-        startSession(practiceType);
-      }
     }
   };
 
@@ -299,41 +256,18 @@ export default function ChatbotLayout({
     }
   };
 
-  // Enhanced response validation
-  const validateAndCleanResponse = (text: string): string => {
-    if (!text || typeof text !== 'string') {
-      return "I apologize, but I'm having trouble generating a response. Please try again.";
-    }
-
-    return text
-      // Remove any undefined/null that may have been concatenated
-      .replace(/undefined|null/gi, '')
-      // Fix encoding issues
-      .replace(/â€™/g, "'")
-      .replace(/â€œ/g, '"')
-      .replace(/â€\u009d/g, '"')
-      // Clean up whitespace
-      .replace(/\s+/g, ' ')
-      // Remove excessive character repetition
-      .replace(/(.)\1{4,}/g, '$1$1')
-      // Ensure proper sentence structure
-      .replace(/\.\s*([a-z])/g, '. $1')
-      .trim();
-  };
-
   const typeReply = (text: string) => {
-    const cleanedText = validateAndCleanResponse(text);
     let i = 0;
     setReply("");
 
     const interval = setInterval(() => {
-      if (i < cleanedText.length) {
-        setReply((prev) => prev + cleanedText[i]);
+      if (i < text.length) {
+        setReply((prev) => prev + text[i]);
         i++;
       } else {
         clearInterval(interval);
       }
-    }, 25); // Slightly faster typing for better UX
+    }, 30);
   };
 
   const speakText = (text: string) => {
@@ -384,24 +318,7 @@ export default function ChatbotLayout({
     setTranscript(inputText);
 
     try {
-      let botResponse = await getGPTReply(inputText);
-
-      // Enhance response quality
-      botResponse = enhanceAIResponse(botResponse);
-
-      // If response is still low quality, request a better one
-      if (!isResponseHighQuality(botResponse)) {
-        console.warn("Low quality response detected, requesting improvement...");
-        // Try once more with a refined prompt
-        const refinedInput = `Please provide a clear, concise response to: "${inputText}"`;
-        const improvedResponse = await getGPTReply(refinedInput);
-        const enhancedImproved = enhanceAIResponse(improvedResponse);
-
-        if (isResponseHighQuality(enhancedImproved)) {
-          botResponse = enhancedImproved;
-        }
-      }
-
+      const botResponse = await getGPTReply(inputText);
       setReply(botResponse);
       typeReply(botResponse);
 
@@ -420,9 +337,6 @@ export default function ChatbotLayout({
       ]);
     } catch (error) {
       console.error("Error handling input:", error);
-      const fallbackResponse = "I apologize for the confusion. Could you please rephrase your question so I can provide a better response?";
-      setReply(fallbackResponse);
-      typeReply(fallbackResponse);
     } finally {
       setIsLoading(false);
     }
@@ -463,40 +377,14 @@ export default function ChatbotLayout({
     setReply("");
     setTypedText("");
     setSessionInitialized(false);
-    // End current session and reset timer
-    endSession();
-    resetTimer();
     initializeSession();
   };
 
-  // Update usage tracking with timer duration
-  useEffect(() => {
-    if (practiceType && elapsedTime > 0) {
-      updateDuration(elapsedTime);
-    }
-  }, [elapsedTime, practiceType, updateDuration]);
-
-  // Check if session is locked before rendering main UI
-  if (practiceType && isSessionLocked(practiceType)) {
-    const limit = usageTracker.getPracticeLimit(practiceType);
-    const usedMinutes = getUsedTime(practiceType);
-
-    return (
-      <SessionLocked
-        practiceType={practiceType}
-        displayName={limit?.displayName || practiceType}
-        usedMinutes={usedMinutes}
-        limitMinutes={limit?.dailyLimitMinutes || 30}
-        onGoBack={() => window.history.back()}
-      />
-    );
-  }
-
   return (
     <div className="min-h-screen bg-black flex">
-      {/* Left Side - Immersive Environment */}
+      {/* Left Side - Full D-ID Avatar */}
       <div
-        className="w-1/2 h-screen relative overflow-hidden"
+        className="w-1/2 h-screen relative"
         style={{
           backgroundImage: backgroundImage
             ? `url(${backgroundImage})`
@@ -506,49 +394,15 @@ export default function ChatbotLayout({
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Environmental Background Overlay */}
         {backgroundImage && (
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]" />
         )}
-
-        {/* Environmental Elements Overlay */}
-        {environmentOverlay && (
-          <div className="absolute inset-0 z-5 pointer-events-none">
-            {environmentOverlay}
-          </div>
-        )}
-
-        {/* Avatar with Environmental Context */}
-        <div className="relative z-10 w-full h-full flex items-center justify-center">
-          <LipSyncAvatar
-            type={avatarType || "assistant"}
-            speaking={speaking || isLoading}
-            isLoading={isLoading}
-            className="w-full h-full relative"
-          />
-        </div>
-
-        {/* Character Info Overlay */}
-        {avatarPersonality && (
-          <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 z-20">
-            <div className="text-white">
-              <h3 className="font-semibold text-sm">{avatarPersonality.role}</h3>
-              <p className="text-xs opacity-80">{avatarPersonality.appearance}</p>
-              {avatarPersonality.mannerisms.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {avatarPersonality.mannerisms.slice(0, 2).map((trait, index) => (
-                    <span
-                      key={index}
-                      className="text-xs bg-white/20 rounded px-2 py-1"
-                    >
-                      {trait}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+        <LipSyncAvatar
+          type={avatarType || "assistant"}
+          speaking={speaking || isLoading}
+          isLoading={isLoading}
+          className="w-full h-full relative z-10"
+        />
 
         {/* Connection Error Overlay */}
         {apiError && (
@@ -614,18 +468,7 @@ export default function ChatbotLayout({
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
-            {/* Practice Timer */}
-            <PracticeTimer
-              elapsedTime={elapsedTime}
-              formattedTime={formattedTime}
-              isRunning={timerRunning}
-              onStart={startTimer}
-              onPause={pauseTimer}
-              onReset={resetTimer}
-              compact={true}
-            />
-
+          <div className="flex items-center space-x-2">
             <Button
               variant="ghost"
               size="sm"

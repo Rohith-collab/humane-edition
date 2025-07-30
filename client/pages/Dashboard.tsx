@@ -6,11 +6,9 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { CalendarDays, Clock, Target, TrendingUp, BookOpen, MessageSquare, Award, Zap, ArrowLeft, Lock, Timer, Users } from 'lucide-react';
+import { CalendarDays, Clock, Target, TrendingUp, BookOpen, MessageSquare, Award, Zap, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { useUsageTracking } from '@/hooks/useUsageTracking';
-import { formatMinutes } from '@/lib/usageTracking';
 
 interface UserStats {
   totalSessions: number;
@@ -46,10 +44,6 @@ const Dashboard = () => {
   const { currentUser } = useAuth();
   const { analytics, loading: analyticsLoading } = useUserAnalytics();
   const navigate = useNavigate();
-
-  // Usage tracking
-  const { getAllStats } = useUsageTracking();
-  const practiceStats = getAllStats();
 
   const userStats: UserStats = analytics ? {
     totalSessions: analytics.totalSessions,
@@ -239,11 +233,10 @@ const Dashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="progress">Progress</TabsTrigger>
             <TabsTrigger value="modules">Modules</TabsTrigger>
-            <TabsTrigger value="usage">Daily Usage</TabsTrigger>
             <TabsTrigger value="achievements">Achievements</TabsTrigger>
           </TabsList>
 
@@ -427,126 +420,6 @@ const Dashboard = () => {
                 </Card>
               ))}
             </div>
-          </TabsContent>
-
-          <TabsContent value="usage" className="space-y-6">
-            {/* Daily Usage Header */}
-            <div className="text-center space-y-2">
-              <h2 className="text-2xl font-bold text-foreground">Daily Practice Usage</h2>
-              <p className="text-muted-foreground">Track your daily practice time limits and remaining sessions</p>
-            </div>
-
-            {/* Usage Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {practiceStats.map((stat) => (
-                <Card
-                  key={stat.practiceType}
-                  className={`transition-all duration-300 ${
-                    stat.isLocked
-                      ? 'bg-gradient-to-br from-red-50/50 to-orange-50/50 border-red-200/50 dark:from-red-950/20 dark:to-orange-950/20 dark:border-red-800/30'
-                      : 'bg-card/50 hover:shadow-lg hover:shadow-nova-500/10 border-border/50'
-                  }`}
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg font-semibold flex items-center space-x-2">
-                        <span>{stat.displayName}</span>
-                        {stat.isLocked && (
-                          <Lock className="w-4 h-4 text-red-500" />
-                        )}
-                      </CardTitle>
-                      <Badge
-                        variant={stat.isLocked ? "destructive" : stat.usagePercentage > 80 ? "secondary" : "outline"}
-                        className="text-xs"
-                      >
-                        {stat.isLocked ? "Locked" : `${stat.usagePercentage.toFixed(0)}%`}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-
-                  <CardContent className="space-y-4">
-                    {/* Usage Progress */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Today's Usage</span>
-                        <span className="font-medium">
-                          {formatMinutes(stat.usedMinutes)} / {formatMinutes(stat.limitMinutes)}
-                        </span>
-                      </div>
-                      <Progress
-                        value={Math.min(stat.usagePercentage, 100)}
-                        className={`h-2 ${stat.isLocked ? 'opacity-60' : ''}`}
-                      />
-                    </div>
-
-                    {/* Remaining Time */}
-                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <Timer className={`w-4 h-4 ${stat.isLocked ? 'text-red-500' : 'text-green-500'}`} />
-                        <span className="text-sm font-medium">
-                          {stat.isLocked ? 'No time left' : `${formatMinutes(stat.remainingMinutes)} remaining`}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Status Message */}
-                    <div className="text-xs text-center">
-                      {stat.isLocked ? (
-                        <span className="text-red-600 dark:text-red-400">
-                          Daily limit reached. Try again tomorrow!
-                        </span>
-                      ) : stat.usagePercentage > 80 ? (
-                        <span className="text-amber-600 dark:text-amber-400">
-                          Running low! {formatMinutes(stat.remainingMinutes)} left today
-                        </span>
-                      ) : (
-                        <span className="text-green-600 dark:text-green-400">
-                          Ready for practice! {formatMinutes(stat.remainingMinutes)} available
-                        </span>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Usage Summary */}
-            <Card className="bg-gradient-to-r from-nova-50/50 via-electric-50/50 to-cyber-50/50 dark:from-nova-950/20 dark:via-electric-950/20 dark:to-cyber-950/20 border-nova-200/30">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Users className="w-5 h-5 text-nova-500" />
-                  <span>Today's Summary</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center space-y-1">
-                    <p className="text-2xl font-bold text-foreground">
-                      {practiceStats.filter(s => s.usedMinutes > 0).length}
-                    </p>
-                    <p className="text-xs text-muted-foreground">Sessions Used</p>
-                  </div>
-                  <div className="text-center space-y-1">
-                    <p className="text-2xl font-bold text-foreground">
-                      {formatMinutes(practiceStats.reduce((total, s) => total + s.usedMinutes, 0))}
-                    </p>
-                    <p className="text-xs text-muted-foreground">Total Practice Time</p>
-                  </div>
-                  <div className="text-center space-y-1">
-                    <p className="text-2xl font-bold text-foreground">
-                      {practiceStats.filter(s => s.isLocked).length}
-                    </p>
-                    <p className="text-xs text-muted-foreground">Locked Sessions</p>
-                  </div>
-                  <div className="text-center space-y-1">
-                    <p className="text-2xl font-bold text-foreground">
-                      {formatMinutes(practiceStats.reduce((total, s) => total + s.remainingMinutes, 0))}
-                    </p>
-                    <p className="text-xs text-muted-foreground">Time Remaining</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="achievements" className="space-y-6">
