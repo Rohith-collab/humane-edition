@@ -409,9 +409,18 @@ export default function ChatbotLayout({
     setReply("");
     setTypedText("");
     setSessionInitialized(false);
+    // End current session and reset timer
+    endSession();
     resetTimer();
     initializeSession();
   };
+
+  // Update usage tracking with timer duration
+  useEffect(() => {
+    if (practiceType && elapsedTime > 0) {
+      updateDuration(elapsedTime);
+    }
+  }, [elapsedTime, practiceType, updateDuration]);
 
   return (
     <div className="min-h-screen bg-black flex">
