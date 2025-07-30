@@ -27,6 +27,7 @@ interface ChatbotLayoutProps {
   systemPrompt: string;
   backgroundImage?: string;
   theme?: string;
+  practiceType?: string; // For usage tracking
   // Legacy interface
   scenario?: string;
   backUrl?: string;
