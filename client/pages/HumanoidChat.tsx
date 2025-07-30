@@ -414,11 +414,11 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   };
 
   const typeReply = (text: string) => {
-    setReply("");
+    setTypedText("");
     let index = 0;
     const interval = setInterval(() => {
       if (index < text.length) {
-        setReply(text.slice(0, index + 1));
+        setTypedText(text.slice(0, index + 1));
         index++;
       } else {
         clearInterval(interval);
@@ -673,7 +673,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                     </div>
                     <div className="flex-1">
                       <p className="text-foreground leading-relaxed whitespace-pre-wrap">
-                        {reply}
+                        {typedText}
                       </p>
                     </div>
                   </div>
@@ -760,7 +760,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               value={typedText}
               onChange={(e) => setTypedText(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              placeholder="Ask me anything"
+              placeholder="Ask me anything... (like ChatGPT but with a human face!)"
               disabled={isLoading}
               className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
             />

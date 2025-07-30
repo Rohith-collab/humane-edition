@@ -355,31 +355,34 @@ export default function Practice() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/50 via-background to-card/50">
+      {/* Core Features */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: Users, label: "Practice Modes", value: "9" },
-              { icon: Target, label: "AI Accuracy", value: "99.2%" },
-              { icon: TrendingUp, label: "Success Rate", value: "96%" },
-              { icon: Heart, label: "User Satisfaction", value: "4.9/5" },
-            ].map((stat, index) => {
-              const Icon = stat.icon;
+          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+            Advanced AI Features
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {coreFeatures.map((feature, index) => {
+              const Icon = feature.icon;
               return (
-                <div key={index} className="text-center space-y-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-xl flex items-center justify-center mx-auto glow">
-                    <Icon className="w-6 h-6 text-nova-400" />
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl font-bold text-foreground">
-                      {stat.value}
+                <Card
+                  key={index}
+                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10"
+                >
+                  <CardHeader className="text-center space-y-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-nova-500 to-electric-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </div>
-                </div>
+                    <CardTitle className="text-lg font-semibold">
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-muted-foreground text-center">
+                      {feature.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>
@@ -507,34 +510,31 @@ export default function Practice() {
         </div>
       </section>
 
-      {/* Core Features */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/30 via-background to-card/30">
+      {/* Stats Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-card/50 via-background to-card/50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-            Advanced AI Features
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {coreFeatures.map((feature, index) => {
-              const Icon = feature.icon;
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Users, label: "Practice Modes", value: "9" },
+              { icon: Target, label: "AI Accuracy", value: "99.2%" },
+              { icon: TrendingUp, label: "Success Rate", value: "96%" },
+              { icon: Heart, label: "User Satisfaction", value: "4.9/5" },
+            ].map((stat, index) => {
+              const Icon = stat.icon;
               return (
-                <Card
-                  key={index}
-                  className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-nova-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-nova-500/10"
-                >
-                  <CardHeader className="text-center space-y-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-nova-500 to-electric-500 rounded-xl flex items-center justify-center mx-auto glow group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-6 h-6 text-white" />
+                <div key={index} className="text-center space-y-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-xl flex items-center justify-center mx-auto glow">
+                    <Icon className="w-6 h-6 text-nova-400" />
+                  </div>
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground">
+                      {stat.value}
                     </div>
-                    <CardTitle className="text-lg font-semibold">
-                      {feature.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-muted-foreground text-center">
-                      {feature.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                    <div className="text-sm text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
