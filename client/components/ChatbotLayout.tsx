@@ -450,9 +450,9 @@ export default function ChatbotLayout({
 
   return (
     <div className="min-h-screen bg-black flex">
-      {/* Left Side - Full D-ID Avatar */}
+      {/* Left Side - Immersive Environment */}
       <div
-        className="w-1/2 h-screen relative"
+        className="w-1/2 h-screen relative overflow-hidden"
         style={{
           backgroundImage: backgroundImage
             ? `url(${backgroundImage})`
@@ -462,15 +462,49 @@ export default function ChatbotLayout({
           backgroundRepeat: "no-repeat",
         }}
       >
+        {/* Environmental Background Overlay */}
         {backgroundImage && (
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
         )}
-        <LipSyncAvatar
-          type={avatarType || "assistant"}
-          speaking={speaking || isLoading}
-          isLoading={isLoading}
-          className="w-full h-full relative z-10"
-        />
+
+        {/* Environmental Elements Overlay */}
+        {environmentOverlay && (
+          <div className="absolute inset-0 z-5 pointer-events-none">
+            {environmentOverlay}
+          </div>
+        )}
+
+        {/* Avatar with Environmental Context */}
+        <div className="relative z-10 w-full h-full flex items-center justify-center">
+          <LipSyncAvatar
+            type={avatarType || "assistant"}
+            speaking={speaking || isLoading}
+            isLoading={isLoading}
+            className="w-full h-full relative"
+          />
+        </div>
+
+        {/* Character Info Overlay */}
+        {avatarPersonality && (
+          <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 z-20">
+            <div className="text-white">
+              <h3 className="font-semibold text-sm">{avatarPersonality.role}</h3>
+              <p className="text-xs opacity-80">{avatarPersonality.appearance}</p>
+              {avatarPersonality.mannerisms.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {avatarPersonality.mannerisms.slice(0, 2).map((trait, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-white/20 rounded px-2 py-1"
+                    >
+                      {trait}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Connection Error Overlay */}
         {apiError && (
