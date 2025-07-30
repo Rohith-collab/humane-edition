@@ -59,6 +59,17 @@ export default function ChatbotLayout({
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
 
+  // Practice timer
+  const {
+    elapsedTime,
+    formattedTime,
+    isRunning: timerRunning,
+    startTimer,
+    pauseTimer,
+    resetTimer,
+    stopTimer,
+  } = usePracticeTimer();
+
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
