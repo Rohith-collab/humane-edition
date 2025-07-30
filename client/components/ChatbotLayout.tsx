@@ -384,7 +384,24 @@ export default function ChatbotLayout({
     setTranscript(inputText);
 
     try {
-      const botResponse = await getGPTReply(inputText);
+      let botResponse = await getGPTReply(inputText);
+
+      // Enhance response quality
+      botResponse = enhanceAIResponse(botResponse);
+
+      // If response is still low quality, request a better one
+      if (!isResponseHighQuality(botResponse)) {
+        console.warn("Low quality response detected, requesting improvement...");
+        // Try once more with a refined prompt
+        const refinedInput = `Please provide a clear, concise response to: "${inputText}"`;
+        const improvedResponse = await getGPTReply(refinedInput);
+        const enhancedImproved = enhanceAIResponse(improvedResponse);
+
+        if (isResponseHighQuality(enhancedImproved)) {
+          botResponse = enhancedImproved;
+        }
+      }
+
       setReply(botResponse);
       typeReply(botResponse);
 
@@ -403,6 +420,9 @@ export default function ChatbotLayout({
       ]);
     } catch (error) {
       console.error("Error handling input:", error);
+      const fallbackResponse = "I apologize for the confusion. Could you please rephrase your question so I can provide a better response?";
+      setReply(fallbackResponse);
+      typeReply(fallbackResponse);
     } finally {
       setIsLoading(false);
     }
