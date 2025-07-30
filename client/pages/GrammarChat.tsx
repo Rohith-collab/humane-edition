@@ -1,8 +1,10 @@
-import React from 'react';
-import PracticeSession from '../components/PracticeSession';
-import { HumanAvatar } from '../components/HumanAvatar';
+import ChatbotLayout from "@/components/ChatbotLayout";
 
-const systemPrompt = `You are an expert English grammar tutor with a patient and encouraging teaching style.
+export default function GrammarChat() {
+  const welcomeMessage =
+    "Hello there! Welcome to your personalized grammar tutoring session. I'm your dedicated English grammar coach, and I'm here to help you master the intricacies of English grammar with patience and encouragement. Whether you want to work on verb tenses, articles, prepositions, or any other grammar topic, I'm here to guide you step by step. What would you like to focus on today, or do you have a specific sentence you'd like me to help you with?";
+
+  const systemPrompt = `You are an expert English grammar tutor with a patient and encouraging teaching style.
 
 IMPORTANT INSTRUCTIONS:
 - Correct ALL grammar mistakes immediately and explain why they're wrong
@@ -22,21 +24,20 @@ DETAILED GRAMMAR CORRECTION:
 - Provide similar examples for practice
 - Always be encouraging: "Great effort! Let's work on this together."
 
-Start by greeting the student and asking what grammar topic they'd like to work on, or if they have a sentence they'd like you to check.`;
+Continue providing detailed grammar instruction based on the student's needs.`;
 
-export default function GrammarChat() {
+  const backgroundImage =
+    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
+
   return (
-    <PracticeSession
-      scenario="Grammar Tutor"
+    <ChatbotLayout
+      title="Grammar Tutor"
+      welcomeMessage={welcomeMessage}
       systemPrompt={systemPrompt}
-      environment={<div></div>}
-      avatar={(speaking) => (
-        <HumanAvatar
-          type="teacher"
-          speaking={speaking}
-          className="w-full h-full"
-        />
-      )}
+      backgroundImage={backgroundImage}
+      theme="grammar"
+      practiceType="grammar"
+      avatarType="teacher"
     />
   );
 }
