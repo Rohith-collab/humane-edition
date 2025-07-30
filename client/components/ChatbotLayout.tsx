@@ -179,6 +179,10 @@ export default function ChatbotLayout({
       setSessionInitialized(true);
       // Start the practice timer when session is ready
       startTimer();
+      // Start usage tracking session
+      if (practiceType) {
+        startSession(practiceType);
+      }
     }
   };
 
