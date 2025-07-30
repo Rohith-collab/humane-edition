@@ -73,6 +73,16 @@ export default function ChatbotLayout({
     stopTimer,
   } = usePracticeTimer();
 
+  // Usage tracking
+  const {
+    startSession,
+    endSession,
+    updateDuration,
+    getRemainingTime,
+    isSessionLocked,
+    getUsedTime,
+  } = useUsageTracking();
+
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
