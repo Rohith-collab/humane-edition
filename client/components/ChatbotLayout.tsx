@@ -17,6 +17,8 @@ import { cn } from "@/lib/utils";
 import { usePracticeTimer } from "@/hooks/usePracticeTimer";
 import { PracticeTimer } from "./PracticeTimer";
 import { useUsageTracking } from "@/hooks/useUsageTracking";
+import { SessionLocked } from "./SessionLocked";
+import { usageTracker } from "@/lib/usageTracking";
 
 import { LipSyncAvatar } from "./LipSyncAvatar";
 
