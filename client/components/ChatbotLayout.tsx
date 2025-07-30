@@ -298,18 +298,41 @@ export default function ChatbotLayout({
     }
   };
 
+  // Enhanced response validation
+  const validateAndCleanResponse = (text: string): string => {
+    if (!text || typeof text !== 'string') {
+      return "I apologize, but I'm having trouble generating a response. Please try again.";
+    }
+
+    return text
+      // Remove any undefined/null that may have been concatenated
+      .replace(/undefined|null/gi, '')
+      // Fix encoding issues
+      .replace(/â€™/g, "'")
+      .replace(/â€œ/g, '"')
+      .replace(/â€\u009d/g, '"')
+      // Clean up whitespace
+      .replace(/\s+/g, ' ')
+      // Remove excessive character repetition
+      .replace(/(.)\1{4,}/g, '$1$1')
+      // Ensure proper sentence structure
+      .replace(/\.\s*([a-z])/g, '. $1')
+      .trim();
+  };
+
   const typeReply = (text: string) => {
+    const cleanedText = validateAndCleanResponse(text);
     let i = 0;
     setReply("");
 
     const interval = setInterval(() => {
-      if (i < text.length) {
-        setReply((prev) => prev + text[i]);
+      if (i < cleanedText.length) {
+        setReply((prev) => prev + cleanedText[i]);
         i++;
       } else {
         clearInterval(interval);
       }
-    }, 30);
+    }, 25); // Slightly faster typing for better UX
   };
 
   const speakText = (text: string) => {
