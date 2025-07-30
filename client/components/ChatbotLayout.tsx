@@ -41,6 +41,7 @@ export default function ChatbotLayout({
   systemPrompt,
   backgroundImage,
   theme,
+  practiceType,
   // Legacy props
   scenario,
   backUrl,
