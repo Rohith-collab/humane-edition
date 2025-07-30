@@ -484,7 +484,18 @@ export default function ChatbotLayout({
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
+            {/* Practice Timer */}
+            <PracticeTimer
+              elapsedTime={elapsedTime}
+              formattedTime={formattedTime}
+              isRunning={timerRunning}
+              onStart={startTimer}
+              onPause={pauseTimer}
+              onReset={resetTimer}
+              compact={true}
+            />
+
             <Button
               variant="ghost"
               size="sm"
