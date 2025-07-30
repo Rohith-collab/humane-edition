@@ -424,6 +424,22 @@ export default function ChatbotLayout({
     }
   }, [elapsedTime, practiceType, updateDuration]);
 
+  // Check if session is locked before rendering main UI
+  if (practiceType && isSessionLocked(practiceType)) {
+    const limit = usageTracker.getPracticeLimit(practiceType);
+    const usedMinutes = getUsedTime(practiceType);
+
+    return (
+      <SessionLocked
+        practiceType={practiceType}
+        displayName={limit?.displayName || practiceType}
+        usedMinutes={usedMinutes}
+        limitMinutes={limit?.dailyLimitMinutes || 30}
+        onGoBack={() => window.history.back()}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black flex">
       {/* Left Side - Full D-ID Avatar */}
