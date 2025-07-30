@@ -42,6 +42,7 @@ Incorporate business best practices, corporate etiquette, and professional stand
       systemPrompt={systemPrompt}
       backgroundImage={backgroundImage}
       theme="business"
+      practiceType="business"
     />
   );
 }
