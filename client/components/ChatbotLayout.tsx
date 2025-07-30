@@ -392,6 +392,7 @@ export default function ChatbotLayout({
     setReply("");
     setTypedText("");
     setSessionInitialized(false);
+    resetTimer();
     initializeSession();
   };
 
