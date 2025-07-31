@@ -131,6 +131,22 @@ const Dashboard = () => {
 
   const fluencyLevel = getFluencyLevel(userStats.fluencyScore);
 
+  // Refresh data when user returns to dashboard
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && currentUser) {
+        // Refresh data when user returns to dashboard
+        window.location.reload();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [currentUser]);
+
   if (analyticsLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center">
