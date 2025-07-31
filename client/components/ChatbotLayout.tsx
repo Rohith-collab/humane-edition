@@ -111,7 +111,16 @@ export default function ChatbotLayout({
       setUserPreferences(JSON.parse(savedPreferences));
     }
 
+    // Start session tracking
+    startTracking();
+    setSessionStartTime(new Date());
+
     initializeSession();
+
+    // Cleanup function to end session when component unmounts
+    return () => {
+      endTracking();
+    };
   }, []);
 
   const initializeSession = async () => {
