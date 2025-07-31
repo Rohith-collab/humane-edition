@@ -240,7 +240,7 @@ export default function ChatbotLayout({
       if (
         retryCount === 0 &&
         err instanceof Error &&
-        err.message.includes("Failed to fetch")
+        (err.message.includes("Failed to fetch") || err.message.includes("fetch") || err.message.includes("network"))
       ) {
         console.log("Fetch failed, trying XMLHttpRequest fallback...");
         try {
