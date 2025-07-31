@@ -305,6 +305,41 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
 
       updatedAnalytics.weeklyProgress = weeklyHours;
 
+      // Update conversation count based on activities
+      const conversationActivities = currentSession.activities.filter(
+        (activity) =>
+          activity.type === "conversation" || activity.type === "practice",
+      );
+      updatedAnalytics.conversationsHeld += conversationActivities.length;
+
+      // Generate/update weekly data
+      const weeklyData = updatedAnalytics.weeklyData || [];
+      const todayData = weeklyData.find((day) => day.date === today);
+
+      if (todayData) {
+        todayData.sessions += 1;
+        todayData.hours += sessionDuration;
+        todayData.fluency = Math.min(
+          100,
+          Math.max(todayData.fluency, updatedAnalytics.fluencyScore),
+        );
+      } else {
+        // Create new day entry
+        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const dayName = dayNames[new Date().getDay()];
+
+        weeklyData.push({
+          day: dayName,
+          sessions: 1,
+          hours: sessionDuration,
+          fluency: updatedAnalytics.fluencyScore,
+          date: today,
+        });
+      }
+
+      // Keep only last 7 days
+      updatedAnalytics.weeklyData = weeklyData.slice(-7);
+
       // Update streak
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);

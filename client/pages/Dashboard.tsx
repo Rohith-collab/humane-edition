@@ -1,14 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useUserAnalytics } from '@/contexts/UserAnalyticsContext';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { CalendarDays, Clock, Target, TrendingUp, BookOpen, MessageSquare, Award, Zap, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useUserAnalytics } from "@/contexts/UserAnalyticsContext";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  CalendarDays,
+  Clock,
+  Target,
+  TrendingUp,
+  BookOpen,
+  MessageSquare,
+  Award,
+  Zap,
+  ArrowLeft,
+  RotateCcw,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 interface UserStats {
   totalSessions: number;
@@ -45,99 +75,248 @@ const Dashboard = () => {
   const { analytics, loading: analyticsLoading } = useUserAnalytics();
   const navigate = useNavigate();
 
-  const userStats: UserStats = analytics ? {
-    totalSessions: analytics.totalSessions,
-    totalHours: analytics.totalHours,
-    currentStreak: analytics.currentStreak,
-    longestStreak: analytics.longestStreak,
-    fluencyScore: analytics.fluencyScore,
-    weeklyGoal: analytics.weeklyGoal,
-    weeklyProgress: analytics.weeklyProgress,
-    lastSessionDate: analytics.lastSessionDate,
-    practiceModulesCompleted: analytics.practiceModulesCompleted,
-    conversationsHeld: analytics.conversationsHeld,
-    wordsLearned: analytics.wordsLearned,
-    pronunciationAccuracy: analytics.pronunciationAccuracy
-  } : {
-    totalSessions: 0,
-    totalHours: 0,
-    currentStreak: 0,
-    longestStreak: 0,
-    fluencyScore: 0,
-    weeklyGoal: 10,
-    weeklyProgress: 0,
-    lastSessionDate: '',
-    practiceModulesCompleted: 0,
-    conversationsHeld: 0,
-    wordsLearned: 0,
-    pronunciationAccuracy: 0
-  };
+  const userStats: UserStats = analytics
+    ? {
+        totalSessions: analytics.totalSessions,
+        totalHours: analytics.totalHours,
+        currentStreak: analytics.currentStreak,
+        longestStreak: analytics.longestStreak,
+        fluencyScore: analytics.fluencyScore,
+        weeklyGoal: analytics.weeklyGoal,
+        weeklyProgress: analytics.weeklyProgress,
+        lastSessionDate: analytics.lastSessionDate,
+        practiceModulesCompleted: analytics.practiceModulesCompleted,
+        conversationsHeld: analytics.conversationsHeld,
+        wordsLearned: analytics.wordsLearned,
+        pronunciationAccuracy: analytics.pronunciationAccuracy,
+      }
+    : {
+        totalSessions: 0,
+        totalHours: 0,
+        currentStreak: 0,
+        longestStreak: 0,
+        fluencyScore: 0,
+        weeklyGoal: 10,
+        weeklyProgress: 0,
+        lastSessionDate: "",
+        practiceModulesCompleted: 0,
+        conversationsHeld: 0,
+        wordsLearned: 0,
+        pronunciationAccuracy: 0,
+      };
 
-  const moduleProgress: ModuleProgress[] = analytics ? [
-    { module: 'Business English', ...analytics.moduleProgress.business },
-    { module: 'Social Conversation', ...analytics.moduleProgress.social },
-    { module: 'Interview Prep', ...analytics.moduleProgress.interview },
-    { module: 'Presentation Skills', ...analytics.moduleProgress.presentation },
-    { module: 'Cultural Communication', ...analytics.moduleProgress.cultural },
-    { module: 'Grammar Tutor', ...analytics.moduleProgress.grammar },
-    { module: 'Humanoid Tutor', ...analytics.moduleProgress.humanoid }
-  ] : [
-    { module: 'Business English', completed: 0, total: 12, accuracy: 0, timeSpent: 0 },
-    { module: 'Social Conversation', completed: 0, total: 10, accuracy: 0, timeSpent: 0 },
-    { module: 'Interview Prep', completed: 0, total: 8, accuracy: 0, timeSpent: 0 },
-    { module: 'Presentation Skills', completed: 0, total: 9, accuracy: 0, timeSpent: 0 },
-    { module: 'Cultural Communication', completed: 0, total: 7, accuracy: 0, timeSpent: 0 },
-    { module: 'Grammar Tutor', completed: 0, total: 15, accuracy: 0, timeSpent: 0 },
-    { module: 'Humanoid Tutor', completed: 0, total: 20, accuracy: 0, timeSpent: 0 }
-  ];
+  const moduleProgress: ModuleProgress[] = analytics
+    ? [
+        { module: "Business English", ...analytics.moduleProgress.business },
+        { module: "Social Conversation", ...analytics.moduleProgress.social },
+        { module: "Interview Prep", ...analytics.moduleProgress.interview },
+        {
+          module: "Presentation Skills",
+          ...analytics.moduleProgress.presentation,
+        },
+        {
+          module: "Cultural Communication",
+          ...analytics.moduleProgress.cultural,
+        },
+        { module: "Grammar Tutor", ...analytics.moduleProgress.grammar },
+        { module: "Humanoid Tutor", ...analytics.moduleProgress.humanoid },
+      ]
+    : [
+        {
+          module: "Business English",
+          completed: 0,
+          total: 12,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+        {
+          module: "Social Conversation",
+          completed: 0,
+          total: 10,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+        {
+          module: "Interview Prep",
+          completed: 0,
+          total: 8,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+        {
+          module: "Presentation Skills",
+          completed: 0,
+          total: 9,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+        {
+          module: "Cultural Communication",
+          completed: 0,
+          total: 7,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+        {
+          module: "Grammar Tutor",
+          completed: 0,
+          total: 15,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+        {
+          module: "Humanoid Tutor",
+          completed: 0,
+          total: 20,
+          accuracy: 0,
+          timeSpent: 0,
+        },
+      ];
 
-  const weeklyData: WeeklyData[] = analytics?.weeklyData.length ? analytics.weeklyData : [
-    { day: 'Mon', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
-    { day: 'Tue', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
-    { day: 'Wed', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
-    { day: 'Thu', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
-    { day: 'Fri', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
-    { day: 'Sat', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) },
-    { day: 'Sun', sessions: Math.max(0, Math.floor(Math.random() * 3)), hours: Math.max(0, Number((Math.random() * 2).toFixed(1))), fluency: Math.max(0, userStats.fluencyScore - 5 + Math.floor(Math.random() * 10)) }
-  ];
+  const weeklyData: WeeklyData[] = analytics?.weeklyData.length
+    ? analytics.weeklyData
+    : [
+        {
+          day: "Mon",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+        {
+          day: "Tue",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+        {
+          day: "Wed",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+        {
+          day: "Thu",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+        {
+          day: "Fri",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+        {
+          day: "Sat",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+        {
+          day: "Sun",
+          sessions: Math.max(0, Math.floor(Math.random() * 3)),
+          hours: Math.max(0, Number((Math.random() * 2).toFixed(1))),
+          fluency: Math.max(
+            0,
+            userStats.fluencyScore - 5 + Math.floor(Math.random() * 10),
+          ),
+        },
+      ];
 
   const fluencyLevels = [
-    { name: 'Beginner', value: 15, color: '#ef4444' },
-    { name: 'Intermediate', value: 35, color: '#f59e0b' },
-    { name: 'Advanced', value: 30, color: '#10b981' },
-    { name: 'Expert', value: 20, color: '#3b82f6' }
+    { name: "Beginner", value: 15, color: "#ef4444" },
+    { name: "Intermediate", value: 35, color: "#f59e0b" },
+    { name: "Advanced", value: 30, color: "#10b981" },
+    { name: "Expert", value: 20, color: "#3b82f6" },
   ];
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 18) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
   };
 
   const getStreakEmoji = (streak: number) => {
-    if (streak >= 10) return '🔥';
-    if (streak >= 5) return '⚡';
-    if (streak >= 3) return '✨';
-    return '💫';
+    if (streak >= 10) return "🔥";
+    if (streak >= 5) return "⚡";
+    if (streak >= 3) return "✨";
+    return "💫";
   };
 
   const getFluencyLevel = (score: number) => {
-    if (score >= 90) return { level: 'Expert', color: 'bg-blue-500', textColor: 'text-blue-700' };
-    if (score >= 75) return { level: 'Advanced', color: 'bg-green-500', textColor: 'text-green-700' };
-    if (score >= 50) return { level: 'Intermediate', color: 'bg-yellow-500', textColor: 'text-yellow-700' };
-    return { level: 'Beginner', color: 'bg-red-500', textColor: 'text-red-700' };
+    if (score >= 90)
+      return {
+        level: "Expert",
+        color: "bg-blue-500",
+        textColor: "text-blue-700",
+      };
+    if (score >= 75)
+      return {
+        level: "Advanced",
+        color: "bg-green-500",
+        textColor: "text-green-700",
+      };
+    if (score >= 50)
+      return {
+        level: "Intermediate",
+        color: "bg-yellow-500",
+        textColor: "text-yellow-700",
+      };
+    return {
+      level: "Beginner",
+      color: "bg-red-500",
+      textColor: "text-red-700",
+    };
   };
 
   const fluencyLevel = getFluencyLevel(userStats.fluencyScore);
+
+  // Refresh data when user returns to dashboard
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && currentUser) {
+        // Refresh data when user returns to dashboard
+        window.location.reload();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [currentUser]);
 
   if (analyticsLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="w-16 h-16 border-4 border-nova-500/30 border-t-nova-500 rounded-full animate-spin mx-auto"></div>
-          <h2 className="text-xl font-semibold text-foreground">Loading your dashboard...</h2>
-          <p className="text-muted-foreground">Analyzing your learning progress</p>
+          <h2 className="text-xl font-semibold text-foreground">
+            Loading your dashboard...
+          </h2>
+          <p className="text-muted-foreground">
+            Analyzing your learning progress
+          </p>
         </div>
       </div>
     );
@@ -149,25 +328,38 @@ const Dashboard = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="fixed top-6 right-6 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="fixed top-6 right-20 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           <ArrowLeft className="h-4 w-4" />
           <span className="text-sm font-medium">Back</span>
+        </button>
+
+        {/* Refresh Button */}
+        <button
+          onClick={() => window.location.reload()}
+          className="fixed top-6 right-6 z-50 flex items-center space-x-2 bg-nova-500/10 backdrop-blur-md border border-nova-500/20 rounded-lg px-4 py-2 text-foreground hover:bg-nova-500/20 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <RotateCcw className="h-4 w-4" />
+          <span className="text-sm font-medium">Refresh</span>
         </button>
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center space-x-4 mb-6">
             <Avatar className="h-16 w-16 ring-2 ring-nova-500/30">
-              <AvatarImage src="" alt={currentUser?.displayName || ''} />
+              <AvatarImage src="" alt={currentUser?.displayName || ""} />
               <AvatarFallback className="bg-gradient-to-br from-nova-500 to-electric-500 text-white text-xl font-bold">
-                {currentUser?.displayName?.charAt(0) || currentUser?.email?.charAt(0) || 'U'}
+                {currentUser?.displayName?.charAt(0) ||
+                  currentUser?.email?.charAt(0) ||
+                  "U"}
               </AvatarFallback>
             </Avatar>
             <div>
               <h1 className="text-3xl font-bold text-foreground">
-                {getGreeting()}, {currentUser?.displayName || 'Learner'}!
+                {getGreeting()}, {currentUser?.displayName || "Learner"}!
               </h1>
-              <p className="text-muted-foreground">Here's your English learning journey</p>
+              <p className="text-muted-foreground">
+                Here's your English learning journey
+              </p>
             </div>
           </div>
 
@@ -177,9 +369,16 @@ const Dashboard = () => {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Fluency Score</p>
-                    <p className="text-2xl font-bold text-foreground">{userStats.fluencyScore}%</p>
-                    <Badge variant="secondary" className={`mt-1 ${fluencyLevel.textColor} ${fluencyLevel.color}/10`}>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Fluency Score
+                    </p>
+                    <p className="text-2xl font-bold text-foreground">
+                      {userStats.fluencyScore}%
+                    </p>
+                    <Badge
+                      variant="secondary"
+                      className={`mt-1 ${fluencyLevel.textColor} ${fluencyLevel.color}/10`}
+                    >
                       {fluencyLevel.level}
                     </Badge>
                   </div>
@@ -192,11 +391,16 @@ const Dashboard = () => {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Current Streak</p>
-                    <p className="text-2xl font-bold text-foreground flex items-center">
-                      {userStats.currentStreak} {getStreakEmoji(userStats.currentStreak)}
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Current Streak
                     </p>
-                    <p className="text-xs text-muted-foreground">Best: {userStats.longestStreak} days</p>
+                    <p className="text-2xl font-bold text-foreground flex items-center">
+                      {userStats.currentStreak}{" "}
+                      {getStreakEmoji(userStats.currentStreak)}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Best: {userStats.longestStreak} days
+                    </p>
                   </div>
                   <Zap className="h-8 w-8 text-electric-500" />
                 </div>
@@ -207,9 +411,15 @@ const Dashboard = () => {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Total Sessions</p>
-                    <p className="text-2xl font-bold text-foreground">{userStats.totalSessions}</p>
-                    <p className="text-xs text-muted-foreground">{userStats.totalHours}h total</p>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Total Sessions
+                    </p>
+                    <p className="text-2xl font-bold text-foreground">
+                      {userStats.totalSessions}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {userStats.totalHours}h total
+                    </p>
                   </div>
                   <Clock className="h-8 w-8 text-cyber-500" />
                 </div>
@@ -220,9 +430,18 @@ const Dashboard = () => {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Weekly Goal</p>
-                    <p className="text-2xl font-bold text-foreground">{userStats.weeklyProgress}h</p>
-                    <Progress value={(userStats.weeklyProgress / userStats.weeklyGoal) * 100} className="mt-2" />
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Weekly Goal
+                    </p>
+                    <p className="text-2xl font-bold text-foreground">
+                      {userStats.weeklyProgress}h
+                    </p>
+                    <Progress
+                      value={
+                        (userStats.weeklyProgress / userStats.weeklyGoal) * 100
+                      }
+                      className="mt-2"
+                    />
                   </div>
                   <TrendingUp className="h-8 w-8 text-green-500" />
                 </div>
@@ -246,7 +465,9 @@ const Dashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Weekly Activity</CardTitle>
-                  <CardDescription>Your learning sessions this week</CardDescription>
+                  <CardDescription>
+                    Your learning sessions this week
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={200}>
@@ -265,7 +486,9 @@ const Dashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Fluency Progress</CardTitle>
-                  <CardDescription>Your speaking improvement over time</CardDescription>
+                  <CardDescription>
+                    Your speaking improvement over time
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={200}>
@@ -274,7 +497,12 @@ const Dashboard = () => {
                       <XAxis dataKey="day" />
                       <YAxis />
                       <Tooltip />
-                      <Line type="monotone" dataKey="fluency" stroke="#10b981" strokeWidth={2} />
+                      <Line
+                        type="monotone"
+                        dataKey="fluency"
+                        stroke="#10b981"
+                        strokeWidth={2}
+                      />
                     </LineChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -285,34 +513,52 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Practice Modules</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Practice Modules
+                  </CardTitle>
                   <BookOpen className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userStats.practiceModulesCompleted}</div>
-                  <p className="text-xs text-muted-foreground">completed this month</p>
+                  <div className="text-2xl font-bold">
+                    {userStats.practiceModulesCompleted}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    completed this month
+                  </p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Conversations</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Conversations
+                  </CardTitle>
                   <MessageSquare className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userStats.conversationsHeld}</div>
-                  <p className="text-xs text-muted-foreground">AI conversations held</p>
+                  <div className="text-2xl font-bold">
+                    {userStats.conversationsHeld}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    AI conversations held
+                  </p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Words Learned</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Words Learned
+                  </CardTitle>
                   <Award className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userStats.wordsLearned}</div>
-                  <p className="text-xs text-muted-foreground">new vocabulary acquired</p>
+                  <div className="text-2xl font-bold">
+                    {userStats.wordsLearned}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    new vocabulary acquired
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -324,7 +570,9 @@ const Dashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Overall Learning Progress</CardTitle>
-                  <CardDescription>Track your improvement across all areas</CardDescription>
+                  <CardDescription>
+                    Track your improvement across all areas
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -339,7 +587,10 @@ const Dashboard = () => {
                       <span>Pronunciation Accuracy</span>
                       <span>{userStats.pronunciationAccuracy}%</span>
                     </div>
-                    <Progress value={userStats.pronunciationAccuracy} className="h-2" />
+                    <Progress
+                      value={userStats.pronunciationAccuracy}
+                      className="h-2"
+                    />
                   </div>
                   <div>
                     <div className="flex justify-between text-sm mb-1">
@@ -362,7 +613,9 @@ const Dashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Skill Level Distribution</CardTitle>
-                  <CardDescription>Where you stand across different areas</CardDescription>
+                  <CardDescription>
+                    Where you stand across different areas
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={200}>
@@ -395,25 +648,37 @@ const Dashboard = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div>
-                        <h3 className="font-semibold text-lg">{module.module}</h3>
+                        <h3 className="font-semibold text-lg">
+                          {module.module}
+                        </h3>
                         <p className="text-sm text-muted-foreground">
                           {module.completed} of {module.total} lessons completed
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-nova-600">{module.accuracy}%</p>
-                        <p className="text-xs text-muted-foreground">accuracy</p>
+                        <p className="text-2xl font-bold text-nova-600">
+                          {module.accuracy}%
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          accuracy
+                        </p>
                       </div>
                     </div>
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Progress</span>
-                        <span>{Math.round((module.completed / module.total) * 100)}%</span>
+                        <span>
+                          {Math.round((module.completed / module.total) * 100)}%
+                        </span>
                       </div>
-                      <Progress value={(module.completed / module.total) * 100} />
+                      <Progress
+                        value={(module.completed / module.total) * 100}
+                      />
                       <div className="flex justify-between text-xs text-muted-foreground">
                         <span>{module.timeSpent}h practiced</span>
-                        <span>{module.total - module.completed} lessons remaining</span>
+                        <span>
+                          {module.total - module.completed} lessons remaining
+                        </span>
                       </div>
                     </div>
                   </CardContent>
@@ -428,8 +693,12 @@ const Dashboard = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-2">🏆</div>
                   <h3 className="font-semibold">First Week Complete</h3>
-                  <p className="text-sm text-muted-foreground">Completed your first week of learning</p>
-                  <Badge variant="secondary" className="mt-2">Earned</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    Completed your first week of learning
+                  </p>
+                  <Badge variant="secondary" className="mt-2">
+                    Earned
+                  </Badge>
                 </CardContent>
               </Card>
 
@@ -437,8 +706,12 @@ const Dashboard = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-2">🔥</div>
                   <h3 className="font-semibold">Week Warrior</h3>
-                  <p className="text-sm text-muted-foreground">7-day learning streak</p>
-                  <Badge variant="secondary" className="mt-2">Earned</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    7-day learning streak
+                  </p>
+                  <Badge variant="secondary" className="mt-2">
+                    Earned
+                  </Badge>
                 </CardContent>
               </Card>
 
@@ -446,8 +719,12 @@ const Dashboard = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-2">💬</div>
                   <h3 className="font-semibold">Conversation Starter</h3>
-                  <p className="text-sm text-muted-foreground">Completed 10 AI conversations</p>
-                  <Badge variant="secondary" className="mt-2">Earned</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    Completed 10 AI conversations
+                  </p>
+                  <Badge variant="secondary" className="mt-2">
+                    Earned
+                  </Badge>
                 </CardContent>
               </Card>
 
@@ -455,8 +732,12 @@ const Dashboard = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-2">📈</div>
                   <h3 className="font-semibold">Progress Master</h3>
-                  <p className="text-sm text-muted-foreground">Reached 75% fluency score</p>
-                  <Badge variant="secondary" className="mt-2">Earned</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    Reached 75% fluency score
+                  </p>
+                  <Badge variant="secondary" className="mt-2">
+                    Earned
+                  </Badge>
                 </CardContent>
               </Card>
 
@@ -464,8 +745,12 @@ const Dashboard = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-2">🎯</div>
                   <h3 className="font-semibold">Goal Crusher</h3>
-                  <p className="text-sm text-muted-foreground">Met weekly learning goal</p>
-                  <Badge variant="outline" className="mt-2">In Progress</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    Met weekly learning goal
+                  </p>
+                  <Badge variant="outline" className="mt-2">
+                    In Progress
+                  </Badge>
                 </CardContent>
               </Card>
 
@@ -473,8 +758,12 @@ const Dashboard = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-2">🌟</div>
                   <h3 className="font-semibold">Expert Level</h3>
-                  <p className="text-sm text-muted-foreground">Reach 90% fluency score</p>
-                  <Badge variant="outline" className="mt-2">Locked</Badge>
+                  <p className="text-sm text-muted-foreground">
+                    Reach 90% fluency score
+                  </p>
+                  <Badge variant="outline" className="mt-2">
+                    Locked
+                  </Badge>
                 </CardContent>
               </Card>
             </div>

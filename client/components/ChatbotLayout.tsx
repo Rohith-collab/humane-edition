@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useSessionTracking } from "@/hooks/useSessionTracking";
 
 import { LipSyncAvatar } from "./LipSyncAvatar";
 
@@ -56,6 +57,18 @@ export default function ChatbotLayout({
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
+  const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+
+  // Session tracking
+  const moduleName = scenario || title || "chat";
+  const {
+    isSessionActive,
+    startSession: startTracking,
+    endSession: endTracking,
+    trackConversation,
+    recordFluencyImprovement,
+    recordVocabularyLearned,
+  } = useSessionTracking(moduleName.toLowerCase(), false);
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
@@ -98,7 +111,16 @@ export default function ChatbotLayout({
       setUserPreferences(JSON.parse(savedPreferences));
     }
 
+    // Start session tracking
+    startTracking();
+    setSessionStartTime(new Date());
+
     initializeSession();
+
+    // Cleanup function to end session when component unmounts
+    return () => {
+      endTracking();
+    };
   }, []);
 
   const initializeSession = async () => {
@@ -158,26 +180,28 @@ export default function ChatbotLayout({
     userInput: string,
     retryCount = 0,
   ): Promise<string> => {
-    try {
-      const requestBody: ChatRequest = {
-        messages: [
-          {
-            role: "system",
-            content: systemPrompt,
-          },
-          { role: "user", content: userInput },
-        ],
-        temperature: 0.7,
-        max_tokens: 800,
-      };
+    const requestBody: ChatRequest = {
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
+        { role: "user", content: userInput },
+      ],
+      temperature: 0.7,
+      max_tokens: 800,
+    };
 
+    try {
       console.log("Making API request to /api/chat...");
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      // Try to use the original fetch, but with additional headers to avoid interference
-      const response = await (window.fetch || fetch)("/api/chat", {
+      // Store reference to native fetch to avoid third-party interference
+      const nativeFetch = window.fetch?.bind(window) || fetch;
+
+      const response = await nativeFetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -217,7 +241,9 @@ export default function ChatbotLayout({
       if (
         retryCount === 0 &&
         err instanceof Error &&
-        err.message.includes("Failed to fetch")
+        (err.message.includes("Failed to fetch") ||
+          err.message.includes("fetch") ||
+          err.message.includes("network"))
       ) {
         console.log("Fetch failed, trying XMLHttpRequest fallback...");
         try {
@@ -238,18 +264,39 @@ export default function ChatbotLayout({
         return getGPTReply(userInput, retryCount + 1);
       }
 
-      // If all retries failed, set error state and return a helpful error message
+      // Enhanced fallback responses based on context
+      const contextualResponses = {
+        business:
+          "Hello! I'm your business English coach. Despite some technical issues, I'm ready to help you with professional communication. What would you like to practice?",
+        social:
+          "Hi there! I'm here to help you practice social conversations. What social situation would you like to work on?",
+        cultural:
+          "Welcome! I'm your cultural communication guide. Let's practice cross-cultural interactions. What scenario interests you?",
+        grammar:
+          "I'm your grammar tutor, and I'm here to help you improve your English skills. What grammar topic would you like to practice?",
+        interview:
+          "I understand you're preparing for an interview. While I'm having some technical difficulties, I can still help you practice. Please tell me about your experience.",
+        presentation:
+          "Hello! I'm your presentation coach. I'm ready to help you develop your speaking and presentation skills. What would you like to work on?",
+        restaurant:
+          "Welcome to our restaurant! I apologize for the brief delay. How may I assist you with your dining experience today?",
+        shopping:
+          "Hello! I'm here to help you with your shopping needs. What can I help you find today?",
+      };
+
+      const moduleKey = (scenario || title || "").toLowerCase();
       let errorMessage =
-        "Sorry, I could not process that right now. Please try again in a moment.";
+        contextualResponses[moduleKey as keyof typeof contextualResponses] ||
+        "I'm experiencing some technical difficulties, but I'm still here to help you practice. What would you like to work on?";
 
       if (err instanceof Error) {
         if (err.name === "AbortError") {
-          errorMessage = "Sorry, the request timed out. Please try again.";
+          errorMessage = "Sorry, the request timed out. " + errorMessage;
         } else if (err.message.includes("Failed to fetch")) {
-          errorMessage =
-            "Sorry, there seems to be a connection issue. Please check your internet connection and try again.";
+          setApiError("Connection issue - working in offline mode");
+        } else {
+          setApiError("Technical issue - limited functionality");
         }
-        setApiError(err.message);
       }
 
       return errorMessage;
@@ -262,7 +309,7 @@ export default function ChatbotLayout({
 
     const interval = setInterval(() => {
       if (i < text.length) {
-        setReply((prev) => prev + text[i]);
+        setReply(text.substring(0, i + 1));
         i++;
       } else {
         clearInterval(interval);
@@ -335,6 +382,10 @@ export default function ChatbotLayout({
           timestamp: new Date(),
         },
       ]);
+
+      // Track conversation activity (estimate duration based on response length)
+      const estimatedDuration = Math.max(0.5, botResponse.length / 100); // rough estimate in minutes
+      trackConversation(estimatedDuration, 85); // assume 85% accuracy for now
     } catch (error) {
       console.error("Error handling input:", error);
     } finally {
