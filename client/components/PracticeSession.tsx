@@ -43,6 +43,17 @@ export default function PracticeSession({
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
+  const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+
+  // Session tracking
+  const {
+    isSessionActive,
+    startSession: startTracking,
+    endSession: endTracking,
+    trackPractice,
+    recordFluencyImprovement,
+    recordVocabularyLearned
+  } = useSessionTracking(scenario.toLowerCase(), false);
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
