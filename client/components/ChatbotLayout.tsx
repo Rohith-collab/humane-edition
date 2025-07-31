@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useSessionTracking } from "@/hooks/useSessionTracking";
 
 import { LipSyncAvatar } from "./LipSyncAvatar";
 
