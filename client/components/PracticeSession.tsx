@@ -153,18 +153,19 @@ export default function PracticeSession({
     userInput: string,
     retryCount = 0,
   ): Promise<string> => {
+    const requestBody: ChatRequest = {
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
+        { role: "user", content: userInput },
+      ],
+      temperature: 0.7,
+      max_tokens: 800,
+    };
+
     try {
-      const requestBody: ChatRequest = {
-        messages: [
-          {
-            role: "system",
-            content: systemPrompt,
-          },
-          { role: "user", content: userInput },
-        ],
-        temperature: 0.7,
-        max_tokens: 800,
-      };
 
       console.log("Making API request to /api/chat...");
 
