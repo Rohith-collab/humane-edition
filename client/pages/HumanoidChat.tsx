@@ -313,7 +313,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
         if (xhr.status === 200) {
           try {
             const response: ChatResponse = JSON.parse(xhr.responseText);
-            resolve(response.message);
+            resolve(response.response);
           } catch (error) {
             reject(new Error("Failed to parse response"));
           }
