@@ -172,8 +172,10 @@ export default function PracticeSession({
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      // Try to use the original fetch, but with additional headers to avoid interference
-      const response = await (window.fetch || fetch)("/api/chat", {
+      // Store reference to native fetch to avoid third-party interference
+      const nativeFetch = window.fetch?.bind(window) || fetch;
+
+      const response = await nativeFetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
