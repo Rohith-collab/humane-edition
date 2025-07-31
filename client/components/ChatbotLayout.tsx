@@ -57,6 +57,18 @@ export default function ChatbotLayout({
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
+  const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+
+  // Session tracking
+  const moduleName = scenario || title || "chat";
+  const {
+    isSessionActive,
+    startSession: startTracking,
+    endSession: endTracking,
+    trackConversation,
+    recordFluencyImprovement,
+    recordVocabularyLearned
+  } = useSessionTracking(moduleName.toLowerCase(), false);
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
