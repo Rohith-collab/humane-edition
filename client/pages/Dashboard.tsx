@@ -165,10 +165,19 @@ const Dashboard = () => {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="fixed top-6 right-6 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="fixed top-6 right-20 z-50 flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-2 text-foreground hover:bg-white/20 transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           <ArrowLeft className="h-4 w-4" />
           <span className="text-sm font-medium">Back</span>
+        </button>
+
+        {/* Refresh Button */}
+        <button
+          onClick={() => window.location.reload()}
+          className="fixed top-6 right-6 z-50 flex items-center space-x-2 bg-nova-500/10 backdrop-blur-md border border-nova-500/20 rounded-lg px-4 py-2 text-foreground hover:bg-nova-500/20 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <RotateCcw className="h-4 w-4" />
+          <span className="text-sm font-medium">Refresh</span>
         </button>
         {/* Header Section */}
         <div className="mb-8">
