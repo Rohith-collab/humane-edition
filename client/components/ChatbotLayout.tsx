@@ -262,7 +262,7 @@ export default function ChatbotLayout({
 
     const interval = setInterval(() => {
       if (i < text.length) {
-        setReply((prev) => prev + text[i]);
+        setReply(text.substring(0, i + 1));
         i++;
       } else {
         clearInterval(interval);
