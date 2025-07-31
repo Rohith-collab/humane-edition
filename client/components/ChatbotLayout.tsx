@@ -357,6 +357,10 @@ export default function ChatbotLayout({
           timestamp: new Date(),
         },
       ]);
+
+      // Track conversation activity (estimate duration based on response length)
+      const estimatedDuration = Math.max(0.5, botResponse.length / 100); // rough estimate in minutes
+      trackConversation(estimatedDuration, 85); // assume 85% accuracy for now
     } catch (error) {
       console.error("Error handling input:", error);
     } finally {
