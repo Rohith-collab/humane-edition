@@ -520,7 +520,7 @@ export default function PracticeSession({
                         </div>
                       ) : reply ? (
                         <p className="text-foreground">
-                          {reply.replace("undefined", "").replace("ello", "Hello")}
+                          {reply}
                         </p>
                       ) : !sessionInitialized ? (
                         <div className="flex items-center space-x-2">
