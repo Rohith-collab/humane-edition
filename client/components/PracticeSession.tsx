@@ -90,7 +90,16 @@ export default function PracticeSession({
 
   // Initialize session with welcome message
   useEffect(() => {
+    // Start session tracking
+    startTracking();
+    setSessionStartTime(new Date());
+
     initializeSession();
+
+    // Cleanup function to end session when component unmounts
+    return () => {
+      endTracking();
+    };
   }, []);
 
   const initializeSession = async () => {
