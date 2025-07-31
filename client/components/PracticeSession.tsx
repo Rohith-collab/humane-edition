@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChatRequest, ChatResponse } from "@shared/api";
+import { useSessionTracking } from "@/hooks/useSessionTracking";
 import { AnimatedAvatar } from "./AnimatedAvatar";
 import {
   Mic,
