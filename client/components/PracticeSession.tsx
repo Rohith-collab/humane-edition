@@ -330,6 +330,10 @@ export default function PracticeSession({
           timestamp: new Date(),
         },
       ]);
+
+      // Track practice activity (estimate duration based on response length)
+      const estimatedDuration = Math.max(0.5, botResponse.length / 100); // rough estimate in minutes
+      trackPractice(estimatedDuration, 85); // assume 85% accuracy for now
     } catch (error) {
       console.error("Error handling input:", error);
     } finally {
