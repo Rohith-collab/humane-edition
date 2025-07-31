@@ -67,7 +67,7 @@ export default function ChatbotLayout({
     endSession: endTracking,
     trackConversation,
     recordFluencyImprovement,
-    recordVocabularyLearned
+    recordVocabularyLearned,
   } = useSessionTracking(moduleName.toLowerCase(), false);
 
   // XMLHttpRequest fallback function
@@ -193,7 +193,6 @@ export default function ChatbotLayout({
     };
 
     try {
-
       console.log("Making API request to /api/chat...");
 
       const controller = new AbortController();
@@ -242,7 +241,9 @@ export default function ChatbotLayout({
       if (
         retryCount === 0 &&
         err instanceof Error &&
-        (err.message.includes("Failed to fetch") || err.message.includes("fetch") || err.message.includes("network"))
+        (err.message.includes("Failed to fetch") ||
+          err.message.includes("fetch") ||
+          err.message.includes("network"))
       ) {
         console.log("Fetch failed, trying XMLHttpRequest fallback...");
         try {
@@ -265,18 +266,27 @@ export default function ChatbotLayout({
 
       // Enhanced fallback responses based on context
       const contextualResponses = {
-        "business": "Hello! I'm your business English coach. Despite some technical issues, I'm ready to help you with professional communication. What would you like to practice?",
-        "social": "Hi there! I'm here to help you practice social conversations. What social situation would you like to work on?",
-        "cultural": "Welcome! I'm your cultural communication guide. Let's practice cross-cultural interactions. What scenario interests you?",
-        "grammar": "I'm your grammar tutor, and I'm here to help you improve your English skills. What grammar topic would you like to practice?",
-        "interview": "I understand you're preparing for an interview. While I'm having some technical difficulties, I can still help you practice. Please tell me about your experience.",
-        "presentation": "Hello! I'm your presentation coach. I'm ready to help you develop your speaking and presentation skills. What would you like to work on?",
-        "restaurant": "Welcome to our restaurant! I apologize for the brief delay. How may I assist you with your dining experience today?",
-        "shopping": "Hello! I'm here to help you with your shopping needs. What can I help you find today?"
+        business:
+          "Hello! I'm your business English coach. Despite some technical issues, I'm ready to help you with professional communication. What would you like to practice?",
+        social:
+          "Hi there! I'm here to help you practice social conversations. What social situation would you like to work on?",
+        cultural:
+          "Welcome! I'm your cultural communication guide. Let's practice cross-cultural interactions. What scenario interests you?",
+        grammar:
+          "I'm your grammar tutor, and I'm here to help you improve your English skills. What grammar topic would you like to practice?",
+        interview:
+          "I understand you're preparing for an interview. While I'm having some technical difficulties, I can still help you practice. Please tell me about your experience.",
+        presentation:
+          "Hello! I'm your presentation coach. I'm ready to help you develop your speaking and presentation skills. What would you like to work on?",
+        restaurant:
+          "Welcome to our restaurant! I apologize for the brief delay. How may I assist you with your dining experience today?",
+        shopping:
+          "Hello! I'm here to help you with your shopping needs. What can I help you find today?",
       };
 
       const moduleKey = (scenario || title || "").toLowerCase();
-      let errorMessage = contextualResponses[moduleKey as keyof typeof contextualResponses] ||
+      let errorMessage =
+        contextualResponses[moduleKey as keyof typeof contextualResponses] ||
         "I'm experiencing some technical difficulties, but I'm still here to help you practice. What would you like to work on?";
 
       if (err instanceof Error) {

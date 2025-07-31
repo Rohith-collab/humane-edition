@@ -307,21 +307,25 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
 
       // Update conversation count based on activities
       const conversationActivities = currentSession.activities.filter(
-        activity => activity.type === 'conversation' || activity.type === 'practice'
+        (activity) =>
+          activity.type === "conversation" || activity.type === "practice",
       );
       updatedAnalytics.conversationsHeld += conversationActivities.length;
 
       // Generate/update weekly data
       const weeklyData = updatedAnalytics.weeklyData || [];
-      const todayData = weeklyData.find(day => day.date === today);
+      const todayData = weeklyData.find((day) => day.date === today);
 
       if (todayData) {
         todayData.sessions += 1;
         todayData.hours += sessionDuration;
-        todayData.fluency = Math.min(100, Math.max(todayData.fluency, updatedAnalytics.fluencyScore));
+        todayData.fluency = Math.min(
+          100,
+          Math.max(todayData.fluency, updatedAnalytics.fluencyScore),
+        );
       } else {
         // Create new day entry
-        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const dayName = dayNames[new Date().getDay()];
 
         weeklyData.push({
@@ -329,7 +333,7 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           sessions: 1,
           hours: sessionDuration,
           fluency: updatedAnalytics.fluencyScore,
-          date: today
+          date: today,
         });
       }
 
