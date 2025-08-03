@@ -364,8 +364,8 @@ export default function PracticeSession({
         },
       ]);
 
-      const estimatedDuration = Math.max(0.5, botResponse.length / 100);
-      trackPractice(estimatedDuration, 85);
+      // const estimatedDuration = Math.max(0.5, botResponse.length / 100);
+      // trackPractice(estimatedDuration, 85); // Temporarily disabled
     } catch (error) {
       console.error("Error handling input:", error);
     } finally {
