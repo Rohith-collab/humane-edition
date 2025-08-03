@@ -60,9 +60,9 @@ export default function PracticeSession({
   const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
   const [showHistory, setShowHistory] = useState(false);
 
-  // Avatar images based on gender
-  const maleAvatarImage = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2Fc31168527b944cab8233a1ef01888040?format=webp&width=800";
-  const femaleAvatarImage = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F7d456286dd974ae2ae0c11b5c0fe6b8d?format=webp&width=800";
+  // Interview scene background images
+  const maleInterviewScene = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
+  const femaleInterviewScene = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
 
   // Session tracking - temporarily disabled to fix React hooks issue
   // const {
