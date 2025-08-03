@@ -677,7 +677,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                     </div>
                     <div className="flex-1">
                       <p className="text-foreground leading-relaxed whitespace-pre-wrap">
-                        {typedText}
+                        {aiTypedText}
                       </p>
                     </div>
                   </div>
