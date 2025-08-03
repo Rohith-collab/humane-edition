@@ -496,24 +496,29 @@ export default function PracticeSession({
       <div className="relative h-screen pt-20 pb-32">
         {/* Background image */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat md:bg-cover sm:bg-contain"
           style={{
             backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
           }}
         />
 
+        {/* Mobile background fallback */}
+        <div className="md:hidden absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/30 md:bg-black/40" />
 
         {/* Speech bubbles container */}
-        <div className="relative h-full flex items-center justify-center px-8">
+        <div className="relative h-full flex items-center justify-center px-4 md:px-8">
           {/* User speech bubble - Left side */}
           {transcript && (
-            <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
-              <div className="bg-white/95 text-slate-900 p-6 rounded-2xl rounded-bl-none shadow-2xl max-w-md backdrop-blur-sm border border-white/20">
+            <div className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 max-w-[280px] md:max-w-md">
+              <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl rounded-bl-none shadow-2xl backdrop-blur-sm border border-white/30">
                 <div className="absolute left-0 bottom-0 transform -translate-x-2 translate-y-1">
-                  <div className="w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/95"></div>
-                </div>
+                <div className="w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/80"></div>
+              </div>
                 <p className="text-sm font-medium">{transcript}</p>
                 <p className="text-xs text-slate-500 mt-2">You</p>
               </div>
@@ -521,27 +526,27 @@ export default function PracticeSession({
           )}
 
           {/* AI speech bubble - Top right */}
-          <div className="absolute right-8 top-24">
-            <div className="bg-slate-900/95 text-white p-6 rounded-2xl rounded-tr-none shadow-2xl max-w-md backdrop-blur-sm border border-white/10">
+          <div className="absolute right-4 md:right-8 top-16 md:top-24 max-w-[280px] md:max-w-md">
+            <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl rounded-tr-none shadow-2xl backdrop-blur-sm border border-white/30">
               <div className="absolute right-0 top-0 transform translate-x-2 -translate-y-1">
-                <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-slate-900/95"></div>
+                <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-white/80"></div>
               </div>
               {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
-                  <p className="text-white/80">AI is thinking...</p>
+                  <p className="text-slate-900">AI is thinking...</p>
                 </div>
               ) : reply ? (
                 <div>
-                  <p className="text-sm text-white">{reply}</p>
-                  <p className="text-xs text-white/60 mt-2">AI Interviewer</p>
+                  <p className="text-sm text-slate-900">{reply}</p>
+                  <p className="text-xs text-slate-600 mt-2">AI Interviewer</p>
                 </div>
               ) : (
                 <div>
-                  <p className="text-sm text-white/60">
+                  <p className="text-sm text-slate-600">
                     Ready to start the interview...
                   </p>
-                  <p className="text-xs text-white/40 mt-2">AI Interviewer</p>
+                  <p className="text-xs text-slate-500 mt-2">AI Interviewer</p>
                 </div>
               )}
             </div>
