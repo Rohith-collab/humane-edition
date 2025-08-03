@@ -75,20 +75,26 @@ export default function Register() {
           {/* Logo */}
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-electric-500 via-cyber-500 to-nova-500 rounded-xl flex items-center justify-center glow">
-                <span className="text-white font-bold text-2xl">A</span>
-              </div>
-              <div className="absolute -inset-1 bg-gradient-to-br from-electric-500 via-cyber-500 to-nova-500 rounded-xl blur opacity-25"></div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F2fd3f91b344249a2a81910776f370ec7?format=webp&width=800"
+                alt="Power My English Logo"
+                className="w-24 h-24 object-contain"
+              />
             </div>
           </div>
 
           <div>
             <CardTitle className="text-2xl font-bold">
               <span className="bg-gradient-to-r from-electric-500 via-cyber-500 to-nova-500 bg-clip-text text-transparent">
-                Join Aangilam
+                Join Angilam
               </span>
             </CardTitle>
-            <CardDescription className="text-muted-foreground mt-2">
+            <div className="mt-2 mb-3">
+              <p className="text-xs font-medium text-cyber-500/80 tracking-wide uppercase">
+                powered by power my english
+              </p>
+            </div>
+            <CardDescription className="text-muted-foreground">
               Create your account to start your AI-powered English learning
               journey
             </CardDescription>
