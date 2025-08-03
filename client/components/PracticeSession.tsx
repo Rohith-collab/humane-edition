@@ -514,11 +514,8 @@ export default function PracticeSession({
         <div className="relative h-full flex items-center justify-center px-4 md:px-8">
           {/* User speech bubble - Left side */}
           {transcript && (
-            <div className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 max-w-[280px] md:max-w-md">
-              <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl rounded-bl-none shadow-2xl backdrop-blur-sm border border-white/30">
-                <div className="absolute left-0 bottom-0 transform -translate-x-2 translate-y-1">
-                <div className="w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/80"></div>
-              </div>
+            <div className="absolute left-4 md:left-8 top-48 md:top-56 max-w-[280px] md:max-w-md">
+              <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30">
                 <p className="text-sm font-medium">{transcript}</p>
                 <p className="text-xs text-slate-500 mt-2">You</p>
               </div>
@@ -526,11 +523,8 @@ export default function PracticeSession({
           )}
 
           {/* AI speech bubble - Top right */}
-          <div className="absolute right-4 md:right-8 top-48 md:top-56 max-w-[280px] md:max-w-md">
-            <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl rounded-tr-none shadow-2xl backdrop-blur-sm border border-white/30">
-              <div className="absolute right-0 top-0 transform translate-x-2 -translate-y-1">
-                <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-white/80"></div>
-              </div>
+          <div className="absolute right-4 md:right-8 top-32 md:top-40 max-w-[280px] md:max-w-md">
+            <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30">
               {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
@@ -538,12 +532,12 @@ export default function PracticeSession({
                 </div>
               ) : reply ? (
                 <div>
-                  <p className="text-sm text-slate-900">{reply}</p>
-                  <p className="text-xs text-slate-600 mt-2">AI Interviewer</p>
+                  <p className="text-sm font-medium">{reply}</p>
+                  <p className="text-xs text-slate-500 mt-2">AI Interviewer</p>
                 </div>
               ) : (
                 <div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-slate-500">
                     Ready to start the interview...
                   </p>
                   <p className="text-xs text-slate-500 mt-2">AI Interviewer</p>
