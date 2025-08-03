@@ -225,6 +225,7 @@ export default function HumanoidChat() {
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [typedText, setTypedText] = useState("");
+  const [aiTypedText, setAiTypedText] = useState("");
   const [speaking, setSpeaking] = useState(false);
   const [listening, setListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
