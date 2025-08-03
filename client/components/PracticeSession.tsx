@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChatRequest, ChatResponse } from "@shared/api";
-import { useSessionTracking } from "@/hooks/useSessionTracking";
-import { AnimatedAvatar } from "./AnimatedAvatar";
 import {
   Mic,
   MicOff,
@@ -13,8 +10,23 @@ import {
   VolumeX,
   ArrowLeft,
   RotateCcw,
+  MoreHorizontal,
+  History,
+  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface PracticeSessionProps {
   scenario: string;
@@ -22,6 +34,7 @@ interface PracticeSessionProps {
   environment: React.ReactNode;
   avatar?: (speaking: boolean) => React.ReactNode;
   onComplete?: () => void;
+  userGender?: "male" | "female";
 }
 
 export default function PracticeSession({
@@ -30,6 +43,7 @@ export default function PracticeSession({
   environment,
   avatar,
   onComplete,
+  userGender = "male",
 }: PracticeSessionProps) {
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
@@ -44,16 +58,23 @@ export default function PracticeSession({
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
 
-  // Session tracking
-  const {
-    isSessionActive,
-    startSession: startTracking,
-    endSession: endTracking,
-    trackPractice,
-    recordFluencyImprovement,
-    recordVocabularyLearned,
-  } = useSessionTracking(scenario.toLowerCase(), false);
+  // Interview scene background images
+  const maleInterviewScene =
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
+  const femaleInterviewScene =
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
+
+  // Session tracking - temporarily disabled to fix React hooks issue
+  // const {
+  //   isSessionActive,
+  //   startSession: startTracking,
+  //   endSession: endTracking,
+  //   trackPractice,
+  //   recordFluencyImprovement,
+  //   recordVocabularyLearned,
+  // } = useSessionTracking(scenario.toLowerCase(), false);
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
@@ -90,15 +111,12 @@ export default function PracticeSession({
 
   // Initialize session with welcome message
   useEffect(() => {
-    // Start session tracking
-    startTracking();
+    // startTracking(); // Temporarily disabled
     setSessionStartTime(new Date());
-
     initializeSession();
 
-    // Cleanup function to end session when component unmounts
     return () => {
-      endTracking();
+      // endTracking(); // Temporarily disabled
     };
   }, []);
 
@@ -121,7 +139,6 @@ export default function PracticeSession({
     } catch (error) {
       console.error("Failed to initialize session:", error);
 
-      // Use a more specific fallback based on the scenario
       const fallbackMessages = {
         "Job Interview":
           "Hello! I'm your AI interviewer. I'm ready to start your interview practice. Please tell me about yourself.",
@@ -169,9 +186,8 @@ export default function PracticeSession({
       console.log("Making API request to /api/chat...");
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-      // Store reference to native fetch to avoid third-party interference
       const nativeFetch = window.fetch?.bind(window) || fetch;
 
       const response = await nativeFetch("/api/chat", {
@@ -204,13 +220,11 @@ export default function PracticeSession({
         throw new Error(data.error || "Failed to get AI response");
       }
 
-      // Clear any previous errors on successful response
       setApiError("");
       return data.response || "No response from bot.";
     } catch (err) {
       console.error("Chat API Error (attempt " + (retryCount + 1) + "):", err);
 
-      // Try XMLHttpRequest as fallback if fetch fails
       if (
         retryCount === 0 &&
         err instanceof Error &&
@@ -228,7 +242,6 @@ export default function PracticeSession({
         }
       }
 
-      // Retry logic - retry up to 2 times with exponential backoff
       if (retryCount < 2) {
         console.log("Retrying in", (retryCount + 1) * 1000, "ms...");
         await new Promise((resolve) =>
@@ -237,7 +250,6 @@ export default function PracticeSession({
         return getGPTReply(userInput, retryCount + 1);
       }
 
-      // Enhanced fallback responses based on scenario
       const contextualResponses = {
         "Job Interview":
           "I understand you're preparing for an interview. While I'm having some technical difficulties, I can still help you practice. Please tell me about your experience or ask me a common interview question.",
@@ -345,7 +357,6 @@ export default function PracticeSession({
         speakText(botResponse);
       }
 
-      // Add to conversation history
       setConversation((prev) => [
         ...prev,
         {
@@ -355,9 +366,8 @@ export default function PracticeSession({
         },
       ]);
 
-      // Track practice activity (estimate duration based on response length)
-      const estimatedDuration = Math.max(0.5, botResponse.length / 100); // rough estimate in minutes
-      trackPractice(estimatedDuration, 85); // assume 85% accuracy for now
+      // const estimatedDuration = Math.max(0.5, botResponse.length / 100);
+      // trackPractice(estimatedDuration, 85); // Temporarily disabled
     } catch (error) {
       console.error("Error handling input:", error);
     } finally {
@@ -404,39 +414,44 @@ export default function PracticeSession({
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+      {/* Cinematic overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30 pointer-events-none" />
+
       {/* Header */}
-      <div className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-16 z-40">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="absolute top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/practice">
-                <Button variant="outline" size="sm" className="gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2 text-white/80 hover:text-white"
+                >
                   <ArrowLeft className="w-4 h-4" />
-                  Back to Practice
+                  Back
                 </Button>
               </Link>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">
+                <h1 className="text-lg font-semibold text-white">
                   {scenario} Practice
                 </h1>
-                <div className="flex gap-2 mt-1">
-                  <Badge variant="secondary" className="text-xs">
-                    AI-Powered Session
-                  </Badge>
-                  <Badge className="text-xs bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30">
-                    Grammar Correction Enabled
-                  </Badge>
-                </div>
+                <Badge
+                  variant="secondary"
+                  className="text-xs bg-white/10 text-white/70 border-white/20"
+                >
+                  Interview Mode
+                </Badge>
               </div>
             </div>
 
             <div className="flex items-center space-x-2">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={() => setSoundEnabled(!soundEnabled)}
-                className="gap-2"
+                className="text-white/80 hover:text-white"
               >
                 {soundEnabled ? (
                   <Volume2 className="w-4 h-4" />
@@ -445,208 +460,222 @@ export default function PracticeSession({
                 )}
               </Button>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={resetSession}
-                className="gap-2"
+                className="text-white/80 hover:text-white"
               >
                 <RotateCcw className="w-4 h-4" />
-                Reset
               </Button>
-              {apiError && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setApiError("");
-                    initializeSession();
-                  }}
-                  className="gap-2 text-red-500 border-red-500/50 hover:bg-red-500/10"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  Retry Connection
-                </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/80 hover:text-white"
+                  >
+                    <MoreHorizontal className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-slate-800 border-slate-700">
+                  <DropdownMenuItem
+                    onClick={() => setShowHistory(true)}
+                    className="text-white hover:bg-slate-700"
+                  >
+                    <History className="w-4 h-4 mr-2" />
+                    View History
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main conversation area with background */}
+      <div className="relative h-screen pt-20 pb-32">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`,
+          }}
+        />
+
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Speech bubbles container */}
+        <div className="relative h-full flex items-center justify-center px-8">
+          {/* User speech bubble - Left side */}
+          {transcript && (
+            <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
+              <div className="bg-white/95 text-slate-900 p-6 rounded-2xl rounded-bl-none shadow-2xl max-w-md backdrop-blur-sm border border-white/20">
+                <div className="absolute left-0 bottom-0 transform -translate-x-2 translate-y-1">
+                  <div className="w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/95"></div>
+                </div>
+                <p className="text-sm font-medium">{transcript}</p>
+                <p className="text-xs text-slate-500 mt-2">You</p>
+              </div>
+            </div>
+          )}
+
+          {/* AI speech bubble - Top right */}
+          <div className="absolute right-8 top-24">
+            <div className="bg-slate-900/95 text-white p-6 rounded-2xl rounded-tr-none shadow-2xl max-w-md backdrop-blur-sm border border-white/10">
+              <div className="absolute right-0 top-0 transform translate-x-2 -translate-y-1">
+                <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-slate-900/95"></div>
+              </div>
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
+                  <p className="text-white/80">AI is thinking...</p>
+                </div>
+              ) : reply ? (
+                <div>
+                  <p className="text-sm text-white">{reply}</p>
+                  <p className="text-xs text-white/60 mt-2">AI Interviewer</p>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-sm text-white/60">
+                    Ready to start the interview...
+                  </p>
+                  <p className="text-xs text-white/40 mt-2">AI Interviewer</p>
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-2 gap-8 mt-10">
-          {/* Environment Section */}
-          <div className="space-y-6 mt-px">
-            <Card className="bg-gradient-to-br from-nova-500/5 via-electric-500/5 to-cyber-500/5 border-border/50"></Card>
-          </div>
-
-          {/* Conversation Section */}
-          <div className="space-y-6">
-            {/* AI Avatar & Response */}
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-              <CardContent className="my-12 mx-0 p-6">
-                {/* Connection Status */}
-                {apiError && (
-                  <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      <span className="text-sm text-red-400">
-                        Connection Error
-                      </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          setApiError("");
-                          initializeSession();
-                        }}
-                        className="ml-auto text-red-400 hover:text-red-300"
-                      >
-                        Retry
-                      </Button>
-                    </div>
-                  </div>
+      {/* Input area - Bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-sm border-t border-white/10">
+        <div className="max-w-4xl mx-auto p-6">
+          <div className="space-y-4">
+            {/* Voice input button */}
+            <div className="flex justify-center">
+              <Button
+                onClick={handleVoiceInput}
+                disabled={listening || isLoading}
+                className={`px-8 py-4 rounded-full transition-all duration-300 ${
+                  listening
+                    ? "bg-red-500 hover:bg-red-600 animate-pulse"
+                    : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                } text-white shadow-2xl`}
+              >
+                {listening ? (
+                  <>
+                    <MicOff className="w-5 h-5 mr-2" />
+                    Listening...
+                  </>
+                ) : (
+                  <>
+                    <Mic className="w-5 h-5 mr-2" />
+                    Press to Speak
+                  </>
                 )}
+              </Button>
+            </div>
 
-                <div className="flex items-start space-x-6 mt-9">
-                  <div className="w-24 h-24 flex-shrink-0">
-                    {avatar ? (
-                      avatar(speaking || isLoading)
-                    ) : (
-                      <div
-                        className={`w-full h-full bg-gradient-to-br from-nova-500 to-electric-500 rounded-full flex items-center justify-center transition-all duration-300 ${speaking ? "scale-110 glow-electric" : ""}`}
-                      >
-                        <span className="text-white font-bold text-lg">AI</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <div className="bg-gradient-to-r from-nova-500/10 to-electric-500/10 rounded-lg p-4 border border-nova-500/20">
-                      {isLoading ? (
-                        <div className="flex items-center space-x-2">
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
-                          <p className="text-muted-foreground">
-                            AI is thinking...
-                          </p>
-                        </div>
-                      ) : reply ? (
-                        <p className="text-foreground">{reply}</p>
-                      ) : !sessionInitialized ? (
-                        <div className="flex items-center space-x-2">
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
-                          <p className="text-muted-foreground">
-                            Initializing session...
-                          </p>
-                        </div>
-                      ) : (
-                        <p className="text-muted-foreground">
-                          AI is ready to chat!
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* User Input */}
-            {transcript && (
-              <Card className="bg-secondary/50 border-border/50">
-                <CardContent className="p-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-16 h-16 flex-shrink-0">
-                      <AnimatedAvatar
-                        type="user"
-                        speaking={false}
-                        emotion="neutral"
-                        className="w-full h-full"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-foreground">
-                        <strong>You said:</strong> {transcript}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Input Controls */}
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div className="flex gap-3">
-                    <Button
-                      onClick={handleVoiceInput}
-                      disabled={listening || isLoading}
-                      className={`flex-1 transition-all duration-300 ${listening ? "bg-red-500 hover:bg-red-600" : "bg-gradient-to-r from-nova-500 to-electric-500 hover:from-nova-600 hover:to-electric-600"} text-white glow-electric`}
-                    >
-                      {listening ? (
-                        <>
-                          <MicOff className="w-4 h-4 mr-2" />
-                          Listening...
-                        </>
-                      ) : (
-                        <>
-                          <Mic className="w-4 h-4 mr-2" />
-                          Voice Input
-                        </>
-                      )}
-                    </Button>
-                  </div>
-
-                  <div className="flex gap-3">
-                    <input
-                      type="text"
-                      value={typedText}
-                      onChange={(e) => setTypedText(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Type your message..."
-                      disabled={isLoading}
-                      className="flex-1 px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-nova-500 focus:border-transparent text-foreground placeholder-muted-foreground"
-                    />
-                    <Button
-                      onClick={handleTextSubmit}
-                      disabled={!typedText.trim() || isLoading}
-                      className="bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white"
-                    >
-                      <Send className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Conversation History */}
-            {conversation.length > 0 && (
-              <Card className="bg-card/30 backdrop-blur-sm border-border/50">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-4">
-                    Conversation History
-                  </h3>
-                  <div className="space-y-3 max-h-64 overflow-y-auto">
-                    {conversation.map((item, index) => (
-                      <div key={index} className="space-y-2">
-                        <div className="text-sm">
-                          <strong className="text-cyber-400">You:</strong>{" "}
-                          {item.user}
-                        </div>
-                        <div className="text-sm">
-                          <strong className="text-nova-400">AI:</strong>{" "}
-                          {item.bot}
-                        </div>
-                        {index < conversation.length - 1 && (
-                          <hr className="border-border/30" />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            {/* Text input */}
+            <div className="flex gap-3">
+              <input
+                type="text"
+                value={typedText}
+                onChange={(e) => setTypedText(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Type your message..."
+                disabled={isLoading}
+                className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50 backdrop-blur-sm"
+              />
+              <Button
+                onClick={handleTextSubmit}
+                disabled={!typedText.trim() || isLoading}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* History Dialog */}
+      <Dialog open={showHistory} onOpenChange={setShowHistory}>
+        <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-2xl max-h-[80vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center justify-between">
+              Conversation History
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowHistory(false)}
+                className="text-white/70 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+            {conversation.length === 0 ? (
+              <p className="text-white/60 text-center py-8">
+                No conversation history yet.
+              </p>
+            ) : (
+              conversation.map((item, index) => (
+                <div
+                  key={index}
+                  className="space-y-3 p-4 bg-slate-700/50 rounded-lg"
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs font-bold">U</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-white">{item.user}</p>
+                      <p className="text-xs text-white/50 mt-1">
+                        {item.timestamp.toLocaleTimeString()}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs font-bold">AI</span>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-white">{item.bot}</p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Connection error overlay */}
+      {apiError && (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50">
+          <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 backdrop-blur-sm">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+              <span className="text-sm text-red-400">{apiError}</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setApiError("");
+                  initializeSession();
+                }}
+                className="text-red-400 hover:text-red-300"
+              >
+                Retry
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
