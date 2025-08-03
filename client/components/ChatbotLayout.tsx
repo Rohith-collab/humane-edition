@@ -464,7 +464,10 @@ export default function ChatbotLayout({
                 AI Chat
               </Badge>
               {userPreferences && (
-                <Badge variant="outline" className="text-xs hidden sm:inline-flex">
+                <Badge
+                  variant="outline"
+                  className="text-xs hidden sm:inline-flex"
+                >
                   {userPreferences.voice} • {userPreferences.language}
                 </Badge>
               )}
@@ -711,9 +714,7 @@ export default function ChatbotLayout({
               <div>
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="w-2 h-2 bg-nova-500 rounded-full"></div>
-                  <span className="text-xs font-medium text-nova-500">
-                    AI
-                  </span>
+                  <span className="text-xs font-medium text-nova-500">AI</span>
                 </div>
                 <p className="text-foreground leading-relaxed">{reply}</p>
               </div>

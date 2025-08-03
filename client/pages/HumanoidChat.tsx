@@ -50,20 +50,26 @@ const AdvancedHumanoidAvatar = ({
   const getAvatarConfig = () => {
     // Get voice preference from localStorage
     const savedPreferences = localStorage.getItem("aangilam_preferences");
-    const preferences = savedPreferences ? JSON.parse(savedPreferences) : { voice: "narenn" };
+    const preferences = savedPreferences
+      ? JSON.parse(savedPreferences)
+      : { voice: "narenn" };
 
     const configs = {
       narenn: {
-        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
         name: "Narenn",
         title: "English Tutor",
-        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
       sarah: {
-        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
         name: "Sarah",
         title: "English Tutor",
-        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
     };
 
@@ -73,20 +79,26 @@ const AdvancedHumanoidAvatar = ({
   // Use the parent component's getAvatarConfig function
   const [avatarConfig, setAvatarConfig] = useState(() => {
     const savedPreferences = localStorage.getItem("aangilam_preferences");
-    const preferences = savedPreferences ? JSON.parse(savedPreferences) : { voice: "narenn" };
+    const preferences = savedPreferences
+      ? JSON.parse(savedPreferences)
+      : { voice: "narenn" };
 
     const configs = {
       narenn: {
-        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
         name: "Narenn",
         title: "English Tutor",
-        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
       sarah: {
-        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
         name: "Sarah",
         title: "English Tutor",
-        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
     };
 
