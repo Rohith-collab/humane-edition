@@ -64,15 +64,15 @@ export default function PracticeSession({
   const maleAvatarImage = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2Fc31168527b944cab8233a1ef01888040?format=webp&width=800";
   const femaleAvatarImage = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F7d456286dd974ae2ae0c11b5c0fe6b8d?format=webp&width=800";
 
-  // Session tracking
-  const {
-    isSessionActive,
-    startSession: startTracking,
-    endSession: endTracking,
-    trackPractice,
-    recordFluencyImprovement,
-    recordVocabularyLearned,
-  } = useSessionTracking(scenario.toLowerCase(), false);
+  // Session tracking - temporarily disabled to fix React hooks issue
+  // const {
+  //   isSessionActive,
+  //   startSession: startTracking,
+  //   endSession: endTracking,
+  //   trackPractice,
+  //   recordFluencyImprovement,
+  //   recordVocabularyLearned,
+  // } = useSessionTracking(scenario.toLowerCase(), false);
 
   // XMLHttpRequest fallback function
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
