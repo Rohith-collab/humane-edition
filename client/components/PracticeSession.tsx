@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChatRequest, ChatResponse } from "@shared/api";
-import { useSessionTracking } from "@/hooks/useSessionTracking";
 import {
   Mic,
   MicOff,
