@@ -61,8 +61,10 @@ export default function PracticeSession({
   const [showHistory, setShowHistory] = useState(false);
 
   // Interview scene background images
-  const maleInterviewScene = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
-  const femaleInterviewScene = "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
+  const maleInterviewScene =
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
+  const femaleInterviewScene =
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
 
   // Session tracking - temporarily disabled to fix React hooks issue
   // const {
@@ -415,14 +417,18 @@ export default function PracticeSession({
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
       {/* Cinematic overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30 pointer-events-none" />
-      
+
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/practice">
-                <Button variant="ghost" size="sm" className="gap-2 text-white/80 hover:text-white">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2 text-white/80 hover:text-white"
+                >
                   <ArrowLeft className="w-4 h-4" />
                   Back
                 </Button>
@@ -431,7 +437,10 @@ export default function PracticeSession({
                 <h1 className="text-lg font-semibold text-white">
                   {scenario} Practice
                 </h1>
-                <Badge variant="secondary" className="text-xs bg-white/10 text-white/70 border-white/20">
+                <Badge
+                  variant="secondary"
+                  className="text-xs bg-white/10 text-white/70 border-white/20"
+                >
                   Interview Mode
                 </Badge>
               </div>
@@ -444,7 +453,11 @@ export default function PracticeSession({
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 className="text-white/80 hover:text-white"
               >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                {soundEnabled ? (
+                  <Volume2 className="w-4 h-4" />
+                ) : (
+                  <VolumeX className="w-4 h-4" />
+                )}
               </Button>
               <Button
                 variant="ghost"
@@ -456,12 +469,16 @@ export default function PracticeSession({
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-white/80 hover:text-white">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/80 hover:text-white"
+                  >
                     <MoreHorizontal className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-slate-800 border-slate-700">
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => setShowHistory(true)}
                     className="text-white hover:bg-slate-700"
                   >
@@ -481,7 +498,7 @@ export default function PracticeSession({
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`
+            backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`,
           }}
         />
 
@@ -521,7 +538,9 @@ export default function PracticeSession({
                 </div>
               ) : (
                 <div>
-                  <p className="text-sm text-white/60">Ready to start the interview...</p>
+                  <p className="text-sm text-white/60">
+                    Ready to start the interview...
+                  </p>
                   <p className="text-xs text-white/40 mt-2">AI Interviewer</p>
                 </div>
               )}
@@ -540,8 +559,8 @@ export default function PracticeSession({
                 onClick={handleVoiceInput}
                 disabled={listening || isLoading}
                 className={`px-8 py-4 rounded-full transition-all duration-300 ${
-                  listening 
-                    ? "bg-red-500 hover:bg-red-600 animate-pulse" 
+                  listening
+                    ? "bg-red-500 hover:bg-red-600 animate-pulse"
                     : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                 } text-white shadow-2xl`}
               >
@@ -600,10 +619,15 @@ export default function PracticeSession({
           </DialogHeader>
           <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
             {conversation.length === 0 ? (
-              <p className="text-white/60 text-center py-8">No conversation history yet.</p>
+              <p className="text-white/60 text-center py-8">
+                No conversation history yet.
+              </p>
             ) : (
               conversation.map((item, index) => (
-                <div key={index} className="space-y-3 p-4 bg-slate-700/50 rounded-lg">
+                <div
+                  key={index}
+                  className="space-y-3 p-4 bg-slate-700/50 rounded-lg"
+                >
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
                       <span className="text-xs font-bold">U</span>

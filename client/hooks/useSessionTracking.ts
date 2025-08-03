@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useUserAnalytics } from '@/contexts/UserAnalyticsContext';
+import { useEffect, useRef } from "react";
+import { useUserAnalytics } from "@/contexts/UserAnalyticsContext";
 
 export const useSessionTracking = (moduleName: string, autoStart = true) => {
   const {
@@ -8,7 +8,7 @@ export const useSessionTracking = (moduleName: string, autoStart = true) => {
     recordActivity,
     updateFluencyScore,
     addWordsLearned,
-    currentSession
+    currentSession,
   } = useUserAnalytics();
 
   const sessionStarted = useRef(false);
@@ -46,37 +46,37 @@ export const useSessionTracking = (moduleName: string, autoStart = true) => {
   // Activity tracking helpers
   const trackConversation = (duration: number, accuracy: number) => {
     recordActivity({
-      type: 'conversation',
+      type: "conversation",
       duration,
       accuracy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   };
 
   const trackPractice = (duration: number, accuracy: number) => {
     recordActivity({
-      type: 'practice',
+      type: "practice",
       duration,
       accuracy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   };
 
   const trackGrammar = (duration: number, accuracy: number) => {
     recordActivity({
-      type: 'grammar',
+      type: "grammar",
       duration,
       accuracy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   };
 
   const trackPronunciation = (duration: number, accuracy: number) => {
     recordActivity({
-      type: 'pronunciation',
+      type: "pronunciation",
       duration,
       accuracy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   };
 
@@ -99,6 +99,6 @@ export const useSessionTracking = (moduleName: string, autoStart = true) => {
     trackPronunciation,
     recordFluencyImprovement,
     recordVocabularyLearned,
-    currentSession
+    currentSession,
   };
 };
