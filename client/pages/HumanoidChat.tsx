@@ -229,9 +229,7 @@ export default function HumanoidChat() {
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
-  const [selectedPersonality, setSelectedPersonality] = useState<
-    "professional" | "creative" | "educational"
-  >("professional");
+  const [selectedVoice, setSelectedVoice] = useState<string>("narenn");
   const [emotionDetectionActive, setEmotionDetectionActive] = useState(false);
   const [currentEmotion, setCurrentEmotion] =
     useState<FaceDetectionResult | null>(null);
