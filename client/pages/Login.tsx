@@ -57,22 +57,26 @@ export default function Login() {
           {/* Logo */}
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-nova-500 via-electric-500 to-cyber-500 rounded-xl flex items-center justify-center glow">
-                <span className="text-white font-bold text-2xl">A</span>
-              </div>
-              <div className="absolute -inset-1 bg-gradient-to-br from-nova-500 via-electric-500 to-cyber-500 rounded-xl blur opacity-25"></div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F2fd3f91b344249a2a81910776f370ec7?format=webp&width=800"
+                alt="Power My English Logo"
+                className="w-24 h-24 object-contain"
+              />
             </div>
           </div>
 
           <div>
             <CardTitle className="text-2xl font-bold">
               <span className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 bg-clip-text text-transparent">
-                Welcome to Aangilam
+                Welcome to Angilam
               </span>
             </CardTitle>
             <CardDescription className="text-muted-foreground mt-2">
               Sign in to access your AI-powered English learning experience
             </CardDescription>
+            <p className="text-sm text-muted-foreground/80 mt-1">
+              (powered by power my english)
+            </p>
           </div>
 
           <Badge className="bg-gradient-to-r from-nova-500/20 via-electric-500/20 to-cyber-500/20 text-foreground border-nova-500/30 px-3 py-1">
