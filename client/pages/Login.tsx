@@ -71,12 +71,14 @@ export default function Login() {
                 Welcome to Angilam
               </span>
             </CardTitle>
-            <CardDescription className="text-muted-foreground mt-2">
+            <div className="mt-2 mb-3">
+              <p className="text-xs font-medium text-electric-500/80 tracking-wide uppercase">
+                powered by power my english
+              </p>
+            </div>
+            <CardDescription className="text-muted-foreground">
               Sign in to access your AI-powered English learning experience
             </CardDescription>
-            <p className="text-sm text-muted-foreground/80 mt-1">
-              (powered by power my english)
-            </p>
           </div>
 
           <Badge className="bg-gradient-to-r from-nova-500/20 via-electric-500/20 to-cyber-500/20 text-foreground border-nova-500/30 px-3 py-1">
