@@ -89,13 +89,15 @@ export default function Register() {
                 Join Angilam
               </span>
             </CardTitle>
-            <CardDescription className="text-muted-foreground mt-2">
+            <div className="mt-2 mb-3">
+              <p className="text-xs font-medium text-cyber-500/80 tracking-wide uppercase">
+                powered by power my english
+              </p>
+            </div>
+            <CardDescription className="text-muted-foreground">
               Create your account to start your AI-powered English learning
               journey
             </CardDescription>
-            <p className="text-sm text-muted-foreground/80 mt-1">
-              (powered by power my english)
-            </p>
           </div>
 
           <Badge className="bg-gradient-to-r from-electric-500/20 via-cyber-500/20 to-nova-500/20 text-foreground border-electric-500/30 px-3 py-1">
