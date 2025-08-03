@@ -432,237 +432,392 @@ export default function ChatbotLayout({
   };
 
   return (
-    <div className="min-h-screen bg-black flex">
-      {/* Left Side - Full D-ID Avatar */}
-      <div
-        className="w-1/2 h-screen relative"
-        style={{
-          backgroundImage: backgroundImage
-            ? `url(${backgroundImage})`
-            : undefined,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        {backgroundImage && (
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]" />
-        )}
-        <LipSyncAvatar
-          type={avatarType || "assistant"}
-          speaking={speaking || isLoading}
-          isLoading={isLoading}
-          className="w-full h-full relative z-10"
-        />
-
-        {/* Connection Error Overlay */}
-        {apiError && (
-          <div className="absolute top-4 left-4 right-4">
-            <div className="bg-red-500/90 backdrop-blur-sm text-white rounded-lg p-3 border border-red-400/50">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Connection Error</span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => {
-                    setApiError("");
-                    initializeSession();
-                  }}
-                  className="text-white hover:bg-white/20"
-                >
-                  Retry
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Right Side - Chat Interface */}
-      <div className="w-1/2 h-screen bg-gradient-to-br from-background via-background/95 to-muted/30 flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-          <div className="flex items-center space-x-3">
-            {backUrl && (
-              <Link to={backUrl}>
-                <Button variant="ghost" size="sm" className="gap-2">
-                  <ArrowLeft className="w-4 h-4" />
-                  Back
-                </Button>
-              </Link>
-            )}
-            {!backUrl && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="gap-2"
-                onClick={() => window.history.back()}
-              >
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/30 flex flex-col">
+      {/* Mobile Header */}
+      <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl relative z-10">
+        <div className="flex items-center space-x-3">
+          {backUrl && (
+            <Link to={backUrl}>
+              <Button variant="ghost" size="sm" className="gap-2">
                 <ArrowLeft className="w-4 h-4" />
-                Back
+                <span className="hidden sm:inline">Back</span>
               </Button>
-            )}
-            <div>
-              <h1 className="font-semibold text-foreground">
-                {title || scenario}
-              </h1>
-              <div className="flex items-center space-x-2">
-                <Badge variant="secondary" className="text-xs">
-                  AI Conversation
-                </Badge>
-                {userPreferences && (
-                  <Badge variant="outline" className="text-xs">
-                    {userPreferences.voice} • {userPreferences.language}
-                  </Badge>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
+            </Link>
+          )}
+          {!backUrl && (
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setSoundEnabled(!soundEnabled)}
+              className="gap-2"
+              onClick={() => window.history.back()}
             >
-              {soundEnabled ? (
-                <Volume2 className="w-4 h-4" />
-              ) : (
-                <VolumeX className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Back</span>
+            </Button>
+          )}
+          <div>
+            <h1 className="font-semibold text-foreground text-sm sm:text-base">
+              {title || scenario}
+            </h1>
+            <div className="flex items-center space-x-2">
+              <Badge variant="secondary" className="text-xs">
+                AI Chat
+              </Badge>
+              {userPreferences && (
+                <Badge
+                  variant="outline"
+                  className="text-xs hidden sm:inline-flex"
+                >
+                  {userPreferences.voice} • {userPreferences.language}
+                </Badge>
               )}
-            </Button>
-            <Button variant="ghost" size="sm" onClick={resetSession}>
-              <RotateCcw className="w-4 h-4" />
-            </Button>
+            </div>
           </div>
         </div>
 
-        {/* Chat Area */}
-        <div className="flex-1 flex flex-col p-4 overflow-hidden">
-          {/* Current Conversation */}
-          <div className="flex-1 overflow-y-auto space-y-4 mb-4">
-            {/* AI Response */}
-            <div className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-2xl p-4 border border-border/30">
-              {isLoading ? (
-                <div className="flex items-center space-x-3">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
-                  <p className="text-muted-foreground text-sm">
-                    AI is thinking...
-                  </p>
-                </div>
-              ) : reply ? (
-                <div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <div className="w-2 h-2 bg-nova-500 rounded-full"></div>
-                    <span className="text-xs font-medium text-nova-500">
-                      AI Response
-                    </span>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setSoundEnabled(!soundEnabled)}
+          >
+            {soundEnabled ? (
+              <Volume2 className="w-4 h-4" />
+            ) : (
+              <VolumeX className="w-4 h-4" />
+            )}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={resetSession}>
+            <RotateCcw className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Connection Error Alert */}
+      {apiError && (
+        <div className="mx-4 mt-4">
+          <div className="bg-red-500/90 backdrop-blur-sm text-white rounded-lg p-3 border border-red-400/50">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Connection Error</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setApiError("");
+                  initializeSession();
+                }}
+                className="text-white hover:bg-white/20"
+              >
+                Retry
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Layout: Side by side */}
+      <div className="hidden lg:flex flex-1">
+        {/* Left Side - Avatar */}
+        <div
+          className="w-1/2 h-full relative"
+          style={{
+            backgroundImage: backgroundImage
+              ? `url(${backgroundImage})`
+              : undefined,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          {backgroundImage && (
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]" />
+          )}
+          <LipSyncAvatar
+            type={avatarType || "assistant"}
+            speaking={speaking || isLoading}
+            isLoading={isLoading}
+            className="w-full h-full relative z-10"
+          />
+        </div>
+
+        {/* Right Side - Chat */}
+        <div className="w-1/2 flex flex-col">
+          <div className="flex-1 flex flex-col p-4 overflow-hidden">
+            {/* Chat Messages Area */}
+            <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+              {/* Current AI Response */}
+              <div className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-2xl p-4 border border-border/30">
+                {isLoading ? (
+                  <div className="flex items-center space-x-3">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
+                    <p className="text-muted-foreground text-sm">
+                      AI is thinking...
+                    </p>
                   </div>
-                  <p className="text-foreground leading-relaxed">{reply}</p>
-                </div>
-              ) : !sessionInitialized ? (
-                <div className="flex items-center space-x-3">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
-                  <p className="text-muted-foreground text-sm">
-                    Initializing conversation...
+                ) : reply ? (
+                  <div>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="w-2 h-2 bg-nova-500 rounded-full"></div>
+                      <span className="text-xs font-medium text-nova-500">
+                        AI Response
+                      </span>
+                    </div>
+                    <p className="text-foreground leading-relaxed">{reply}</p>
+                  </div>
+                ) : !sessionInitialized ? (
+                  <div className="flex items-center space-x-3">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
+                    <p className="text-muted-foreground text-sm">
+                      Initializing conversation...
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground">
+                    Ready to start our conversation!
                   </p>
+                )}
+              </div>
+
+              {/* User Input Display */}
+              {transcript && (
+                <div className="flex justify-end">
+                  <div className="bg-gradient-to-r from-electric-500/20 to-cyber-500/20 rounded-2xl p-4 border border-electric-500/30 max-w-[80%]">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div className="w-2 h-2 bg-electric-500 rounded-full"></div>
+                      <span className="text-xs font-medium text-electric-500">
+                        You said
+                      </span>
+                    </div>
+                    <p className="text-foreground">{transcript}</p>
+                  </div>
                 </div>
-              ) : (
-                <p className="text-muted-foreground">
-                  Ready to start our conversation!
-                </p>
+              )}
+
+              {/* Conversation History */}
+              {conversation.length > 0 && (
+                <div className="space-y-3 border-t border-border/30 pt-4">
+                  <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Conversation History
+                  </h3>
+                  <div className="space-y-3 max-h-60 overflow-y-auto">
+                    {conversation.slice(-5).map((item, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex justify-end">
+                          <div className="bg-electric-500/10 rounded-lg p-3 max-w-[70%] text-sm">
+                            <div className="text-electric-400 font-medium text-xs mb-1">
+                              You
+                            </div>
+                            <div className="text-foreground">{item.user}</div>
+                          </div>
+                        </div>
+                        <div className="flex justify-start">
+                          <div className="bg-muted/30 rounded-lg p-3 max-w-[70%] text-sm">
+                            <div className="text-nova-400 font-medium text-xs mb-1">
+                              AI
+                            </div>
+                            <div className="text-foreground">{item.bot}</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
 
-            {/* User Input Display */}
-            {transcript && (
-              <div className="flex justify-end">
-                <div className="bg-gradient-to-r from-electric-500/20 to-cyber-500/20 rounded-2xl p-4 border border-electric-500/30 max-w-[80%]">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <div className="w-2 h-2 bg-electric-500 rounded-full"></div>
-                    <span className="text-xs font-medium text-electric-500">
-                      You said
-                    </span>
-                  </div>
-                  <p className="text-foreground">{transcript}</p>
-                </div>
+            {/* Desktop Input Controls */}
+            <div className="border-t border-border/30 pt-4 space-y-4">
+              {/* Voice Input */}
+              <div className="flex justify-center">
+                <Button
+                  onClick={handleVoiceInput}
+                  disabled={listening || isLoading}
+                  size="lg"
+                  className={cn(
+                    "transition-all duration-300 rounded-full w-14 h-14",
+                    listening
+                      ? "bg-red-500 hover:bg-red-600 animate-pulse"
+                      : "bg-gradient-to-r from-nova-500 to-electric-500 hover:from-nova-600 hover:to-electric-600 shadow-lg",
+                  )}
+                >
+                  {listening ? (
+                    <MicOff className="w-5 h-5" />
+                  ) : (
+                    <Mic className="w-5 h-5" />
+                  )}
+                </Button>
               </div>
-            )}
 
-            {/* Conversation History */}
-            {conversation.length > 0 && (
-              <div className="space-y-3 border-t border-border/30 pt-4">
-                <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Conversation History
-                </h3>
-                <div className="space-y-3 max-h-60 overflow-y-auto">
-                  {conversation.slice(-5).map((item, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex justify-end">
-                        <div className="bg-electric-500/10 rounded-lg p-3 max-w-[70%] text-sm">
-                          <div className="text-electric-400 font-medium text-xs mb-1">
-                            You
-                          </div>
-                          <div className="text-foreground">{item.user}</div>
-                        </div>
-                      </div>
-                      <div className="flex justify-start">
-                        <div className="bg-muted/30 rounded-lg p-3 max-w-[70%] text-sm">
-                          <div className="text-nova-400 font-medium text-xs mb-1">
-                            AI
-                          </div>
-                          <div className="text-foreground">{item.bot}</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              {/* Text Input */}
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  value={typedText}
+                  onChange={(e) => setTypedText(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your message..."
+                  disabled={isLoading}
+                  className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-nova-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
+                />
+                <Button
+                  onClick={handleTextSubmit}
+                  disabled={!typedText.trim() || isLoading}
+                  className="bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white rounded-xl px-6"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Layout: Stacked Chat with Fixed Input */}
+      <div className="lg:hidden flex flex-col h-full">
+        {/* Compact Avatar Header on Mobile */}
+        <div className="relative h-32 overflow-hidden">
+          <div
+            className="w-full h-full relative"
+            style={{
+              backgroundImage: backgroundImage
+                ? `url(${backgroundImage})`
+                : undefined,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            {backgroundImage && (
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
+            )}
+            <LipSyncAvatar
+              type={avatarType || "assistant"}
+              speaking={speaking || isLoading}
+              isLoading={isLoading}
+              className="w-full h-full relative z-10 scale-110"
+            />
+          </div>
+        </div>
+
+        {/* Mobile Chat Messages Area */}
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 min-h-0">
+          {/* Current AI Response */}
+          <div className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-2xl p-4 border border-border/30">
+            {isLoading ? (
+              <div className="flex items-center space-x-3">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
+                <p className="text-muted-foreground text-sm">
+                  AI is thinking...
+                </p>
+              </div>
+            ) : reply ? (
+              <div>
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-2 h-2 bg-nova-500 rounded-full"></div>
+                  <span className="text-xs font-medium text-nova-500">AI</span>
+                </div>
+                <p className="text-foreground leading-relaxed">{reply}</p>
+              </div>
+            ) : !sessionInitialized ? (
+              <div className="flex items-center space-x-3">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-nova-500"></div>
+                <p className="text-muted-foreground text-sm">
+                  Initializing conversation...
+                </p>
+              </div>
+            ) : (
+              <p className="text-muted-foreground">
+                Ready to start our conversation!
+              </p>
             )}
           </div>
 
-          {/* Input Controls */}
-          <div className="border-t border-border/30 pt-4 space-y-4">
-            {/* Voice Input */}
-            <div className="flex justify-center">
-              <Button
-                onClick={handleVoiceInput}
-                disabled={listening || isLoading}
-                size="lg"
-                className={cn(
-                  "transition-all duration-300 rounded-full w-14 h-14",
-                  listening
-                    ? "bg-red-500 hover:bg-red-600 animate-pulse"
-                    : "bg-gradient-to-r from-nova-500 to-electric-500 hover:from-nova-600 hover:to-electric-600 shadow-lg",
-                )}
-              >
-                {listening ? (
-                  <MicOff className="w-5 h-5" />
-                ) : (
-                  <Mic className="w-5 h-5" />
-                )}
-              </Button>
+          {/* User Input Display */}
+          {transcript && (
+            <div className="flex justify-end">
+              <div className="bg-gradient-to-r from-electric-500/20 to-cyber-500/20 rounded-2xl p-4 border border-electric-500/30 max-w-[85%]">
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-2 h-2 bg-electric-500 rounded-full"></div>
+                  <span className="text-xs font-medium text-electric-500">
+                    You
+                  </span>
+                </div>
+                <p className="text-foreground">{transcript}</p>
+              </div>
             </div>
+          )}
 
-            {/* Text Input */}
-            <div className="flex gap-3">
-              <input
-                type="text"
-                value={typedText}
-                onChange={(e) => setTypedText(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Type your message..."
-                disabled={isLoading}
-                className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-nova-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
-              />
-              <Button
-                onClick={handleTextSubmit}
-                disabled={!typedText.trim() || isLoading}
-                className="bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white rounded-xl px-6"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
+          {/* Conversation History */}
+          {conversation.length > 0 && (
+            <div className="space-y-3">
+              {conversation.slice(-10).map((item, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-end">
+                    <div className="bg-electric-500/10 rounded-lg p-3 max-w-[85%] text-sm">
+                      <div className="text-electric-400 font-medium text-xs mb-1">
+                        You
+                      </div>
+                      <div className="text-foreground">{item.user}</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="bg-muted/30 rounded-lg p-3 max-w-[85%] text-sm">
+                      <div className="text-nova-400 font-medium text-xs mb-1">
+                        AI
+                      </div>
+                      <div className="text-foreground">{item.bot}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
+          )}
+
+          {/* Spacer to prevent input overlap */}
+          <div className="h-24"></div>
+        </div>
+
+        {/* Fixed Bottom Input Area - Mobile */}
+        <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-xl border-t border-border/50 p-4 space-y-3 z-20">
+          {/* Voice Input Button */}
+          <div className="flex justify-center">
+            <Button
+              onClick={handleVoiceInput}
+              disabled={listening || isLoading}
+              size="lg"
+              className={cn(
+                "transition-all duration-300 rounded-full w-12 h-12",
+                listening
+                  ? "bg-red-500 hover:bg-red-600 animate-pulse"
+                  : "bg-gradient-to-r from-nova-500 to-electric-500 hover:from-nova-600 hover:to-electric-600 shadow-lg",
+              )}
+            >
+              {listening ? (
+                <MicOff className="w-4 h-4" />
+              ) : (
+                <Mic className="w-4 h-4" />
+              )}
+            </Button>
+          </div>
+
+          {/* Text Input */}
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={typedText}
+              onChange={(e) => setTypedText(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message..."
+              disabled={isLoading}
+              className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-nova-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm text-base"
+            />
+            <Button
+              onClick={handleTextSubmit}
+              disabled={!typedText.trim() || isLoading}
+              className="bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white rounded-xl px-4"
+            >
+              <Send className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>

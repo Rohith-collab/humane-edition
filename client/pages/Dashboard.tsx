@@ -344,21 +344,35 @@ const Dashboard = () => {
         </button>
         {/* Header Section */}
         <div className="mb-8">
-          <div className="flex items-center space-x-4 mb-6">
-            <Avatar className="h-16 w-16 ring-2 ring-nova-500/30">
-              <AvatarImage src="" alt={currentUser?.displayName || ""} />
-              <AvatarFallback className="bg-gradient-to-br from-nova-500 to-electric-500 text-white text-xl font-bold">
-                {currentUser?.displayName?.charAt(0) ||
-                  currentUser?.email?.charAt(0) ||
-                  "U"}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                {getGreeting()}, {currentUser?.displayName || "Learner"}!
-              </h1>
-              <p className="text-muted-foreground">
-                Here's your English learning journey
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-16 w-16 ring-2 ring-nova-500/30">
+                <AvatarImage src="" alt={currentUser?.displayName || ""} />
+                <AvatarFallback className="bg-gradient-to-br from-nova-500 to-electric-500 text-white text-xl font-bold">
+                  {currentUser?.displayName?.charAt(0) ||
+                    currentUser?.email?.charAt(0) ||
+                    "U"}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  {getGreeting()}, {currentUser?.displayName || "Learner"}!
+                </h1>
+                <p className="text-muted-foreground">
+                  Here's your English learning journey
+                </p>
+              </div>
+            </div>
+
+            {/* Logo and Branding */}
+            <div className="flex flex-col items-center space-y-2">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F2fd3f91b344249a2a81910776f370ec7?format=webp&width=800"
+                alt="Power My English Logo"
+                className="w-16 h-16 object-contain"
+              />
+              <p className="text-xs font-medium text-electric-500/80 tracking-wide uppercase">
+                powered by power my english
               </p>
             </div>
           </div>

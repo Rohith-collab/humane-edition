@@ -46,38 +46,64 @@ const AdvancedHumanoidAvatar = ({
   const [isVideoReady, setIsVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // D-ID Configuration based on personality
+  // D-ID Configuration based on voice selection
   const getAvatarConfig = () => {
+    // Get voice preference from localStorage
+    const savedPreferences = localStorage.getItem("aangilam_preferences");
+    const preferences = savedPreferences
+      ? JSON.parse(savedPreferences)
+      : { voice: "narenn" };
+
     const configs = {
-      professional: {
+      narenn: {
         avatar:
-          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
-        name: "Dr. Sarah Mitchell",
-        title: "Professional Mentor",
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
+        name: "Narenn",
+        title: "English Tutor",
         background:
           "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
-      creative: {
+      sarah: {
         avatar:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=face",
-        name: "Alex Rivera",
-        title: "Creative Companion",
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
+        name: "Sarah",
+        title: "English Tutor",
         background:
-          "https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?w=1920&h=1080&fit=crop",
-      },
-      educational: {
-        avatar:
-          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=600&fit=crop&crop=face",
-        name: "Prof. Emma Chen",
-        title: "Learning Buddy",
-        background:
-          "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop",
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
     };
-    return configs[personality];
+
+    return configs[preferences.voice] || configs.narenn;
   };
 
-  const avatarConfig = getAvatarConfig();
+  // Use the parent component's getAvatarConfig function
+  const [avatarConfig, setAvatarConfig] = useState(() => {
+    const savedPreferences = localStorage.getItem("aangilam_preferences");
+    const preferences = savedPreferences
+      ? JSON.parse(savedPreferences)
+      : { voice: "narenn" };
+
+    const configs = {
+      narenn: {
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
+        name: "Narenn",
+        title: "English Tutor",
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+      },
+      sarah: {
+        avatar:
+          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
+        name: "Sarah",
+        title: "English Tutor",
+        background:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+      },
+    };
+
+    return configs[preferences.voice] || configs.narenn;
+  });
 
   // Initialize D-ID video stream (simulated)
   useEffect(() => {
@@ -225,6 +251,7 @@ export default function HumanoidChat() {
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [typedText, setTypedText] = useState("");
+  const [aiTypedText, setAiTypedText] = useState("");
   const [speaking, setSpeaking] = useState(false);
   const [listening, setListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -235,9 +262,7 @@ export default function HumanoidChat() {
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
-  const [selectedPersonality, setSelectedPersonality] = useState<
-    "professional" | "creative" | "educational"
-  >("professional");
+  const [selectedVoice, setSelectedVoice] = useState<string>("narenn");
   const [emotionDetectionActive, setEmotionDetectionActive] = useState(false);
   const [currentEmotion, setCurrentEmotion] =
     useState<FaceDetectionResult | null>(null);
@@ -417,11 +442,11 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   };
 
   const typeReply = (text: string) => {
-    setTypedText("");
+    setAiTypedText("");
     let index = 0;
     const interval = setInterval(() => {
       if (index < text.length) {
-        setTypedText(text.slice(0, index + 1));
+        setAiTypedText(text.slice(0, index + 1));
         index++;
       } else {
         clearInterval(interval);
@@ -486,6 +511,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     setConversation([]);
     setReply("");
     setTypedText("");
+    setAiTypedText("");
     setTranscript("");
     setSessionInitialized(false);
     setCurrentEmotion(null);
@@ -530,7 +556,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
         <AdvancedHumanoidAvatar
           speaking={speaking || isLoading}
           isLoading={isLoading}
-          personality={selectedPersonality}
+          personality="professional"
           className="w-full h-full"
         />
 
@@ -676,7 +702,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                     </div>
                     <div className="flex-1">
                       <p className="text-foreground leading-relaxed whitespace-pre-wrap">
-                        {typedText}
+                        {aiTypedText}
                       </p>
                     </div>
                   </div>
@@ -763,7 +789,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               value={typedText}
               onChange={(e) => setTypedText(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              placeholder="Ask me anything... (like ChatGPT but with a human face!)"
+              placeholder="Ask me anything"
               disabled={isLoading}
               className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
             />

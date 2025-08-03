@@ -42,36 +42,20 @@ interface VoiceLanguageModalProps {
 
 const voices = [
   {
+    id: "narenn",
+    name: "Narenn",
+    gender: "Male",
+    accent: "Indian English",
+    description: "Clear, articulate, and supportive",
+    preview: "Hello! I'm Narenn, ready to help you master English.",
+  },
+  {
     id: "sarah",
     name: "Sarah",
     gender: "Female",
     accent: "American",
     description: "Warm, professional, and encouraging",
     preview: "Hi! I'm Sarah, your friendly English learning assistant.",
-  },
-  {
-    id: "david",
-    name: "David",
-    gender: "Male",
-    accent: "British",
-    description: "Clear, articulate, and supportive",
-    preview: "Hello there! I'm David, ready to help you master English.",
-  },
-  {
-    id: "emma",
-    name: "Emma",
-    gender: "Female",
-    accent: "Australian",
-    description: "Energetic, friendly, and motivating",
-    preview: "G'day! I'm Emma, let's make learning English fun together!",
-  },
-  {
-    id: "james",
-    name: "James",
-    gender: "Male",
-    accent: "Canadian",
-    description: "Patient, calm, and detailed",
-    preview: "Hey! I'm James, your patient English practice partner.",
   },
 ];
 
@@ -81,6 +65,7 @@ const languages = [
   { code: "en-AU", name: "English (Australian)", flag: "🇦🇺" },
   { code: "en-CA", name: "English (Canadian)", flag: "🇨🇦" },
   { code: "en-IN", name: "English (Indian)", flag: "🇮🇳" },
+  { code: "ms-MY", name: "Malay (Malaysian)", flag: "🇲🇾" },
 ];
 
 const proficiencyLevels = [
@@ -115,7 +100,7 @@ export default function VoiceLanguageModal({
 }: VoiceLanguageModalProps) {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [selectedVoice, setSelectedVoice] = useState("sarah");
+  const [selectedVoice, setSelectedVoice] = useState("narenn");
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
   const [proficiency, setProficiency] = useState("intermediate");
   const [speechSpeed, setSpeechSpeed] = useState([1.0]);
