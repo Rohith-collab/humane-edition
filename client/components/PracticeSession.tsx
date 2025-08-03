@@ -109,12 +109,12 @@ export default function PracticeSession({
 
   // Initialize session with welcome message
   useEffect(() => {
-    startTracking();
+    // startTracking(); // Temporarily disabled
     setSessionStartTime(new Date());
     initializeSession();
 
     return () => {
-      endTracking();
+      // endTracking(); // Temporarily disabled
     };
   }, []);
 
