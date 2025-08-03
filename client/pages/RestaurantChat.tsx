@@ -1,6 +1,6 @@
 import React from 'react';
-import PracticeSession from '../components/PracticeSession';
-import { HumanAvatar } from '../components/HumanAvatar';
+import PracticeSession from '../../client/components/PracticeSession';
+import { HumanAvatar } from '../../client/components/HumanAvatar';
 
 const systemPrompt = `You are a friendly and professional restaurant server/waiter. 
 

@@ -37,6 +37,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import SpeechIframe from "./pages/Azurebot";
 
 const queryClient = new QueryClient();
 
@@ -99,6 +100,7 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              
               <Route
                 path="/dashboard"
                 element={
@@ -109,6 +111,18 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/bot-chat"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <SpeechIframe />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              
+              
               <Route
                 path="/practice"
                 element={

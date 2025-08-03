@@ -21,6 +21,7 @@ const navigation = [
   { name: "Practice Mode", href: "/practice", icon: Play },
   { name: "Humanoid Tutor", href: "/humanoid", icon: Bot },
   { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Bot Chat", href: "/bot-chat", icon: Settings }
 ];
 
 export function Navigation() {
