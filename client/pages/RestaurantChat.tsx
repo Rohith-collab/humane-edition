@@ -23,6 +23,12 @@ GRAMMAR CORRECTION:
 Start by welcoming the customer to the restaurant and asking if they'd like to see the menu or have any questions.`;
 
 export default function RestaurantChat() {
+  // Restaurant scene background images
+  const maleRestaurantScene =
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
+  const femaleRestaurantScene =
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
+
   return (
     <PracticeSession
       scenario="Restaurant Dining"
@@ -35,6 +41,7 @@ export default function RestaurantChat() {
           className="w-full h-full"
         />
       )}
+      userGender="male"
     />
   );
 }
