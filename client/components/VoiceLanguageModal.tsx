@@ -42,36 +42,20 @@ interface VoiceLanguageModalProps {
 
 const voices = [
   {
+    id: "narenn",
+    name: "Narenn",
+    gender: "Male",
+    accent: "Indian English",
+    description: "Clear, articulate, and supportive",
+    preview: "Hello! I'm Narenn, ready to help you master English.",
+  },
+  {
     id: "sarah",
     name: "Sarah",
     gender: "Female",
     accent: "American",
     description: "Warm, professional, and encouraging",
     preview: "Hi! I'm Sarah, your friendly English learning assistant.",
-  },
-  {
-    id: "david",
-    name: "David",
-    gender: "Male",
-    accent: "British",
-    description: "Clear, articulate, and supportive",
-    preview: "Hello there! I'm David, ready to help you master English.",
-  },
-  {
-    id: "emma",
-    name: "Emma",
-    gender: "Female",
-    accent: "Australian",
-    description: "Energetic, friendly, and motivating",
-    preview: "G'day! I'm Emma, let's make learning English fun together!",
-  },
-  {
-    id: "james",
-    name: "James",
-    gender: "Male",
-    accent: "Canadian",
-    description: "Patient, calm, and detailed",
-    preview: "Hey! I'm James, your patient English practice partner.",
   },
 ];
 
