@@ -526,7 +526,7 @@ export default function PracticeSession({
           )}
 
           {/* AI speech bubble - Top right */}
-          <div className="absolute right-4 md:right-8 top-16 md:top-24 max-w-[280px] md:max-w-md">
+          <div className="absolute right-4 md:right-8 top-32 md:top-40 max-w-[280px] md:max-w-md">
             <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl rounded-tr-none shadow-2xl backdrop-blur-sm border border-white/30">
               <div className="absolute right-0 top-0 transform translate-x-2 -translate-y-1">
                 <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-white/80"></div>
