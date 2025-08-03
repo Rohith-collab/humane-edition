@@ -475,61 +475,56 @@ export default function PracticeSession({
         </div>
       </div>
 
-      {/* Main conversation area */}
+      {/* Main conversation area with background */}
       <div className="relative h-screen pt-20 pb-32">
-        <div className="h-full flex">
-          {/* User area - Left side */}
-          <div className="w-1/2 relative flex items-center justify-center p-8">
-            <div className="relative">
-              {/* User avatar */}
-              <div className="w-80 h-80 rounded-full overflow-hidden bg-slate-800 border-4 border-white/20 shadow-2xl">
-                <img 
-                  src={userGender === "male" ? maleAvatarImage : femaleAvatarImage}
-                  alt={`${userGender} avatar`}
-                  className="w-full h-full object-cover"
-                />
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`
+          }}
+        />
+
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Speech bubbles container */}
+        <div className="relative h-full flex items-center justify-center px-8">
+          {/* User speech bubble - Left side */}
+          {transcript && (
+            <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
+              <div className="bg-white/95 text-slate-900 p-6 rounded-2xl rounded-bl-none shadow-2xl max-w-md backdrop-blur-sm border border-white/20">
+                <div className="absolute left-0 bottom-0 transform -translate-x-2 translate-y-1">
+                  <div className="w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/95"></div>
+                </div>
+                <p className="text-sm font-medium">{transcript}</p>
+                <p className="text-xs text-slate-500 mt-2">You</p>
               </div>
-              
-              {/* User speech bubble */}
-              {transcript && (
-                <div className="absolute -right-10 top-1/2 transform -translate-y-1/2 translate-x-full">
-                  <div className="bg-white/90 text-slate-900 p-4 rounded-2xl rounded-bl-none shadow-2xl max-w-xs relative">
-                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2">
-                      <div className="w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-white/90"></div>
-                    </div>
-                    <p className="text-sm font-medium">{transcript}</p>
-                  </div>
+            </div>
+          )}
+
+          {/* AI speech bubble - Top right */}
+          <div className="absolute right-8 top-24">
+            <div className="bg-slate-900/95 text-white p-6 rounded-2xl rounded-tr-none shadow-2xl max-w-md backdrop-blur-sm border border-white/10">
+              <div className="absolute right-0 top-0 transform translate-x-2 -translate-y-1">
+                <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-slate-900/95"></div>
+              </div>
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
+                  <p className="text-white/80">AI is thinking...</p>
+                </div>
+              ) : reply ? (
+                <div>
+                  <p className="text-sm text-white">{reply}</p>
+                  <p className="text-xs text-white/60 mt-2">AI Interviewer</p>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-sm text-white/60">Ready to start the interview...</p>
+                  <p className="text-xs text-white/40 mt-2">AI Interviewer</p>
                 </div>
               )}
-            </div>
-          </div>
-
-          {/* AI area - Right side */}
-          <div className="w-1/2 relative flex items-center justify-center p-8">
-            <div className="relative">
-              {/* AI avatar - simple professional icon for now */}
-              <div className="w-80 h-80 rounded-full bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center border-4 border-white/20 shadow-2xl">
-                <div className="text-white text-6xl font-bold">AI</div>
-              </div>
-              
-              {/* AI speech bubble - positioned in top right */}
-              <div className="absolute -left-10 top-8 transform -translate-x-full">
-                <div className="bg-slate-800/90 text-white p-4 rounded-2xl rounded-br-none shadow-2xl max-w-sm relative border border-white/10">
-                  <div className="absolute right-0 bottom-0 transform translate-x-2 translate-y-1">
-                    <div className="w-0 h-0 border-t-8 border-l-8 border-b-8 border-transparent border-l-slate-800/90"></div>
-                  </div>
-                  {isLoading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
-                      <p className="text-white/80">Thinking...</p>
-                    </div>
-                  ) : reply ? (
-                    <p className="text-sm text-white">{reply}</p>
-                  ) : (
-                    <p className="text-sm text-white/60">Ready to chat...</p>
-                  )}
-                </div>
-              </div>
             </div>
           </div>
         </div>
