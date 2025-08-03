@@ -2,14 +2,30 @@ import { useEffect, useRef } from 'react';
 import { useUserAnalytics } from '@/contexts/UserAnalyticsContext';
 
 export const useSessionTracking = (moduleName: string, autoStart = true) => {
-  const { 
-    startSession, 
-    endSession, 
-    recordActivity, 
-    updateFluencyScore, 
+  let analytics;
+  try {
+    analytics = useUserAnalytics();
+  } catch (error) {
+    // Handle case where context is not available
+    console.warn('UserAnalytics context not available:', error);
+    analytics = {
+      startSession: () => {},
+      endSession: () => {},
+      recordActivity: () => {},
+      updateFluencyScore: () => {},
+      addWordsLearned: () => {},
+      currentSession: null
+    };
+  }
+
+  const {
+    startSession,
+    endSession,
+    recordActivity,
+    updateFluencyScore,
     addWordsLearned,
-    currentSession 
-  } = useUserAnalytics();
+    currentSession
+  } = analytics;
   
   const sessionStarted = useRef(false);
 
