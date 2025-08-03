@@ -100,7 +100,7 @@ export default function VoiceLanguageModal({
 }: VoiceLanguageModalProps) {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [selectedVoice, setSelectedVoice] = useState("sarah");
+  const [selectedVoice, setSelectedVoice] = useState("narenn");
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
   const [proficiency, setProficiency] = useState("intermediate");
   const [speechSpeed, setSpeechSpeed] = useState([1.0]);
