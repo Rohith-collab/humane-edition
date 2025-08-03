@@ -523,7 +523,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
         <AdvancedHumanoidAvatar
           speaking={speaking || isLoading}
           isLoading={isLoading}
-          personality={selectedPersonality}
+          personality="professional"
           className="w-full h-full"
         />
 
