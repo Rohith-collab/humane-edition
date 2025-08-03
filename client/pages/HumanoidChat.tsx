@@ -46,35 +46,28 @@ const AdvancedHumanoidAvatar = ({
   const [isVideoReady, setIsVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // D-ID Configuration based on personality
+  // D-ID Configuration based on voice selection
   const getAvatarConfig = () => {
+    // Get voice preference from localStorage
+    const savedPreferences = localStorage.getItem("aangilam_preferences");
+    const preferences = savedPreferences ? JSON.parse(savedPreferences) : { voice: "narenn" };
+
     const configs = {
-      professional: {
-        avatar:
-          "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
-        name: "Dr. Sarah Mitchell",
-        title: "Professional Mentor",
-        background:
-          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+      narenn: {
+        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F8443882ce2364978aae94fc75f7b88b7?format=webp&width=800",
+        name: "Narenn",
+        title: "English Tutor",
+        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
-      creative: {
-        avatar:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=face",
-        name: "Alex Rivera",
-        title: "Creative Companion",
-        background:
-          "https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?w=1920&h=1080&fit=crop",
-      },
-      educational: {
-        avatar:
-          "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=600&fit=crop&crop=face",
-        name: "Prof. Emma Chen",
-        title: "Learning Buddy",
-        background:
-          "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&h=1080&fit=crop",
+      sarah: {
+        avatar: "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F0fa5d23e41994bfd8eea5cb344721192",
+        name: "Sarah",
+        title: "English Tutor",
+        background: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
       },
     };
-    return configs[personality];
+
+    return configs[preferences.voice] || configs.narenn;
   };
 
   const avatarConfig = getAvatarConfig();
