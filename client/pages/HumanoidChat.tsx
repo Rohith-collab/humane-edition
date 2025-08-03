@@ -765,7 +765,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               value={typedText}
               onChange={(e) => setTypedText(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              placeholder="Ask me anything... (like ChatGPT but with a human face!)"
+              placeholder="Ask me anything"
               disabled={isLoading}
               className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
             />
