@@ -65,6 +65,7 @@ const languages = [
   { code: "en-AU", name: "English (Australian)", flag: "🇦🇺" },
   { code: "en-CA", name: "English (Canadian)", flag: "🇨🇦" },
   { code: "en-IN", name: "English (Indian)", flag: "🇮🇳" },
+  { code: "ms-MY", name: "Malay (Malaysian)", flag: "🇲🇾" },
 ];
 
 const proficiencyLevels = [
