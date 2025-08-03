@@ -487,6 +487,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     setConversation([]);
     setReply("");
     setTypedText("");
+    setAiTypedText("");
     setTranscript("");
     setSessionInitialized(false);
     setCurrentEmotion(null);
