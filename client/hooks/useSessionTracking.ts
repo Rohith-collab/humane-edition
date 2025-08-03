@@ -1,13 +1,33 @@
-import { useEffect, useRef } from 'react';
-import { useUserAnalytics } from '@/contexts/UserAnalyticsContext';
+import React from 'react';
 
+// Defensive hook implementation that gracefully handles React context issues
 export const useSessionTracking = (moduleName: string, autoStart = true) => {
+  // Check if React hooks are available
+  if (!React || typeof React.useRef !== 'function' || typeof React.useEffect !== 'function') {
+    console.warn('React hooks not available, using fallback session tracking');
+    return {
+      isSessionActive: false,
+      startSession: () => {},
+      endSession: () => {},
+      trackConversation: () => {},
+      trackPractice: () => {},
+      trackGrammar: () => {},
+      trackPronunciation: () => {},
+      recordFluencyImprovement: () => {},
+      recordVocabularyLearned: () => {},
+      currentSession: null
+    };
+  }
+
+  const { useEffect, useRef } = React;
+
+  // Dynamically import the context hook
   let analytics;
   try {
+    const { useUserAnalytics } = require('@/contexts/UserAnalyticsContext');
     analytics = useUserAnalytics();
   } catch (error) {
-    // Handle case where context is not available
-    console.warn('UserAnalytics context not available:', error);
+    console.warn('UserAnalytics context not available, using fallback:', error);
     analytics = {
       startSession: () => {},
       endSession: () => {},
@@ -26,7 +46,7 @@ export const useSessionTracking = (moduleName: string, autoStart = true) => {
     addWordsLearned,
     currentSession
   } = analytics;
-  
+
   const sessionStarted = useRef(false);
 
   useEffect(() => {
