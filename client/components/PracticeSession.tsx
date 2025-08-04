@@ -35,6 +35,8 @@ interface PracticeSessionProps {
   avatar?: (speaking: boolean) => React.ReactNode;
   onComplete?: () => void;
   userGender?: "male" | "female";
+  customBackgroundDesktop?: string;
+  customBackgroundMobile?: string;
 }
 
 export default function PracticeSession({
@@ -44,6 +46,8 @@ export default function PracticeSession({
   avatar,
   onComplete,
   userGender = "male",
+  customBackgroundDesktop,
+  customBackgroundMobile,
 }: PracticeSessionProps) {
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
@@ -60,11 +64,15 @@ export default function PracticeSession({
   const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
   const [showHistory, setShowHistory] = useState(false);
 
-  // Interview scene background images
-  const maleInterviewScene =
+  // Default interview scene background images
+  const defaultMaleInterviewScene =
     "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
-  const femaleInterviewScene =
+  const defaultFemaleInterviewScene =
     "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
+
+  // Use custom backgrounds if provided, otherwise fall back to defaults
+  const desktopBackground = customBackgroundDesktop || (userGender === "male" ? defaultMaleInterviewScene : defaultFemaleInterviewScene);
+  const mobileBackground = customBackgroundMobile || desktopBackground;
 
   // Session tracking - temporarily disabled to fix React hooks issue
   // const {
@@ -495,14 +503,28 @@ export default function PracticeSession({
       {/* Main conversation area with background */}
       <div className="relative h-screen pt-20 pb-32">
         {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat md:bg-cover sm:bg-contain"
-          style={{
-            backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        />
+        <div className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${desktopBackground})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          />
+        </div>
+
+        {/* Mobile background */}
+        <div className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${mobileBackground})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          />
+        </div>
 
         {/* Mobile background fallback */}
         <div className="md:hidden absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
