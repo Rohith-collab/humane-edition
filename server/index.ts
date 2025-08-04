@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import { handleDemo } from "./routes/demo";
 import { handleChat } from "./routes/openai";
 
@@ -24,6 +25,9 @@ export function createServer() {
   );
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+  // Serve browser directory as static files for Azure Speech SDK samples
+  app.use('/browser', express.static(path.resolve(process.cwd(), 'browser')));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
