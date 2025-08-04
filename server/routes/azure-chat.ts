@@ -67,7 +67,7 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
     const assistantMessage = data.choices?.[0]?.message?.content;
     
     if (!assistantMessage) {
-      throw new Error('No response content from Azure OpenAI');
+      throw new Error('No response content from AI service');
     }
 
     const chatResponse: AzureChatResponse = {
