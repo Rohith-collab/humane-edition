@@ -71,7 +71,11 @@ export default function PracticeSession({
     "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
 
   // Use custom backgrounds if provided, otherwise fall back to defaults
-  const desktopBackground = customBackgroundDesktop || (userGender === "male" ? defaultMaleInterviewScene : defaultFemaleInterviewScene);
+  const desktopBackground =
+    customBackgroundDesktop ||
+    (userGender === "male"
+      ? defaultMaleInterviewScene
+      : defaultFemaleInterviewScene);
   const mobileBackground = customBackgroundMobile || desktopBackground;
 
   // Session tracking - temporarily disabled to fix React hooks issue
@@ -536,7 +540,10 @@ export default function PracticeSession({
         <div className="relative h-full flex items-center justify-center px-4 md:px-8">
           {/* AI speech bubble - Left side */}
           <div className="absolute left-4 md:left-8 top-32 md:top-40 max-w-[280px] md:max-w-md">
-            <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30" style={{marginTop: "111px"}}>
+            <div
+              className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30"
+              style={{ marginTop: "111px" }}
+            >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
@@ -561,7 +568,10 @@ export default function PracticeSession({
           {/* User speech bubble - Right side */}
           {transcript && (
             <div className="absolute right-4 md:right-8 top-48 md:top-56 max-w-[280px] md:max-w-md">
-              <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30" style={{margin: "42px 0 0 176px"}}>
+              <div
+                className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30"
+                style={{ margin: "42px 0 0 176px" }}
+              >
                 <p className="text-sm font-medium">{transcript}</p>
                 <p className="text-xs text-slate-500 mt-2">You</p>
               </div>
