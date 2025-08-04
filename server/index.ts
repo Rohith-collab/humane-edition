@@ -43,11 +43,11 @@ export function createServer() {
   });
   app.post("/api/chat", handleChat);
 
-  // Azure OpenAI Chat route
-  app.options("/api/azure-chat", (req, res) => {
+  // AI Chat route
+  app.options("/api/ai-chat", (req, res) => {
     res.status(200).end();
   });
-  app.post("/api/azure-chat", handleAzureChat);
+  app.post("/api/ai-chat", handleAzureChat);
 
   // Health check endpoint
   app.get("/api/health", (req, res) => {
