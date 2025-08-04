@@ -88,8 +88,6 @@ export default function PracticeSession({
   //   recordVocabularyLearned,
   // } = useSessionTracking(scenario.toLowerCase(), false);
 
-
-
   // Initialize session with welcome message
   useEffect(() => {
     // startTracking(); // Temporarily disabled
@@ -156,39 +154,47 @@ export default function PracticeSession({
       console.log("Making direct API request to Azure OpenAI...");
 
       const response = await fetch(
-        'https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview',
+        "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            'api-key': 'A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n'
+            "Content-Type": "application/json",
+            "api-key":
+              "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n",
           },
           body: JSON.stringify({
             messages: [
               {
-                role: 'system',
-                content: systemPrompt
+                role: "system",
+                content: systemPrompt,
               },
-              { role: 'user', content: userInput }
+              { role: "user", content: userInput },
             ],
             temperature: 0.7,
-            max_tokens: 800
-          })
-        }
+            max_tokens: 800,
+          }),
+        },
       );
 
       if (!response.ok) {
-        throw new Error(`Azure API error: ${response.status} - ${response.statusText}`);
+        throw new Error(
+          `Azure API error: ${response.status} - ${response.statusText}`,
+        );
       }
 
       const data = await response.json();
       console.log("Azure OpenAI response:", data);
 
-      const botResponse = (data.choices?.[0]?.message?.content || 'No response from bot.').trim();
+      const botResponse = (
+        data.choices?.[0]?.message?.content || "No response from bot."
+      ).trim();
       setApiError("");
       return botResponse;
     } catch (err) {
-      console.error("Azure OpenAI Error (attempt " + (retryCount + 1) + "):", err);
+      console.error(
+        "Azure OpenAI Error (attempt " + (retryCount + 1) + "):",
+        err,
+      );
 
       if (retryCount < 2) {
         console.log("Retrying in", (retryCount + 1) * 1000, "ms...");
