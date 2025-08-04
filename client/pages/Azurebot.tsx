@@ -34,14 +34,85 @@ const Azurebot = () => {
               </AlertDescription>
             </Alert>
 
-            <div className="w-full h-[800px] border rounded-lg overflow-hidden">
-              <iframe
-                title="Azure Speech SDK"
-                src="/browser/index.html"
-                allow="microphone"
-                style={{ width: '100%', height: '100%', border: 'none' }}
-                sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
-              />
+            <div className="w-full h-[800px] border rounded-lg overflow-hidden bg-card">
+              <div className="p-6 h-full flex flex-col">
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-2">Web Speech API Demo</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Click the microphone button to start speech recognition using your browser's Web Speech API.
+                  </p>
+                </div>
+
+                <div className="flex-1 flex flex-col space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <Button
+                      id="start-btn"
+                      className="bg-red-500 hover:bg-red-600 text-white px-6 py-2"
+                      onClick={() => {
+                        const startBtn = document.getElementById('start-btn');
+                        const output = document.getElementById('speech-output');
+
+                        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                          const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+                          const recognition = new SpeechRecognition();
+
+                          recognition.continuous = true;
+                          recognition.interimResults = true;
+                          recognition.lang = 'en-US';
+
+                          recognition.onstart = () => {
+                            if (startBtn) startBtn.textContent = 'Listening...';
+                            if (output) output.textContent = 'Listening... Speak now!';
+                          };
+
+                          recognition.onresult = (event: any) => {
+                            let transcript = '';
+                            for (let i = event.resultIndex; i < event.results.length; i++) {
+                              if (event.results[i].isFinal) {
+                                transcript += event.results[i][0].transcript + ' ';
+                              }
+                            }
+                            if (output) output.textContent = transcript;
+                          };
+
+                          recognition.onerror = (event: any) => {
+                            if (output) output.textContent = 'Error: ' + event.error;
+                            if (startBtn) startBtn.textContent = 'Start Recording';
+                          };
+
+                          recognition.onend = () => {
+                            if (startBtn) startBtn.textContent = 'Start Recording';
+                          };
+
+                          recognition.start();
+                        } else {
+                          if (output) output.textContent = 'Speech recognition not supported in this browser.';
+                        }
+                      }}
+                    >
+                      🎤 Start Recording
+                    </Button>
+
+                    <div className="text-sm text-muted-foreground">
+                      Supports: Chrome, Edge, Safari (with permissions)
+                    </div>
+                  </div>
+
+                  <div className="flex-1 bg-muted/50 rounded-lg p-4">
+                    <div className="text-sm font-medium mb-2">Speech Output:</div>
+                    <div
+                      id="speech-output"
+                      className="min-h-[200px] p-3 bg-background rounded border text-foreground"
+                    >
+                      Click "Start Recording" and speak into your microphone...
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-muted-foreground">
+                    Note: This demo uses the browser's built-in Web Speech API. For Azure Speech Services, you would need to provide your subscription key and implement the Azure SDK integration.
+                  </div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
