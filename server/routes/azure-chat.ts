@@ -57,8 +57,8 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Azure OpenAI API error:', response.status, errorText);
-      throw new Error(`Azure OpenAI API error: ${response.status}`);
+      console.error('AI API error:', response.status, errorText);
+      throw new Error(`AI API error: ${response.status}`);
     }
 
     const data = await response.json();
