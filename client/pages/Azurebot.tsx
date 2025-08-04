@@ -48,7 +48,7 @@ const Azurebot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/azure-chat', {
+      const response = await fetch('/api/ai-chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
