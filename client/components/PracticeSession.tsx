@@ -35,6 +35,8 @@ interface PracticeSessionProps {
   avatar?: (speaking: boolean) => React.ReactNode;
   onComplete?: () => void;
   userGender?: "male" | "female";
+  customBackgroundDesktop?: string;
+  customBackgroundMobile?: string;
 }
 
 export default function PracticeSession({
@@ -44,6 +46,8 @@ export default function PracticeSession({
   avatar,
   onComplete,
   userGender = "male",
+  customBackgroundDesktop,
+  customBackgroundMobile,
 }: PracticeSessionProps) {
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
@@ -60,11 +64,19 @@ export default function PracticeSession({
   const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
   const [showHistory, setShowHistory] = useState(false);
 
-  // Interview scene background images
-  const maleInterviewScene =
+  // Default interview scene background images
+  const defaultMaleInterviewScene =
     "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F82c53005c60f41e2a36ba6b7e288ade6?format=webp&width=800";
-  const femaleInterviewScene =
+  const defaultFemaleInterviewScene =
     "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F5be9055b1cc54cd4bbf4b32d356bdeaf?format=webp&width=800";
+
+  // Use custom backgrounds if provided, otherwise fall back to defaults
+  const desktopBackground =
+    customBackgroundDesktop ||
+    (userGender === "male"
+      ? defaultMaleInterviewScene
+      : defaultFemaleInterviewScene);
+  const mobileBackground = customBackgroundMobile || desktopBackground;
 
   // Session tracking - temporarily disabled to fix React hooks issue
   // const {
@@ -495,57 +507,76 @@ export default function PracticeSession({
       {/* Main conversation area with background */}
       <div className="relative h-screen pt-20 pb-32">
         {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${userGender === "male" ? maleInterviewScene : femaleInterviewScene})`,
-          }}
-        />
+        <div className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${desktopBackground})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          />
+        </div>
+
+        {/* Mobile background */}
+        <div className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${mobileBackground})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+          />
+        </div>
+
+        {/* Mobile background fallback */}
+        <div className="md:hidden absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
 
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/30 md:bg-black/40" />
 
         {/* Speech bubbles container */}
-        <div className="relative h-full flex items-center justify-center px-8">
-          {/* User speech bubble - Left side */}
-          {transcript && (
-            <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
-              <div className="bg-white/95 text-slate-900 p-6 rounded-2xl rounded-bl-none shadow-2xl max-w-md backdrop-blur-sm border border-white/20">
-                <div className="absolute left-0 bottom-0 transform -translate-x-2 translate-y-1">
-                  <div className="w-0 h-0 border-t-8 border-r-8 border-b-8 border-transparent border-r-white/95"></div>
+        <div className="relative h-full flex items-center justify-center px-4 md:px-8">
+          {/* AI speech bubble - Left side */}
+          <div className="absolute left-4 md:left-8 top-32 md:top-40 max-w-[280px] md:max-w-md">
+            <div
+              className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30"
+              style={{ marginTop: "111px" }}
+            >
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
+                  <p className="text-slate-900">AI is thinking...</p>
                 </div>
+              ) : reply ? (
+                <div>
+                  <p className="text-sm font-medium">{reply}</p>
+                  <p className="text-xs text-slate-500 mt-2">AI Server</p>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-sm text-slate-500">
+                    Ready to start the session...
+                  </p>
+                  <p className="text-xs text-slate-500 mt-2">AI Server</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* User speech bubble - Right side */}
+          {transcript && (
+            <div className="absolute right-4 md:right-8 top-48 md:top-56 max-w-[280px] md:max-w-md">
+              <div
+                className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30"
+                style={{ margin: "42px 0 0 176px" }}
+              >
                 <p className="text-sm font-medium">{transcript}</p>
                 <p className="text-xs text-slate-500 mt-2">You</p>
               </div>
             </div>
           )}
-
-          {/* AI speech bubble - Top right */}
-          <div className="absolute right-8 top-24">
-            <div className="bg-slate-900/95 text-white p-6 rounded-2xl rounded-tr-none shadow-2xl max-w-md backdrop-blur-sm border border-white/10">
-              <div className="absolute right-0 top-0 transform translate-x-2 -translate-y-1">
-                <div className="w-0 h-0 border-b-8 border-l-8 border-r-8 border-transparent border-l-slate-900/95"></div>
-              </div>
-              {isLoading ? (
-                <div className="flex items-center space-x-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
-                  <p className="text-white/80">AI is thinking...</p>
-                </div>
-              ) : reply ? (
-                <div>
-                  <p className="text-sm text-white">{reply}</p>
-                  <p className="text-xs text-white/60 mt-2">AI Interviewer</p>
-                </div>
-              ) : (
-                <div>
-                  <p className="text-sm text-white/60">
-                    Ready to start the interview...
-                  </p>
-                  <p className="text-xs text-white/40 mt-2">AI Interviewer</p>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
 

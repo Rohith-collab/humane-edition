@@ -35,6 +35,7 @@ export default function ShoppingChat() {
           className="w-full h-full"
         />
       )}
+      userGender="male"
     />
   );
 }

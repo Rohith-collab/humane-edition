@@ -37,6 +37,7 @@ export default function GrammarChat() {
           className="w-full h-full"
         />
       )}
+      userGender="male"
     />
   );
 }
