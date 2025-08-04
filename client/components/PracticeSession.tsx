@@ -126,11 +126,42 @@ export default function PracticeSession({
     });
   };
 
+  // Health check function
+  const checkApiHealth = async (): Promise<boolean> => {
+    try {
+      const baseUrl = window.location.origin;
+      const healthUrl = `${baseUrl}/api/health`;
+      console.log("Checking API health at:", healthUrl);
+
+      const response = await fetch(healthUrl, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+        },
+        credentials: "same-origin",
+      });
+
+      const isHealthy = response.ok;
+      console.log("API health check result:", isHealthy, response.status);
+      return isHealthy;
+    } catch (error) {
+      console.error("API health check failed:", error);
+      return false;
+    }
+  };
+
   // Initialize session with welcome message
   useEffect(() => {
     // startTracking(); // Temporarily disabled
     setSessionStartTime(new Date());
-    initializeSession();
+
+    // Check API health before initializing session
+    checkApiHealth().then((isHealthy) => {
+      if (!isHealthy) {
+        console.warn("API health check failed, proceeding with offline fallback");
+      }
+      initializeSession();
+    });
 
     return () => {
       // endTracking(); // Temporarily disabled
