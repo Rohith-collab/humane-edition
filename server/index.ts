@@ -23,8 +23,16 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
-  // AI Chat route
+  // AI Chat route with OPTIONS preflight
+  app.options("/api/chat", (req, res) => {
+    res.status(200).end();
+  });
   app.post("/api/chat", handleChat);
+
+  // Health check endpoint
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString() });
+  });
 
   return app;
 }
