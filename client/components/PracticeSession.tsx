@@ -136,7 +136,7 @@ export default function PracticeSession({
       const response = await fetch(healthUrl, {
         method: "GET",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         credentials: "same-origin",
       });
@@ -158,7 +158,9 @@ export default function PracticeSession({
     // Check API health before initializing session
     checkApiHealth().then((isHealthy) => {
       if (!isHealthy) {
-        console.warn("API health check failed, proceeding with offline fallback");
+        console.warn(
+          "API health check failed, proceeding with offline fallback",
+        );
       }
       initializeSession();
     });
@@ -533,7 +535,9 @@ export default function PracticeSession({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => checkApiHealth().then(() => initializeSession())}
+                  onClick={() =>
+                    checkApiHealth().then(() => initializeSession())
+                  }
                   className="text-red-400 hover:text-red-300 text-xs"
                 >
                   Test API
