@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import { handleDemo } from "./routes/demo";
 import { handleChat } from "./routes/openai";
+import { handleAzureChat } from "./routes/azure-chat";
 
 export function createServer() {
   const app = express();
