@@ -20,8 +20,8 @@ const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Practice Mode", href: "/practice", icon: Play },
   { name: "Humanoid Tutor", href: "/humanoid", icon: Bot },
-  { name: "Settings", href: "/settings", icon: Settings },
-  { name: "Bot Chat", href: "/bot-chat", icon: Settings }
+  { name: "Chat Bot", href: "/bot-chat", icon: Bot },
+  { name: "Settings", href: "/settings", icon: Settings }
 ];
 
 export function Navigation() {
