@@ -98,7 +98,7 @@ interface Achievement {
   progress?: number;
   requirement?: number;
   color: string;
-  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  rarity: "common" | "rare" | "epic" | "legendary";
 }
 
 const Dashboard = () => {
@@ -355,7 +355,12 @@ const Dashboard = () => {
   useEffect(() => {
     setTimeOfDay(getTimeOfDay());
 
-    const animateValue = (start: number, end: number, duration: number, key: keyof typeof animatedStats) => {
+    const animateValue = (
+      start: number,
+      end: number,
+      duration: number,
+      key: keyof typeof animatedStats,
+    ) => {
       const range = end - start;
       const increment = range / (duration / 16);
       let current = start;
@@ -366,9 +371,14 @@ const Dashboard = () => {
           current = end;
           clearInterval(timer);
         }
-        setAnimatedStats(prev => ({
+        setAnimatedStats((prev) => ({
           ...prev,
-          [key]: current >= end ? (key === 'weeklyProgress' ? Number(end.toFixed(1)) : Math.round(end)) : prev[key],
+          [key]:
+            current >= end
+              ? key === "weeklyProgress"
+                ? Number(end.toFixed(1))
+                : Math.round(end)
+              : prev[key],
         }));
       }, 16);
 
@@ -376,16 +386,33 @@ const Dashboard = () => {
     };
 
     const timers = [
-      setTimeout(() => animateValue(0, userStats.fluencyScore, 1500, 'fluencyScore'), 200),
-      setTimeout(() => animateValue(0, userStats.currentStreak, 1200, 'currentStreak'), 400),
-      setTimeout(() => animateValue(0, userStats.totalSessions, 1800, 'totalSessions'), 600),
-      setTimeout(() => animateValue(0, userStats.weeklyProgress, 1400, 'weeklyProgress'), 800),
+      setTimeout(
+        () => animateValue(0, userStats.fluencyScore, 1500, "fluencyScore"),
+        200,
+      ),
+      setTimeout(
+        () => animateValue(0, userStats.currentStreak, 1200, "currentStreak"),
+        400,
+      ),
+      setTimeout(
+        () => animateValue(0, userStats.totalSessions, 1800, "totalSessions"),
+        600,
+      ),
+      setTimeout(
+        () => animateValue(0, userStats.weeklyProgress, 1400, "weeklyProgress"),
+        800,
+      ),
     ];
 
     return () => {
-      timers.forEach(timer => clearTimeout(timer));
+      timers.forEach((timer) => clearTimeout(timer));
     };
-  }, [userStats.fluencyScore, userStats.currentStreak, userStats.totalSessions, userStats.weeklyProgress]);
+  }, [
+    userStats.fluencyScore,
+    userStats.currentStreak,
+    userStats.totalSessions,
+    userStats.weeklyProgress,
+  ]);
 
   // Refresh data when user returns to dashboard
   useEffect(() => {
@@ -408,7 +435,10 @@ const Dashboard = () => {
         <div className="text-center space-y-6">
           <div className="relative">
             <div className="w-20 h-20 border-4 border-nova-500/30 border-t-nova-500 rounded-full animate-spin mx-auto"></div>
-            <div className="absolute inset-0 w-20 h-20 border-4 border-electric-500/20 border-r-electric-500 rounded-full animate-spin mx-auto" style={{ animationDirection: 'reverse', animationDuration: '3s' }}></div>
+            <div
+              className="absolute inset-0 w-20 h-20 border-4 border-electric-500/20 border-r-electric-500 rounded-full animate-spin mx-auto"
+              style={{ animationDirection: "reverse", animationDuration: "3s" }}
+            ></div>
           </div>
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-foreground animate-pulse">
@@ -419,9 +449,18 @@ const Dashboard = () => {
             </p>
           </div>
           <div className="flex justify-center space-x-1">
-            <div className="w-2 h-2 bg-nova-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-            <div className="w-2 h-2 bg-electric-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-            <div className="w-2 h-2 bg-cyber-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            <div
+              className="w-2 h-2 bg-nova-500 rounded-full animate-bounce"
+              style={{ animationDelay: "0ms" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-electric-500 rounded-full animate-bounce"
+              style={{ animationDelay: "150ms" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-cyber-500 rounded-full animate-bounce"
+              style={{ animationDelay: "300ms" }}
+            ></div>
           </div>
         </div>
       </div>
@@ -429,7 +468,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-background via-background to-muted/20 transition-all duration-1000 ${timeOfDay === 'night' ? 'from-slate-900 via-slate-800 to-slate-900' : timeOfDay === 'morning' ? 'from-amber-50/5 via-background to-orange-50/5' : ''}`}>
+    <div
+      className={`min-h-screen bg-gradient-to-br from-background via-background to-muted/20 transition-all duration-1000 ${timeOfDay === "night" ? "from-slate-900 via-slate-800 to-slate-900" : timeOfDay === "morning" ? "from-amber-50/5 via-background to-orange-50/5" : ""}`}
+    >
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Floating Action Buttons */}
         <div className="fixed top-6 right-6 z-50 flex space-x-3">
@@ -469,7 +510,8 @@ const Dashboard = () => {
               </div>
               <div className="space-y-2">
                 <h1 className="text-4xl font-bold text-foreground bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 bg-clip-text text-transparent animate-gradient">
-                  {getGreeting()}, {currentUser?.displayName?.split(' ')[0] || "Learner"}!
+                  {getGreeting()},{" "}
+                  {currentUser?.displayName?.split(" ")[0] || "Learner"}!
                 </h1>
                 <p className="text-lg text-muted-foreground">
                   Ready to continue your English learning journey? ✨
@@ -505,7 +547,7 @@ const Dashboard = () => {
 
           {/* Animated Quick Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card 
+            <Card
               className="bg-gradient-to-br from-nova-500/10 to-nova-600/5 border-nova-200/20 hover:from-nova-500/20 hover:to-nova-600/10 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer group"
               onMouseEnter={() => setHoveredCard("fluency")}
               onMouseLeave={() => setHoveredCard("")}
@@ -541,7 +583,7 @@ const Dashboard = () => {
               </CardContent>
             </Card>
 
-            <Card 
+            <Card
               className="bg-gradient-to-br from-electric-500/10 to-electric-600/5 border-electric-200/20 hover:from-electric-500/20 hover:to-electric-600/10 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer group"
               onMouseEnter={() => setHoveredCard("streak")}
               onMouseLeave={() => setHoveredCard("")}
@@ -574,7 +616,7 @@ const Dashboard = () => {
               </CardContent>
             </Card>
 
-            <Card 
+            <Card
               className="bg-gradient-to-br from-cyber-500/10 to-cyber-600/5 border-cyber-200/20 hover:from-cyber-500/20 hover:to-cyber-600/10 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer group"
               onMouseEnter={() => setHoveredCard("sessions")}
               onMouseLeave={() => setHoveredCard("")}
@@ -593,14 +635,17 @@ const Dashboard = () => {
                     </p>
                   </div>
                   <div className="relative">
-                    <Clock className="h-10 w-10 text-cyber-500 group-hover:animate-spin" style={{ animationDuration: '3s' }} />
+                    <Clock
+                      className="h-10 w-10 text-cyber-500 group-hover:animate-spin"
+                      style={{ animationDuration: "3s" }}
+                    />
                     <div className="absolute inset-0 bg-cyber-500/20 rounded-full blur-md group-hover:bg-cyber-500/40 transition-all duration-300"></div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card 
+            <Card
               className="bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-200/20 hover:from-green-500/20 hover:to-green-600/10 transition-all duration-500 hover:scale-105 hover:shadow-xl cursor-pointer group"
               onMouseEnter={() => setHoveredCard("goal")}
               onMouseLeave={() => setHoveredCard("")}
@@ -616,11 +661,18 @@ const Dashboard = () => {
                     </p>
                     <div className="space-y-1">
                       <Progress
-                        value={(userStats.weeklyProgress / userStats.weeklyGoal) * 100}
+                        value={
+                          (userStats.weeklyProgress / userStats.weeklyGoal) *
+                          100
+                        }
                         className="h-2 transition-all duration-500 group-hover:h-3"
                       />
                       <p className="text-xs text-muted-foreground">
-                        {Math.round((userStats.weeklyProgress / userStats.weeklyGoal) * 100)}% complete
+                        {Math.round(
+                          (userStats.weeklyProgress / userStats.weeklyGoal) *
+                            100,
+                        )}
+                        % complete
                       </p>
                     </div>
                   </div>
@@ -637,28 +689,28 @@ const Dashboard = () => {
         {/* Enhanced Main Content Tabs */}
         <Tabs defaultValue="overview" className="space-y-8">
           <TabsList className="grid w-full grid-cols-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-1">
-            <TabsTrigger 
-              value="overview" 
+            <TabsTrigger
+              value="overview"
               className="rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-nova-500 data-[state=active]:to-electric-500 data-[state=active]:text-white"
             >
               <BarChart3 className="h-4 w-4 mr-2" />
               Overview
             </TabsTrigger>
-            <TabsTrigger 
+            <TabsTrigger
               value="progress"
               className="rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-electric-500 data-[state=active]:to-cyber-500 data-[state=active]:text-white"
             >
               <TrendingUp className="h-4 w-4 mr-2" />
               Progress
             </TabsTrigger>
-            <TabsTrigger 
+            <TabsTrigger
               value="modules"
               className="rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyber-500 data-[state=active]:to-nova-500 data-[state=active]:text-white"
             >
               <BookOpen className="h-4 w-4 mr-2" />
               Modules
             </TabsTrigger>
-            <TabsTrigger 
+            <TabsTrigger
               value="achievements"
               className="rounded-lg transition-all duration-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
             >
@@ -688,7 +740,11 @@ const Dashboard = () => {
                       onClick={() => setIsPlaying(!isPlaying)}
                       className="hover:scale-110 transition-transform duration-300"
                     >
-                      {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                      {isPlaying ? (
+                        <Pause className="h-4 w-4" />
+                      ) : (
+                        <Play className="h-4 w-4" />
+                      )}
                     </Button>
                   </div>
                 </CardHeader>
@@ -696,32 +752,43 @@ const Dashboard = () => {
                   <ResponsiveContainer width="100%" height={220}>
                     <BarChart data={weeklyData}>
                       <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                      <XAxis 
-                        dataKey="day" 
+                      <XAxis
+                        dataKey="day"
                         tick={{ fontSize: 12 }}
                         axisLine={false}
                       />
-                      <YAxis 
-                        tick={{ fontSize: 12 }}
-                        axisLine={false}
-                      />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'rgba(0,0,0,0.8)', 
-                          border: 'none', 
-                          borderRadius: '8px',
-                          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                      <YAxis tick={{ fontSize: 12 }} axisLine={false} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "rgba(0,0,0,0.8)",
+                          border: "none",
+                          borderRadius: "8px",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
                         }}
                       />
-                      <Bar 
-                        dataKey="sessions" 
+                      <Bar
+                        dataKey="sessions"
                         fill="url(#sessionGradient)"
                         radius={[4, 4, 0, 0]}
                       />
                       <defs>
-                        <linearGradient id="sessionGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.9}/>
-                          <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.6}/>
+                        <linearGradient
+                          id="sessionGradient"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#8b5cf6"
+                            stopOpacity={0.9}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#8b5cf6"
+                            stopOpacity={0.6}
+                          />
                         </linearGradient>
                       </defs>
                     </BarChart>
@@ -744,21 +811,18 @@ const Dashboard = () => {
                   <ResponsiveContainer width="100%" height={220}>
                     <AreaChart data={weeklyData}>
                       <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                      <XAxis 
-                        dataKey="day" 
+                      <XAxis
+                        dataKey="day"
                         tick={{ fontSize: 12 }}
                         axisLine={false}
                       />
-                      <YAxis 
-                        tick={{ fontSize: 12 }}
-                        axisLine={false}
-                      />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'rgba(0,0,0,0.8)', 
-                          border: 'none', 
-                          borderRadius: '8px',
-                          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                      <YAxis tick={{ fontSize: 12 }} axisLine={false} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "rgba(0,0,0,0.8)",
+                          border: "none",
+                          borderRadius: "8px",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
                         }}
                       />
                       <Area
@@ -769,9 +833,23 @@ const Dashboard = () => {
                         fill="url(#fluencyGradient)"
                       />
                       <defs>
-                        <linearGradient id="fluencyGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
+                        <linearGradient
+                          id="fluencyGradient"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#10b981"
+                            stopOpacity={0.3}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#10b981"
+                            stopOpacity={0.1}
+                          />
                         </linearGradient>
                       </defs>
                     </AreaChart>
@@ -862,30 +940,56 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {[
-                    { name: "Speaking Fluency", value: userStats.fluencyScore, color: "nova" },
-                    { name: "Pronunciation", value: userStats.pronunciationAccuracy, color: "electric" },
+                    {
+                      name: "Speaking Fluency",
+                      value: userStats.fluencyScore,
+                      color: "nova",
+                    },
+                    {
+                      name: "Pronunciation",
+                      value: userStats.pronunciationAccuracy,
+                      color: "electric",
+                    },
                     { name: "Grammar", value: 92, color: "cyber" },
                     { name: "Vocabulary", value: 88, color: "green" },
                   ].map((skill, index) => (
-                    <div key={skill.name} className="space-y-2 group" style={{ animationDelay: `${index * 100}ms` }}>
+                    <div
+                      key={skill.name}
+                      className="space-y-2 group"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
                       <div className="flex justify-between text-sm">
-                        <span className="font-medium group-hover:text-foreground transition-colors duration-300">{skill.name}</span>
-                        <span className="font-bold tabular-nums">{skill.value}%</span>
+                        <span className="font-medium group-hover:text-foreground transition-colors duration-300">
+                          {skill.name}
+                        </span>
+                        <span className="font-bold tabular-nums">
+                          {skill.value}%
+                        </span>
                       </div>
                       <div className="relative">
-                        <Progress 
-                          value={skill.value} 
-                          className="h-3 transition-all duration-500 group-hover:h-4" 
+                        <Progress
+                          value={skill.value}
+                          className="h-3 transition-all duration-500 group-hover:h-4"
                         />
-                        <div 
+                        <div
                           className="absolute top-0 left-0 h-full bg-gradient-to-r from-transparent to-white/20 rounded-full transition-all duration-500 group-hover:opacity-100 opacity-0"
                           style={{ width: `${skill.value}%` }}
                         ></div>
                       </div>
                       <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                        <span>{skill.value >= 90 ? "Expert" : skill.value >= 75 ? "Advanced" : skill.value >= 50 ? "Intermediate" : "Beginner"}</span>
+                        <span>
+                          {skill.value >= 90
+                            ? "Expert"
+                            : skill.value >= 75
+                              ? "Advanced"
+                              : skill.value >= 50
+                                ? "Intermediate"
+                                : "Beginner"}
+                        </span>
                         <div className="h-1 w-1 bg-muted-foreground rounded-full"></div>
-                        <span>+{Math.floor(Math.random() * 5) + 1} this week</span>
+                        <span>
+                          +{Math.floor(Math.random() * 5) + 1} this week
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -921,12 +1025,12 @@ const Dashboard = () => {
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'rgba(0,0,0,0.8)', 
-                          border: 'none', 
-                          borderRadius: '8px',
-                          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "rgba(0,0,0,0.8)",
+                          border: "none",
+                          borderRadius: "8px",
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
                         }}
                       />
                     </PieChart>
@@ -939,8 +1043,8 @@ const Dashboard = () => {
           <TabsContent value="modules" className="space-y-8 animate-fadeIn">
             <div className="grid gap-6">
               {moduleProgress.map((module, index) => (
-                <Card 
-                  key={index} 
+                <Card
+                  key={index}
                   className="hover:shadow-xl transition-all duration-500 hover:scale-[1.02] cursor-pointer group border-0 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -960,7 +1064,9 @@ const Dashboard = () => {
                           </span>
                           <span className="flex items-center space-x-1">
                             <Target className="h-3 w-3" />
-                            <span>{module.total - module.completed} remaining</span>
+                            <span>
+                              {module.total - module.completed} remaining
+                            </span>
                           </span>
                         </div>
                       </div>
@@ -974,8 +1080,15 @@ const Dashboard = () => {
                         <p className="text-xs text-muted-foreground">
                           accuracy score
                         </p>
-                        <Badge variant="secondary" className="bg-gradient-to-r from-nova-500/20 to-electric-500/20">
-                          {module.accuracy >= 90 ? "Excellent" : module.accuracy >= 80 ? "Good" : "Improving"}
+                        <Badge
+                          variant="secondary"
+                          className="bg-gradient-to-r from-nova-500/20 to-electric-500/20"
+                        >
+                          {module.accuracy >= 90
+                            ? "Excellent"
+                            : module.accuracy >= 80
+                              ? "Good"
+                              : "Improving"}
                         </Badge>
                       </div>
                     </div>
@@ -991,15 +1104,17 @@ const Dashboard = () => {
                           value={(module.completed / module.total) * 100}
                           className="h-2 transition-all duration-500 group-hover:h-3"
                         />
-                        <div 
+                        <div
                           className="absolute top-0 left-0 h-full bg-gradient-to-r from-transparent to-white/30 rounded-full transition-all duration-500 group-hover:opacity-100 opacity-0"
-                          style={{ width: `${(module.completed / module.total) * 100}%` }}
+                          style={{
+                            width: `${(module.completed / module.total) * 100}%`,
+                          }}
                         ></div>
                       </div>
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       className="mt-4 hover:bg-nova-500/10 hover:text-nova-500 transition-all duration-300 group/btn"
                     >
                       <span>Continue Learning</span>
@@ -1011,11 +1126,14 @@ const Dashboard = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="achievements" className="space-y-8 animate-fadeIn">
+          <TabsContent
+            value="achievements"
+            className="space-y-8 animate-fadeIn"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {achievements.map((achievement, index) => (
-                <Card 
-                  key={achievement.id} 
+                <Card
+                  key={achievement.id}
                   className={`bg-gradient-to-br ${achievement.color} border-0 hover:shadow-xl transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -1029,9 +1147,12 @@ const Dashboard = () => {
                     <p className="text-sm text-muted-foreground mb-4">
                       {achievement.description}
                     </p>
-                    
+
                     {achievement.earned ? (
-                      <Badge variant="secondary" className="bg-green-500/20 text-green-700 border-green-500/30">
+                      <Badge
+                        variant="secondary"
+                        className="bg-green-500/20 text-green-700 border-green-500/30"
+                      >
                         <Award className="h-3 w-3 mr-1" />
                         Earned
                       </Badge>
@@ -1041,38 +1162,49 @@ const Dashboard = () => {
                           <div className="space-y-1">
                             <div className="flex justify-between text-xs">
                               <span>Progress</span>
-                              <span>{achievement.progress}/{achievement.requirement}</span>
+                              <span>
+                                {achievement.progress}/{achievement.requirement}
+                              </span>
                             </div>
-                            <Progress 
-                              value={(achievement.progress / achievement.requirement) * 100} 
+                            <Progress
+                              value={
+                                (achievement.progress /
+                                  achievement.requirement) *
+                                100
+                              }
                               className="h-1"
                             />
                           </div>
                         )}
-                        <Badge variant="outline" className="border-muted-foreground/30 text-muted-foreground">
-                          {achievement.progress && achievement.requirement 
-                            ? "In Progress" 
-                            : "Locked"
-                          }
+                        <Badge
+                          variant="outline"
+                          className="border-muted-foreground/30 text-muted-foreground"
+                        >
+                          {achievement.progress && achievement.requirement
+                            ? "In Progress"
+                            : "Locked"}
                         </Badge>
                       </div>
                     )}
-                    
+
                     <div className="absolute top-2 right-2">
-                      <Badge 
-                        variant="secondary" 
+                      <Badge
+                        variant="secondary"
                         className={`text-xs ${
-                          achievement.rarity === 'legendary' ? 'bg-yellow-500/20 text-yellow-700 border-yellow-500/30' :
-                          achievement.rarity === 'epic' ? 'bg-purple-500/20 text-purple-700 border-purple-500/30' :
-                          achievement.rarity === 'rare' ? 'bg-blue-500/20 text-blue-700 border-blue-500/30' :
-                          'bg-gray-500/20 text-gray-700 border-gray-500/30'
+                          achievement.rarity === "legendary"
+                            ? "bg-yellow-500/20 text-yellow-700 border-yellow-500/30"
+                            : achievement.rarity === "epic"
+                              ? "bg-purple-500/20 text-purple-700 border-purple-500/30"
+                              : achievement.rarity === "rare"
+                                ? "bg-blue-500/20 text-blue-700 border-blue-500/30"
+                                : "bg-gray-500/20 text-gray-700 border-gray-500/30"
                         }`}
                       >
                         {achievement.rarity}
                       </Badge>
                     </div>
                   </CardContent>
-                  
+
                   {/* Animated background effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                 </Card>
