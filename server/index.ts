@@ -43,6 +43,12 @@ export function createServer() {
   });
   app.post("/api/chat", handleChat);
 
+  // Azure OpenAI Chat route
+  app.options("/api/azure-chat", (req, res) => {
+    res.status(200).end();
+  });
+  app.post("/api/azure-chat", handleAzureChat);
+
   // Health check endpoint
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
