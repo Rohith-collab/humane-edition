@@ -21,9 +21,9 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
       return res.status(400).json({ error: "Messages array is required" });
     }
 
-    // Azure OpenAI configuration
-    const azureEndpoint = "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2025-01-01-preview";
-    const apiKey = "7d78c805a6a9499e97820bbdbcf47df0";
+    // Azure OpenAI configuration - try the second API key
+    const azureEndpoint = "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2024-02-15-preview";
+    const apiKey = "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
 
     // Prepare the request payload
     const payload = {
