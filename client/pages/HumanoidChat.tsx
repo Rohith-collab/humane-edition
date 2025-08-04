@@ -715,36 +715,36 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
                 <div key={index} className="space-y-4">
                   {/* User Message */}
                   <div className="flex justify-end">
-                    <div className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl p-4 border border-indigo-500/30 max-w-[80%]">
+                    <div className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl lg:rounded-2xl p-3 lg:p-4 border border-indigo-500/30 max-w-[90%] lg:max-w-[80%]">
                       <div className="flex items-center space-x-2 mb-2">
-                        <User className="w-4 h-4 text-indigo-400" />
-                        <span className="text-sm font-medium text-foreground">
+                        <User className="w-3 lg:w-4 h-3 lg:h-4 text-indigo-400" />
+                        <span className="text-xs lg:text-sm font-medium text-foreground">
                           You
                         </span>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-xs text-muted-foreground hidden sm:inline">
                           {conv.timestamp.toLocaleTimeString()}
                         </span>
                       </div>
-                      <p className="text-foreground">{conv.user}</p>
+                      <p className="text-foreground text-sm lg:text-base">{conv.user}</p>
                     </div>
                   </div>
 
                   {/* AI Response */}
-                  <div className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-2xl p-4 border border-border/30">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <Bot className="w-4 h-4 text-white" />
+                  <div className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-xl lg:rounded-2xl p-3 lg:p-4 border border-border/30">
+                    <div className="flex items-start space-x-2 lg:space-x-3">
+                      <div className="w-6 lg:w-8 h-6 lg:h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <Bot className="w-3 lg:w-4 h-3 lg:h-4 text-white" />
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center space-x-2 mb-2">
-                          <span className="text-sm font-medium text-foreground">
+                          <span className="text-xs lg:text-sm font-medium text-foreground">
                             AI Tutor
                           </span>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-xs text-muted-foreground hidden sm:inline">
                             {conv.timestamp.toLocaleTimeString()}
                           </span>
                         </div>
-                        <p className="text-foreground leading-relaxed whitespace-pre-wrap">
+                        <p className="text-foreground leading-relaxed whitespace-pre-wrap text-sm lg:text-base">
                           {conv.bot}
                         </p>
                       </div>
