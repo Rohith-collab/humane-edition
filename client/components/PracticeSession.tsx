@@ -186,6 +186,7 @@ export default function PracticeSession({
       }
     } catch (error) {
       console.error("Failed to initialize session:", error);
+      setApiError("Connection issue - working in offline mode");
 
       const fallbackMessages = {
         "Job Interview":
