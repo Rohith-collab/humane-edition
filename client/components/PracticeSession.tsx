@@ -221,90 +221,43 @@ export default function PracticeSession({
     userInput: string,
     retryCount = 0,
   ): Promise<string> => {
-    const requestBody: ChatRequest = {
-      messages: [
-        {
-          role: "system",
-          content: systemPrompt,
-        },
-        { role: "user", content: userInput },
-      ],
-      temperature: 0.7,
-      max_tokens: 800,
-    };
-
     try {
-      console.log("Making API request to /api/chat...");
+      console.log("Making direct API request to Azure OpenAI...");
 
-      // Try to determine the correct API URL
-      const baseUrl = window.location.origin;
-      const apiUrl = `${baseUrl}/api/chat`;
-      console.log("API URL:", apiUrl);
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000);
-
-      // Try native fetch first
-      let response: Response;
-      try {
-        const nativeFetch = window.fetch?.bind(window) || fetch;
-        response = await nativeFetch(apiUrl, {
-          method: "POST",
+      const response = await fetch(
+        'https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview',
+        {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Cache-Control": "no-cache",
-            "X-Requested-With": "XMLHttpRequest",
+            'Content-Type': 'application/json',
+            'api-key': 'A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n'
           },
-          body: JSON.stringify(requestBody),
-          signal: controller.signal,
-          credentials: "same-origin",
-        });
-      } catch (fetchError) {
-        console.error("Native fetch failed:", fetchError);
-        // Fallback to XMLHttpRequest immediately if fetch fails
-        clearTimeout(timeoutId);
-        return await makeXHRRequest(requestBody);
-      }
-
-      clearTimeout(timeoutId);
-
-      console.log("API response status:", response.status);
+          body: JSON.stringify({
+            messages: [
+              {
+                role: 'system',
+                content: systemPrompt
+              },
+              { role: 'user', content: userInput }
+            ],
+            temperature: 0.7,
+            max_tokens: 800
+          })
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(
-          `HTTP error! status: ${response.status} - ${response.statusText}`,
-        );
+        throw new Error(`Azure API error: ${response.status} - ${response.statusText}`);
       }
 
-      const data: ChatResponse = await response.json();
-      console.log("API response data:", data);
+      const data = await response.json();
+      console.log("Azure OpenAI response:", data);
 
-      if (!data.success) {
-        throw new Error(data.error || "Failed to get AI response");
-      }
-
+      const botResponse = (data.choices?.[0]?.message?.content || 'No response from bot.').trim();
       setApiError("");
-      return data.response || "No response from bot.";
+      return botResponse;
     } catch (err) {
-      console.error("Chat API Error (attempt " + (retryCount + 1) + "):", err);
-
-      if (
-        retryCount === 0 &&
-        err instanceof Error &&
-        (err.message.includes("Failed to fetch") ||
-          err.message.includes("fetch") ||
-          err.message.includes("network"))
-      ) {
-        console.log("Fetch failed, trying XMLHttpRequest fallback...");
-        try {
-          const result = await makeXHRRequest(requestBody);
-          setApiError("");
-          return result;
-        } catch (xhrErr) {
-          console.error("XMLHttpRequest also failed:", xhrErr);
-        }
-      }
+      console.error("Azure OpenAI Error (attempt " + (retryCount + 1) + "):", err);
 
       if (retryCount < 2) {
         console.log("Retrying in", (retryCount + 1) * 1000, "ms...");
