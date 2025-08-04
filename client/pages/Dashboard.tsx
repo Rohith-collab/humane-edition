@@ -354,12 +354,12 @@ const Dashboard = () => {
   // Animate numbers on mount
   useEffect(() => {
     setTimeOfDay(getTimeOfDay());
-    
-    const animateValue = (start: number, end: number, duration: number) => {
+
+    const animateValue = (start: number, end: number, duration: number, key: keyof typeof animatedStats) => {
       const range = end - start;
       const increment = range / (duration / 16);
       let current = start;
-      
+
       const timer = setInterval(() => {
         current += increment;
         if (current >= end) {
@@ -368,27 +368,24 @@ const Dashboard = () => {
         }
         setAnimatedStats(prev => ({
           ...prev,
-          fluencyScore: current === end && end === userStats.fluencyScore ? Math.round(current) : prev.fluencyScore,
-          currentStreak: current === end && end === userStats.currentStreak ? Math.round(current) : prev.currentStreak,
-          totalSessions: current === end && end === userStats.totalSessions ? Math.round(current) : prev.totalSessions,
-          weeklyProgress: current === end && end === userStats.weeklyProgress ? Number(current.toFixed(1)) : prev.weeklyProgress,
+          [key]: current >= end ? (key === 'weeklyProgress' ? Number(end.toFixed(1)) : Math.round(end)) : prev[key],
         }));
       }, 16);
-      
+
       return timer;
     };
 
     const timers = [
-      setTimeout(() => animateValue(0, userStats.fluencyScore, 1500), 200),
-      setTimeout(() => animateValue(0, userStats.currentStreak, 1200), 400),
-      setTimeout(() => animateValue(0, userStats.totalSessions, 1800), 600),
-      setTimeout(() => animateValue(0, userStats.weeklyProgress, 1400), 800),
+      setTimeout(() => animateValue(0, userStats.fluencyScore, 1500, 'fluencyScore'), 200),
+      setTimeout(() => animateValue(0, userStats.currentStreak, 1200, 'currentStreak'), 400),
+      setTimeout(() => animateValue(0, userStats.totalSessions, 1800, 'totalSessions'), 600),
+      setTimeout(() => animateValue(0, userStats.weeklyProgress, 1400, 'weeklyProgress'), 800),
     ];
 
     return () => {
       timers.forEach(timer => clearTimeout(timer));
     };
-  }, [userStats]);
+  }, [userStats.fluencyScore, userStats.currentStreak, userStats.totalSessions, userStats.weeklyProgress]);
 
   // Refresh data when user returns to dashboard
   useEffect(() => {
