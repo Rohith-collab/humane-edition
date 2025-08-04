@@ -92,7 +92,7 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
     } else if (lastUserMessage.toLowerCase().includes('what') || lastUserMessage.toLowerCase().includes('how')) {
       fallbackResponse += "That's a great question! Let me try to assist you once my connection is restored.";
     } else {
-      fallbackResponse += "Please try your request again in a moment. I'm working to restore my connection to Azure OpenAI.";
+      fallbackResponse += "Please try your request again in a moment. I'm working to restore my connection to the AI service.";
     }
 
     res.json({ response: fallbackResponse });
