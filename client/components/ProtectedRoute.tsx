@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Bot, Loader2 } from 'lucide-react';
@@ -10,8 +10,12 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { currentUser, loading } = useAuth();
+  const location = useLocation();
 
-  if (loading) {
+  // Allow demo access to bot-chat without authentication
+  const isDemoRoute = location.pathname === '/bot-chat';
+
+  if (loading && !isDemoRoute) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-nova-50/50 via-background to-electric-50/50 flex items-center justify-center">
         <Card className="bg-card/50 backdrop-blur-sm border-border/50 p-8">
@@ -35,7 +39,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     );
   }
 
-  return currentUser ? <>{children}</> : <Navigate to="/login" />;
+  // Allow demo access to bot-chat or authenticated access to all routes
+  return (currentUser || isDemoRoute) ? <>{children}</> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
