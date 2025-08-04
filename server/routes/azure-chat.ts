@@ -34,7 +34,7 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "You are a helpful AI assistant powered by Azure OpenAI GPT-3.5 Turbo. Be friendly, informative, and concise in your responses."
+          content: "You are a helpful AI assistant. Be friendly, informative, and concise in your responses."
         },
         ...messages
       ],
