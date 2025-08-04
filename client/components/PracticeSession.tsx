@@ -415,18 +415,6 @@ export default function PracticeSession({
               >
                 <RotateCcw className="w-4 h-4" />
               </Button>
-              {apiError && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() =>
-                    checkApiHealth().then(() => initializeSession())
-                  }
-                  className="text-red-400 hover:text-red-300 text-xs"
-                >
-                  Test API
-                </Button>
-              )}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
