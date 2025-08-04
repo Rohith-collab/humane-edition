@@ -197,23 +197,36 @@ export default function PracticeSession({
     try {
       console.log("Making API request to /api/chat...");
 
+      // Try to determine the correct API URL
+      const baseUrl = window.location.origin;
+      const apiUrl = `${baseUrl}/api/chat`;
+      console.log("API URL:", apiUrl);
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-      const nativeFetch = window.fetch?.bind(window) || fetch;
-
-      const response = await nativeFetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Cache-Control": "no-cache",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: JSON.stringify(requestBody),
-        signal: controller.signal,
-        credentials: "same-origin",
-      });
+      // Try native fetch first
+      let response: Response;
+      try {
+        const nativeFetch = window.fetch?.bind(window) || fetch;
+        response = await nativeFetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Cache-Control": "no-cache",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: JSON.stringify(requestBody),
+          signal: controller.signal,
+          credentials: "same-origin",
+        });
+      } catch (fetchError) {
+        console.error("Native fetch failed:", fetchError);
+        // Fallback to XMLHttpRequest immediately if fetch fails
+        clearTimeout(timeoutId);
+        return await makeXHRRequest(requestBody);
+      }
 
       clearTimeout(timeoutId);
 
