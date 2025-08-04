@@ -136,7 +136,7 @@ const Azurebot = () => {
             <ArrowLeft className="w-4 h-4" />
             Back
           </Button>
-          <h1 className="text-2xl font-bold text-foreground">Azure OpenAI Bot</h1>
+          <h1 className="text-2xl font-bold text-foreground">AI Chat Bot</h1>
         </div>
 
         {/* Chat Interface */}
