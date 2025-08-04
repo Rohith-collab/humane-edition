@@ -550,9 +550,9 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   };
 
   return (
-    <div className="min-h-screen bg-black flex">
-      {/* Left Side - Advanced D-ID Avatar */}
-      <div className="w-1/2 h-screen relative">
+    <div className="min-h-screen bg-black flex flex-col lg:flex-row">
+      {/* Avatar Section - Top on mobile, Left on desktop */}
+      <div className="w-full lg:w-1/2 h-64 lg:h-screen relative">
         <AdvancedHumanoidAvatar
           speaking={speaking || isLoading}
           isLoading={isLoading}
@@ -562,7 +562,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
 
         {/* Connection Error Overlay */}
         {apiError && (
-          <div className="absolute top-4 left-4 right-4 z-30">
+          <div className="absolute top-2 left-2 right-2 lg:top-4 lg:left-4 lg:right-4 z-30">
             <div className="bg-red-500/90 backdrop-blur-sm text-white rounded-lg p-3 border border-red-400/50">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Connection Error</span>
@@ -581,8 +581,8 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
         )}
       </div>
 
-      {/* Right Side - Enhanced Chat Interface */}
-      <div className="w-1/2 h-screen bg-gradient-to-br from-background via-background/95 to-muted/30 flex flex-col">
+      {/* Chat Interface - Bottom on mobile, Right on desktop */}
+      <div className="flex-1 lg:w-1/2 h-[calc(100vh-16rem)] lg:h-screen bg-gradient-to-br from-background via-background/95 to-muted/30 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl">
           <div className="flex items-center space-x-3">
