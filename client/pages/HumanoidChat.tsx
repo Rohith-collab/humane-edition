@@ -672,11 +672,11 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
 
         {/* Emotion Detection Panel */}
         {emotionDetectionActive && (
-          <div className="border-b border-border/50 bg-background/30 p-4">
+          <div className="border-b border-border/50 bg-background/30 p-3 lg:p-4">
             <WebcamEmotionDetector
               onEmotionDetected={handleEmotionDetected}
               isActive={emotionDetectionActive}
-              className="max-w-sm"
+              className="max-w-full lg:max-w-sm"
             />
           </div>
         )}
