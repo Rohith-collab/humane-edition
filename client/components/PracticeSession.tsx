@@ -92,9 +92,14 @@ export default function PracticeSession({
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/api/chat", true);
+      const baseUrl = window.location.origin;
+      const apiUrl = `${baseUrl}/api/chat`;
+
+      console.log("XMLHttpRequest fallback to:", apiUrl);
+      xhr.open("POST", apiUrl, true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("Accept", "application/json");
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
       xhr.timeout = 30000;
 
       xhr.onload = () => {
