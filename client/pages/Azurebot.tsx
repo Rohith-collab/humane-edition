@@ -144,11 +144,11 @@ const Azurebot = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Bot className="w-5 h-5 text-primary" />
-              Azure OpenAI GPT-3.5 Turbo
+              AI Chat Assistant
             </CardTitle>
             <Alert>
               <AlertDescription>
-                Powered by Azure OpenAI Service using GPT-3.5 Turbo deployment
+                Powered by advanced AI language model for intelligent conversations
               </AlertDescription>
             </Alert>
           </CardHeader>
