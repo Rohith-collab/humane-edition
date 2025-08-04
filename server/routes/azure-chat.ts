@@ -25,7 +25,7 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
     const azureEndpoint = "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2023-05-15";
     const apiKey = "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
 
-    console.log('Making request to Azure OpenAI...');
+    console.log('Making request to AI service...');
     console.log('Endpoint:', azureEndpoint);
     console.log('API Key (first 10 chars):', apiKey.substring(0, 10) + '...');
 
