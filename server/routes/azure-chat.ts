@@ -77,12 +77,12 @@ export const handleAzureChat: RequestHandler = async (req, res) => {
     res.json(chatResponse);
 
   } catch (error) {
-    console.error("Azure chat error:", error);
+    console.error("AI chat error:", error);
 
     // Provide a fallback response instead of returning an error
     const lastUserMessage = messages[messages.length - 1]?.content || "Hello";
 
-    let fallbackResponse = "I'm sorry, I'm having trouble connecting to Azure OpenAI right now. ";
+    let fallbackResponse = "I'm sorry, I'm having trouble connecting to the AI service right now. ";
 
     // Simple fallback responses based on common patterns
     if (lastUserMessage.toLowerCase().includes('hello') || lastUserMessage.toLowerCase().includes('hi')) {
