@@ -584,7 +584,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
       {/* Chat Interface - Bottom on mobile, Right on desktop */}
       <div className="flex-1 lg:w-1/2 h-[calc(100vh-16rem)] lg:h-screen bg-gradient-to-br from-background via-background/95 to-muted/30 flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between p-3 lg:p-4 border-b border-border/50 bg-background/80 backdrop-blur-xl gap-3 lg:gap-0">
           <div className="flex items-center space-x-3">
             <Button
               variant="ghost"
@@ -593,19 +593,20 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               onClick={() => window.history.back()}
             >
               <ArrowLeft className="w-4 h-4" />
-              Back
+              <span className="hidden sm:inline">Back</span>
             </Button>
-            <div>
-              <h1 className="font-semibold text-foreground">
+            <div className="min-w-0 flex-1">
+              <h1 className="font-semibold text-foreground text-sm lg:text-base">
                 Humanoid AI Tutor
               </h1>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 lg:space-x-2 flex-wrap gap-1">
                 <Badge variant="secondary" className="text-xs">
-                  GPT-4 Powered
+                  GPT-4
                 </Badge>
                 <Badge variant="outline" className="text-xs">
                   <Video className="w-3 h-3 mr-1" />
-                  D-ID Enhanced
+                  <span className="hidden sm:inline">D-ID Enhanced</span>
+                  <span className="sm:hidden">D-ID</span>
                 </Badge>
                 {emotionDetectionActive && currentEmotion?.faceDetected && (
                   <Badge
@@ -626,7 +627,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 lg:space-x-2 justify-end">
             <Button
               variant="ghost"
               size="sm"
