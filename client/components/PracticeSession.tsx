@@ -534,18 +534,8 @@ export default function PracticeSession({
 
         {/* Speech bubbles container */}
         <div className="relative h-full flex items-center justify-center px-4 md:px-8">
-          {/* User speech bubble - Left side */}
-          {transcript && (
-            <div className="absolute left-4 md:left-8 top-48 md:top-56 max-w-[280px] md:max-w-md">
-              <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30" style={{margin: "42px 0 0 176px"}}>
-                <p className="text-sm font-medium">{transcript}</p>
-                <p className="text-xs text-slate-500 mt-2">You</p>
-              </div>
-            </div>
-          )}
-
-          {/* AI speech bubble - Top right */}
-          <div className="absolute right-4 md:right-8 top-32 md:top-40 max-w-[280px] md:max-w-md">
+          {/* AI speech bubble - Left side */}
+          <div className="absolute left-4 md:left-8 top-32 md:top-40 max-w-[280px] md:max-w-md">
             <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30" style={{marginTop: "111px"}}>
               {isLoading ? (
                 <div className="flex items-center space-x-2">
@@ -555,18 +545,28 @@ export default function PracticeSession({
               ) : reply ? (
                 <div>
                   <p className="text-sm font-medium">{reply}</p>
-                  <p className="text-xs text-slate-500 mt-2">AI Interviewer</p>
+                  <p className="text-xs text-slate-500 mt-2">AI Server</p>
                 </div>
               ) : (
                 <div>
                   <p className="text-sm text-slate-500">
-                    Ready to start the interview...
+                    Ready to start the session...
                   </p>
-                  <p className="text-xs text-slate-500 mt-2">AI Interviewer</p>
+                  <p className="text-xs text-slate-500 mt-2">AI Server</p>
                 </div>
               )}
             </div>
           </div>
+
+          {/* User speech bubble - Right side */}
+          {transcript && (
+            <div className="absolute right-4 md:right-8 top-48 md:top-56 max-w-[280px] md:max-w-md">
+              <div className="bg-white/80 text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl backdrop-blur-sm border border-white/30" style={{margin: "42px 0 0 176px"}}>
+                <p className="text-sm font-medium">{transcript}</p>
+                <p className="text-xs text-slate-500 mt-2">You</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
