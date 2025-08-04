@@ -88,67 +88,7 @@ export default function PracticeSession({
   //   recordVocabularyLearned,
   // } = useSessionTracking(scenario.toLowerCase(), false);
 
-  // XMLHttpRequest fallback function
-  const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      const baseUrl = window.location.origin;
-      const apiUrl = `${baseUrl}/api/chat`;
 
-      console.log("XMLHttpRequest fallback to:", apiUrl);
-      xhr.open("POST", apiUrl, true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader("Accept", "application/json");
-      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-      xhr.timeout = 30000;
-
-      xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            const data: ChatResponse = JSON.parse(xhr.responseText);
-            if (data.success) {
-              resolve(data.response || "No response from bot.");
-            } else {
-              reject(new Error(data.error || "Failed to get AI response"));
-            }
-          } catch (parseErr) {
-            reject(new Error("Failed to parse response"));
-          }
-        } else {
-          reject(new Error(`XHR error! status: ${xhr.status}`));
-        }
-      };
-
-      xhr.onerror = () => reject(new Error("XHR network error"));
-      xhr.ontimeout = () => reject(new Error("XHR timeout"));
-
-      xhr.send(JSON.stringify(requestBody));
-    });
-  };
-
-  // Health check function
-  const checkApiHealth = async (): Promise<boolean> => {
-    try {
-      const baseUrl = window.location.origin;
-      const healthUrl = `${baseUrl}/api/health`;
-      console.log("Checking API health at:", healthUrl);
-
-      const response = await fetch(healthUrl, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-        credentials: "same-origin",
-      });
-
-      const isHealthy = response.ok;
-      console.log("API health check result:", isHealthy, response.status);
-      return isHealthy;
-    } catch (error) {
-      console.error("API health check failed:", error);
-      return false;
-    }
-  };
 
   // Initialize session with welcome message
   useEffect(() => {
