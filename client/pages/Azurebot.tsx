@@ -123,103 +123,176 @@ const Azurebot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => window.history.back()}
-            className="gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </Button>
-          <h1 className="text-2xl font-bold text-foreground">AI Chat Bot</h1>
+    <div className="flex h-screen bg-gradient-to-br from-background via-background/95 to-muted/20 overflow-hidden">
+      {/* Sidebar */}
+      <div className="w-80 bg-card/50 backdrop-blur-sm border-r border-border/50 flex flex-col">
+        {/* Sidebar Header */}
+        <div className="p-6 border-b border-border/50">
+          <div className="flex items-center gap-3 mb-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.history.back()}
+              className="gap-2 hover:bg-primary/10"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 rounded-2xl flex items-center justify-center border border-primary/20">
+              <Bot className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">AI Assistant</h2>
+              <p className="text-sm text-muted-foreground">Always here to help</p>
+            </div>
+          </div>
         </div>
 
-        {/* Chat Interface */}
-        <Card className="h-[700px] flex flex-col">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Bot className="w-5 h-5 text-primary" />
-              AI Chat Assistant
-            </CardTitle>
-            <Alert>
-              <AlertDescription>
-                Powered by advanced AI language model for intelligent conversations
-              </AlertDescription>
-            </Alert>
-          </CardHeader>
+        {/* Chat Info */}
+        <div className="p-6 space-y-4">
+          <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
+            <h3 className="font-medium text-foreground mb-2">Features</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                Real-time responses
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                Voice input support
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                Context awareness
+              </li>
+            </ul>
+          </div>
 
-          <CardContent className="flex-1 flex flex-col p-6">
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto space-y-4 mb-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex items-start space-x-3 ${
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
-                >
-                  {message.role === 'assistant' && (
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Bot className="w-4 h-4 text-primary" />
-                    </div>
-                  )}
+          <div className="bg-muted/30 rounded-xl p-4">
+            <h3 className="font-medium text-foreground mb-2">Quick Tips</h3>
+            <p className="text-sm text-muted-foreground">
+              Ask me anything! I can help with questions, explanations, creative tasks, and more.
+            </p>
+          </div>
+        </div>
 
-                  <div
-                    className={`max-w-[70%] p-3 rounded-lg ${
-                      message.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-foreground'
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap">{message.content}</p>
-                    <div className="text-xs opacity-70 mt-1">
-                      {message.timestamp.toLocaleTimeString()}
-                    </div>
-                  </div>
+        {/* Status */}
+        <div className="mt-auto p-6 border-t border-border/50">
+          <div className="flex items-center gap-2 text-sm">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-muted-foreground">Connected</span>
+          </div>
+        </div>
+      </div>
 
-                  {message.role === 'user' && (
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <User className="w-4 h-4 text-primary" />
-                    </div>
-                  )}
-                </div>
-              ))}
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Chat Header */}
+        <div className="h-16 bg-card/30 backdrop-blur-sm border-b border-border/50 flex items-center justify-between px-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-full flex items-center justify-center">
+              <Bot className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <h1 className="font-semibold text-foreground">AI Chat Assistant</h1>
+              <p className="text-xs text-muted-foreground">Powered by advanced AI</p>
+            </div>
+          </div>
 
-              {isLoading && (
-                <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-primary" />
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Thinking...</span>
-                    </div>
-                  </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="w-8 h-8 p-0">
+              <User className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Messages Area */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex items-start gap-3 ${
+                message.role === 'user' ? 'justify-end' : 'justify-start'
+              }`}
+            >
+              {message.role === 'assistant' && (
+                <div className="w-10 h-10 bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0">
+                  <Bot className="w-5 h-5 text-primary" />
                 </div>
               )}
 
-              <div ref={messagesEndRef} />
-            </div>
+              <div
+                className={`max-w-[70%] relative group ${
+                  message.role === 'user' ? 'order-1' : ''
+                }`}
+              >
+                <div
+                  className={`p-4 rounded-2xl shadow-sm ${
+                    message.role === 'user'
+                      ? 'bg-gradient-to-br from-primary to-primary/90 text-primary-foreground'
+                      : 'bg-card border border-border/50 text-foreground'
+                  }`}
+                >
+                  <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                </div>
+                <div className={`text-xs text-muted-foreground mt-1 ${
+                  message.role === 'user' ? 'text-right' : 'text-left'
+                }`}>
+                  {message.timestamp.toLocaleTimeString()}
+                </div>
+              </div>
 
-            {/* Input Area */}
-            <div className="flex items-center space-x-2">
+              {message.role === 'user' && (
+                <div className="w-10 h-10 bg-gradient-to-br from-muted via-muted/80 to-muted/60 rounded-full flex items-center justify-center border border-border/50 flex-shrink-0 order-2">
+                  <User className="w-5 h-5 text-muted-foreground" />
+                </div>
+              )}
+            </div>
+          ))}
+
+          {isLoading && (
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0">
+                <Bot className="w-5 h-5 text-primary" />
+              </div>
+              <div className="bg-card border border-border/50 p-4 rounded-2xl shadow-sm">
+                <div className="flex items-center gap-3">
+                  <Loader2 className="w-5 h-5 animate-spin text-primary" />
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-primary/60 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-2 h-2 bg-primary/60 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input Area */}
+        <div className="p-6 bg-card/30 backdrop-blur-sm border-t border-border/50">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-end gap-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={startListening}
                 disabled={isListening || isLoading}
-                className={isListening ? "animate-pulse" : ""}
+                className={`w-10 h-10 p-0 rounded-full border-2 transition-all ${
+                  isListening
+                    ? "bg-red-500 border-red-500 text-white animate-pulse"
+                    : "hover:bg-primary/10 hover:border-primary/30"
+                }`}
               >
                 {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
               </Button>
 
-              <div className="flex-1 flex space-x-2">
+              <div className="flex-1 relative">
                 <input
                   type="text"
                   value={input}
@@ -227,12 +300,16 @@ const Azurebot = () => {
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Type your message..."
                   disabled={isLoading}
-                  className="flex-1 px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 pr-12 bg-background border border-border/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-foreground placeholder-muted-foreground transition-all"
                 />
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="px-4"
+                  className={`absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 p-0 rounded-full transition-all ${
+                    input.trim() && !isLoading
+                      ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
+                      : 'bg-muted text-muted-foreground cursor-not-allowed'
+                  }`}
                 >
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -242,8 +319,8 @@ const Azurebot = () => {
                 </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
