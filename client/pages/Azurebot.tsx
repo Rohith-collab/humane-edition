@@ -15,7 +15,7 @@ const Azurebot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Hello! I\'m your Azure OpenAI assistant. How can I help you today?',
+      content: 'Hello! I\'m your AI assistant. How can I help you today?',
       role: 'assistant',
       timestamp: new Date()
     }
