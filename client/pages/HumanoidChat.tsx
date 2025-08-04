@@ -764,14 +764,14 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
         </div>
 
         {/* Input Area */}
-        <div className="p-4 border-t border-border/50 bg-background/50 backdrop-blur-sm">
-          <div className="flex items-center space-x-3">
+        <div className="p-3 lg:p-4 border-t border-border/50 bg-background/50 backdrop-blur-sm">
+          <div className="flex items-center space-x-2 lg:space-x-3">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setListening(!listening)}
               className={cn(
-                "transition-all duration-200",
+                "transition-all duration-200 flex-shrink-0",
                 listening
                   ? "bg-red-500 hover:bg-red-600 animate-pulse"
                   : "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 shadow-lg",
@@ -792,13 +792,13 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Ask me anything"
               disabled={isLoading}
-              className="flex-1 px-4 py-3 bg-background/80 border border-border/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm"
+              className="flex-1 px-3 lg:px-4 py-2 lg:py-3 bg-background/80 border border-border/50 rounded-lg lg:rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-foreground placeholder-muted-foreground backdrop-blur-sm text-sm lg:text-base"
             />
 
             <Button
               onClick={handleSendMessage}
               disabled={!typedText.trim() || isLoading}
-              className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl px-6"
+              className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-lg lg:rounded-xl px-3 lg:px-6 flex-shrink-0"
             >
               <Send className="w-4 h-4" />
             </Button>
