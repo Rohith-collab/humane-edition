@@ -1,8 +1,8 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Card, CardContent } from '@/components/ui/card';
-import { Bot, Loader2 } from 'lucide-react';
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Card, CardContent } from "@/components/ui/card";
+import { Bot, Loader2 } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const location = useLocation();
 
   // Allow demo access to bot-chat without authentication
-  const isDemoRoute = location.pathname === '/bot-chat';
+  const isDemoRoute = location.pathname === "/bot-chat";
 
   if (loading && !isDemoRoute) {
     return (
@@ -29,9 +29,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
             <div className="text-center space-y-2">
               <div className="flex items-center space-x-2">
                 <Loader2 className="w-4 h-4 animate-spin text-nova-500" />
-                <span className="text-foreground font-medium">Loading Aangilam...</span>
+                <span className="text-foreground font-medium">
+                  Loading Aangilam...
+                </span>
               </div>
-              <p className="text-sm text-muted-foreground">Preparing your AI learning experience</p>
+              <p className="text-sm text-muted-foreground">
+                Preparing your AI learning experience
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -40,7 +44,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   // Allow demo access to bot-chat or authenticated access to all routes
-  return (currentUser || isDemoRoute) ? <>{children}</> : <Navigate to="/login" />;
+  return currentUser || isDemoRoute ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default ProtectedRoute;

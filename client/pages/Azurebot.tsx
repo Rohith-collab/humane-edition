@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -7,20 +7,20 @@ import { ArrowLeft, Send, Bot, User, Loader2, Mic, MicOff } from "lucide-react";
 interface Message {
   id: string;
   content: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   timestamp: Date;
 }
 
 const Azurebot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
-      content: 'Hello! I\'m your AI assistant. How can I help you today?',
-      role: 'assistant',
-      timestamp: new Date()
-    }
+      id: "1",
+      content: "Hello! I'm your AI assistant. How can I help you today?",
+      role: "assistant",
+      timestamp: new Date(),
+    },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -39,26 +39,26 @@ const Azurebot = () => {
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input.trim(),
-      role: 'user',
-      timestamp: new Date()
+      role: "user",
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/ai-chat', {
-        method: 'POST',
+      const response = await fetch("/api/ai-chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map(msg => ({
+          messages: [...messages, userMessage].map((msg) => ({
             role: msg.role,
-            content: msg.content
-          }))
-        })
+            content: msg.content,
+          })),
+        }),
       });
 
       if (!response.ok) {
@@ -70,33 +70,35 @@ const Azurebot = () => {
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: data.response,
-        role: 'assistant',
-        timestamp: new Date()
+        role: "assistant",
+        timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'Sorry, I encountered an error. Please try again.',
-        role: 'assistant',
-        timestamp: new Date()
+        content: "Sorry, I encountered an error. Please try again.",
+        role: "assistant",
+        timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const startListening = () => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+      const SpeechRecognition =
+        (window as any).SpeechRecognition ||
+        (window as any).webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
 
       recognition.continuous = false;
       recognition.interimResults = false;
-      recognition.lang = 'en-US';
+      recognition.lang = "en-US";
 
       recognition.onstart = () => {
         setIsListening(true);
@@ -108,7 +110,7 @@ const Azurebot = () => {
       };
 
       recognition.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
+        console.error("Speech recognition error:", event.error);
         setIsListening(false);
       };
 
@@ -118,7 +120,7 @@ const Azurebot = () => {
 
       recognition.start();
     } else {
-      alert('Speech recognition not supported in this browser.');
+      alert("Speech recognition not supported in this browser.");
     }
   };
 
@@ -145,8 +147,12 @@ const Azurebot = () => {
               <Bot className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-foreground">AI Assistant</h2>
-              <p className="text-sm text-muted-foreground">Always here to help</p>
+              <h2 className="text-lg font-semibold text-foreground">
+                AI Assistant
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Always here to help
+              </p>
             </div>
           </div>
         </div>
@@ -174,7 +180,8 @@ const Azurebot = () => {
           <div className="bg-muted/30 rounded-xl p-4">
             <h3 className="font-medium text-foreground mb-2">Quick Tips</h3>
             <p className="text-sm text-muted-foreground">
-              Ask me anything! I can help with questions, explanations, creative tasks, and more.
+              Ask me anything! I can help with questions, explanations, creative
+              tasks, and more.
             </p>
           </div>
         </div>
@@ -197,8 +204,12 @@ const Azurebot = () => {
               <Bot className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h1 className="font-semibold text-foreground">AI Chat Assistant</h1>
-              <p className="text-xs text-muted-foreground">Powered by advanced AI</p>
+              <h1 className="font-semibold text-foreground">
+                AI Chat Assistant
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                Powered by advanced AI
+              </p>
             </div>
           </div>
 
@@ -215,10 +226,10 @@ const Azurebot = () => {
             <div
               key={message.id}
               className={`flex items-start gap-3 ${
-                message.role === 'user' ? 'justify-end' : 'justify-start'
+                message.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              {message.role === 'assistant' && (
+              {message.role === "assistant" && (
                 <div className="w-10 h-10 bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0">
                   <Bot className="w-5 h-5 text-primary" />
                 </div>
@@ -226,26 +237,30 @@ const Azurebot = () => {
 
               <div
                 className={`max-w-[70%] relative group ${
-                  message.role === 'user' ? 'order-1' : ''
+                  message.role === "user" ? "order-1" : ""
                 }`}
               >
                 <div
                   className={`p-4 rounded-2xl shadow-sm ${
-                    message.role === 'user'
-                      ? 'bg-gradient-to-br from-primary to-primary/90 text-primary-foreground'
-                      : 'bg-card border border-border/50 text-foreground'
+                    message.role === "user"
+                      ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground"
+                      : "bg-card border border-border/50 text-foreground"
                   }`}
                 >
-                  <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                  <p className="whitespace-pre-wrap leading-relaxed">
+                    {message.content}
+                  </p>
                 </div>
-                <div className={`text-xs text-muted-foreground mt-1 ${
-                  message.role === 'user' ? 'text-right' : 'text-left'
-                }`}>
+                <div
+                  className={`text-xs text-muted-foreground mt-1 ${
+                    message.role === "user" ? "text-right" : "text-left"
+                  }`}
+                >
                   {message.timestamp.toLocaleTimeString()}
                 </div>
               </div>
 
-              {message.role === 'user' && (
+              {message.role === "user" && (
                 <div className="w-10 h-10 bg-gradient-to-br from-muted via-muted/80 to-muted/60 rounded-full flex items-center justify-center border border-border/50 flex-shrink-0 order-2">
                   <User className="w-5 h-5 text-muted-foreground" />
                 </div>
@@ -289,7 +304,11 @@ const Azurebot = () => {
                     : "hover:bg-primary/10 hover:border-primary/30"
                 }`}
               >
-                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                {isListening ? (
+                  <MicOff className="w-4 h-4" />
+                ) : (
+                  <Mic className="w-4 h-4" />
+                )}
               </Button>
 
               <div className="flex-1 relative">
@@ -297,7 +316,7 @@ const Azurebot = () => {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                  onKeyPress={(e) => e.key === "Enter" && sendMessage()}
                   placeholder="Type your message..."
                   disabled={isLoading}
                   className="w-full px-4 py-3 pr-12 bg-background border border-border/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-foreground placeholder-muted-foreground transition-all"
@@ -307,8 +326,8 @@ const Azurebot = () => {
                   disabled={!input.trim() || isLoading}
                   className={`absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 p-0 rounded-full transition-all ${
                     input.trim() && !isLoading
-                      ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
-                      : 'bg-muted text-muted-foreground cursor-not-allowed'
+                      ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                      : "bg-muted text-muted-foreground cursor-not-allowed"
                   }`}
                 >
                   {isLoading ? (

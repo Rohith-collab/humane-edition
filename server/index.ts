@@ -28,7 +28,7 @@ export function createServer() {
   app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
   // Serve browser directory as static files for Azure Speech SDK samples
-  app.use('/browser', express.static(path.resolve(process.cwd(), 'browser')));
+  app.use("/browser", express.static(path.resolve(process.cwd(), "browser")));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
