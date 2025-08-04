@@ -94,16 +94,7 @@ export default function PracticeSession({
   useEffect(() => {
     // startTracking(); // Temporarily disabled
     setSessionStartTime(new Date());
-
-    // Check API health before initializing session
-    checkApiHealth().then((isHealthy) => {
-      if (!isHealthy) {
-        console.warn(
-          "API health check failed, proceeding with offline fallback",
-        );
-      }
-      initializeSession();
-    });
+    initializeSession();
 
     return () => {
       // endTracking(); // Temporarily disabled
