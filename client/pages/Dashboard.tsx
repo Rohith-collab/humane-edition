@@ -13,6 +13,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import DashboardSettings from "@/components/DashboardSettings";
 import {
   CalendarDays,
   Clock,
@@ -38,6 +39,19 @@ import {
   Activity,
   Eye,
   Coffee,
+  Settings,
+  Filter,
+  Download,
+  Share,
+  Calendar,
+  Bell,
+  HelpCircle,
+  Maximize,
+  Minimize,
+  GridIcon,
+  ListIcon,
+  Bookmark,
+  ExternalLink,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
