@@ -8,7 +8,13 @@ export function createServer() {
 
   // Debug middleware
   app.use((req, res, next) => {
-    console.log(`${req.method} ${req.path}`, req.body);
+    if (req.path.startsWith('/api')) {
+      console.log(`=== API REQUEST ===`);
+      console.log(`${req.method} ${req.path}`);
+      console.log('Headers:', req.headers);
+      console.log('Body:', req.body);
+      console.log('==================');
+    }
     next();
   });
 
