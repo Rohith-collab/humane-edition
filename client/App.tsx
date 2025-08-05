@@ -379,4 +379,13 @@ const App = () => (
   </ErrorBoundary>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Fix for HMR and avoid duplicate root creation
+const container = document.getElementById("root")!;
+let root = (window as any).__root;
+
+if (!root) {
+  root = createRoot(container);
+  (window as any).__root = root;
+}
+
+root.render(<App />);
