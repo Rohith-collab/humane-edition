@@ -591,7 +591,7 @@ const Dashboard = () => {
                   <Sparkles className="h-3 w-3 text-white" />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 flex-1">
                 <h1 className="text-4xl font-bold text-foreground bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 bg-clip-text text-transparent animate-gradient">
                   {getGreeting()},{" "}
                   {currentUser?.displayName?.split(" ")[0] || "Learner"}!
@@ -608,6 +608,34 @@ const Dashboard = () => {
                     <Eye className="h-4 w-4" />
                     <span>Viewing dashboard</span>
                   </span>
+                  <span className="flex items-center space-x-1">
+                    <Calendar className="h-4 w-4" />
+                    <span>{new Date().toLocaleDateString()}</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Quick Action Buttons */}
+              <div className="hidden lg:flex flex-col space-y-2">
+                <div className="flex space-x-2">
+                  <Button variant="outline" size="sm" className="group">
+                    <Download className="h-4 w-4 mr-1 group-hover:animate-bounce" />
+                    Export
+                  </Button>
+                  <Button variant="outline" size="sm" className="group">
+                    <Share className="h-4 w-4 mr-1 group-hover:scale-110 transition-transform" />
+                    Share
+                  </Button>
+                </div>
+                <div className="flex space-x-2">
+                  <Button variant="outline" size="sm" className="group">
+                    <Bell className="h-4 w-4 mr-1 group-hover:ring-2 ring-nova-500/30 rounded-full transition-all" />
+                    Alerts
+                  </Button>
+                  <Button variant="outline" size="sm" className="group">
+                    <HelpCircle className="h-4 w-4 mr-1 group-hover:rotate-12 transition-transform" />
+                    Help
+                  </Button>
                 </div>
               </div>
             </div>
