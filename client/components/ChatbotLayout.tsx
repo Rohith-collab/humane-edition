@@ -193,7 +193,7 @@ export default function ChatbotLayout({
     };
 
     try {
-      console.log("Making API request to /api/chat...");
+      console.log("Making API request to /api/ai-chat...");
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
