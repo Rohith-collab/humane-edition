@@ -386,30 +386,38 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     };
 
     try {
-      // Store reference to native fetch to avoid third-party interference
-      const nativeFetch = window.fetch?.bind(window) || fetch;
+      // Use XMLHttpRequest as primary method to avoid third-party fetch interference
+      try {
+        const result = await makeXHRRequest(requestBody);
+        return result;
+      } catch (xhrError) {
+        console.log("XMLHttpRequest failed, trying fetch...", xhrError);
 
-      const response = await nativeFetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
-      });
+        // Fallback to fetch
+        const nativeFetch = window.fetch?.bind(window) || fetch;
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const response = await nativeFetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const data: ChatResponse = await response.json();
+
+        // Handle emotion-aware response
+        if (data.emotionDetected && data.emotionalResponse) {
+          setLastEmotionResponse(data.emotionalResponse);
+        }
+
+        return data.response;
       }
-
-      const data: ChatResponse = await response.json();
-
-      // Handle emotion-aware response
-      if (data.emotionDetected && data.emotionalResponse) {
-        setLastEmotionResponse(data.emotionalResponse);
-      }
-
-      return data.response;
     } catch (error) {
-      console.warn("Fetch failed, trying XMLHttpRequest fallback:", error);
-      return await makeXHRRequest(requestBody);
+      console.error("Both XMLHttpRequest and fetch failed:", error);
+      throw error;
     }
   };
 
