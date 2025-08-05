@@ -19,7 +19,8 @@
     "test": "vitest --run",
     "format.fix": "prettier --write .",
     "typecheck": "tsc",
-    "build:vercel": "vite build"
+    "build:vercel": "vite build",
+    "vercel-build": "vite build"
   },
   
   "dependencies": {
