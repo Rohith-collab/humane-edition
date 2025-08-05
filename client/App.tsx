@@ -10,6 +10,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { UserAnalyticsProvider } from "@/contexts/UserAnalyticsContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import Practice from "./pages/Practice";
 import InterviewPractice from "./pages/InterviewPractice";
