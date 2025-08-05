@@ -188,6 +188,11 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
   // Load user analytics from Firestore
   useEffect(() => {
     const loadUserAnalytics = async () => {
+      // Don't load analytics if auth is still loading
+      if (authLoading) {
+        return;
+      }
+
       if (!currentUser) {
         setAnalytics(null);
         setLoading(false);
