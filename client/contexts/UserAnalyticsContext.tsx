@@ -249,7 +249,7 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     loadUserAnalytics();
-  }, [currentUser]);
+  }, [currentUser, authLoading]);
 
   // Start a new learning session
   const startSession = (module: string) => {
