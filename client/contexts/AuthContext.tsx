@@ -174,4 +174,6 @@ function AuthProvider({ children }: AuthProviderProps) {
       {!loading && children}
     </AuthContext.Provider>
   );
-};
+}
+
+export { AuthProvider };
