@@ -1,18 +1,14 @@
 import { RequestHandler } from "express";
-import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
+import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
-    console.log(
-      "Chat API called with body:",
-      JSON.stringify(req.body, null, 2),
-    );
+    console.log("Chat API called with body:", JSON.stringify(req.body, null, 2));
 
     const {
       messages,
       temperature = 0.7,
       max_tokens = 800,
-      emotionData,
     } = req.body as ChatRequest;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -23,10 +19,8 @@ export const handleChat: RequestHandler = async (req, res) => {
       });
     }
 
-    const azureApiKey =
-      "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
-    const azureEndpoint =
-      "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
+    const azureApiKey = "4aXIPMfTMTKKayoPIxIAbTfH3X5LAZGTNUXb6Y5MPMPVuBBx22WFJQQJ99BGAC77bzfXJ3w3AAABACOG8zZ5";
+    const azureEndpoint = "https://angilambot.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview";
 
     console.log("Making request to Azure OpenAI...");
 
@@ -37,14 +31,7 @@ export const handleChat: RequestHandler = async (req, res) => {
         "api-key": azureApiKey,
       },
       body: JSON.stringify({
-        messages: [
-          {
-            role: "system",
-            content:
-              "you are a bot just reply in single line of single sentence",
-          },
-          ...messages,
-        ],
+        messages,
         temperature,
         max_tokens,
       }),
@@ -58,7 +45,7 @@ export const handleChat: RequestHandler = async (req, res) => {
         body: errorText,
       });
       throw new Error(
-        `Azure API responded with status: ${response.status} - ${response.statusText}`,
+        `Azure API responded with status: ${response.status} - ${response.statusText}`
       );
     }
 
@@ -66,31 +53,18 @@ export const handleChat: RequestHandler = async (req, res) => {
     console.log("Azure OpenAI response:", data);
 
     const chatResponse =
-      data.choices?.[0]?.message?.content || "No response from bot.";
+      data.choices?.[0]?.message?.content || "No response from AI.";
 
-    // Prepare response with emotion awareness
     const responseData: ChatResponse = {
       success: true,
       response: chatResponse.trim(),
-      emotionDetected: emotionData?.faceDetected || false,
-      emotionalResponse: emotionData?.emotionalContext || undefined,
     };
-
-    // Log emotion data for monitoring (optional)
-    if (emotionData?.faceDetected) {
-      console.log("Emotion-aware response:", {
-        emotion: emotionData.emotions.dominant,
-        confidence: emotionData.emotions.confidence,
-        context: emotionData.emotionalContext,
-      });
-    }
 
     console.log("Sending response:", responseData);
     res.json(responseData);
   } catch (error) {
     console.error("Azure OpenAI Error:", error);
 
-    // More detailed error response
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
 
@@ -98,7 +72,6 @@ export const handleChat: RequestHandler = async (req, res) => {
       success: false,
       error: `Failed to get response from AI: ${errorMessage}`,
       response: "Sorry, I could not process that right now. Please try again.",
-      emotionDetected: false,
     } as ChatResponse);
   }
 };
