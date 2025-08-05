@@ -92,22 +92,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return; // Success, exit the function
       } catch (error: any) {
         lastError = error;
-        console.log(`Login attempt ${attempt} failed:`, error.code, error.message);
+        console.log(
+          `Login attempt ${attempt} failed:`,
+          error.code,
+          error.message,
+        );
 
         // Don't retry for certain error types
-        if ([
-          "auth/invalid-email",
-          "auth/user-disabled",
-          "auth/user-not-found",
-          "auth/wrong-password",
-          "auth/invalid-login-credentials"
-        ].includes(error.code)) {
+        if (
+          [
+            "auth/invalid-email",
+            "auth/user-disabled",
+            "auth/user-not-found",
+            "auth/wrong-password",
+            "auth/invalid-login-credentials",
+          ].includes(error.code)
+        ) {
           break; // Stop retrying for these errors
         }
 
         // Wait before retry (exponential backoff)
         if (attempt < maxRetries) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          await new Promise((resolve) => setTimeout(resolve, 1000 * attempt));
         }
       }
     }
@@ -123,7 +129,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       throw new Error("This account has been disabled.");
     } else if (lastError.code === "auth/user-not-found") {
       throw new Error("No account found with this email address.");
-    } else if (lastError.code === "auth/wrong-password" || lastError.code === "auth/invalid-login-credentials") {
+    } else if (
+      lastError.code === "auth/wrong-password" ||
+      lastError.code === "auth/invalid-login-credentials"
+    ) {
       throw new Error("Incorrect email or password.");
     } else if (lastError.code === "auth/too-many-requests") {
       throw new Error(

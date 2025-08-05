@@ -367,7 +367,7 @@ RESPONSE FORMAT:
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            Accept: "application/json",
           },
           body: JSON.stringify(requestBody),
         });
@@ -377,15 +377,21 @@ RESPONSE FORMAT:
           console.error("API Error:", {
             status: response.status,
             statusText: response.statusText,
-            body: errorText
+            body: errorText,
           });
 
           if (response.status === 500) {
-            throw new Error("AI service is temporarily unavailable. Please try again in a moment.");
+            throw new Error(
+              "AI service is temporarily unavailable. Please try again in a moment.",
+            );
           } else if (response.status === 404) {
-            throw new Error("Chat service not found. Please check your connection.");
+            throw new Error(
+              "Chat service not found. Please check your connection.",
+            );
           } else {
-            throw new Error(`Service error (${response.status}): Please try again.`);
+            throw new Error(
+              `Service error (${response.status}): Please try again.`,
+            );
           }
         }
 
