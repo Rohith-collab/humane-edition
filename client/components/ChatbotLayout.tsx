@@ -74,7 +74,7 @@ export default function ChatbotLayout({
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/api/chat", true);
+      xhr.open("POST", "/chat", true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("Accept", "application/json");
       xhr.timeout = 30000;
@@ -193,7 +193,7 @@ export default function ChatbotLayout({
     };
 
     try {
-      console.log("Making API request to /api/chat...");
+      console.log("Making API request to /chat...");
 
       // Use XMLHttpRequest as primary method to avoid third-party fetch interference
       try {
@@ -209,7 +209,7 @@ export default function ChatbotLayout({
 
         const nativeFetch = window.fetch?.bind(window) || fetch;
 
-        const response = await nativeFetch("/api/chat", {
+        const response = await nativeFetch("/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
