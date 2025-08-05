@@ -331,7 +331,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/api/chat");
+      xhr.open("POST", "/api/ai-chat");
       xhr.setRequestHeader("Content-Type", "application/json");
 
       xhr.onload = () => {
