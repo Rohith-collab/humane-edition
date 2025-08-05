@@ -1,6 +1,8 @@
 // Emotion Detection Service using face-api.js
 // Note: Fallback service available in emotionDetectionFallback.ts
-// import * as faceapi from 'face-api.js';
+
+// face-api.js is not installed, use fallback detection
+let faceapi: any = null;
 
 export interface EmotionData {
   happy: number;
@@ -30,22 +32,11 @@ class EmotionDetectionService {
   async initialize(): Promise<void> {
     if (this.isInitialized) return;
 
-    try {
-      // Load face-api.js models
-      const MODEL_URL = "/models"; // You'll need to add face-api.js models to public/models
-
-      await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
-        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-      ]);
-
-      this.isInitialized = true;
-      console.log("Emotion detection models loaded successfully");
-    } catch (error) {
-      console.error("Failed to load emotion detection models:", error);
-      throw new Error("Emotion detection initialization failed");
-    }
+    // face-api.js is not available, using fallback emotion detection
+    console.warn(
+      "Using fallback emotion detection (face-api.js not installed)",
+    );
+    this.isInitialized = true;
   }
 
   async startWebcam(): Promise<MediaStream> {
@@ -81,6 +72,11 @@ class EmotionDetectionService {
     }
 
     try {
+      // If face-api.js is not available, use fallback
+      if (!faceapi) {
+        return this.getFallbackEmotions();
+      }
+
       // Detect face and expressions
       const detection = await faceapi
         .detectSingleFace(
@@ -112,13 +108,13 @@ class EmotionDetectionService {
 
       // Find dominant emotion
       const emotions = {
-        happy: expressions.happy,
-        sad: expressions.sad,
-        angry: expressions.angry,
-        fearful: expressions.fearful,
-        disgusted: expressions.disgusted,
-        surprised: expressions.surprised,
-        neutral: expressions.neutral,
+        happy: expressions.happy || 0,
+        sad: expressions.sad || 0,
+        angry: expressions.angry || 0,
+        fearful: expressions.fearful || 0,
+        disgusted: expressions.disgusted || 0,
+        surprised: expressions.surprised || 0,
+        neutral: expressions.neutral || 0,
         dominant: "",
         confidence: 0,
       };
@@ -128,8 +124,9 @@ class EmotionDetectionService {
       let dominantEmotion = "neutral";
 
       Object.entries(expressions).forEach(([emotion, value]) => {
-        if (value > maxValue) {
-          maxValue = value;
+        const numValue = Number(value) || 0;
+        if (numValue > maxValue) {
+          maxValue = numValue;
           dominantEmotion = emotion;
         }
       });
@@ -160,6 +157,25 @@ class EmotionDetectionService {
         timestamp: Date.now(),
       };
     }
+  }
+
+  private getFallbackEmotions(): FaceDetectionResult {
+    // Simple fallback that returns neutral emotions
+    return {
+      emotions: {
+        happy: 0,
+        sad: 0,
+        angry: 0,
+        fearful: 0,
+        disgusted: 0,
+        surprised: 0,
+        neutral: 1,
+        dominant: "neutral",
+        confidence: 0,
+      },
+      faceDetected: false,
+      timestamp: Date.now(),
+    };
   }
 
   startContinuousDetection(

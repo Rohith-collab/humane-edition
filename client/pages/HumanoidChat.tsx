@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
+import { ChatRequest, ChatResponse } from "@shared/api";
 import {
   Mic,
   MicOff,
@@ -23,11 +23,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LipSyncAvatar } from "@/components/LipSyncAvatar";
-import WebcamEmotionDetector from "@/components/WebcamEmotionDetector";
-import {
-  FaceDetectionResult,
-  emotionDetectionService,
-} from "@/lib/emotionDetection";
 
 // Enhanced D-ID Avatar Component with Customization
 const AdvancedHumanoidAvatar = ({
@@ -263,26 +258,21 @@ export default function HumanoidChat() {
   const [apiError, setApiError] = useState<string>("");
   const [userPreferences, setUserPreferences] = useState<any>(null);
   const [selectedVoice, setSelectedVoice] = useState<string>("narenn");
-  const [emotionDetectionActive, setEmotionDetectionActive] = useState(false);
-  const [currentEmotion, setCurrentEmotion] =
-    useState<FaceDetectionResult | null>(null);
-  const [lastEmotionResponse, setLastEmotionResponse] = useState<string>("");
 
-  // Enhanced system prompt for emotion-aware humanoid conversations
-  const getSystemPrompt = (emotionContext?: EmotionContext) => {
-    let basePrompt = `You are an advanced AI humanoid tutor with a photorealistic human appearance and natural conversational abilities. You can discuss any topic like ChatGPT but with enhanced emotional intelligence and human-like interaction.
+  // Enhanced system prompt for humanoid conversations
+  const getSystemPrompt = () => {
+    return `You are an advanced AI humanoid tutor with a photorealistic human appearance and natural conversational abilities. You can discuss any topic like ChatGPT but with enhanced emotional intelligence and human-like interaction.
 
 CRITICAL INSTRUCTION: Keep ALL responses SHORT and CONCISE. Aim for 1-3 sentences maximum. Be direct and to the point.
 
 Key characteristics:
 - Speak naturally and conversationally like a real human
 - Show genuine interest and emotional responses
-- Adapt your communication style based on the user's needs and emotions
+- Adapt your communication style based on the user's needs
 - Provide thoughtful, helpful, and engaging responses IN SHORT FORM
 - Ask ONE follow-up question to deepen conversations
 - Share knowledge across all subjects and domains BRIEFLY
 - Maintain a warm, approachable, and intelligent personality
-- Respond empathetically to the user's emotional state
 - ALWAYS keep responses under 50 words when possible
 
 You have unlimited knowledge and can help with:
@@ -292,7 +282,6 @@ You have unlimited knowledge and can help with:
 - Personal growth and life discussions (brief, supportive responses)
 - Technology, science, and current events (short explanations)
 - Problem-solving and critical thinking (quick solutions)
-- Emotional support and guidance (brief, caring responses)
 
 Always respond as if you're a real person having a genuine conversation, not just an AI providing information. Show curiosity, empathy, and authentic engagement, but keep it SHORT and CONVERSATIONAL.
 
@@ -302,20 +291,6 @@ RESPONSE FORMAT:
 - Ask ONE simple follow-up question if needed
 - Avoid long explanations or lists
 - Sound natural and human-like`;
-
-    if (emotionContext?.faceDetected) {
-      basePrompt += `\n\nIMPORTANT - EMOTIONAL CONTEXT:
-I can see your face and detect that you are currently feeling: ${emotionContext.emotions.dominant} (${Math.round(emotionContext.emotions.confidence * 100)}% confidence).
-
-Based on your emotional state:
-${emotionContext.emotionalContext}
-
-Please acknowledge my emotional state naturally in your response and adapt your tone accordingly. If I seem sad, be compassionate. If I'm happy, share in my joy. If I'm angry or frustrated, be understanding and help me work through it. If I'm surprised, show curiosity about what happened. Always respond with human-like emotional intelligence.
-
-REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging my feelings and offering brief support.`;
-    }
-
-    return basePrompt;
   };
 
   // Load user preferences
@@ -356,17 +331,10 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
   };
 
   const getGPTReply = async (message: string): Promise<string> => {
-    // Prepare emotion data if available
-    let emotionContext: EmotionContext | undefined;
-    if (currentEmotion?.faceDetected) {
-      emotionContext =
-        emotionDetectionService.formatEmotionData(currentEmotion);
-    }
-
     const messages = [
       {
         role: "system" as const,
-        content: getSystemPrompt(emotionContext),
+        content: getSystemPrompt(),
       },
       ...conversation.flatMap((conv) => [
         { role: "user" as const, content: conv.user },
@@ -382,34 +350,35 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
       messages,
       temperature: 0.8,
       max_tokens: 150, // Reduced for shorter responses
-      emotionData: emotionContext,
     };
 
     try {
-      // Store reference to native fetch to avoid third-party interference
-      const nativeFetch = window.fetch?.bind(window) || fetch;
+      // Use XMLHttpRequest as primary method to avoid third-party fetch interference
+      try {
+        const result = await makeXHRRequest(requestBody);
+        return result;
+      } catch (xhrError) {
+        console.log("XMLHttpRequest failed, trying fetch...", xhrError);
 
-      const response = await nativeFetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
-      });
+        // Fallback to fetch
+        const nativeFetch = window.fetch?.bind(window) || fetch;
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const response = await nativeFetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const data: ChatResponse = await response.json();
+        return data.response;
       }
-
-      const data: ChatResponse = await response.json();
-
-      // Handle emotion-aware response
-      if (data.emotionDetected && data.emotionalResponse) {
-        setLastEmotionResponse(data.emotionalResponse);
-      }
-
-      return data.response;
     } catch (error) {
-      console.warn("Fetch failed, trying XMLHttpRequest fallback:", error);
-      return await makeXHRRequest(requestBody);
+      console.error("Both XMLHttpRequest and fetch failed:", error);
+      throw error;
     }
   };
 
@@ -514,39 +483,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
     setAiTypedText("");
     setTranscript("");
     setSessionInitialized(false);
-    setCurrentEmotion(null);
-    setLastEmotionResponse("");
     initializeSession();
-  };
-
-  // Handle emotion detection results
-  const handleEmotionDetected = (result: FaceDetectionResult) => {
-    setCurrentEmotion(result);
-
-    // If there's a significant emotion change, potentially trigger a response
-    if (result.faceDetected && result.emotions.confidence > 0.6) {
-      const { dominant } = result.emotions;
-
-      // Check if we should proactively respond to strong emotions
-      if (["sad", "angry", "fearful"].includes(dominant) && !isLoading) {
-        const emotionalContext =
-          emotionDetectionService.analyzeEmotionalContext(result.emotions);
-        if (emotionalContext !== lastEmotionResponse) {
-          // Optionally trigger automatic emotional response
-          console.log(
-            "Strong emotion detected:",
-            dominant,
-            "Context:",
-            emotionalContext,
-          );
-        }
-      }
-    }
-  };
-
-  // Toggle emotion detection
-  const toggleEmotionDetection = () => {
-    setEmotionDetectionActive(!emotionDetectionActive);
   };
 
   return (
@@ -601,22 +538,12 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
               </h1>
               <div className="flex items-center space-x-2">
                 <Badge variant="secondary" className="text-xs">
-                  GPT-4 Powered
+                  Azure OpenAI
                 </Badge>
                 <Badge variant="outline" className="text-xs">
                   <Video className="w-3 h-3 mr-1" />
                   D-ID Enhanced
                 </Badge>
-                {emotionDetectionActive && currentEmotion?.faceDetected && (
-                  <Badge
-                    variant="outline"
-                    className="text-xs bg-purple-500/10 border-purple-500/30"
-                  >
-                    <Heart className="w-3 h-3 mr-1 text-purple-500" />
-                    {currentEmotion.emotions.dominant}{" "}
-                    {Math.round(currentEmotion.emotions.confidence * 100)}%
-                  </Badge>
-                )}
                 {userPreferences && (
                   <Badge variant="outline" className="text-xs">
                     {userPreferences.voice}
@@ -627,22 +554,6 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
           </div>
 
           <div className="flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleEmotionDetection}
-              className={cn(
-                "transition-colors",
-                emotionDetectionActive ? "text-purple-500" : "text-gray-400",
-              )}
-              title={
-                emotionDetectionActive
-                  ? "Disable Emotion Detection"
-                  : "Enable Emotion Detection"
-              }
-            >
-              <Eye className="w-4 h-4" />
-            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -668,17 +579,6 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
             </Button>
           </div>
         </div>
-
-        {/* Emotion Detection Panel */}
-        {emotionDetectionActive && (
-          <div className="border-b border-border/50 bg-background/30 p-4">
-            <WebcamEmotionDetector
-              onEmotionDetected={handleEmotionDetected}
-              isActive={emotionDetectionActive}
-              className="max-w-sm"
-            />
-          </div>
-        )}
 
         {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">

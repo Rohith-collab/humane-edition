@@ -193,67 +193,59 @@ export default function ChatbotLayout({
     };
 
     try {
-      console.log("Making API request to /api/chat...");
+      console.log("Making API request to /chat...");
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      // Use XMLHttpRequest as primary method to avoid third-party fetch interference
+      try {
+        const result = await makeXHRRequest(requestBody);
+        setApiError("");
+        return result;
+      } catch (xhrError) {
+        console.log("XMLHttpRequest failed, trying fetch...", xhrError);
 
-      // Store reference to native fetch to avoid third-party interference
-      const nativeFetch = window.fetch?.bind(window) || fetch;
+        // Fallback to fetch
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-      const response = await nativeFetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Cache-Control": "no-cache",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: JSON.stringify(requestBody),
-        signal: controller.signal,
-        credentials: "same-origin",
-      });
+        const nativeFetch = window.fetch?.bind(window) || fetch;
 
-      clearTimeout(timeoutId);
+        const response = await nativeFetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Cache-Control": "no-cache",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: JSON.stringify(requestBody),
+          signal: controller.signal,
+          credentials: "same-origin",
+        });
 
-      console.log("API response status:", response.status);
+        clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error! status: ${response.status} - ${response.statusText}`,
-        );
+        console.log("API response status:", response.status);
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP error! status: ${response.status} - ${response.statusText}`,
+          );
+        }
+
+        const data: ChatResponse = await response.json();
+        console.log("API response data:", data);
+
+        if (!data.success) {
+          throw new Error(data.error || "Failed to get AI response");
+        }
+
+        setApiError("");
+        return data.response || "No response from bot.";
       }
-
-      const data: ChatResponse = await response.json();
-      console.log("API response data:", data);
-
-      if (!data.success) {
-        throw new Error(data.error || "Failed to get AI response");
-      }
-
-      // Clear any previous errors on successful response
-      setApiError("");
-      return data.response || "No response from bot.";
     } catch (err) {
       console.error("Chat API Error (attempt " + (retryCount + 1) + "):", err);
 
-      // Try XMLHttpRequest as fallback if fetch fails
-      if (
-        retryCount === 0 &&
-        err instanceof Error &&
-        (err.message.includes("Failed to fetch") ||
-          err.message.includes("fetch") ||
-          err.message.includes("network"))
-      ) {
-        console.log("Fetch failed, trying XMLHttpRequest fallback...");
-        try {
-          const result = await makeXHRRequest(requestBody);
-          setApiError("");
-          return result;
-        } catch (xhrErr) {
-          console.error("XMLHttpRequest also failed:", xhrErr);
-        }
-      }
+      // Since we already tried both XMLHttpRequest and fetch above, just log the error
 
       // Retry logic - retry up to 2 times with exponential backoff
       if (retryCount < 2) {

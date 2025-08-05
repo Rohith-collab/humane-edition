@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
+import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
@@ -12,7 +12,6 @@ export const handleChat: RequestHandler = async (req, res) => {
       messages,
       temperature = 0.7,
       max_tokens = 800,
-      emotionData,
     } = req.body as ChatRequest;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -23,12 +22,16 @@ export const handleChat: RequestHandler = async (req, res) => {
       });
     }
 
-    const azureApiKey =
-      process.env.AZURE_OPENAI_KEY ||
-      "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
-    const azureEndpoint =
-      process.env.AZURE_OPENAI_ENDPOINT ||
-      "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
+    const azureApiKey = process.env.AZURE_OPENAI_API_KEY;
+    const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT;
+
+    if (!azureApiKey || !azureEndpoint) {
+      console.error("Missing required environment variables");
+      return res.status(500).json({
+        success: false,
+        error: "Server configuration error",
+      });
+    }
 
     console.log("Making request to Azure OpenAI...");
 
@@ -61,31 +64,18 @@ export const handleChat: RequestHandler = async (req, res) => {
     console.log("Azure OpenAI response:", data);
 
     const chatResponse =
-      data.choices?.[0]?.message?.content || "No response from bot.";
+      data.choices?.[0]?.message?.content || "No response from AI.";
 
-    // Prepare response with emotion awareness
     const responseData: ChatResponse = {
       success: true,
       response: chatResponse.trim(),
-      emotionDetected: emotionData?.faceDetected || false,
-      emotionalResponse: emotionData?.emotionalContext || undefined,
     };
-
-    // Log emotion data for monitoring (optional)
-    if (emotionData?.faceDetected) {
-      console.log("Emotion-aware response:", {
-        emotion: emotionData.emotions.dominant,
-        confidence: emotionData.emotions.confidence,
-        context: emotionData.emotionalContext,
-      });
-    }
 
     console.log("Sending response:", responseData);
     res.json(responseData);
   } catch (error) {
     console.error("Azure OpenAI Error:", error);
 
-    // More detailed error response
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
 
@@ -93,7 +83,6 @@ export const handleChat: RequestHandler = async (req, res) => {
       success: false,
       error: `Failed to get response from AI: ${errorMessage}`,
       response: "Sorry, I could not process that right now. Please try again.",
-      emotionDetected: false,
     } as ChatResponse);
   }
 };
