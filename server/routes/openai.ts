@@ -2,6 +2,12 @@ import { RequestHandler } from "express";
 import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
+  console.log("=== CHAT API ENDPOINT HIT ===");
+  console.log("Request method:", req.method);
+  console.log("Request headers:", req.headers);
+  console.log("Request body type:", typeof req.body);
+  console.log("Request body keys:", Object.keys(req.body || {}));
+
   try {
     console.log(
       "Chat API called with body:",
