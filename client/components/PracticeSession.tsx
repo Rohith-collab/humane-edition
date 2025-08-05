@@ -151,42 +151,36 @@ export default function PracticeSession({
     retryCount = 0,
   ): Promise<string> => {
     try {
-      console.log("Making direct API request to Azure OpenAI...");
+      console.log("Making API request to /api/ai-chat...");
 
-      const response = await fetch(
-        "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "api-key":
-              "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n",
-          },
-          body: JSON.stringify({
-            messages: [
-              {
-                role: "system",
-                content: systemPrompt,
-              },
-              { role: "user", content: userInput },
-            ],
-            temperature: 0.7,
-            max_tokens: 800,
-          }),
+      const response = await fetch("/api/ai-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "system",
+              content: systemPrompt,
+            },
+            { role: "user", content: userInput },
+          ],
+        }),
+      });
 
       if (!response.ok) {
+        const errorText = await response.text();
         throw new Error(
-          `Azure API error: ${response.status} - ${response.statusText}`,
+          `API error: ${response.status} - ${errorText}`,
         );
       }
 
       const data = await response.json();
-      console.log("Azure OpenAI response:", data);
+      console.log("AI API response:", data);
 
       const botResponse = (
-        data.choices?.[0]?.message?.content || "No response from bot."
+        data.response || "No response from bot."
       ).trim();
       setApiError("");
       return botResponse;
