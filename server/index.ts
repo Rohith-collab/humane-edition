@@ -41,10 +41,7 @@ export function createServer() {
   app.options("/api/chat", (req, res) => {
     res.status(200).end();
   });
-  app.post("/api/chat", (req, res) => {
-    console.log("Legacy /api/chat endpoint accessed, using improved handler");
-    handleAzureChat(req, res);
-  });
+  app.post("/api/chat", handleAzureChat);
 
   // AI Chat route
   app.options("/api/ai-chat", (req, res) => {
