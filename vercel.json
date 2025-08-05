@@ -1,5 +1,54 @@
 {
+  "functions": {
+    "api/chat.ts": {
+      "maxDuration": 30
+    },
+    "api/ping.ts": {
+      "maxDuration": 10
+    },
+    "api/demo.ts": {
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+    {
+      "source": "/api/chat",
+      "destination": "/api/chat"
+    },
+    {
+      "source": "/api/ping",
+      "destination": "/api/ping"
+    },
+    {
+      "source": "/api/demo",
+      "destination": "/api/demo"
+    },
+    {
+      "source": "/((?!api/.*).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Requested-With, Accept, Cache-Control, api-key"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "AZURE_OPENAI_API_KEY": "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n",
+    "AZURE_OPENAI_ENDPOINT": "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview"
+  }
 }
