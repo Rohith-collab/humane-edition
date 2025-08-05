@@ -5,6 +5,7 @@
 When deploying to Vercel, you MUST set these environment variables in the Vercel Dashboard:
 
 ### 🔑 Azure OpenAI (Required for chat functionality)
+
 ```
 AZURE_OPENAI_API_KEY=A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n
 AZURE_OPENAI_ENDPOINT=https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview
@@ -16,12 +17,13 @@ AZURE_OPENAI_ENDPOINT=https://yogar-mcyatzzl-eastus2.services.ai.azure.com/opena
 2. Select your project
 3. Go to Settings → Environment Variables
 4. Add each variable:
+
    - **Variable Name**: `AZURE_OPENAI_API_KEY`
    - **Value**: `A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n`
    - **Environments**: Select "Production", "Preview", and "Development"
 
 5. Add the second variable:
-   - **Variable Name**: `AZURE_OPENAI_ENDPOINT` 
+   - **Variable Name**: `AZURE_OPENAI_ENDPOINT`
    - **Value**: `https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview`
    - **Environments**: Select "Production", "Preview", and "Development"
 
@@ -42,6 +44,7 @@ AZURE_OPENAI_ENDPOINT=https://yogar-mcyatzzl-eastus2.services.ai.azure.com/opena
 ## 🧪 Testing:
 
 After deployment, your API endpoints will be available at:
+
 - `https://yourdomain.vercel.app/api/chat` (POST)
 - `https://yourdomain.vercel.app/api/ping` (GET)
 - `https://yourdomain.vercel.app/api/demo` (GET)
