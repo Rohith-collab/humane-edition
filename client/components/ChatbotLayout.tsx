@@ -221,7 +221,6 @@ export default function ChatbotLayout({
       }
 
       const data: ChatResponse = await response.json();
-      console.log("API response data:", data);
 
       if (!data.success) {
         throw new Error(data.error || "Failed to get AI response");
