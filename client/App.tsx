@@ -37,7 +37,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
-import SpeechIframe from "./pages/Azurebot";
+import Azurebot from "./pages/Azurebot";
 
 const queryClient = new QueryClient();
 
@@ -116,7 +116,7 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <Layout>
-                      <SpeechIframe />
+                      <Azurebot />
                     </Layout>
                   </ProtectedRoute>
                 }
