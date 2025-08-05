@@ -165,25 +165,25 @@ const getDefaultAnalytics = (): UserAnalytics => ({
 export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const auth = useAuth();
+  // Wrap useAuth in try-catch to handle potential context issues
+  let currentUser: any = null;
+  let authLoading = true;
 
-  // Add safety check for auth context
-  if (!auth) {
-    console.error("UserAnalyticsProvider: Auth context not available");
+  try {
+    const auth = useAuth();
+    currentUser = auth.currentUser;
+    authLoading = auth.loading;
+  } catch (error) {
+    console.error("Error accessing auth context:", error);
+    // Return children without analytics if auth is not available
     return <>{children}</>;
   }
 
-  const { currentUser, loading: authLoading } = auth;
   const [analytics, setAnalytics] = useState<UserAnalytics | null>(null);
   const [currentSession, setCurrentSession] = useState<SessionData | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
-
-  // Wait for auth to initialize
-  if (authLoading) {
-    return <>{children}</>;
-  }
 
   // Load user analytics from Firestore
   useEffect(() => {
