@@ -211,7 +211,7 @@ export default function PracticeSession({
 
         const nativeFetch = window.fetch?.bind(window) || fetch;
 
-        const response = await nativeFetch("/chat", {
+        const response = await nativeFetch("/api/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
