@@ -1034,6 +1034,95 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Enhanced Learning Insights */}
+            <Card className="hover:shadow-xl transition-all duration-500 border-0 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Brain className="h-5 w-5 text-nova-500" />
+                  <span>Learning Insights</span>
+                  <Badge variant="secondary" className="ml-auto">
+                    AI Powered
+                  </Badge>
+                </CardTitle>
+                <CardDescription>
+                  Personalized insights to improve your learning journey
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="p-4 bg-gradient-to-br from-nova-500/10 to-nova-600/5 rounded-lg border border-nova-200/20">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Clock className="h-4 w-4 text-nova-500" />
+                      <span className="text-sm font-medium">Best Study Time</span>
+                    </div>
+                    <p className="text-lg font-bold text-nova-600">9:00 AM</p>
+                    <p className="text-xs text-muted-foreground">
+                      Based on your activity patterns
+                    </p>
+                  </div>
+
+                  <div className="p-4 bg-gradient-to-br from-electric-500/10 to-electric-600/5 rounded-lg border border-electric-200/20">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Target className="h-4 w-4 text-electric-500" />
+                      <span className="text-sm font-medium">Focus Area</span>
+                    </div>
+                    <p className="text-lg font-bold text-electric-600">Pronunciation</p>
+                    <p className="text-xs text-muted-foreground">
+                      78% accuracy - room for improvement
+                    </p>
+                  </div>
+
+                  <div className="p-4 bg-gradient-to-br from-cyber-500/10 to-cyber-600/5 rounded-lg border border-cyber-200/20">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <TrendingUp className="h-4 w-4 text-cyber-500" />
+                      <span className="text-sm font-medium">Progress Rate</span>
+                    </div>
+                    <p className="text-lg font-bold text-cyber-600">+12%</p>
+                    <p className="text-xs text-muted-foreground">
+                      Faster than 85% of learners
+                    </p>
+                  </div>
+
+                  <div className="p-4 bg-gradient-to-br from-green-500/10 to-green-600/5 rounded-lg border border-green-200/20">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Star className="h-4 w-4 text-green-500" />
+                      <span className="text-sm font-medium">Next Goal</span>
+                    </div>
+                    <p className="text-lg font-bold text-green-600">80% Fluency</p>
+                    <p className="text-xs text-muted-foreground">
+                      Est. 2 weeks at current pace
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-lg border border-yellow-200/20">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="h-4 w-4 text-yellow-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-yellow-700 mb-1">
+                        💡 Recommendation for Today
+                      </h4>
+                      <p className="text-sm text-yellow-600">
+                        Focus on business conversation practice. Your grammar is strong,
+                        but professional vocabulary could use more attention. Try the
+                        "Business Meeting" module for 15 minutes today.
+                      </p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-3 border-yellow-300 text-yellow-700 hover:bg-yellow-50"
+                      >
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        Start Business Module
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="progress" className="space-y-8 animate-fadeIn">
