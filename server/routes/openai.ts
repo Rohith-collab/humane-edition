@@ -23,12 +23,8 @@ export const handleChat: RequestHandler = async (req, res) => {
       });
     }
 
-    const azureApiKey =
-      process.env.AZURE_OPENAI_KEY ||
-      "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
-    const azureEndpoint =
-      process.env.AZURE_OPENAI_ENDPOINT ||
-      "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
+    const azureApiKey = "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
+    const azureEndpoint = "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
 
     console.log("Making request to Azure OpenAI...");
 
