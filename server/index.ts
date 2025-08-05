@@ -40,6 +40,15 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Test endpoint to verify routing
+  app.get("/api/test", (_req, res) => {
+    res.json({
+      success: true,
+      message: "API routing is working correctly!",
+      timestamp: new Date().toISOString()
+    });
+  });
+
   // AI Chat route - handle both development and production
   app.post("/api/chat", handleChat);
 
