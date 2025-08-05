@@ -100,7 +100,7 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
-              
+
               <Route
                 path="/dashboard"
                 element={
@@ -121,8 +121,7 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
-              
-              
+
               <Route
                 path="/practice"
                 element={

@@ -1,5 +1,5 @@
-import React from 'react';
-import { cn } from '../lib/utils';
+import React from "react";
+import { cn } from "../lib/utils";
 
 interface AvatarProps {
   speaking?: boolean;
@@ -13,7 +13,7 @@ const Avatar: React.FC<AvatarProps> = ({ speaking = false, className }) => {
       <div
         className={cn(
           "w-full h-full rounded-full bg-gradient-to-br from-nova-400 to-electric-500 p-1 transition-all duration-300",
-          speaking && "animate-pulse shadow-2xl glow"
+          speaking && "animate-pulse shadow-2xl glow",
         )}
       >
         <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
