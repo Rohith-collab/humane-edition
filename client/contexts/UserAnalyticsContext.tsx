@@ -470,4 +470,6 @@ function UserAnalyticsProvider({ children }: { children: React.ReactNode }) {
       {children}
     </UserAnalyticsContext.Provider>
   );
-};
+}
+
+export { UserAnalyticsProvider };
