@@ -201,7 +201,7 @@ export default function ChatbotLayout({
       // Store reference to native fetch to avoid third-party interference
       const nativeFetch = window.fetch?.bind(window) || fetch;
 
-      const response = await nativeFetch("/api/chat", {
+      const response = await nativeFetch("/api/ai-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
