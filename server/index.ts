@@ -37,14 +37,13 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
-  // Legacy chat endpoint - redirect to new endpoint for compatibility
+  // Legacy chat endpoint - use same handler as improved endpoint for compatibility
   app.options("/api/chat", (req, res) => {
     res.status(200).end();
   });
   app.post("/api/chat", (req, res) => {
-    // Redirect to the new improved endpoint
-    console.log("Legacy /api/chat endpoint accessed, redirecting to /api/ai-chat");
-    res.redirect(307, "/api/ai-chat");
+    console.log("Legacy /api/chat endpoint accessed, using improved handler");
+    handleAzureChat(req, res);
   });
 
   // AI Chat route
