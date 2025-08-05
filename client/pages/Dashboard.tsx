@@ -123,6 +123,27 @@ const Dashboard = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string>("");
   const [timeOfDay, setTimeOfDay] = useState<string>("");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [dashboardPreferences, setDashboardPreferences] = useState({
+    theme: "system",
+    compactMode: false,
+    animationsEnabled: true,
+    autoRefresh: true,
+    refreshInterval: 30,
+    showProgressAnimations: true,
+    displayMode: "detailed",
+    widgets: {
+      quickStats: true,
+      weeklyChart: true,
+      fluencyProgress: true,
+      achievements: true,
+      moduleProgress: true,
+      practiceReminder: true,
+      leaderboard: false,
+      dailyGoal: true,
+    },
+  });
   const [animatedStats, setAnimatedStats] = useState({
     fluencyScore: 0,
     currentStreak: 0,
