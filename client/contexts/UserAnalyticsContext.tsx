@@ -162,9 +162,7 @@ const getDefaultAnalytics = (): UserAnalytics => ({
   weeklyData: [],
 });
 
-export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+function UserAnalyticsProvider({ children }: { children: React.ReactNode }) {
   // Wrap useAuth in try-catch to handle potential context issues
   let currentUser: any = null;
   let authLoading = true;
