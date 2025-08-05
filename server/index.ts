@@ -13,9 +13,19 @@ export function createServer() {
   });
 
   // Middleware
-  app.use(cors());
+  app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
+    credentials: true
+  }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  // Handle preflight requests
+  app.options("*", (_req, res) => {
+    res.status(200).end();
+  });
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
@@ -24,8 +34,17 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
-  // AI Chat route
+  // AI Chat route - handle both development and production
   app.post("/api/chat", handleChat);
+
+  // Add a catch-all for unsupported methods
+  app.all("/api/chat", (_req, res) => {
+    res.status(405).json({
+      success: false,
+      error: "Method not allowed. Use POST for chat requests.",
+      response: "I can only respond to POST requests. Please check your request method."
+    });
+  });
 
   return app;
 }
