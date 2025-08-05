@@ -22,10 +22,16 @@ export const handleChat: RequestHandler = async (req, res) => {
       });
     }
 
-    const azureApiKey =
-      "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
-    const azureEndpoint =
-      "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
+    const azureApiKey = process.env.AZURE_OPENAI_API_KEY;
+    const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT;
+
+    if (!azureApiKey || !azureEndpoint) {
+      console.error("Missing required environment variables");
+      return res.status(500).json({
+        success: false,
+        error: "Server configuration error",
+      });
+    }
 
     console.log("Making request to Azure OpenAI...");
 
