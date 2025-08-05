@@ -3,10 +3,10 @@ import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
-    console.log(
-      "Chat API called with body:",
-      JSON.stringify(req.body, null, 2),
-    );
+    console.log("=== CHAT API CALLED ===");
+    console.log("Method:", req.method);
+    console.log("Headers:", req.headers);
+    console.log("Body:", JSON.stringify(req.body, null, 2));
 
     const {
       messages,
@@ -19,17 +19,23 @@ export const handleChat: RequestHandler = async (req, res) => {
       return res.status(400).json({
         success: false,
         error: "Messages array is required",
+        response: "Please provide a valid message to continue the conversation.",
       });
     }
 
     const azureApiKey = process.env.AZURE_OPENAI_API_KEY;
     const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT;
 
-    if (!azureApiKey || !azureEndpoint) {
-      console.error("Missing required environment variables");
+    console.log("Environment check:");
+    console.log("- AZURE_OPENAI_API_KEY:", azureApiKey ? "SET" : "MISSING");
+    console.log("- AZURE_OPENAI_ENDPOINT:", azureEndpoint ? "SET" : "MISSING");
+
+    if (!azureApiKey || !azureEndpoint || azureApiKey === "your_api_key_here") {
+      console.error("Missing or invalid Azure OpenAI environment variables");
       return res.status(500).json({
         success: false,
-        error: "Server configuration error",
+        error: "Server configuration error - Azure OpenAI not configured",
+        response: "I understand you're trying to chat with me. While I'm experiencing some technical difficulties connecting to the AI service, I can still help you practice. What would you like to work on today?",
       });
     }
 
