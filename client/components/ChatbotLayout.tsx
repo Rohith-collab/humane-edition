@@ -74,7 +74,7 @@ export default function ChatbotLayout({
   const makeXHRRequest = (requestBody: ChatRequest): Promise<string> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/chat", true);
+      xhr.open("POST", "/api/chat", true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("Accept", "application/json");
       xhr.timeout = 30000;
