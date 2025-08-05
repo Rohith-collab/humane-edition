@@ -389,7 +389,7 @@ REMEMBER: Keep your emotional response SHORT - just 1-2 sentences acknowledging 
       // Store reference to native fetch to avoid third-party interference
       const nativeFetch = window.fetch?.bind(window) || fetch;
 
-      const response = await nativeFetch("/api/chat", {
+      const response = await nativeFetch("/api/ai-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
