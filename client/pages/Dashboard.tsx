@@ -507,23 +507,71 @@ const Dashboard = () => {
       className={`min-h-screen bg-gradient-to-br from-background via-background to-muted/20 transition-all duration-1000 ${timeOfDay === "night" ? "from-slate-900 via-slate-800 to-slate-900" : timeOfDay === "morning" ? "from-amber-50/5 via-background to-orange-50/5" : ""}`}
     >
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Floating Action Buttons */}
-        <div className="fixed top-6 right-6 z-50 flex space-x-3">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-foreground hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
-          >
-            <ArrowLeft className="h-4 w-4 group-hover:animate-bounce-slow" />
-            <span className="text-sm font-medium">Back</span>
-          </button>
+        {/* Enhanced Floating Action Buttons */}
+        <div className="fixed top-6 right-6 z-50 flex flex-col space-y-3">
+          <div className="flex space-x-3">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-foreground hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
+            >
+              <ArrowLeft className="h-4 w-4 group-hover:animate-bounce-slow" />
+              <span className="text-sm font-medium hidden sm:inline">Back</span>
+            </button>
 
-          <button
-            onClick={() => window.location.reload()}
-            className="flex items-center space-x-2 bg-nova-500/10 backdrop-blur-md border border-nova-500/20 rounded-xl px-4 py-3 text-foreground hover:bg-nova-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
-          >
-            <RotateCcw className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
-            <span className="text-sm font-medium">Refresh</span>
-          </button>
+            <button
+              onClick={() => window.location.reload()}
+              className="flex items-center space-x-2 bg-nova-500/10 backdrop-blur-md border border-nova-500/20 rounded-xl px-4 py-3 text-foreground hover:bg-nova-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
+            >
+              <RotateCcw className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
+              <span className="text-sm font-medium hidden sm:inline">Refresh</span>
+            </button>
+
+            <DashboardSettings
+              onPreferencesChange={setDashboardPreferences}
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="bg-electric-500/10 backdrop-blur-md border border-electric-500/20 rounded-xl px-4 py-3 text-foreground hover:bg-electric-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
+                >
+                  <Settings className="h-4 w-4 group-hover:rotate-90 transition-transform duration-300" />
+                  <span className="text-sm font-medium hidden sm:inline ml-2">Settings</span>
+                </Button>
+              }
+            />
+          </div>
+
+          <div className="flex space-x-3">
+            <button
+              onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+              className="flex items-center space-x-2 bg-cyber-500/10 backdrop-blur-md border border-cyber-500/20 rounded-xl px-4 py-3 text-foreground hover:bg-cyber-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
+              title={`Switch to ${viewMode === "grid" ? "list" : "grid"} view`}
+            >
+              {viewMode === "grid" ? (
+                <ListIcon className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+              ) : (
+                <GridIcon className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+              )}
+              <span className="text-sm font-medium hidden sm:inline">
+                {viewMode === "grid" ? "List" : "Grid"}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              className="flex items-center space-x-2 bg-purple-500/10 backdrop-blur-md border border-purple-500/20 rounded-xl px-4 py-3 text-foreground hover:bg-purple-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
+              title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+            >
+              {isFullscreen ? (
+                <Minimize className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+              ) : (
+                <Maximize className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+              )}
+              <span className="text-sm font-medium hidden sm:inline">
+                {isFullscreen ? "Exit" : "Full"}
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Animated Header Section */}
