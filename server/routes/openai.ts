@@ -32,10 +32,15 @@ export const handleChat: RequestHandler = async (req, res) => {
 
     if (!azureApiKey || !azureEndpoint || azureApiKey === "your_api_key_here") {
       console.error("Missing or invalid Azure OpenAI environment variables");
-      return res.status(500).json({
-        success: false,
-        error: "Server configuration error - Azure OpenAI not configured",
-        response: "I understand you're trying to chat with me. While I'm experiencing some technical difficulties connecting to the AI service, I can still help you practice. What would you like to work on today?",
+
+      // Provide an intelligent fallback response based on the user's message
+      const userMessage = messages[messages.length - 1]?.content || "";
+      const fallbackResponse = generateFallbackResponse(userMessage);
+
+      return res.status(200).json({
+        success: true,
+        response: fallbackResponse,
+        error: "AI service temporarily unavailable - using fallback mode",
       });
     }
 
