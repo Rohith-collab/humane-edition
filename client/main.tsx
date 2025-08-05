@@ -15,7 +15,7 @@ function renderApp() {
   if (!window.__root) {
     window.__root = createRoot(container);
   }
-  
+
   window.__root.render(<App />);
 }
 
@@ -23,7 +23,7 @@ renderApp();
 
 // HMR handling
 if (import.meta.hot) {
-  import.meta.hot.accept('./App', () => {
+  import.meta.hot.accept("./App", () => {
     renderApp();
   });
 }

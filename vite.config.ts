@@ -16,9 +16,9 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist",
     rollupOptions: {
       input: {
-        main: 'index.html'
-      }
-    }
+        main: "index.html",
+      },
+    },
   },
   plugins: [react(), expressPlugin()],
   resolve: {
