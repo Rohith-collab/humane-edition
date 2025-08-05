@@ -3,7 +3,10 @@ import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
-    console.log("Chat API called with body:", JSON.stringify(req.body, null, 2));
+    console.log(
+      "Chat API called with body:",
+      JSON.stringify(req.body, null, 2),
+    );
 
     const {
       messages,
@@ -19,8 +22,10 @@ export const handleChat: RequestHandler = async (req, res) => {
       });
     }
 
-    const azureApiKey = "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
-    const azureEndpoint = "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
+    const azureApiKey =
+      "A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n";
+    const azureEndpoint =
+      "https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
 
     console.log("Making request to Azure OpenAI...");
 
@@ -45,7 +50,7 @@ export const handleChat: RequestHandler = async (req, res) => {
         body: errorText,
       });
       throw new Error(
-        `Azure API responded with status: ${response.status} - ${response.statusText}`
+        `Azure API responded with status: ${response.status} - ${response.statusText}`,
       );
     }
 
