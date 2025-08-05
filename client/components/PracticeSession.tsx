@@ -135,13 +135,10 @@ export default function PracticeSession({
   const initializeSession = async () => {
     try {
       setIsLoading(true);
-      console.log("Initializing practice session...");
 
       const welcomeMessage = await getGPTReply(
         "Hello, let's start the practice session.",
       );
-
-      console.log("Welcome message received:", welcomeMessage);
       setReply(welcomeMessage);
       typeReply(welcomeMessage);
 
