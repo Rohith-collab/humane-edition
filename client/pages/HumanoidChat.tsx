@@ -360,20 +360,41 @@ RESPONSE FORMAT:
       } catch (xhrError) {
         console.log("XMLHttpRequest failed, trying fetch...", xhrError);
 
-        // Fallback to fetch
+        // Fallback to fetch with better error handling
         const nativeFetch = window.fetch?.bind(window) || fetch;
 
         const response = await nativeFetch("/api/chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
           body: JSON.stringify(requestBody),
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const errorText = await response.text();
+          console.error("API Error:", {
+            status: response.status,
+            statusText: response.statusText,
+            body: errorText
+          });
+
+          if (response.status === 500) {
+            throw new Error("AI service is temporarily unavailable. Please try again in a moment.");
+          } else if (response.status === 404) {
+            throw new Error("Chat service not found. Please check your connection.");
+          } else {
+            throw new Error(`Service error (${response.status}): Please try again.`);
+          }
         }
 
         const data: ChatResponse = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "AI service returned an error");
+        }
+
         return data.response;
       }
     } catch (error) {
