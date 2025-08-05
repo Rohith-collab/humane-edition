@@ -8,9 +8,17 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    hmr: {
+      overlay: true,
+    },
   },
   build: {
     outDir: "dist",
+    rollupOptions: {
+      input: {
+        main: 'index.html'
+      }
+    }
   },
   plugins: [react(), expressPlugin()],
   resolve: {
