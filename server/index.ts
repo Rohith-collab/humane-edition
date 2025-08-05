@@ -6,6 +6,12 @@ import { handleChat } from "./routes/openai";
 export function createServer() {
   const app = express();
 
+  // Debug middleware
+  app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`, req.body);
+    next();
+  });
+
   // Middleware
   app.use(cors());
   app.use(express.json());
