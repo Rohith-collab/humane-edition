@@ -189,6 +189,25 @@ class EmotionDetectionService {
     }
   }
 
+  private getFallbackEmotions(): FaceDetectionResult {
+    // Simple fallback that returns neutral emotions
+    return {
+      emotions: {
+        happy: 0,
+        sad: 0,
+        angry: 0,
+        fearful: 0,
+        disgusted: 0,
+        surprised: 0,
+        neutral: 1,
+        dominant: "neutral",
+        confidence: 0,
+      },
+      faceDetected: false,
+      timestamp: Date.now(),
+    };
+  }
+
   startContinuousDetection(
     callback: (result: FaceDetectionResult) => void,
     interval: number = 2000,
