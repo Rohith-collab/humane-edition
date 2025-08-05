@@ -33,7 +33,9 @@ class EmotionDetectionService {
     if (this.isInitialized) return;
 
     // face-api.js is not available, using fallback emotion detection
-    console.warn("Using fallback emotion detection (face-api.js not installed)");
+    console.warn(
+      "Using fallback emotion detection (face-api.js not installed)",
+    );
     this.isInitialized = true;
   }
 
