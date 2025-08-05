@@ -363,7 +363,7 @@ RESPONSE FORMAT:
         // Fallback to fetch
         const nativeFetch = window.fetch?.bind(window) || fetch;
 
-        const response = await nativeFetch("/chat", {
+        const response = await nativeFetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestBody),
