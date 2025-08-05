@@ -36,40 +36,58 @@ const Azurebot = () => {
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
+    const userInput = input.trim();
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: input.trim(),
+      content: userInput,
       role: "user",
       timestamp: new Date(),
     };
 
+    // Update messages and clear input immediately
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
 
     try {
+      // Get the current conversation history including the new user message
+      const currentConversation = [...messages, userMessage];
+
+      // Prepare the conversation for the API (only last 10 messages to avoid token limits)
+      const recentMessages = currentConversation
+        .slice(-10)
+        .map((msg) => ({
+          role: msg.role,
+          content: msg.content.trim(),
+        }))
+        .filter((msg) => msg.content.length > 0);
+
+      console.log("Sending messages:", recentMessages);
+
       const response = await fetch("/api/ai-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map((msg) => ({
-            role: msg.role,
-            content: msg.content,
-          })),
+          messages: recentMessages,
         }),
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
 
+      if (!data.response || typeof data.response !== 'string') {
+        throw new Error('Invalid response format from server');
+      }
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: data.response,
+        content: data.response.trim(),
         role: "assistant",
         timestamp: new Date(),
       };
