@@ -43,6 +43,15 @@ class EmotionDetectionService {
     if (this.isInitialized) return;
 
     try {
+      // Load face-api.js dynamically
+      faceapi = await loadFaceApi();
+
+      if (!faceapi) {
+        console.warn("Using fallback emotion detection");
+        this.isInitialized = true;
+        return;
+      }
+
       // Load face-api.js models
       const MODEL_URL = "/models"; // You'll need to add face-api.js models to public/models
 
@@ -56,7 +65,7 @@ class EmotionDetectionService {
       console.log("Emotion detection models loaded successfully");
     } catch (error) {
       console.error("Failed to load emotion detection models:", error);
-      throw new Error("Emotion detection initialization failed");
+      this.isInitialized = true; // Continue with fallback
     }
   }
 
