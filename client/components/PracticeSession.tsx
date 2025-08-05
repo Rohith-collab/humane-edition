@@ -186,7 +186,7 @@ export default function PracticeSession({
       return botResponse;
     } catch (err) {
       console.error(
-        "Azure OpenAI Error (attempt " + (retryCount + 1) + "):",
+        "AI Chat API Error (attempt " + (retryCount + 1) + "):",
         err,
       );
 
