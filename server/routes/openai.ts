@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { ChatRequest, ChatResponse, EmotionContext } from "@shared/api";
+import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
@@ -12,7 +12,6 @@ export const handleChat: RequestHandler = async (req, res) => {
       messages,
       temperature = 0.7,
       max_tokens = 800,
-      emotionData,
     } = req.body as ChatRequest;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -37,14 +36,7 @@ export const handleChat: RequestHandler = async (req, res) => {
         "api-key": azureApiKey,
       },
       body: JSON.stringify({
-        messages: [
-          {
-            role: "system",
-            content:
-              "you are a bot just reply in single line of single sentence",
-          },
-          ...messages,
-        ],
+        messages,
         temperature,
         max_tokens,
       }),
@@ -66,31 +58,18 @@ export const handleChat: RequestHandler = async (req, res) => {
     console.log("Azure OpenAI response:", data);
 
     const chatResponse =
-      data.choices?.[0]?.message?.content || "No response from bot.";
+      data.choices?.[0]?.message?.content || "No response from AI.";
 
-    // Prepare response with emotion awareness
     const responseData: ChatResponse = {
       success: true,
       response: chatResponse.trim(),
-      emotionDetected: emotionData?.faceDetected || false,
-      emotionalResponse: emotionData?.emotionalContext || undefined,
     };
-
-    // Log emotion data for monitoring (optional)
-    if (emotionData?.faceDetected) {
-      console.log("Emotion-aware response:", {
-        emotion: emotionData.emotions.dominant,
-        confidence: emotionData.emotions.confidence,
-        context: emotionData.emotionalContext,
-      });
-    }
 
     console.log("Sending response:", responseData);
     res.json(responseData);
   } catch (error) {
     console.error("Azure OpenAI Error:", error);
 
-    // More detailed error response
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
 
@@ -98,7 +77,6 @@ export const handleChat: RequestHandler = async (req, res) => {
       success: false,
       error: `Failed to get response from AI: ${errorMessage}`,
       response: "Sorry, I could not process that right now. Please try again.",
-      emotionDetected: false,
     } as ChatResponse);
   }
 };

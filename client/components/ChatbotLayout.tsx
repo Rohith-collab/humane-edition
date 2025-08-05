@@ -193,7 +193,7 @@ export default function ChatbotLayout({
     };
 
     try {
-      console.log("Making API request to /api/chat...");
+      console.log("Making API request to /chat...");
 
       // Use XMLHttpRequest as primary method to avoid third-party fetch interference
       try {
