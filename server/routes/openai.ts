@@ -37,14 +37,7 @@ export const handleChat: RequestHandler = async (req, res) => {
         "api-key": azureApiKey,
       },
       body: JSON.stringify({
-        messages: [
-          {
-            role: "system",
-            content:
-              "you are a bot just reply in single line of single sentence",
-          },
-          ...messages,
-        ],
+        messages: messages, // Use the messages exactly as sent from client
         temperature,
         max_tokens,
       }),
