@@ -37,11 +37,15 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
-  // AI Chat route with OPTIONS preflight
+  // Legacy chat endpoint - redirect to new endpoint for compatibility
   app.options("/api/chat", (req, res) => {
     res.status(200).end();
   });
-  app.post("/api/chat", handleChat);
+  app.post("/api/chat", (req, res) => {
+    // Redirect to the new improved endpoint
+    console.log("Legacy /api/chat endpoint accessed, redirecting to /api/ai-chat");
+    res.redirect(307, "/api/ai-chat");
+  });
 
   // AI Chat route
   app.options("/api/ai-chat", (req, res) => {
