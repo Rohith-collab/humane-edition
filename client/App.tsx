@@ -78,7 +78,8 @@ const PlaceholderPage = ({
   </Layout>
 );
 
-const App = () => (
+function App() {
+  return (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -377,7 +378,8 @@ const App = () => (
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>
-);
+  );
+}
 
 // Fix for HMR and avoid duplicate root creation
 const container = document.getElementById("root")!;
