@@ -12,8 +12,16 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { currentUser, loading } = useAuth();
   const location = useLocation();
 
-  // Allow demo access to bot-chat without authentication
-  const isDemoRoute = location.pathname === "/bot-chat";
+  // Allow demo access to bot-chat and practice modes without authentication
+  const isDemoRoute = location.pathname === "/bot-chat" ||
+                     location.pathname.startsWith("/practice") ||
+                     location.pathname.startsWith("/grammar") ||
+                     location.pathname.startsWith("/presentation") ||
+                     location.pathname.startsWith("/social") ||
+                     location.pathname.startsWith("/business") ||
+                     location.pathname.startsWith("/speaking") ||
+                     location.pathname.startsWith("/cultural") ||
+                     location.pathname.startsWith("/humanoid");
 
   if (loading && !isDemoRoute) {
     return (
