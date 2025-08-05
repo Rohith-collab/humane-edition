@@ -5,23 +5,27 @@ import { ChatRequest, ChatResponse } from "@shared/api";
 function generateFallbackResponse(userMessage: string): string {
   const message = userMessage.toLowerCase();
 
-  if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+  if (
+    message.includes("hello") ||
+    message.includes("hi") ||
+    message.includes("hey")
+  ) {
     return "Hello! I'm here to help you practice English. While I'm having some technical difficulties connecting to the full AI system, I can still guide your learning. What specific area would you like to work on - conversation, grammar, pronunciation, or vocabulary?";
   }
 
-  if (message.includes('interview')) {
+  if (message.includes("interview")) {
     return "Great! Interview practice is important. Here are some common interview questions to consider: 'Tell me about yourself', 'Why do you want this job?', and 'What are your strengths?' Would you like to practice answering any of these?";
   }
 
-  if (message.includes('grammar') || message.includes('grammer')) {
+  if (message.includes("grammar") || message.includes("grammer")) {
     return "I'd be happy to help with grammar! Some key areas to focus on include verb tenses, articles (a, an, the), and sentence structure. What specific grammar topic would you like to practice?";
   }
 
-  if (message.includes('pronunciation') || message.includes('speaking')) {
+  if (message.includes("pronunciation") || message.includes("speaking")) {
     return "Pronunciation practice is excellent for improving your speaking skills. Try reading aloud, practicing tongue twisters, and focusing on difficult sounds. What specific pronunciation challenges are you facing?";
   }
 
-  if (message.includes('vocabulary') || message.includes('words')) {
+  if (message.includes("vocabulary") || message.includes("words")) {
     return "Building vocabulary is crucial for English fluency. I recommend reading regularly, keeping a vocabulary journal, and using new words in sentences. What topics or word types interest you most?";
   }
 
@@ -47,7 +51,8 @@ export const handleChat: RequestHandler = async (req, res) => {
       return res.status(400).json({
         success: false,
         error: "Messages array is required",
-        response: "Please provide a valid message to continue the conversation.",
+        response:
+          "Please provide a valid message to continue the conversation.",
       });
     }
 
@@ -119,7 +124,8 @@ export const handleChat: RequestHandler = async (req, res) => {
       error instanceof Error ? error.message : "Unknown error";
 
     // Provide a helpful fallback response instead of just an error
-    const fallbackResponse = "I understand you'd like to practice. While I'm having some technical difficulties, I can still help guide your learning. What specific area would you like to work on - speaking, listening, grammar, or conversation skills?";
+    const fallbackResponse =
+      "I understand you'd like to practice. While I'm having some technical difficulties, I can still help guide your learning. What specific area would you like to work on - speaking, listening, grammar, or conversation skills?";
 
     res.status(200).json({
       success: true,

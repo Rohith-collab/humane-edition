@@ -10,7 +10,10 @@ interface ErrorBoundaryProps {
   fallback?: React.ComponentType<{ error?: Error; retry: () => void }>;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -21,7 +24,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   retry = () => {
@@ -32,7 +35,9 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     if (this.state.hasError) {
       if (this.props.fallback) {
         const FallbackComponent = this.props.fallback;
-        return <FallbackComponent error={this.state.error} retry={this.retry} />;
+        return (
+          <FallbackComponent error={this.state.error} retry={this.retry} />
+        );
       }
 
       return (
@@ -42,9 +47,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               <span className="text-2xl">⚠️</span>
             </div>
             <div className="space-y-2">
-              <h1 className="text-2xl font-bold text-foreground">Something went wrong</h1>
+              <h1 className="text-2xl font-bold text-foreground">
+                Something went wrong
+              </h1>
               <p className="text-muted-foreground">
-                An error occurred while loading the application. Please refresh the page to try again.
+                An error occurred while loading the application. Please refresh
+                the page to try again.
               </p>
             </div>
             <button

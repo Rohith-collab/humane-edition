@@ -49,7 +49,7 @@ export default function ApiTest() {
     <div className="min-h-screen p-8 bg-background">
       <div className="max-w-2xl mx-auto space-y-6">
         <h1 className="text-2xl font-bold">API Test Page</h1>
-        
+
         <div className="space-x-4">
           <Button onClick={testPing} disabled={loading}>
             Test Ping API
@@ -60,7 +60,7 @@ export default function ApiTest() {
         </div>
 
         {loading && <p>Loading...</p>}
-        
+
         <div className="bg-muted p-4 rounded-lg">
           <h2 className="font-semibold mb-2">API Response:</h2>
           <pre className="text-sm overflow-auto">{response}</pre>

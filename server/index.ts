@@ -8,23 +8,30 @@ export function createServer() {
 
   // Debug middleware
   app.use((req, res, next) => {
-    if (req.path.startsWith('/api')) {
+    if (req.path.startsWith("/api")) {
       console.log(`=== API REQUEST ===`);
       console.log(`${req.method} ${req.path}`);
-      console.log('Headers:', req.headers);
-      console.log('Body:', req.body);
-      console.log('==================');
+      console.log("Headers:", req.headers);
+      console.log("Body:", req.body);
+      console.log("==================");
     }
     next();
   });
 
   // Middleware
-  app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
-    credentials: true
-  }));
+  app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+      ],
+      credentials: true,
+    }),
+  );
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
@@ -45,7 +52,7 @@ export function createServer() {
     res.json({
       success: true,
       message: "API routing is working correctly!",
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   });
 
@@ -57,7 +64,8 @@ export function createServer() {
     res.status(405).json({
       success: false,
       error: "Method not allowed. Use POST for chat requests.",
-      response: "I can only respond to POST requests. Please check your request method."
+      response:
+        "I can only respond to POST requests. Please check your request method.",
     });
   });
 

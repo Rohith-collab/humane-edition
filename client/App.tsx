@@ -89,286 +89,286 @@ const App = () => (
             <ErrorBoundary>
               <UserAnalyticsProvider>
                 <Routes>
-              {/* Public Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+                  {/* Public Routes */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
 
-              {/* Protected Routes */}
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <Index />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
+                  {/* Protected Routes */}
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <Index />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
 
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <Dashboard />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/bot-chat"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <Azurebot />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <Dashboard />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/bot-chat"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <Azurebot />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
 
-              <Route
-                path="/practice"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <Practice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/practice/interview"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <InterviewPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/practice/restaurant"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <RestaurantPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/practice/shopping"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <ShoppingPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/grammar"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <GrammarTutor />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/practice/interview/chat"
-                element={
-                  <ProtectedRoute>
-                    <InterviewChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/practice/restaurant/chat"
-                element={
-                  <ProtectedRoute>
-                    <RestaurantChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/practice/shopping/chat"
-                element={
-                  <ProtectedRoute>
-                    <ShoppingChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/grammar/chat"
-                element={
-                  <ProtectedRoute>
-                    <GrammarChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/presentation"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <PresentationPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/presentation/chat"
-                element={
-                  <ProtectedRoute>
-                    <PresentationChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/social"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <SocialPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/social/chat"
-                element={
-                  <ProtectedRoute>
-                    <SocialChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/business"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <BusinessPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/business/chat"
-                element={
-                  <ProtectedRoute>
-                    <BusinessChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/speaking"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <SpeakingPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/speaking/chat"
-                element={
-                  <ProtectedRoute>
-                    <SpeakingChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/cultural"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <CulturalPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/cultural/chat"
-                element={
-                  <ProtectedRoute>
-                    <CulturalChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/humanoid"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <HumanoidPractice />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/humanoid/chat"
-                element={
-                  <ProtectedRoute>
-                    <HumanoidChat />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/pronunciation"
-                element={
-                  <ProtectedRoute>
-                    <PlaceholderPage
-                      title="Pronunciation Coach"
-                      description="Perfect your pronunciation with real-time feedback and coaching."
-                    />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/stories"
-                element={
-                  <ProtectedRoute>
-                    <PlaceholderPage
-                      title="Story Mode"
-                      description="Learn through immersive storytelling and interactive role-play."
-                    />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/settings"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <Settings />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/api-test"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <ApiTest />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route
-                path="*"
-                element={
-                  <ProtectedRoute>
-                    <Layout>
-                      <NotFound />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
+                  <Route
+                    path="/practice"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <Practice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/practice/interview"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <InterviewPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/practice/restaurant"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <RestaurantPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/practice/shopping"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <ShoppingPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/grammar"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <GrammarTutor />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/practice/interview/chat"
+                    element={
+                      <ProtectedRoute>
+                        <InterviewChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/practice/restaurant/chat"
+                    element={
+                      <ProtectedRoute>
+                        <RestaurantChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/practice/shopping/chat"
+                    element={
+                      <ProtectedRoute>
+                        <ShoppingChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/grammar/chat"
+                    element={
+                      <ProtectedRoute>
+                        <GrammarChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/presentation"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <PresentationPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/presentation/chat"
+                    element={
+                      <ProtectedRoute>
+                        <PresentationChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/social"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <SocialPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/social/chat"
+                    element={
+                      <ProtectedRoute>
+                        <SocialChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/business"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <BusinessPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/business/chat"
+                    element={
+                      <ProtectedRoute>
+                        <BusinessChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/speaking"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <SpeakingPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/speaking/chat"
+                    element={
+                      <ProtectedRoute>
+                        <SpeakingChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/cultural"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <CulturalPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/cultural/chat"
+                    element={
+                      <ProtectedRoute>
+                        <CulturalChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/humanoid"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <HumanoidPractice />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/humanoid/chat"
+                    element={
+                      <ProtectedRoute>
+                        <HumanoidChat />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/pronunciation"
+                    element={
+                      <ProtectedRoute>
+                        <PlaceholderPage
+                          title="Pronunciation Coach"
+                          description="Perfect your pronunciation with real-time feedback and coaching."
+                        />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/stories"
+                    element={
+                      <ProtectedRoute>
+                        <PlaceholderPage
+                          title="Story Mode"
+                          description="Learn through immersive storytelling and interactive role-play."
+                        />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/settings"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <Settings />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/api-test"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <ApiTest />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route
+                    path="*"
+                    element={
+                      <ProtectedRoute>
+                        <Layout>
+                          <NotFound />
+                        </Layout>
+                      </ProtectedRoute>
+                    }
+                  />
                 </Routes>
               </UserAnalyticsProvider>
             </ErrorBoundary>
