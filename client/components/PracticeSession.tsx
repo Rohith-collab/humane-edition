@@ -215,8 +215,6 @@ export default function PracticeSession({
 
       clearTimeout(timeoutId);
 
-      console.log("API response status:", response.status);
-
       if (!response.ok) {
         throw new Error(
           `HTTP error! status: ${response.status} - ${response.statusText}`,
