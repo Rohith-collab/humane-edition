@@ -7,22 +7,31 @@ export function createServer() {
   const app = express();
 
   // Enhanced CORS configuration
-  app.use(cors({
-    origin: true, // Allow all origins in development
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Cache-Control', 'api-key']
-  }));
+  app.use(
+    cors({
+      origin: true, // Allow all origins in development
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+        "Cache-Control",
+        "api-key",
+      ],
+    }),
+  );
 
   // Middleware
-  app.use(express.json({ limit: '50mb' }));
-  app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
   // Add request logging middleware
   app.use((req, _res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-    if (req.method === 'POST' && req.path === '/api/chat') {
-      console.log('Chat request body keys:', Object.keys(req.body || {}));
+    if (req.method === "POST" && req.path === "/api/chat") {
+      console.log("Chat request body keys:", Object.keys(req.body || {}));
     }
     next();
   });
@@ -47,8 +56,8 @@ export function createServer() {
       availableRoutes: {
         "GET /api/ping": "Server health check",
         "GET /api/demo": "Demo endpoint",
-        "POST /api/chat": "AI Chat endpoint"
-      }
+        "POST /api/chat": "AI Chat endpoint",
+      },
     });
   });
 

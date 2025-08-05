@@ -7,11 +7,13 @@ This project is now configured for Vercel deployment with serverless API routes.
 ### What's Changed for Vercel
 
 1. **API Routes**: Created serverless functions in `/api` directory:
+
    - `/api/chat.ts` - Main AI chat endpoint
-   - `/api/ping.ts` - Health check endpoint  
+   - `/api/ping.ts` - Health check endpoint
    - `/api/demo.ts` - Demo endpoint
 
 2. **Vercel Configuration**: Updated `vercel.json` with:
+
    - Function configurations with timeout limits
    - Proper routing for API endpoints
    - CORS headers for API routes
@@ -22,6 +24,7 @@ This project is now configured for Vercel deployment with serverless API routes.
 ### Deployment Steps
 
 1. **Connect to Vercel**:
+
    ```bash
    npm install -g vercel
    vercel login
@@ -29,6 +32,7 @@ This project is now configured for Vercel deployment with serverless API routes.
    ```
 
 2. **Environment Variables** (if not using the hardcoded ones):
+
    - Set `AZURE_OPENAI_API_KEY` in Vercel dashboard
    - Set `AZURE_OPENAI_ENDPOINT` in Vercel dashboard
 
@@ -40,6 +44,7 @@ This project is now configured for Vercel deployment with serverless API routes.
 ### Local Testing with Vercel
 
 To test the Vercel setup locally:
+
 ```bash
 npm install -g vercel
 vercel dev
@@ -52,6 +57,7 @@ The project also supports Netlify deployment through the existing `netlify/funct
 ### Netlify Steps
 
 1. **Build Settings**:
+
    - Build command: `npm run build:client`
    - Publish directory: `dist`
    - Functions directory: `netlify/functions`
@@ -70,6 +76,7 @@ For production deployment, you can set these environment variables instead of us
 ## API Endpoints
 
 After deployment, your API endpoints will be available at:
+
 - `https://yourdomain.com/api/chat` - AI Chat
 - `https://yourdomain.com/api/ping` - Health check
 - `https://yourdomain.com/api/demo` - Demo endpoint

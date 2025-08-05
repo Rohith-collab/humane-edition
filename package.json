@@ -22,7 +22,6 @@
     "build:vercel": "vite build",
     "vercel-build": "vite build"
   },
-  
   "dependencies": {
     "express": "^4.18.2",
     "firebase": "^12.0.0",

@@ -1,19 +1,22 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  
-  if (req.method === 'OPTIONS') {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+  );
+
+  if (req.method === "OPTIONS") {
     res.status(200).end();
     return;
   }
 
-  res.status(200).json({ 
+  res.status(200).json({
     message: "Hello from Vercel serverless function!",
     timestamp: new Date().toISOString(),
-    environment: process.env.VERCEL_ENV || 'local'
+    environment: process.env.VERCEL_ENV || "local",
   });
 }
