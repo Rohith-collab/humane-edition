@@ -1,18 +1,8 @@
 // Emotion Detection Service using face-api.js
 // Note: Fallback service available in emotionDetectionFallback.ts
 
-// Dynamic import to handle optional dependency
+// face-api.js is not installed, use fallback detection
 let faceapi: any = null;
-
-async function loadFaceApi() {
-  try {
-    faceapi = await import('face-api.js');
-    return faceapi;
-  } catch (error) {
-    console.warn('face-api.js not available, using fallback detection');
-    return null;
-  }
-}
 
 export interface EmotionData {
   happy: number;
