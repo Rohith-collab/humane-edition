@@ -18,14 +18,14 @@ export function createServer() {
   app.use(express.urlencoded({ extended: true }));
 
   // Example API routes
-  app.get("/api/ping", (_req, res) => {
+  app.get("/ping", (_req, res) => {
     res.json({ message: "Hello from Express server v2!" });
   });
 
-  app.get("/api/demo", handleDemo);
+  app.get("/demo", handleDemo);
 
   // AI Chat route
-  app.post("/api/chat", handleChat);
+  app.post("/chat\", handleChat);leChat);at);chat", handleChat);
 
   return app;
 }
