@@ -102,6 +102,11 @@ class EmotionDetectionService {
     }
 
     try {
+      // If face-api.js is not available, use fallback
+      if (!faceapi) {
+        return this.getFallbackEmotions();
+      }
+
       // Detect face and expressions
       const detection = await faceapi
         .detectSingleFace(
@@ -133,13 +138,13 @@ class EmotionDetectionService {
 
       // Find dominant emotion
       const emotions = {
-        happy: expressions.happy,
-        sad: expressions.sad,
-        angry: expressions.angry,
-        fearful: expressions.fearful,
-        disgusted: expressions.disgusted,
-        surprised: expressions.surprised,
-        neutral: expressions.neutral,
+        happy: expressions.happy || 0,
+        sad: expressions.sad || 0,
+        angry: expressions.angry || 0,
+        fearful: expressions.fearful || 0,
+        disgusted: expressions.disgusted || 0,
+        surprised: expressions.surprised || 0,
+        neutral: expressions.neutral || 0,
         dominant: "",
         confidence: 0,
       };
@@ -149,8 +154,9 @@ class EmotionDetectionService {
       let dominantEmotion = "neutral";
 
       Object.entries(expressions).forEach(([emotion, value]) => {
-        if (value > maxValue) {
-          maxValue = value;
+        const numValue = Number(value) || 0;
+        if (numValue > maxValue) {
+          maxValue = numValue;
           dominantEmotion = emotion;
         }
       });
