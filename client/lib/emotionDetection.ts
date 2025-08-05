@@ -32,31 +32,9 @@ class EmotionDetectionService {
   async initialize(): Promise<void> {
     if (this.isInitialized) return;
 
-    try {
-      // Load face-api.js dynamically
-      faceapi = await loadFaceApi();
-
-      if (!faceapi) {
-        console.warn("Using fallback emotion detection");
-        this.isInitialized = true;
-        return;
-      }
-
-      // Load face-api.js models
-      const MODEL_URL = "/models"; // You'll need to add face-api.js models to public/models
-
-      await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
-        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-      ]);
-
-      this.isInitialized = true;
-      console.log("Emotion detection models loaded successfully");
-    } catch (error) {
-      console.error("Failed to load emotion detection models:", error);
-      this.isInitialized = true; // Continue with fallback
-    }
+    // face-api.js is not available, using fallback emotion detection
+    console.warn("Using fallback emotion detection (face-api.js not installed)");
+    this.isInitialized = true;
   }
 
   async startWebcam(): Promise<MediaStream> {
