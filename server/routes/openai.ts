@@ -20,7 +20,7 @@ export const handleChat: RequestHandler = async (req, res) => {
     }
 
     const azureApiKey = "4aXIPMfTMTKKayoPIxIAbTfH3X5LAZGTNUXb6Y5MPMPVuBBx22WFJQQJ99BGAC77bzfXJ3w3AAABACOG8zZ5";
-    const azureEndpoint = "https://angilambot.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2023-07-01-preview";
+    const azureEndpoint = "https://angilambot.openai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview";
 
     console.log("Making request to Azure OpenAI...");
 
