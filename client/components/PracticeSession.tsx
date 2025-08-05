@@ -171,17 +171,13 @@ export default function PracticeSession({
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(
-          `API error: ${response.status} - ${errorText}`,
-        );
+        throw new Error(`API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
       console.log("AI API response:", data);
 
-      const botResponse = (
-        data.response || "No response from bot."
-      ).trim();
+      const botResponse = (data.response || "No response from bot.").trim();
       setApiError("");
       return botResponse;
     } catch (err) {
