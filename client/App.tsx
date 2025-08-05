@@ -348,6 +348,16 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/api-test"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <ApiTest />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
                 path="*"
