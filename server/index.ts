@@ -25,7 +25,7 @@ export function createServer() {
   app.get("/demo", handleDemo);
 
   // AI Chat route
-  app.post("/chat\", handleChat);andleChat);t);hat);hat);t", handleChat);
+  app.post("/chat", handleChat);
 
   return app;
 }
