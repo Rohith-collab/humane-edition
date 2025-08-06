@@ -129,13 +129,7 @@ export default function HumanoidPractice() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-indigo-50/50 via-background to-violet-50/50 md:bg-gradient-to-br md:from-indigo-50/50 md:via-background md:to-violet-50/50 bg-cover bg-center bg-no-repeat"
-         style={{
-           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2Fd11023333ae64e6480709f800ce25424?format=webp&width=800")',
-           '@media (min-width: 768px)': {
-             backgroundImage: 'none'
-           }
-         }}>
+    <div className="min-h-[calc(100vh-4rem)] interview-bg-mobile md:bg-gradient-to-br md:from-indigo-50/50 md:via-background md:to-violet-50/50">
       {/* Hero Section */}
       <section className="relative py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center space-y-8">
