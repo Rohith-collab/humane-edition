@@ -27,7 +27,7 @@ export default function RestaurantChat() {
   const restaurantDesktopBackground =
     "https://cdn.builder.io/api/v1/image/assets%2Ffeea964a94124c0b94b020261a47ca2e%2F9169f80996df41bf9f460548aa9fd5b4?format=webp&width=800";
   const restaurantMobileBackground =
-    "https://cdn.builder.io/api/v1/image/assets%2Ffeea964a94124c0b94b020261a47ca2e%2Fad9051c7df3d415e9215481db0df4535?format=webp&width=800";
+    "https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2F7ebbb4b0fc074d20a70816c6c3e9e1e2?format=webp&width=800";
 
   return (
     <PracticeSession
