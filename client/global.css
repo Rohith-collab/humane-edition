@@ -252,6 +252,20 @@
     animation: gradient 6s ease infinite;
   }
 
+  /* Interview background for mobile */
+  .interview-bg-mobile {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("https://cdn.builder.io/api/v1/image/assets%2F9858961368ae4103b4a3c41674c30c55%2Fd11023333ae64e6480709f800ce25424?format=webp&width=800");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 768px) {
+    .interview-bg-mobile {
+      background: linear-gradient(to bottom right, hsl(var(--indigo-50))/50%, hsl(var(--background)), hsl(var(--violet-50))/50%);
+    }
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
