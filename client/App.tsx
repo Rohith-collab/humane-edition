@@ -37,6 +37,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import Azurebot from "./pages/Azurebot";
 
 const queryClient = new QueryClient();
 
@@ -106,6 +107,16 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Dashboard />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/bot-chat"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Azurebot />
                     </Layout>
                   </ProtectedRoute>
                 }
