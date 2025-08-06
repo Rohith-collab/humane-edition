@@ -129,7 +129,7 @@ export default function HumanoidPractice() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-indigo-50/50 via-background to-violet-50/50">
+    <div className="min-h-[calc(100vh-4rem)] interview-bg-mobile md:bg-gradient-to-br md:from-indigo-50/50 md:via-background md:to-violet-50/50">
       {/* Hero Section */}
       <section className="relative py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center space-y-8">
