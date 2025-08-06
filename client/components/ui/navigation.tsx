@@ -20,7 +20,7 @@ const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Practice Mode", href: "/practice", icon: Play },
   { name: "Humanoid Tutor", href: "/humanoid", icon: Bot },
-  { name: "Settings", href: "/settings", icon: Settings }
+  { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export function Navigation() {
@@ -32,7 +32,7 @@ export function Navigation() {
     try {
       await logout();
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
