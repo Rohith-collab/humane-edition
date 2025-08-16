@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { AlertCircle, Mail, Lock, Bot, Sparkles, LogIn } from "lucide-react";
+import FirebaseDebug from "@/components/FirebaseDebug";
 
 export default function Login() {
   const [email, setEmail] = useState("");
