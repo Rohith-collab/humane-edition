@@ -86,10 +86,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error: any) {
+      // Log detailed error information for debugging
+      console.error('Firebase Auth Error:', {
+        code: error.code,
+        message: error.message,
+        hostname: window.location.hostname,
+        authDomain: auth?.config?.authDomain,
+        projectId: auth?.config?.projectId,
+        customToken: error.customData
+      });
+
       // Handle specific Firebase errors
       if (error.code === "auth/network-request-failed") {
+        // Try to provide more specific guidance
+        const isOnline = navigator.onLine;
+        const baseMessage = "Network connection failed.";
+        const debugInfo = import.meta.env.DEV ?
+          ` (Debug: hostname=${window.location.hostname}, online=${isOnline}, authDomain=${auth?.config?.authDomain})` :
+          "";
+
         throw new Error(
-          "Network connection failed. Please check your internet connection and try again.",
+          `${baseMessage} Please check your internet connection and try again.${debugInfo}`,
         );
       } else if (error.code === "auth/invalid-email") {
         throw new Error("Invalid email address.");
@@ -103,8 +120,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error(
           "Too many failed login attempts. Please try again later.",
         );
+      } else if (error.code === "auth/unauthorized-domain") {
+        throw new Error(
+          "This domain is not authorized for Firebase authentication. Please contact support.",
+        );
       } else {
-        throw new Error(error.message || "Login failed. Please try again.");
+        // Include error code in development for easier debugging
+        const debugCode = import.meta.env.DEV ? ` (Error: ${error.code})` : "";
+        throw new Error((error.message || "Login failed. Please try again.") + debugCode);
       }
     }
   };
