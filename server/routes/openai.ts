@@ -114,28 +114,26 @@ export const handleChat: RequestHandler = async (req, res) => {
       } as ChatResponse);
     }
 
-    // Azure OpenAI configuration
-    const azureApiKey = process.env.AZURE_OPENAI_API_KEY || 
+    // AI Service configuration with fallback options
+    const azureApiKey = process.env.AZURE_OPENAI_API_KEY ||
       "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
-    
+
     const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT ||
       "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2025-01-01-preview";
 
-    // Check if Azure credentials are available
-    if (!azureApiKey) {
-      console.error("Azure API key is missing");
-      return res.status(500).json({
-        success: false,
-        error: "Azure OpenAI API key is not configured",
-        response: "Service configuration error. Please contact support.",
-      } as ChatResponse);
-    }
+    // Alternative OpenAI configuration
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+    const openaiEndpoint = "https://api.openai.com/v1/chat/completions";
 
-    if (!azureEndpoint) {
-      console.error("Azure endpoint is missing");
+    // Determine which service to use
+    const useAzure = azureApiKey && !process.env.FORCE_OPENAI;
+    const useOpenAI = openaiApiKey && (!useAzure || process.env.FORCE_OPENAI);
+
+    if (!useAzure && !useOpenAI) {
+      console.error("No valid AI service configured");
       return res.status(500).json({
         success: false,
-        error: "Azure OpenAI endpoint is not configured",
+        error: "AI service is not configured",
         response: "Service configuration error. Please contact support.",
       } as ChatResponse);
     }
