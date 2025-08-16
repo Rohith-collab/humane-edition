@@ -9,16 +9,26 @@ import {
   disableNetwork,
 } from "firebase/firestore";
 
-// Firebase configuration
+// Firebase configuration with environment variables fallback
 const firebaseConfig = {
-  apiKey: "AIzaSyALuul1rqY88MPTXqNQ_xABD6xqfSrG7bQ",
-  authDomain: "chatbot-3c584.firebaseapp.com",
-  projectId: "chatbot-3c584",
-  storageBucket: "chatbot-3c584.appspot.com",
-  messagingSenderId: "4222313667",
-  appId: "1:4222313667:web:c50b6dc0f3979e81062e76",
-  measurementId: "G-W4TLMDKPLB",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyALuul1rqY88MPTXqNQ_xABD6xqfSrG7bQ",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "chatbot-3c584.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "chatbot-3c584",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "chatbot-3c584.appspot.com",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "4222313667",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:4222313667:web:c50b6dc0f3979e81062e76",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-W4TLMDKPLB",
 };
+
+// Debug Firebase configuration
+if (import.meta.env.DEV) {
+  console.log('Firebase configuration:', {
+    ...firebaseConfig,
+    apiKey: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 10)}...` : 'not set'
+  });
+  console.log('Current hostname:', window.location.hostname);
+  console.log('Auth domain:', firebaseConfig.authDomain);
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -59,6 +69,14 @@ try {
   }
 } catch (error) {
   console.error("Firebase initialization error:", error);
+
+  // Log detailed error information
+  console.error('Error details:', {
+    message: error instanceof Error ? error.message : 'Unknown error',
+    hostname: window.location.hostname,
+    authDomain: firebaseConfig.authDomain,
+    projectId: firebaseConfig.projectId
+  });
 
   // Fallback initialization for development
   if (!auth) {
