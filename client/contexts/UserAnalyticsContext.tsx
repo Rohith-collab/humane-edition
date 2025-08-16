@@ -359,16 +359,27 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         updatedAnalytics.currentStreak = 1;
       }
 
-      // Save to Firestore
-      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
-        ...updatedAnalytics,
-        updatedAt: serverTimestamp(),
-      });
+      // Save to Firestore (with error handling)
+      try {
+        await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
+          ...updatedAnalytics,
+          updatedAt: serverTimestamp(),
+        });
+        console.log("Session data saved to Firebase successfully");
+      } catch (saveError: any) {
+        console.error("Failed to save session to Firebase:", saveError);
+        if (saveError.code === "permission-denied") {
+          console.log("Permission denied - continuing with local data only");
+        }
+        // Continue anyway with local data update
+      }
 
       setAnalytics(updatedAnalytics);
       setCurrentSession(null);
     } catch (error) {
       console.error("Error ending session:", error);
+      // Still update local state even if Firebase fails
+      setCurrentSession(null);
     }
   };
 
