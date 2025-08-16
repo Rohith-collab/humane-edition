@@ -27,12 +27,16 @@ export const checkFirebaseStatus = async () => {
         status.firestore = true;
       } catch (error: any) {
         // More detailed error analysis
-        if (error.code === 'unavailable') {
-          status.errors.push(`Firestore unavailable: Cannot reach Firebase backend. Check domain authorization.`);
-        } else if (error.code === 'permission-denied') {
+        if (error.code === "unavailable") {
+          status.errors.push(
+            `Firestore unavailable: Cannot reach Firebase backend. Check domain authorization.`,
+          );
+        } else if (error.code === "permission-denied") {
           status.errors.push(`Firestore permission denied: ${error.message}`);
         } else {
-          status.errors.push(`Firestore error: ${error.message} (${error.code || 'unknown'})`);
+          status.errors.push(
+            `Firestore error: ${error.message} (${error.code || "unknown"})`,
+          );
         }
       }
     } else {
@@ -78,7 +82,7 @@ export const testFirebaseConnectivity = async () => {
     console.error("Firebase connectivity test failed:", {
       message: error.message,
       code: error.code,
-      hostname: window.location.hostname
+      hostname: window.location.hostname,
     });
     return false;
   }
@@ -90,19 +94,21 @@ export const checkDomainAuthorization = () => {
   const authDomain = auth?.config?.authDomain;
 
   // Check if we're on a non-localhost domain that doesn't match authDomain
-  const isUnauthorizedDomain = (
-    hostname !== 'localhost' &&
-    hostname !== '127.0.0.1' &&
+  const isUnauthorizedDomain =
+    hostname !== "localhost" &&
+    hostname !== "127.0.0.1" &&
     authDomain &&
-    !hostname.includes(authDomain.replace('.firebaseapp.com', '')) &&
-    (hostname.includes('.fly.dev') || hostname.includes('.vercel.app') || hostname.includes('.netlify.app'))
-  );
+    !hostname.includes(authDomain.replace(".firebaseapp.com", "")) &&
+    (hostname.includes(".fly.dev") ||
+      hostname.includes(".vercel.app") ||
+      hostname.includes(".netlify.app"));
 
   return {
     hostname,
     authDomain,
     isLikelyUnauthorized: isUnauthorizedDomain,
-    suggestedAction: isUnauthorizedDomain ?
-      `Add "${hostname}" to authorized domains in Firebase Console` : null
+    suggestedAction: isUnauthorizedDomain
+      ? `Add "${hostname}" to authorized domains in Firebase Console`
+      : null,
   };
 };

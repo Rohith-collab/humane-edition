@@ -2,20 +2,30 @@ import { RequestHandler } from "express";
 import { ChatRequest, ChatResponse } from "@shared/api";
 
 // Generate intelligent fallback responses based on context
-const generateFallbackResponse = (messages: Array<{role: string, content: string}>): string => {
-  const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || "";
-  const systemPrompt = messages.find(m => m.role === "system")?.content?.toLowerCase() || "";
+const generateFallbackResponse = (
+  messages: Array<{ role: string; content: string }>,
+): string => {
+  const lastMessage =
+    messages[messages.length - 1]?.content?.toLowerCase() || "";
+  const systemPrompt =
+    messages.find((m) => m.role === "system")?.content?.toLowerCase() || "";
 
   // Detect scenario type from system prompt
   if (systemPrompt.includes("interview")) {
-    if (lastMessage.includes("tell me about yourself") || lastMessage.includes("introduce")) {
+    if (
+      lastMessage.includes("tell me about yourself") ||
+      lastMessage.includes("introduce")
+    ) {
       return "Thank you for that introduction. Can you walk me through your experience with software development? What programming languages are you most comfortable with?";
     } else if (lastMessage.includes("hello") || lastMessage.includes("start")) {
       return "Hello! I'm excited to speak with you today. Let's start with a simple question - could you tell me a bit about yourself and what interests you about this position?";
     } else {
       return "That's interesting. Can you give me a specific example of how you've applied those skills in a real project? What challenges did you face and how did you overcome them?";
     }
-  } else if (systemPrompt.includes("restaurant") || systemPrompt.includes("dining")) {
+  } else if (
+    systemPrompt.includes("restaurant") ||
+    systemPrompt.includes("dining")
+  ) {
     if (lastMessage.includes("hello") || lastMessage.includes("start")) {
       return "Welcome to our restaurant! I'm your server today. Would you like to start with something to drink, or would you prefer to see our menu first?";
     } else if (lastMessage.includes("menu")) {
@@ -23,13 +33,19 @@ const generateFallbackResponse = (messages: Array<{role: string, content: string
     } else {
       return "Excellent choice! Would you like that prepared in any particular way? And can I suggest a wine pairing that would complement your meal perfectly?";
     }
-  } else if (systemPrompt.includes("shopping") || systemPrompt.includes("store")) {
+  } else if (
+    systemPrompt.includes("shopping") ||
+    systemPrompt.includes("store")
+  ) {
     if (lastMessage.includes("hello") || lastMessage.includes("start")) {
       return "Hello! Welcome to our store. I'm here to help you find exactly what you're looking for today. What brings you in - are you shopping for anything specific?";
     } else {
       return "Great! I can definitely help you with that. Let me show you some options that might work perfectly for what you need. What's your budget range, and do you have any particular preferences?";
     }
-  } else if (systemPrompt.includes("grammar") || systemPrompt.includes("tutor")) {
+  } else if (
+    systemPrompt.includes("grammar") ||
+    systemPrompt.includes("tutor")
+  ) {
     if (lastMessage.includes("hello") || lastMessage.includes("start")) {
       return "Hello! I'm your English grammar tutor. I'm here to help you improve your language skills. What would you like to work on today - grammar rules, sentence structure, or perhaps vocabulary?";
     } else {
@@ -47,7 +63,7 @@ const generateFallbackResponse = (messages: Array<{role: string, content: string
 
 export const handleChat: RequestHandler = async (req, res) => {
   const startTime = Date.now();
-  
+
   try {
     console.log("=== CHAT API REQUEST START ===");
     console.log("Timestamp:", new Date().toISOString());
@@ -77,17 +93,17 @@ export const handleChat: RequestHandler = async (req, res) => {
 
     // Extract and validate request data
     let messages: any, temperature: number, max_tokens: number;
-    
+
     try {
       const extracted = req.body as ChatRequest;
       messages = extracted.messages;
       temperature = extracted.temperature ?? 0.7;
       max_tokens = extracted.max_tokens ?? 800;
-      
+
       console.log("Extracted parameters:", {
-        messagesCount: Array.isArray(messages) ? messages.length : 'not array',
+        messagesCount: Array.isArray(messages) ? messages.length : "not array",
         temperature,
-        max_tokens
+        max_tokens,
       });
     } catch (extractError) {
       console.error("Error extracting request parameters:", extractError);
@@ -128,7 +144,7 @@ export const handleChat: RequestHandler = async (req, res) => {
           response: "All messages must have role and content.",
         } as ChatResponse);
       }
-      
+
       if (!["system", "user", "assistant"].includes(message.role)) {
         console.error(`Invalid role at index ${i}:`, message.role);
         return res.status(400).json({
@@ -159,10 +175,12 @@ export const handleChat: RequestHandler = async (req, res) => {
     }
 
     // AI Service configuration with fallback options
-    const azureApiKey = process.env.AZURE_OPENAI_API_KEY ||
+    const azureApiKey =
+      process.env.AZURE_OPENAI_API_KEY ||
       "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
 
-    const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT ||
+    const azureEndpoint =
+      process.env.AZURE_OPENAI_ENDPOINT ||
       "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2025-01-01-preview";
 
     // Alternative OpenAI configuration
@@ -186,11 +204,18 @@ export const handleChat: RequestHandler = async (req, res) => {
     console.log("Using service:", useAzure ? "Azure OpenAI" : "OpenAI");
     console.log("Endpoint:", useAzure ? azureEndpoint : openaiEndpoint);
     console.log("API Key present:", !!(useAzure ? azureApiKey : openaiApiKey));
-    console.log("Request payload:", JSON.stringify({
-      messages,
-      temperature,
-      max_tokens,
-    }, null, 2));
+    console.log(
+      "Request payload:",
+      JSON.stringify(
+        {
+          messages,
+          temperature,
+          max_tokens,
+        },
+        null,
+        2,
+      ),
+    );
 
     // Prepare headers and payload based on service
     const headers: Record<string, string> = {
@@ -225,10 +250,16 @@ export const handleChat: RequestHandler = async (req, res) => {
       });
 
       console.log("Primary service response status:", response.status);
-      console.log("Primary service response headers:", JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2));
+      console.log(
+        "Primary service response headers:",
+        JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2),
+      );
 
       // If primary service fails with auth error, try fallback
-      if (!response.ok && (response.status === 401 || response.status === 403)) {
+      if (
+        !response.ok &&
+        (response.status === 401 || response.status === 403)
+      ) {
         console.log("Primary service auth failed, attempting fallback...");
 
         if (useAzure && openaiApiKey) {
@@ -239,7 +270,7 @@ export const handleChat: RequestHandler = async (req, res) => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${openaiApiKey}`,
+              Authorization: `Bearer ${openaiApiKey}`,
             },
             body: JSON.stringify({
               ...requestPayload,
@@ -268,13 +299,18 @@ export const handleChat: RequestHandler = async (req, res) => {
           console.log("Fallback Azure response status:", response.status);
         }
       }
-      
     } catch (fetchError) {
       console.error("=== FETCH ERROR ===");
       console.error("Fetch failed:", fetchError);
       console.error("Error type:", typeof fetchError);
-      console.error("Error name:", fetchError instanceof Error ? fetchError.name : 'unknown');
-      console.error("Error message:", fetchError instanceof Error ? fetchError.message : 'unknown');
+      console.error(
+        "Error name:",
+        fetchError instanceof Error ? fetchError.name : "unknown",
+      );
+      console.error(
+        "Error message:",
+        fetchError instanceof Error ? fetchError.message : "unknown",
+      );
 
       // Return smart fallback response based on scenario
       const fallbackResponse = generateFallbackResponse(messages);
@@ -290,11 +326,11 @@ export const handleChat: RequestHandler = async (req, res) => {
     if (!response.ok) {
       let errorDetails: string;
       let errorBody: any;
-      
+
       try {
         const errorText = await response.text();
         errorDetails = errorText;
-        
+
         // Try to parse as JSON for more details
         try {
           errorBody = JSON.parse(errorText);
@@ -314,16 +350,24 @@ export const handleChat: RequestHandler = async (req, res) => {
       console.error("Error details:", errorDetails);
 
       // Handle specific error cases with smart fallbacks
-      const serviceName = usedFallback ? (useAzure ? "OpenAI" : "Azure") : (useAzure ? "Azure" : "OpenAI");
+      const serviceName = usedFallback
+        ? useAzure
+          ? "OpenAI"
+          : "Azure"
+        : useAzure
+          ? "Azure"
+          : "OpenAI";
 
       if (response.status === 401 || response.status === 403) {
-        console.log(`${serviceName} authentication failed, using fallback response`);
+        console.log(
+          `${serviceName} authentication failed, using fallback response`,
+        );
         const fallbackResponse = generateFallbackResponse(messages);
         return res.status(200).json({
           success: true,
           response: fallbackResponse,
           fallback: true,
-          note: "AI service temporarily unavailable - using smart response"
+          note: "AI service temporarily unavailable - using smart response",
         } as ChatResponse);
       } else if (response.status === 429) {
         const fallbackResponse = generateFallbackResponse(messages);
@@ -331,7 +375,7 @@ export const handleChat: RequestHandler = async (req, res) => {
           success: true,
           response: fallbackResponse,
           fallback: true,
-          note: "Service busy - using smart response"
+          note: "Service busy - using smart response",
         } as ChatResponse);
       } else if (response.status >= 500) {
         const fallbackResponse = generateFallbackResponse(messages);
@@ -339,7 +383,7 @@ export const handleChat: RequestHandler = async (req, res) => {
           success: true,
           response: fallbackResponse,
           fallback: true,
-          note: "Service temporarily unavailable - using smart response"
+          note: "Service temporarily unavailable - using smart response",
         } as ChatResponse);
       } else {
         const fallbackResponse = generateFallbackResponse(messages);
@@ -347,7 +391,7 @@ export const handleChat: RequestHandler = async (req, res) => {
           success: true,
           response: fallbackResponse,
           fallback: true,
-          note: "Service error - using smart response"
+          note: "Service error - using smart response",
         } as ChatResponse);
       }
     }
@@ -370,16 +414,19 @@ export const handleChat: RequestHandler = async (req, res) => {
 
     // Extract chat response
     const chatResponse = data.choices?.[0]?.message?.content;
-    
+
     if (!chatResponse) {
       console.error("=== MISSING RESPONSE CONTENT ===");
-      console.error("Service response structure:", JSON.stringify(data, null, 2));
+      console.error(
+        "Service response structure:",
+        JSON.stringify(data, null, 2),
+      );
       const fallbackResponse = generateFallbackResponse(messages);
       return res.status(200).json({
         success: true,
         response: fallbackResponse,
         fallback: true,
-        note: "Service returned empty response - using smart response"
+        note: "Service returned empty response - using smart response",
       } as ChatResponse);
     }
 
@@ -392,26 +439,31 @@ export const handleChat: RequestHandler = async (req, res) => {
     const endTime = Date.now();
     console.log("=== CHAT API SUCCESS ===");
     console.log("Response data:", responseData);
-    console.log("Processing time:", (endTime - startTime), "ms");
+    console.log("Processing time:", endTime - startTime, "ms");
     console.log("=== CHAT API REQUEST END ===");
 
     return res.status(200).json(responseData);
-
   } catch (error) {
     const endTime = Date.now();
-    
+
     console.error("=== UNHANDLED ERROR IN CHAT API ===");
-    console.error("Processing time:", (endTime - startTime), "ms");
+    console.error("Processing time:", endTime - startTime, "ms");
     console.error("Error type:", typeof error);
     console.error("Error constructor:", error?.constructor?.name);
-    console.error("Error message:", error instanceof Error ? error.message : String(error));
-    console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace');
+    console.error(
+      "Error message:",
+      error instanceof Error ? error.message : String(error),
+    );
+    console.error(
+      "Error stack:",
+      error instanceof Error ? error.stack : "No stack trace",
+    );
     console.error("Full error object:", error);
     console.error("Request details:", {
       method: req.method,
       url: req.url,
       headers: req.headers,
-      body: req.body
+      body: req.body,
     });
 
     // Extract meaningful error message

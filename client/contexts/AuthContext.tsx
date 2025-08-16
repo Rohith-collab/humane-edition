@@ -87,13 +87,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error: any) {
       // Log detailed error information for debugging
-      console.error('Firebase Auth Error:', {
+      console.error("Firebase Auth Error:", {
         code: error.code,
         message: error.message,
         hostname: window.location.hostname,
         authDomain: auth?.config?.authDomain,
         projectId: auth?.config?.projectId,
-        customToken: error.customData
+        customToken: error.customData,
       });
 
       // Handle specific Firebase errors
@@ -101,9 +101,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Try to provide more specific guidance
         const isOnline = navigator.onLine;
         const baseMessage = "Network connection failed.";
-        const debugInfo = import.meta.env.DEV ?
-          ` (Debug: hostname=${window.location.hostname}, online=${isOnline}, authDomain=${auth?.config?.authDomain})` :
-          "";
+        const debugInfo = import.meta.env.DEV
+          ? ` (Debug: hostname=${window.location.hostname}, online=${isOnline}, authDomain=${auth?.config?.authDomain})`
+          : "";
 
         throw new Error(
           `${baseMessage} Please check your internet connection and try again.${debugInfo}`,
@@ -127,7 +127,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         // Include error code in development for easier debugging
         const debugCode = import.meta.env.DEV ? ` (Error: ${error.code})` : "";
-        throw new Error((error.message || "Login failed. Please try again.") + debugCode);
+        throw new Error(
+          (error.message || "Login failed. Please try again.") + debugCode,
+        );
       }
     }
   };

@@ -104,7 +104,10 @@ export default function PracticeSession({
             if (data.success) {
               // Check if this is a fallback response
               if ((data as any).fallback) {
-                console.log("XHR received fallback response:", (data as any).note);
+                console.log(
+                  "XHR received fallback response:",
+                  (data as any).note,
+                );
               }
               resolve(data.response || "No response from bot.");
             } else {
@@ -248,7 +251,9 @@ export default function PracticeSession({
         // Check if this is a fallback response
         if ((data as any).fallback) {
           console.log("Received fallback response:", (data as any).note);
-          setApiError("Using smart responses - AI service temporarily unavailable");
+          setApiError(
+            "Using smart responses - AI service temporarily unavailable",
+          );
         } else {
           setApiError("");
         }
