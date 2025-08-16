@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AlertCircle, CheckCircle, Wifi, WifiOff } from 'lucide-react';
-import { checkFirebaseStatus, testFirebaseConnectivity } from '@/lib/firebaseStatus';
+import { checkFirebaseStatus, testFirebaseConnectivity, checkDomainAuthorization } from '@/lib/firebaseStatus';
 import { auth } from '@/lib/firebase';
 
 interface FirebaseStatus {
