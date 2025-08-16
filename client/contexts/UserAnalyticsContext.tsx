@@ -447,10 +447,18 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         });
       }
 
-      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
-        wordsLearned: updatedAnalytics.wordsLearned,
-        updatedAt: serverTimestamp(),
-      });
+      try {
+        await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
+          wordsLearned: updatedAnalytics.wordsLearned,
+          updatedAt: serverTimestamp(),
+        });
+      } catch (saveError: any) {
+        console.error("Failed to save words learned to Firebase:", saveError);
+        if (saveError.code === "permission-denied") {
+          console.log("Permission denied - updating locally only");
+        }
+        // Continue with local update anyway
+      }
 
       setAnalytics(updatedAnalytics);
     } catch (error) {
