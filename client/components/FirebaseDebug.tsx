@@ -82,12 +82,35 @@ export default function FirebaseDebug() {
           </div>
         )}
 
+        {/* Domain Authorization Warning */}
+        {domainCheck?.isLikelyUnauthorized && (
+          <div className="bg-red-50 border-2 border-red-200 p-4 rounded-lg">
+            <div className="flex items-center gap-2 text-red-800 font-semibold mb-2">
+              <AlertCircle className="w-5 h-5" />
+              LIKELY CAUSE: Domain Not Authorized
+            </div>
+            <div className="text-sm text-red-700 space-y-2">
+              <p>Your app is running on <code className="bg-red-100 px-1 rounded">{domainCheck.hostname}</code> but Firebase is configured for <code className="bg-red-100 px-1 rounded">{domainCheck.authDomain}</code></p>
+              <p className="font-semibold">To fix this:</p>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li>Go to <a href={`https://console.firebase.google.com/project/${auth?.config?.projectId}/authentication/settings`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Firebase Console → Authentication → Settings</a></li>
+                <li>Click "Authorized domains"</li>
+                <li>Add: <code className="bg-red-100 px-1 rounded font-mono">{domainCheck.hostname}</code></li>
+                <li>Save and try again</li>
+              </ol>
+            </div>
+          </div>
+        )}
+
         {/* Configuration Info */}
         <div className="text-sm space-y-1 bg-muted p-3 rounded">
           <div><strong>Hostname:</strong> {window.location.hostname}</div>
           <div><strong>Auth Domain:</strong> {auth?.config?.authDomain || 'Not available'}</div>
           <div><strong>Project ID:</strong> {auth?.config?.projectId || 'Not available'}</div>
           <div><strong>Environment:</strong> {import.meta.env.MODE}</div>
+          {domainCheck && (
+            <div><strong>Domain Status:</strong> {domainCheck.isLikelyUnauthorized ? '❌ Likely Unauthorized' : '✅ Likely OK'}</div>
+          )}
         </div>
 
         {/* Errors */}
