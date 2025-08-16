@@ -24,11 +24,13 @@ export default function FirebaseDebug() {
     try {
       const result = await checkFirebaseStatus();
       const connectivityTest = await testFirebaseConnectivity();
-      
+      const domainAuth = checkDomainAuthorization();
+
       setStatus({
         ...result,
         firestore: connectivityTest
       });
+      setDomainCheck(domainAuth);
       setLastTest(new Date());
     } catch (error) {
       console.error('Firebase test failed:', error);
