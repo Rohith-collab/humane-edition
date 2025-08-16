@@ -102,6 +102,10 @@ export default function PracticeSession({
           try {
             const data: ChatResponse = JSON.parse(xhr.responseText);
             if (data.success) {
+              // Check if this is a fallback response
+              if ((data as any).fallback) {
+                console.log("XHR received fallback response:", (data as any).note);
+              }
               resolve(data.response || "No response from bot.");
             } else {
               reject(new Error(data.error || "Failed to get AI response"));
