@@ -17,6 +17,7 @@ export default function FirebaseDebug() {
   const [status, setStatus] = useState<FirebaseStatus | null>(null);
   const [testing, setTesting] = useState(false);
   const [lastTest, setLastTest] = useState<Date | null>(null);
+  const [domainCheck, setDomainCheck] = useState<any>(null);
 
   const runTest = async () => {
     setTesting(true);
