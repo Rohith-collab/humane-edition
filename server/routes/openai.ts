@@ -1,6 +1,50 @@
 import { RequestHandler } from "express";
 import { ChatRequest, ChatResponse } from "@shared/api";
 
+// Generate intelligent fallback responses based on context
+const generateFallbackResponse = (messages: Array<{role: string, content: string}>): string => {
+  const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || "";
+  const systemPrompt = messages.find(m => m.role === "system")?.content?.toLowerCase() || "";
+
+  // Detect scenario type from system prompt
+  if (systemPrompt.includes("interview")) {
+    if (lastMessage.includes("tell me about yourself") || lastMessage.includes("introduce")) {
+      return "Thank you for that introduction. Can you walk me through your experience with software development? What programming languages are you most comfortable with?";
+    } else if (lastMessage.includes("hello") || lastMessage.includes("start")) {
+      return "Hello! I'm excited to speak with you today. Let's start with a simple question - could you tell me a bit about yourself and what interests you about this position?";
+    } else {
+      return "That's interesting. Can you give me a specific example of how you've applied those skills in a real project? What challenges did you face and how did you overcome them?";
+    }
+  } else if (systemPrompt.includes("restaurant") || systemPrompt.includes("dining")) {
+    if (lastMessage.includes("hello") || lastMessage.includes("start")) {
+      return "Welcome to our restaurant! I'm your server today. Would you like to start with something to drink, or would you prefer to see our menu first?";
+    } else if (lastMessage.includes("menu")) {
+      return "Absolutely! Today we have some wonderful specials. Our chef recommends the grilled salmon with seasonal vegetables, or if you prefer something heartier, our beef tenderloin is quite popular. What kind of cuisine are you in the mood for?";
+    } else {
+      return "Excellent choice! Would you like that prepared in any particular way? And can I suggest a wine pairing that would complement your meal perfectly?";
+    }
+  } else if (systemPrompt.includes("shopping") || systemPrompt.includes("store")) {
+    if (lastMessage.includes("hello") || lastMessage.includes("start")) {
+      return "Hello! Welcome to our store. I'm here to help you find exactly what you're looking for today. What brings you in - are you shopping for anything specific?";
+    } else {
+      return "Great! I can definitely help you with that. Let me show you some options that might work perfectly for what you need. What's your budget range, and do you have any particular preferences?";
+    }
+  } else if (systemPrompt.includes("grammar") || systemPrompt.includes("tutor")) {
+    if (lastMessage.includes("hello") || lastMessage.includes("start")) {
+      return "Hello! I'm your English grammar tutor. I'm here to help you improve your language skills. What would you like to work on today - grammar rules, sentence structure, or perhaps vocabulary?";
+    } else {
+      return "That's a good question! Let me explain that clearly. Remember, practice makes perfect, so don't worry about making mistakes - that's how we learn!";
+    }
+  } else {
+    // Generic responses
+    if (lastMessage.includes("hello") || lastMessage.includes("start")) {
+      return "Hello! I'm ready to help you practice. How would you like to begin our conversation today?";
+    } else {
+      return "That's very interesting! Could you tell me more about that? I'd love to hear your thoughts and continue our conversation.";
+    }
+  }
+};
+
 export const handleChat: RequestHandler = async (req, res) => {
   const startTime = Date.now();
   
