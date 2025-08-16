@@ -231,11 +231,14 @@ export const handleChat: RequestHandler = async (req, res) => {
       console.error("Error type:", typeof fetchError);
       console.error("Error name:", fetchError instanceof Error ? fetchError.name : 'unknown');
       console.error("Error message:", fetchError instanceof Error ? fetchError.message : 'unknown');
-      
-      return res.status(500).json({
-        success: false,
-        error: "Network error connecting to Azure OpenAI",
-        response: "Unable to connect to AI service. Please try again later.",
+
+      // Return smart fallback response based on scenario
+      const fallbackResponse = generateFallbackResponse(messages);
+
+      return res.status(200).json({
+        success: true,
+        response: fallbackResponse,
+        fallback: true,
       } as ChatResponse);
     }
 
