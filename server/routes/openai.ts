@@ -373,11 +373,13 @@ export const handleChat: RequestHandler = async (req, res) => {
     
     if (!chatResponse) {
       console.error("=== MISSING RESPONSE CONTENT ===");
-      console.error("Azure response structure:", JSON.stringify(data, null, 2));
-      return res.status(500).json({
-        success: false,
-        error: "No response content from Azure OpenAI",
-        response: "AI service did not return a response. Please try again.",
+      console.error("Service response structure:", JSON.stringify(data, null, 2));
+      const fallbackResponse = generateFallbackResponse(messages);
+      return res.status(200).json({
+        success: true,
+        response: fallbackResponse,
+        fallback: true,
+        note: "Service returned empty response - using smart response"
       } as ChatResponse);
     }
 
