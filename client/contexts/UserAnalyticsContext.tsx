@@ -209,8 +209,12 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
       } catch (error: any) {
         console.error("Error loading user analytics:", error);
 
-        // If it's a network error, try to retry connection
-        if (
+        // Handle specific Firebase errors
+        if (error.code === "permission-denied") {
+          console.log(
+            "Firebase permission denied - using default analytics in offline mode",
+          );
+        } else if (
           error.code === "unavailable" ||
           error.message?.includes("network")
         ) {
@@ -221,9 +225,17 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           if (!retrySuccess) {
             console.log("Using default analytics due to network issues");
           }
+        } else if (error.code === "unauthenticated") {
+          console.log("User not authenticated - using default analytics");
+        } else {
+          console.log(
+            "Firebase error:",
+            error.code,
+            "- using default analytics",
+          );
         }
 
-        // Use default analytics as fallback
+        // Use default analytics as fallback for any error
         setAnalytics(getDefaultAnalytics());
       } finally {
         setLoading(false);
@@ -358,16 +370,27 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         updatedAnalytics.currentStreak = 1;
       }
 
-      // Save to Firestore
-      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
-        ...updatedAnalytics,
-        updatedAt: serverTimestamp(),
-      });
+      // Save to Firestore (with error handling)
+      try {
+        await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
+          ...updatedAnalytics,
+          updatedAt: serverTimestamp(),
+        });
+        console.log("Session data saved to Firebase successfully");
+      } catch (saveError: any) {
+        console.error("Failed to save session to Firebase:", saveError);
+        if (saveError.code === "permission-denied") {
+          console.log("Permission denied - continuing with local data only");
+        }
+        // Continue anyway with local data update
+      }
 
       setAnalytics(updatedAnalytics);
       setCurrentSession(null);
     } catch (error) {
       console.error("Error ending session:", error);
+      // Still update local state even if Firebase fails
+      setCurrentSession(null);
     }
   };
 
@@ -399,10 +422,18 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         });
       }
 
-      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
-        fluencyScore: updatedAnalytics.fluencyScore,
-        updatedAt: serverTimestamp(),
-      });
+      try {
+        await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
+          fluencyScore: updatedAnalytics.fluencyScore,
+          updatedAt: serverTimestamp(),
+        });
+      } catch (saveError: any) {
+        console.error("Failed to save fluency score to Firebase:", saveError);
+        if (saveError.code === "permission-denied") {
+          console.log("Permission denied - updating locally only");
+        }
+        // Continue with local update anyway
+      }
 
       setAnalytics(updatedAnalytics);
     } catch (error) {
@@ -427,10 +458,18 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         });
       }
 
-      await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
-        wordsLearned: updatedAnalytics.wordsLearned,
-        updatedAt: serverTimestamp(),
-      });
+      try {
+        await updateDoc(doc(db, "userAnalytics", currentUser.uid), {
+          wordsLearned: updatedAnalytics.wordsLearned,
+          updatedAt: serverTimestamp(),
+        });
+      } catch (saveError: any) {
+        console.error("Failed to save words learned to Firebase:", saveError);
+        if (saveError.code === "permission-denied") {
+          console.log("Permission denied - updating locally only");
+        }
+        // Continue with local update anyway
+      }
 
       setAnalytics(updatedAnalytics);
     } catch (error) {

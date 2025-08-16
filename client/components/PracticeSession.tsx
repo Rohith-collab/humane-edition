@@ -102,6 +102,13 @@ export default function PracticeSession({
           try {
             const data: ChatResponse = JSON.parse(xhr.responseText);
             if (data.success) {
+              // Check if this is a fallback response
+              if ((data as any).fallback) {
+                console.log(
+                  "XHR received fallback response:",
+                  (data as any).note,
+                );
+              }
               resolve(data.response || "No response from bot.");
             } else {
               reject(new Error(data.error || "Failed to get AI response"));
@@ -241,7 +248,16 @@ export default function PracticeSession({
           throw new Error(data.error || "Failed to get AI response");
         }
 
-        setApiError("");
+        // Check if this is a fallback response
+        if ((data as any).fallback) {
+          console.log("Received fallback response:", (data as any).note);
+          setApiError(
+            "Using smart responses - AI service temporarily unavailable",
+          );
+        } else {
+          setApiError("");
+        }
+
         return data.response || "No response from bot.";
       }
     } catch (err) {
