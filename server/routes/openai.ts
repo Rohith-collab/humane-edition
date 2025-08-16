@@ -313,36 +313,41 @@ export const handleChat: RequestHandler = async (req, res) => {
       console.error("Error body:", errorBody);
       console.error("Error details:", errorDetails);
 
-      // Handle specific error cases
-      if (response.status === 401) {
-        return res.status(500).json({
-          success: false,
-          error: "Azure OpenAI authentication failed",
-          response: "Service authentication error. Please contact support.",
-        } as ChatResponse);
-      } else if (response.status === 403) {
-        return res.status(500).json({
-          success: false,
-          error: "Azure OpenAI access forbidden",
-          response: "Service access error. Please contact support.",
+      // Handle specific error cases with smart fallbacks
+      const serviceName = usedFallback ? (useAzure ? "OpenAI" : "Azure") : (useAzure ? "Azure" : "OpenAI");
+
+      if (response.status === 401 || response.status === 403) {
+        console.log(`${serviceName} authentication failed, using fallback response`);
+        const fallbackResponse = generateFallbackResponse(messages);
+        return res.status(200).json({
+          success: true,
+          response: fallbackResponse,
+          fallback: true,
+          note: "AI service temporarily unavailable - using smart response"
         } as ChatResponse);
       } else if (response.status === 429) {
-        return res.status(429).json({
-          success: false,
-          error: "Rate limit exceeded",
-          response: "Too many requests. Please wait a moment and try again.",
+        const fallbackResponse = generateFallbackResponse(messages);
+        return res.status(200).json({
+          success: true,
+          response: fallbackResponse,
+          fallback: true,
+          note: "Service busy - using smart response"
         } as ChatResponse);
       } else if (response.status >= 500) {
-        return res.status(500).json({
-          success: false,
-          error: "Azure OpenAI service error",
-          response: "AI service is temporarily unavailable. Please try again later.",
+        const fallbackResponse = generateFallbackResponse(messages);
+        return res.status(200).json({
+          success: true,
+          response: fallbackResponse,
+          fallback: true,
+          note: "Service temporarily unavailable - using smart response"
         } as ChatResponse);
       } else {
-        return res.status(400).json({
-          success: false,
-          error: `Azure API error: ${response.status} - ${response.statusText}`,
-          response: "Request could not be processed. Please check your message and try again.",
+        const fallbackResponse = generateFallbackResponse(messages);
+        return res.status(200).json({
+          success: true,
+          response: fallbackResponse,
+          fallback: true,
+          note: "Service error - using smart response"
         } as ChatResponse);
       }
     }
