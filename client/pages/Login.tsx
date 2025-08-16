@@ -199,6 +199,9 @@ export default function Login() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Firebase Debug Panel (Development Only) */}
+      <FirebaseDebug />
     </div>
   );
 }
