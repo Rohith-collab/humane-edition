@@ -138,34 +138,92 @@ export const handleChat: RequestHandler = async (req, res) => {
       } as ChatResponse);
     }
 
-    console.log("=== AZURE OPENAI REQUEST ===");
-    console.log("Endpoint:", azureEndpoint);
-    console.log("API Key present:", !!azureApiKey);
-    console.log("API Key length:", azureApiKey ? azureApiKey.length : 0);
+    console.log("=== AI SERVICE REQUEST ===");
+    console.log("Using service:", useAzure ? "Azure OpenAI" : "OpenAI");
+    console.log("Endpoint:", useAzure ? azureEndpoint : openaiEndpoint);
+    console.log("API Key present:", !!(useAzure ? azureApiKey : openaiApiKey));
     console.log("Request payload:", JSON.stringify({
       messages,
       temperature,
       max_tokens,
     }, null, 2));
 
-    // Make request to Azure OpenAI
+    // Prepare headers and payload based on service
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+
+    let requestPayload: any = {
+      messages,
+      temperature,
+      max_tokens,
+    };
+
+    if (useAzure) {
+      headers["api-key"] = azureApiKey;
+    } else {
+      headers["Authorization"] = `Bearer ${openaiApiKey}`;
+      requestPayload.model = "gpt-3.5-turbo"; // Add model for OpenAI
+    }
+
+    // Try primary service first
     let response: Response;
+    let usedFallback = false;
+
     try {
-      response = await fetch(azureEndpoint, {
+      const endpoint = useAzure ? azureEndpoint : openaiEndpoint;
+      console.log("Attempting primary service:", useAzure ? "Azure" : "OpenAI");
+
+      response = await fetch(endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": azureApiKey,
-        },
-        body: JSON.stringify({
-          messages,
-          temperature,
-          max_tokens,
-        }),
+        headers,
+        body: JSON.stringify(requestPayload),
       });
-      
-      console.log("Azure response status:", response.status);
-      console.log("Azure response headers:", JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2));
+
+      console.log("Primary service response status:", response.status);
+      console.log("Primary service response headers:", JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2));
+
+      // If primary service fails with auth error, try fallback
+      if (!response.ok && (response.status === 401 || response.status === 403)) {
+        console.log("Primary service auth failed, attempting fallback...");
+
+        if (useAzure && openaiApiKey) {
+          console.log("Falling back to OpenAI...");
+          usedFallback = true;
+
+          response = await fetch(openaiEndpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${openaiApiKey}`,
+            },
+            body: JSON.stringify({
+              ...requestPayload,
+              model: "gpt-3.5-turbo",
+            }),
+          });
+
+          console.log("Fallback OpenAI response status:", response.status);
+        } else if (!useAzure && azureApiKey) {
+          console.log("Falling back to Azure...");
+          usedFallback = true;
+
+          response = await fetch(azureEndpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": azureApiKey,
+            },
+            body: JSON.stringify({
+              messages,
+              temperature,
+              max_tokens,
+            }),
+          });
+
+          console.log("Fallback Azure response status:", response.status);
+        }
+      }
       
     } catch (fetchError) {
       console.error("=== FETCH ERROR ===");
