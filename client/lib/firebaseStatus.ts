@@ -22,10 +22,18 @@ export const checkFirebaseStatus = async () => {
     if (db) {
       try {
         // Try to read a simple document to test connection
-        await getDoc(doc(db, "test", "connection"));
+        // Use a valid collection name (not reserved)
+        await getDoc(doc(db, "connectivity", "test"));
         status.firestore = true;
       } catch (error: any) {
-        status.errors.push(`Firestore error: ${error.message}`);
+        // More detailed error analysis
+        if (error.code === 'unavailable') {
+          status.errors.push(`Firestore unavailable: Cannot reach Firebase backend. Check domain authorization.`);
+        } else if (error.code === 'permission-denied') {
+          status.errors.push(`Firestore permission denied: ${error.message}`);
+        } else {
+          status.errors.push(`Firestore error: ${error.message} (${error.code || 'unknown'})`);
+        }
       }
     } else {
       status.errors.push("Firestore not initialized");
@@ -60,14 +68,41 @@ export const listenToFirebaseConnectivity = (
 // Simple connectivity test
 export const testFirebaseConnectivity = async () => {
   try {
-    // Test a simple Firebase operation
+    // Test a simple Firebase operation with valid collection name
     if (db) {
-      await getDoc(doc(db, "__test__", "connectivity"));
+      await getDoc(doc(db, "connectivity", "test"));
       return true;
     }
     return false;
-  } catch (error) {
-    console.error("Firebase connectivity test failed:", error);
+  } catch (error: any) {
+    console.error("Firebase connectivity test failed:", {
+      message: error.message,
+      code: error.code,
+      hostname: window.location.hostname
+    });
     return false;
   }
+};
+
+// Check if the current domain is likely unauthorized
+export const checkDomainAuthorization = () => {
+  const hostname = window.location.hostname;
+  const authDomain = auth?.config?.authDomain;
+
+  // Check if we're on a non-localhost domain that doesn't match authDomain
+  const isUnauthorizedDomain = (
+    hostname !== 'localhost' &&
+    hostname !== '127.0.0.1' &&
+    authDomain &&
+    !hostname.includes(authDomain.replace('.firebaseapp.com', '')) &&
+    (hostname.includes('.fly.dev') || hostname.includes('.vercel.app') || hostname.includes('.netlify.app'))
+  );
+
+  return {
+    hostname,
+    authDomain,
+    isLikelyUnauthorized: isUnauthorizedDomain,
+    suggestedAction: isUnauthorizedDomain ?
+      `Add "${hostname}" to authorized domains in Firebase Console` : null
+  };
 };
