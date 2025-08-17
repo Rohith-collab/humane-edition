@@ -64,19 +64,34 @@ try {
   // Initialize Firestore
   db = getFirestore(app);
 
-  // Enable network connectivity detection
+  // Enable network connectivity detection with HMR cleanup
   if (typeof window !== "undefined") {
-    window.addEventListener("online", () => {
+    const onlineHandler = () => {
       if (db) {
         enableNetwork(db).catch(console.error);
       }
-    });
+    };
 
-    window.addEventListener("offline", () => {
+    const offlineHandler = () => {
       if (db) {
         disableNetwork(db).catch(console.error);
       }
-    });
+    };
+
+    // Remove existing listeners to prevent duplicates during HMR
+    window.removeEventListener("online", onlineHandler);
+    window.removeEventListener("offline", offlineHandler);
+
+    window.addEventListener("online", onlineHandler);
+    window.addEventListener("offline", offlineHandler);
+
+    // Clean up on HMR
+    if (import.meta.hot) {
+      import.meta.hot.dispose(() => {
+        window.removeEventListener("online", onlineHandler);
+        window.removeEventListener("offline", offlineHandler);
+      });
+    }
   }
 } catch (error) {
   console.error("Firebase initialization error:", error);
