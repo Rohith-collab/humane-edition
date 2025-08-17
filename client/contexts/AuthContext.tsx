@@ -140,14 +140,62 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await signOut(auth);
   };
 
+  // Create a guest user for demo purposes
+  const createGuestUser = () => {
+    const guestUser = {
+      uid: `guest_${Date.now()}`,
+      email: 'guest@demo.local',
+      displayName: 'Demo User',
+      emailVerified: false,
+      isAnonymous: true,
+      metadata: {
+        creationTime: new Date().toISOString(),
+        lastSignInTime: new Date().toISOString(),
+      },
+      providerData: [],
+      refreshToken: '',
+      tenantId: null,
+      delete: async () => {},
+      getIdToken: async () => 'demo-token',
+      getIdTokenResult: async () => ({
+        authTime: new Date().toISOString(),
+        expirationTime: new Date(Date.now() + 3600000).toISOString(),
+        issuedAtTime: new Date().toISOString(),
+        signInProvider: 'guest',
+        signInSecondFactor: null,
+        token: 'demo-token',
+        claims: {},
+      }),
+      reload: async () => {},
+      toJSON: () => ({}),
+    } as User;
+
+    return guestUser;
+  };
+
   // Monitor auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
+    try {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user);
+        setLoading(false);
+        if (user) {
+          setIsGuestMode(false);
+        }
+      });
 
-    return unsubscribe;
+      return unsubscribe;
+    } catch (error: any) {
+      console.warn("Firebase auth unavailable, using guest mode:", error.message);
+      // If Firebase auth completely fails, create a guest user
+      const guestUser = createGuestUser();
+      setCurrentUser(guestUser);
+      setIsGuestMode(true);
+      setLoading(false);
+
+      // Return empty cleanup function
+      return () => {};
+    }
   }, []);
 
   const value: AuthContextType = {
