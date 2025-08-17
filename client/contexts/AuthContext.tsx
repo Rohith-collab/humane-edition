@@ -19,6 +19,7 @@ interface AuthContextType {
   ) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
+  isGuestMode: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
