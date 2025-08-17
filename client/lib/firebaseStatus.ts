@@ -38,8 +38,10 @@ export const checkFirebaseStatus = async () => {
         } else if (error.code === "failed-precondition") {
           status.errors.push(`Firestore failed-precondition: ${error.message} - check Firebase project configuration`);
         } else {
+          // Better error message handling
+          const errorMessage = error?.message || JSON.stringify(error) || 'Unknown error';
           status.errors.push(
-            `Firestore error: ${error.message} (${error.code || "unknown"})`,
+            `Firestore error: ${errorMessage} (${error.code || "unknown"})`,
           );
         }
       }
@@ -47,7 +49,9 @@ export const checkFirebaseStatus = async () => {
       status.errors.push("Firestore not initialized");
     }
   } catch (error: any) {
-    status.errors.push(`General error: ${error.message}`);
+    // Better error message handling
+    const errorMessage = error?.message || (typeof error === 'object' ? JSON.stringify(error) : String(error)) || 'Unknown error';
+    status.errors.push(`General error: ${errorMessage}`);
   }
 
   return status;
