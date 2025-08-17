@@ -113,3 +113,13 @@ export const retryFirebaseConnection = async () => {
 
 // Export what the app needs
 export { auth, db, analytics };
+
+// Debug exports for development
+if (import.meta.env.DEV) {
+  (window as any).firebaseDebug = {
+    auth,
+    db,
+    analytics,
+    config: firebaseConfig,
+  };
+}
