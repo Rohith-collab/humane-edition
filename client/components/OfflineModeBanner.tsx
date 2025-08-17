@@ -30,6 +30,9 @@ export const OfflineModeBanner: React.FC = () => {
       }
     };
 
+    // Remove existing listener to prevent duplicates during HMR
+    window.removeEventListener("firebase-offline", handleFirebaseError);
+
     // Listen for Firebase errors
     window.addEventListener("firebase-offline", handleFirebaseError);
 
