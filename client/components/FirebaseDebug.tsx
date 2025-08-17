@@ -38,11 +38,22 @@ export default function FirebaseDebug() {
       setLastTest(new Date());
     } catch (error) {
       console.error("Firebase test failed:", error);
+
+      // Better error message handling
+      let errorMessage = "Unknown error";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'object' && error !== null) {
+        errorMessage = JSON.stringify(error, null, 2);
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
       setStatus({
         auth: false,
         firestore: false,
         network: navigator.onLine,
-        errors: [error instanceof Error ? error.message : "Unknown error"],
+        errors: [`Test execution failed: ${errorMessage}`],
       });
     } finally {
       setTesting(false);
