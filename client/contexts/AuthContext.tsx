@@ -38,6 +38,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isGuestMode, setIsGuestMode] = useState(false);
 
   // Register new user
   const register = async (
