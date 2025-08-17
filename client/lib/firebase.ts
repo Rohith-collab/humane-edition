@@ -19,7 +19,8 @@ const firebaseConfig = {
     "chatbot-3c584.firebaseapp.com",
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "chatbot-3c584",
   storageBucket:
-    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "chatbot-3c584.appspot.com",
+    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ||
+    "chatbot-3c584.firebasestorage.app",
   messagingSenderId:
     import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "4222313667",
   appId:
@@ -113,3 +114,13 @@ export const retryFirebaseConnection = async () => {
 
 // Export what the app needs
 export { auth, db, analytics };
+
+// Debug exports for development
+if (import.meta.env.DEV) {
+  (window as any).firebaseDebug = {
+    auth,
+    db,
+    analytics,
+    config: firebaseConfig,
+  };
+}
