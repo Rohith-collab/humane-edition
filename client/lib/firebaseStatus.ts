@@ -135,7 +135,9 @@ export const testFirebaseConnectivity = async () => {
 // Check if the current domain is likely unauthorized
 export const checkDomainAuthorization = () => {
   const hostname = window.location.hostname;
-  const authDomain = (window as any).firebaseDebug?.config?.authDomain || "chatbot-3c584.firebaseapp.com";
+  const authDomain =
+    (window as any).firebaseDebug?.config?.authDomain ||
+    "chatbot-3c584.firebaseapp.com";
 
   // Since domain was manually added to Firebase Console, mark as authorized for fly.dev domains
   const isAuthorizedDomain =
