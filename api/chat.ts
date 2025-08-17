@@ -1,6 +1,21 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { ChatRequest, ChatResponse } from "../shared/api";
 
+/**
+ * ⚠️ CRITICAL: Environment Variables Required for Production
+ *
+ * This API endpoint will return 500 errors on Vercel if environment variables are not set.
+ *
+ * Required in Vercel Dashboard → Project Settings → Environment Variables:
+ * - OPENAI_API_KEY (recommended)
+ * - AZURE_OPENAI_API_KEY (fallback)
+ * - AZURE_OPENAI_ENDPOINT (if using Azure)
+ *
+ * Set for BOTH Production and Preview environments.
+ *
+ * See VERCEL-DEPLOYMENT.md for complete setup instructions.
+ */
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
