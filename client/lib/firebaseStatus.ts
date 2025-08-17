@@ -29,10 +29,14 @@ export const checkFirebaseStatus = async () => {
         // More detailed error analysis
         if (error.code === "unavailable") {
           status.errors.push(
-            `Firestore unavailable: Cannot reach Firebase backend. Check domain authorization.`,
+            `Firestore unavailable: Cannot reach Firebase backend. Check domain authorization and internet connection.`,
           );
         } else if (error.code === "permission-denied") {
-          status.errors.push(`Firestore permission denied: ${error.message}`);
+          status.errors.push(`Firestore permission denied - this is expected if security rules restrict access to the 'connectivity' collection. Firestore is likely working but access is restricted.`);
+          // Don't mark as failed if it's just permission denied, as this might be expected
+          status.firestore = true;
+        } else if (error.code === "failed-precondition") {
+          status.errors.push(`Firestore failed-precondition: ${error.message} - check Firebase project configuration`);
         } else {
           status.errors.push(
             `Firestore error: ${error.message} (${error.code || "unknown"})`,
