@@ -76,19 +76,40 @@ export const listenToFirebaseConnectivity = (
 // Simple connectivity test
 export const testFirebaseConnectivity = async () => {
   try {
-    // Test a simple Firebase operation with valid collection name
-    if (db) {
-      await getDoc(doc(db, "connectivity", "test"));
-      return true;
+    // Check if db is available first
+    if (!db) {
+      console.error("Firebase db not initialized");
+      return false;
     }
-    return false;
+
+    console.log("Testing Firebase connectivity...");
+
+    // Test a simple Firebase operation with valid collection name
+    const testDoc = doc(db, "connectivity", "test");
+    console.log("Created doc reference:", testDoc.path);
+
+    const docSnap = await getDoc(testDoc);
+    console.log("Firebase connectivity test successful - document exists:", docSnap.exists());
+
+    return true;
   } catch (error: any) {
-    console.error("Firebase connectivity test failed:", {
-      message: error.message,
-      code: error.code,
+    // Log the full error object for debugging
+    console.error("Firebase connectivity test failed:");
+    console.error("Full error object:", error);
+    console.error("Error type:", typeof error);
+    console.error("Error constructor:", error?.constructor?.name);
+
+    // More detailed error information
+    const errorDetails = {
+      message: error?.message || 'No message',
+      code: error?.code || 'No code',
       hostname: window.location.hostname,
-      stack: error.stack,
-    });
+      stack: error?.stack || 'No stack trace',
+      customData: error?.customData || 'No custom data',
+      details: error?.details || 'No details'
+    };
+
+    console.error("Error details:", errorDetails);
 
     // Log more detailed error information for debugging
     if (error.code === 'permission-denied') {
@@ -97,6 +118,8 @@ export const testFirebaseConnectivity = async () => {
       console.error("Firebase service unavailable - check internet connection and Firebase project status");
     } else if (error.code === 'failed-precondition') {
       console.warn("Firebase failed-precondition - possibly due to missing indexes or configuration");
+    } else {
+      console.error("Unknown Firebase error type:", error.code);
     }
 
     return false;
