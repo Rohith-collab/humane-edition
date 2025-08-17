@@ -8,7 +8,7 @@ import {
   testFirebaseConnectivity,
   checkDomainAuthorization,
 } from "@/lib/firebaseStatus";
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 
 interface FirebaseStatus {
   auth: boolean;
