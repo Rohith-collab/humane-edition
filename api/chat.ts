@@ -193,15 +193,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     res.json(responseData);
   } catch (error) {
-    console.error("Azure OpenAI Error:", error);
+    console.error("=== API ERROR ===");
+    console.error("Error details:", error);
+    console.error("Error type:", typeof error);
+    console.error("Error message:", error instanceof Error ? error.message : String(error));
 
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
+    // Environment diagnostic information
+    console.error("Environment diagnostic:", {
+      NODE_ENV: process.env.NODE_ENV,
+      hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+      hasAzureKey: !!process.env.AZURE_OPENAI_API_KEY,
+      hasAzureEndpoint: !!process.env.AZURE_OPENAI_ENDPOINT,
+      vercelRegion: process.env.VERCEL_REGION,
+      vercelUrl: process.env.VERCEL_URL,
+    });
+
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+
+    // Provide helpful error message based on the error
+    let userMessage = "Sorry, I could not process that right now. Please try again.";
+    let debugInfo = `Failed to get response from AI: ${errorMessage}`;
+
+    if (errorMessage.includes("authentication") || errorMessage.includes("401") || errorMessage.includes("403")) {
+      userMessage = "API authentication error. Please contact support.";
+      debugInfo = "API key authentication failed. Check environment variables in Vercel Dashboard.";
+    } else if (errorMessage.includes("network") || errorMessage.includes("fetch")) {
+      userMessage = "Network error. Please try again.";
+      debugInfo = `Network request failed: ${errorMessage}`;
+    }
 
     res.status(500).json({
       success: false,
-      error: `Failed to get response from AI: ${errorMessage}`,
-      response: "Sorry, I could not process that right now. Please try again.",
+      error: debugInfo,
+      response: userMessage,
+      // Add environment info in development
+      ...(process.env.NODE_ENV === "development" && {
+        debug: {
+          hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+          hasAzureKey: !!process.env.AZURE_OPENAI_API_KEY,
+          errorType: typeof error,
+          originalError: errorMessage,
+        }
+      })
     } as ChatResponse);
   }
 }
