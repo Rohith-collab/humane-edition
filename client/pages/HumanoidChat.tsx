@@ -383,16 +383,25 @@ RESPONSE FORMAT:
       const userInput = (error as any).userInput || "";
       const lowerInput = userInput.toLowerCase();
 
-      let fallbackResponse = "I'm having trouble connecting to my AI service right now, but I can still help you! ";
+      let fallbackResponse =
+        "I'm having trouble connecting to my AI service right now, but I can still help you! ";
 
-      if (lowerInput.includes("hello") || lowerInput.includes("hi") || lowerInput.includes("start")) {
-        fallbackResponse += "Hello! I'm excited to chat with you today. What would you like to talk about?";
+      if (
+        lowerInput.includes("hello") ||
+        lowerInput.includes("hi") ||
+        lowerInput.includes("start")
+      ) {
+        fallbackResponse +=
+          "Hello! I'm excited to chat with you today. What would you like to talk about?";
       } else if (lowerInput.includes("help")) {
-        fallbackResponse += "I'm here to help you with conversations, learning, or just chatting about interesting topics. What's on your mind?";
+        fallbackResponse +=
+          "I'm here to help you with conversations, learning, or just chatting about interesting topics. What's on your mind?";
       } else if (lowerInput.includes("how are you")) {
-        fallbackResponse += "I'm doing well, thank you for asking! How are you doing today?";
+        fallbackResponse +=
+          "I'm doing well, thank you for asking! How are you doing today?";
       } else {
-        fallbackResponse += "That's interesting! Could you tell me more about that? I'd love to continue our conversation.";
+        fallbackResponse +=
+          "That's interesting! Could you tell me more about that? I'd love to continue our conversation.";
       }
 
       return fallbackResponse;
