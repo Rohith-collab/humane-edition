@@ -45,6 +45,7 @@ const queryClient = new QueryClient();
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="min-h-screen bg-background">
     <Navigation />
+    <OfflineModeBanner />
     {children}
   </div>
 );
