@@ -354,10 +354,21 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Ensure we only create the root once
+// Handle HMR properly by checking if root already exists
 const container = document.getElementById("root")!;
-if (!container._reactRootContainer) {
-  const root = createRoot(container);
-  root.render(<App />);
-  container._reactRootContainer = root;
+
+// Store root reference to prevent multiple createRoot calls
+let root: ReturnType<typeof createRoot>;
+
+if (import.meta.hot) {
+  // In development with HMR, reuse existing root or create new one
+  if (!(window as any).__vite_react_root) {
+    (window as any).__vite_react_root = createRoot(container);
+  }
+  root = (window as any).__vite_react_root;
+} else {
+  // In production, create root normally
+  root = createRoot(container);
 }
+
+root.render(<App />);
