@@ -154,3 +154,25 @@ export const checkDomainAuthorization = () => {
       : null,
   };
 };
+
+// Debug function - can be called from browser console
+(window as any).debugFirebase = async () => {
+  console.log("=== FIREBASE DEBUG START ===");
+  console.log("Auth object:", auth);
+  console.log("DB object:", db);
+  console.log("Auth config:", auth?.config);
+
+  try {
+    const status = await checkFirebaseStatus();
+    console.log("Firebase status:", status);
+
+    const connectivity = await testFirebaseConnectivity();
+    console.log("Connectivity test result:", connectivity);
+
+    const domainCheck = checkDomainAuthorization();
+    console.log("Domain check:", domainCheck);
+  } catch (error) {
+    console.error("Debug function error:", error);
+  }
+  console.log("=== FIREBASE DEBUG END ===");
+};
