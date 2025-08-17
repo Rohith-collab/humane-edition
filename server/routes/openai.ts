@@ -68,8 +68,7 @@ export const handleChat: RequestHandler = async (req, res) => {
     console.log("=== CHAT API REQUEST START ===");
     console.log("Timestamp:", new Date().toISOString());
     console.log("Request method:", req.method);
-    console.log("Request headers:", JSON.stringify(req.headers, null, 2));
-    console.log("Request body:", JSON.stringify(req.body, null, 2));
+    console.log("Request body keys:", Object.keys(req.body || {}));
 
     // Validate request method
     if (req.method !== "POST") {
