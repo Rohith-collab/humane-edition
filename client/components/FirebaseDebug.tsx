@@ -170,6 +170,14 @@ export default function FirebaseDebug() {
           <div>
             <strong>Environment:</strong> {import.meta.env.MODE}
           </div>
+          <div>
+            <strong>Firebase Initialized:</strong>{" "}
+            {auth && db ? "✅ Yes" : "❌ No"}
+          </div>
+          <div>
+            <strong>Network Status:</strong>{" "}
+            {navigator.onLine ? "✅ Online" : "❌ Offline"}
+          </div>
           {domainCheck && (
             <div>
               <strong>Domain Status:</strong>{" "}
