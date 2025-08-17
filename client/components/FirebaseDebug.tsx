@@ -133,7 +133,7 @@ export default function FirebaseDebug() {
                 <li>
                   Go to{" "}
                   <a
-                    href={`https://console.firebase.google.com/project/${auth?.config?.projectId}/authentication/settings`}
+                    href={`https://console.firebase.google.com/project/${(window as any).firebaseDebug?.config?.projectId || "chatbot-3c584"}/authentication/settings`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 underline"
@@ -161,11 +161,13 @@ export default function FirebaseDebug() {
           </div>
           <div>
             <strong>Auth Domain:</strong>{" "}
-            {auth?.config?.authDomain || "Not available"}
+            {(window as any).firebaseDebug?.config?.authDomain ||
+              "Not available"}
           </div>
           <div>
             <strong>Project ID:</strong>{" "}
-            {auth?.config?.projectId || "Not available"}
+            {(window as any).firebaseDebug?.config?.projectId ||
+              "Not available"}
           </div>
           <div>
             <strong>Environment:</strong> {import.meta.env.MODE}

@@ -25,8 +25,8 @@ const firebaseConfig = {
     import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "4222313667",
   appId:
     import.meta.env.VITE_FIREBASE_APP_ID ||
-    "1:4222313667:web:c50b6dc0f3979e81062e76",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-W4TLMDKPLB",
+    "1:4222313667:web:0869438797c28c97062e76",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-DDMMV2VMYG",
 };
 
 // Debug Firebase configuration
