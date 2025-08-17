@@ -207,32 +207,39 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           }
         }
       } catch (error: any) {
-        console.error("Error loading user analytics:", error);
-
-        // Handle specific Firebase errors
+        // Handle specific Firebase errors with appropriate logging
         if (error.code === "permission-denied") {
-          console.log(
+          console.info(
             "Firebase permission denied - using default analytics in offline mode",
           );
+          // Signal offline mode
+          localStorage.setItem("firebase-offline-mode", "true");
+          window.dispatchEvent(new CustomEvent("firebase-offline"));
         } else if (
           error.code === "unavailable" ||
           error.message?.includes("network")
         ) {
-          console.log(
+          console.info(
             "Network error detected, retrying Firebase connection...",
           );
           const retrySuccess = await retryFirebaseConnection();
           if (!retrySuccess) {
-            console.log("Using default analytics due to network issues");
+            console.info("Using default analytics due to network issues");
+            localStorage.setItem("firebase-offline-mode", "true");
+            window.dispatchEvent(new CustomEvent("firebase-offline"));
           }
         } else if (error.code === "unauthenticated") {
-          console.log("User not authenticated - using default analytics");
+          console.info("User not authenticated - using default analytics");
         } else {
-          console.log(
+          // Only log unexpected errors as errors
+          console.warn(
             "Firebase error:",
             error.code,
             "- using default analytics",
           );
+          console.debug("Full error details:", error);
+          localStorage.setItem("firebase-offline-mode", "true");
+          window.dispatchEvent(new CustomEvent("firebase-offline"));
         }
 
         // Use default analytics as fallback for any error
@@ -378,9 +385,14 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         });
         console.log("Session data saved to Firebase successfully");
       } catch (saveError: any) {
-        console.error("Failed to save session to Firebase:", saveError);
         if (saveError.code === "permission-denied") {
-          console.log("Permission denied - continuing with local data only");
+          console.info("Permission denied - continuing with local data only");
+        } else {
+          console.warn(
+            "Failed to save session to Firebase:",
+            saveError.code || saveError.message,
+          );
+          console.debug("Full save error details:", saveError);
         }
         // Continue anyway with local data update
       }
@@ -428,9 +440,14 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           updatedAt: serverTimestamp(),
         });
       } catch (saveError: any) {
-        console.error("Failed to save fluency score to Firebase:", saveError);
         if (saveError.code === "permission-denied") {
-          console.log("Permission denied - updating locally only");
+          console.info("Permission denied - updating locally only");
+        } else {
+          console.warn(
+            "Failed to save fluency score to Firebase:",
+            saveError.code || saveError.message,
+          );
+          console.debug("Full fluency score error details:", saveError);
         }
         // Continue with local update anyway
       }
@@ -464,9 +481,14 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           updatedAt: serverTimestamp(),
         });
       } catch (saveError: any) {
-        console.error("Failed to save words learned to Firebase:", saveError);
         if (saveError.code === "permission-denied") {
-          console.log("Permission denied - updating locally only");
+          console.info("Permission denied - updating locally only");
+        } else {
+          console.warn(
+            "Failed to save words learned to Firebase:",
+            saveError.code || saveError.message,
+          );
+          console.debug("Full words learned error details:", saveError);
         }
         // Continue with local update anyway
       }

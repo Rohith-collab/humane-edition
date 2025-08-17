@@ -68,8 +68,7 @@ export const handleChat: RequestHandler = async (req, res) => {
     console.log("=== CHAT API REQUEST START ===");
     console.log("Timestamp:", new Date().toISOString());
     console.log("Request method:", req.method);
-    console.log("Request headers:", JSON.stringify(req.headers, null, 2));
-    console.log("Request body:", JSON.stringify(req.body, null, 2));
+    console.log("Request body keys:", Object.keys(req.body || {}));
 
     // Validate request method
     if (req.method !== "POST") {
@@ -187,16 +186,35 @@ export const handleChat: RequestHandler = async (req, res) => {
     const openaiApiKey = process.env.OPENAI_API_KEY;
     const openaiEndpoint = "https://api.openai.com/v1/chat/completions";
 
+    // Check for demo mode
+    const isDemoMode =
+      process.env.DEMO_MODE === "true" ||
+      (!process.env.AZURE_OPENAI_API_KEY && !process.env.OPENAI_API_KEY);
+
+    // If in demo mode, immediately return fallback response
+    if (isDemoMode) {
+      console.log("Running in demo mode - using fallback responses");
+      const fallbackResponse = generateFallbackResponse(messages);
+      return res.status(200).json({
+        success: true,
+        response: fallbackResponse,
+        fallback: true,
+        note: "Running in demo mode - using smart responses",
+      } as ChatResponse);
+    }
+
     // Determine which service to use
     const useAzure = azureApiKey && !process.env.FORCE_OPENAI;
     const useOpenAI = openaiApiKey && (!useAzure || process.env.FORCE_OPENAI);
 
     if (!useAzure && !useOpenAI) {
-      console.error("No valid AI service configured");
-      return res.status(500).json({
-        success: false,
-        error: "AI service is not configured",
-        response: "Service configuration error. Please contact support.",
+      console.log("No AI service configured - using fallback responses");
+      const fallbackResponse = generateFallbackResponse(messages);
+      return res.status(200).json({
+        success: true,
+        response: fallbackResponse,
+        fallback: true,
+        note: "AI service not configured - using smart responses",
       } as ChatResponse);
     }
 
