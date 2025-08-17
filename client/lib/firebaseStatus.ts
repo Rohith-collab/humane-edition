@@ -83,7 +83,18 @@ export const testFirebaseConnectivity = async () => {
       message: error.message,
       code: error.code,
       hostname: window.location.hostname,
+      stack: error.stack,
     });
+
+    // Log more detailed error information for debugging
+    if (error.code === 'permission-denied') {
+      console.warn("Firebase permission denied - this is expected if no security rules are set for the 'connectivity' collection");
+    } else if (error.code === 'unavailable') {
+      console.error("Firebase service unavailable - check internet connection and Firebase project status");
+    } else if (error.code === 'failed-precondition') {
+      console.warn("Firebase failed-precondition - possibly due to missing indexes or configuration");
+    }
+
     return false;
   }
 };
