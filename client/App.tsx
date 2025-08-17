@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { UserAnalyticsProvider } from "@/contexts/UserAnalyticsContext";
+import { OfflineModeBanner } from "@/components/OfflineModeBanner";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Practice from "./pages/Practice";
