@@ -207,32 +207,28 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           }
         }
       } catch (error: any) {
-        console.error("Error loading user analytics:", error);
-
-        // Handle specific Firebase errors
+        // Handle specific Firebase errors with appropriate logging
         if (error.code === "permission-denied") {
-          console.log(
+          console.info(
             "Firebase permission denied - using default analytics in offline mode",
           );
         } else if (
           error.code === "unavailable" ||
           error.message?.includes("network")
         ) {
-          console.log(
+          console.info(
             "Network error detected, retrying Firebase connection...",
           );
           const retrySuccess = await retryFirebaseConnection();
           if (!retrySuccess) {
-            console.log("Using default analytics due to network issues");
+            console.info("Using default analytics due to network issues");
           }
         } else if (error.code === "unauthenticated") {
-          console.log("User not authenticated - using default analytics");
+          console.info("User not authenticated - using default analytics");
         } else {
-          console.log(
-            "Firebase error:",
-            error.code,
-            "- using default analytics",
-          );
+          // Only log unexpected errors as errors
+          console.warn("Firebase error:", error.code, "- using default analytics");
+          console.debug("Full error details:", error);
         }
 
         // Use default analytics as fallback for any error
