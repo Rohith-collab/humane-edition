@@ -374,9 +374,11 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
         });
         console.log("Session data saved to Firebase successfully");
       } catch (saveError: any) {
-        console.error("Failed to save session to Firebase:", saveError);
         if (saveError.code === "permission-denied") {
-          console.log("Permission denied - continuing with local data only");
+          console.info("Permission denied - continuing with local data only");
+        } else {
+          console.warn("Failed to save session to Firebase:", saveError.code || saveError.message);
+          console.debug("Full save error details:", saveError);
         }
         // Continue anyway with local data update
       }
