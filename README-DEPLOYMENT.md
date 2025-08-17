@@ -1,14 +1,34 @@
-# Deployment Instructions for Vercel
+# 🚀 Vercel Deployment - FIXED CONFIGURATION
 
-## Required Environment Variables
+## ⚠️ CRITICAL: 500 Error Fix
 
-When deploying to Vercel, you MUST set these environment variables in the Vercel Dashboard:
+**Your `/api/chat` endpoint was returning 500 errors because:**
+1. ❌ Old `vercel.json` was configured for static deployment (not serverless)
+2. ❌ Environment variables were not properly configured for Vercel
+3. ❌ API functions weren't optimized for Vercel serverless
 
-### 🔑 Azure OpenAI (Required for chat functionality)
+**✅ Now FIXED with proper serverless configuration!**
 
+## 🔑 Required Environment Variables
+
+**IMPORTANT**: Set these in Vercel Dashboard → Project Settings → Environment Variables
+
+### Option 1: OpenAI (Recommended)
 ```
-AZURE_OPENAI_API_KEY=A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n
-AZURE_OPENAI_ENDPOINT=https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### Option 2: Azure OpenAI (Fallback)
+```
+AZURE_OPENAI_API_KEY=your_azure_api_key_here
+AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com/...
+```
+
+### Option 3: Both (Best - automatic fallback)
+```
+OPENAI_API_KEY=your_openai_api_key_here
+AZURE_OPENAI_API_KEY=your_azure_api_key_here
+AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com/...
 ```
 
 ## 📝 How to Set Environment Variables in Vercel:
