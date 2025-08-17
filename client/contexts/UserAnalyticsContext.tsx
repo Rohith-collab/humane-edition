@@ -212,6 +212,9 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           console.info(
             "Firebase permission denied - using default analytics in offline mode",
           );
+          // Signal offline mode
+          localStorage.setItem('firebase-offline-mode', 'true');
+          window.dispatchEvent(new CustomEvent('firebase-offline'));
         } else if (
           error.code === "unavailable" ||
           error.message?.includes("network")
@@ -222,6 +225,8 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           const retrySuccess = await retryFirebaseConnection();
           if (!retrySuccess) {
             console.info("Using default analytics due to network issues");
+            localStorage.setItem('firebase-offline-mode', 'true');
+            window.dispatchEvent(new CustomEvent('firebase-offline'));
           }
         } else if (error.code === "unauthenticated") {
           console.info("User not authenticated - using default analytics");
@@ -229,6 +234,8 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           // Only log unexpected errors as errors
           console.warn("Firebase error:", error.code, "- using default analytics");
           console.debug("Full error details:", error);
+          localStorage.setItem('firebase-offline-mode', 'true');
+          window.dispatchEvent(new CustomEvent('firebase-offline'));
         }
 
         // Use default analytics as fallback for any error
