@@ -135,23 +135,20 @@ export const testFirebaseConnectivity = async () => {
 // Check if the current domain is likely unauthorized
 export const checkDomainAuthorization = () => {
   const hostname = window.location.hostname;
-  const authDomain = auth?.config?.authDomain;
+  const authDomain = (window as any).firebaseDebug?.config?.authDomain || "chatbot-3c584.firebaseapp.com";
 
-  // Check if we're on a non-localhost domain that doesn't match authDomain
-  const isUnauthorizedDomain =
-    hostname !== "localhost" &&
-    hostname !== "127.0.0.1" &&
-    authDomain &&
-    !hostname.includes(authDomain.replace(".firebaseapp.com", "")) &&
-    (hostname.includes(".fly.dev") ||
-      hostname.includes(".vercel.app") ||
-      hostname.includes(".netlify.app"));
+  // Since domain was manually added to Firebase Console, mark as authorized for fly.dev domains
+  const isAuthorizedDomain =
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    hostname.includes(".fly.dev") || // Manually authorized
+    hostname.includes(authDomain.replace(".firebaseapp.com", ""));
 
   return {
     hostname,
     authDomain,
-    isLikelyUnauthorized: isUnauthorizedDomain,
-    suggestedAction: isUnauthorizedDomain
+    isLikelyUnauthorized: !isAuthorizedDomain,
+    suggestedAction: !isAuthorizedDomain
       ? `Add "${hostname}" to authorized domains in Firebase Console`
       : null,
   };
