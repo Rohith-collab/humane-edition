@@ -426,9 +426,11 @@ export const UserAnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({
           updatedAt: serverTimestamp(),
         });
       } catch (saveError: any) {
-        console.error("Failed to save fluency score to Firebase:", saveError);
         if (saveError.code === "permission-denied") {
-          console.log("Permission denied - updating locally only");
+          console.info("Permission denied - updating locally only");
+        } else {
+          console.warn("Failed to save fluency score to Firebase:", saveError.code || saveError.message);
+          console.debug("Full fluency score error details:", saveError);
         }
         // Continue with local update anyway
       }
