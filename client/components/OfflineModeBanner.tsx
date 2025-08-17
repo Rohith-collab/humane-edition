@@ -11,8 +11,9 @@ export const OfflineModeBanner: React.FC = () => {
   useEffect(() => {
     // Show banner if user is logged in but potentially in offline mode
     // We detect this by checking if we have a user but localStorage has offline flag
-    const isOfflineMode = localStorage.getItem('firebase-offline-mode') === 'true';
-    
+    const isOfflineMode =
+      localStorage.getItem("firebase-offline-mode") === "true";
+
     if (currentUser && isOfflineMode && !isDismissed) {
       setShowBanner(true);
     } else {
@@ -23,17 +24,17 @@ export const OfflineModeBanner: React.FC = () => {
   // Set offline mode flag when Firebase errors occur
   useEffect(() => {
     const handleFirebaseError = () => {
-      localStorage.setItem('firebase-offline-mode', 'true');
+      localStorage.setItem("firebase-offline-mode", "true");
       if (currentUser && !isDismissed) {
         setShowBanner(true);
       }
     };
 
     // Listen for Firebase errors
-    window.addEventListener('firebase-offline', handleFirebaseError);
-    
+    window.addEventListener("firebase-offline", handleFirebaseError);
+
     return () => {
-      window.removeEventListener('firebase-offline', handleFirebaseError);
+      window.removeEventListener("firebase-offline", handleFirebaseError);
     };
   }, [currentUser, isDismissed]);
 
@@ -46,12 +47,13 @@ export const OfflineModeBanner: React.FC = () => {
       <WifiOff className="h-4 w-4" />
       <AlertDescription className="flex items-center justify-between">
         <span>
-          Running in offline mode with sample data. Your progress will be stored locally.
+          Running in offline mode with sample data. Your progress will be stored
+          locally.
         </span>
         <button
           onClick={() => {
             setIsDismissed(true);
-            localStorage.setItem('banner-dismissed', 'true');
+            localStorage.setItem("banner-dismissed", "true");
           }}
           className="text-xs underline ml-4 hover:no-underline"
         >

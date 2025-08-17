@@ -187,7 +187,9 @@ export const handleChat: RequestHandler = async (req, res) => {
     const openaiEndpoint = "https://api.openai.com/v1/chat/completions";
 
     // Check for demo mode
-    const isDemoMode = process.env.DEMO_MODE === 'true' || !process.env.AZURE_OPENAI_API_KEY && !process.env.OPENAI_API_KEY;
+    const isDemoMode =
+      process.env.DEMO_MODE === "true" ||
+      (!process.env.AZURE_OPENAI_API_KEY && !process.env.OPENAI_API_KEY);
 
     // If in demo mode, immediately return fallback response
     if (isDemoMode) {
