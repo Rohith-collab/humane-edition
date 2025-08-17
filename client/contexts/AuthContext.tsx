@@ -205,6 +205,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
     loading,
+    isGuestMode,
   };
 
   return (
