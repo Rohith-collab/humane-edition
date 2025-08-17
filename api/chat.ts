@@ -64,9 +64,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Environment-based configuration with fallbacks
     const openaiApiKey = process.env.OPENAI_API_KEY;
-    const azureApiKey = process.env.AZURE_OPENAI_API_KEY ||
+    const azureApiKey =
+      process.env.AZURE_OPENAI_API_KEY ||
       "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
-    const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT ||
+    const azureEndpoint =
+      process.env.AZURE_OPENAI_ENDPOINT ||
       "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2025-01-01-preview";
 
     const openaiEndpoint = "https://api.openai.com/v1/chat/completions";
@@ -79,7 +81,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.error("No API keys available");
       return res.status(500).json({
         success: false,
-        error: "API service not configured. Please set OPENAI_API_KEY or AZURE_OPENAI_API_KEY environment variables.",
+        error:
+          "API service not configured. Please set OPENAI_API_KEY or AZURE_OPENAI_API_KEY environment variables.",
         response: "Service configuration error. Please contact support.",
       });
     }
@@ -87,7 +90,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.log("=== API SERVICE SELECTION ===");
     console.log("Using service:", useOpenAI ? "OpenAI" : "Azure OpenAI");
     console.log("Has environment OPENAI_API_KEY:", !!openaiApiKey);
-    console.log("Has environment AZURE keys:", !!process.env.AZURE_OPENAI_API_KEY);
+    console.log(
+      "Has environment AZURE keys:",
+      !!process.env.AZURE_OPENAI_API_KEY,
+    );
 
     let response: Response;
     let usedService = "";
@@ -102,7 +108,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${openaiApiKey}`,
+            Authorization: `Bearer ${openaiApiKey}`,
           },
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
@@ -115,7 +121,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log("OpenAI response status:", response.status);
 
         // If OpenAI fails with auth error, try Azure fallback
-        if (!response.ok && (response.status === 401 || response.status === 403) && azureApiKey) {
+        if (
+          !response.ok &&
+          (response.status === 401 || response.status === 403) &&
+          azureApiKey
+        ) {
           console.log("OpenAI auth failed, trying Azure fallback...");
           throw new Error("OpenAI auth failed, trying fallback");
         }
@@ -178,7 +188,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(500).json({
           success: false,
           error: `${usedService} API rate limit exceeded.`,
-          response: "Service is temporarily busy. Please try again in a moment.",
+          response:
+            "Service is temporarily busy. Please try again in a moment.",
         });
       } else {
         throw new Error(
@@ -211,7 +222,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error("=== API ERROR ===");
     console.error("Error details:", error);
     console.error("Error type:", typeof error);
-    console.error("Error message:", error instanceof Error ? error.message : String(error));
+    console.error(
+      "Error message:",
+      error instanceof Error ? error.message : String(error),
+    );
 
     // Environment diagnostic information
     console.error("Environment diagnostic:", {
@@ -223,16 +237,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       vercelUrl: process.env.VERCEL_URL,
     });
 
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
 
     // Provide helpful error message based on the error
-    let userMessage = "Sorry, I could not process that right now. Please try again.";
+    let userMessage =
+      "Sorry, I could not process that right now. Please try again.";
     let debugInfo = `Failed to get response from AI: ${errorMessage}`;
 
-    if (errorMessage.includes("authentication") || errorMessage.includes("401") || errorMessage.includes("403")) {
+    if (
+      errorMessage.includes("authentication") ||
+      errorMessage.includes("401") ||
+      errorMessage.includes("403")
+    ) {
       userMessage = "API authentication error. Please contact support.";
-      debugInfo = "API key authentication failed. Check environment variables in Vercel Dashboard.";
-    } else if (errorMessage.includes("network") || errorMessage.includes("fetch")) {
+      debugInfo =
+        "API key authentication failed. Check environment variables in Vercel Dashboard.";
+    } else if (
+      errorMessage.includes("network") ||
+      errorMessage.includes("fetch")
+    ) {
       userMessage = "Network error. Please try again.";
       debugInfo = `Network request failed: ${errorMessage}`;
     }
@@ -248,8 +272,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           hasAzureKey: !!process.env.AZURE_OPENAI_API_KEY,
           errorType: typeof error,
           originalError: errorMessage,
-        }
-      })
+        },
+      }),
     } as ChatResponse);
   }
 }

@@ -3,6 +3,7 @@
 ## ⚠️ CRITICAL: 500 Error Fix
 
 **Your `/api/chat` endpoint was returning 500 errors because:**
+
 1. ❌ Old `vercel.json` was configured for static deployment (not serverless)
 2. ❌ Environment variables were not properly configured for Vercel
 3. ❌ API functions weren't optimized for Vercel serverless
@@ -14,17 +15,20 @@
 **IMPORTANT**: Set these in Vercel Dashboard → Project Settings → Environment Variables
 
 ### Option 1: OpenAI (Recommended)
+
 ```
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 ### Option 2: Azure OpenAI (Fallback)
+
 ```
 AZURE_OPENAI_API_KEY=your_azure_api_key_here
 AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com/...
 ```
 
 ### Option 3: Both (Best - automatic fallback)
+
 ```
 OPENAI_API_KEY=your_openai_api_key_here
 AZURE_OPENAI_API_KEY=your_azure_api_key_here

@@ -70,14 +70,17 @@ This project is configured as a **serverless Next.js-style project** for Vercel:
 ### Common Issues:
 
 #### 1. 500 Internal Server Error on API routes
+
 **Cause**: Missing environment variables
 **Solution**: Add all required environment variables in Vercel Dashboard
 
 #### 2. API routes not found (404)
+
 **Cause**: Static deployment instead of serverless
 **Solution**: Ensure `vercel.json` is properly configured (already done)
 
 #### 3. CORS errors
+
 **Cause**: Missing CORS headers
 **Solution**: CORS is configured in `api/chat.ts` and `vercel.json`
 

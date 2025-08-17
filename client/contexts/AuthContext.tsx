@@ -145,8 +145,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const createGuestUser = () => {
     const guestUser = {
       uid: `guest_${Date.now()}`,
-      email: 'guest@demo.local',
-      displayName: 'Demo User',
+      email: "guest@demo.local",
+      displayName: "Demo User",
       emailVerified: false,
       isAnonymous: true,
       metadata: {
@@ -154,17 +154,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         lastSignInTime: new Date().toISOString(),
       },
       providerData: [],
-      refreshToken: '',
+      refreshToken: "",
       tenantId: null,
       delete: async () => {},
-      getIdToken: async () => 'demo-token',
+      getIdToken: async () => "demo-token",
       getIdTokenResult: async () => ({
         authTime: new Date().toISOString(),
         expirationTime: new Date(Date.now() + 3600000).toISOString(),
         issuedAtTime: new Date().toISOString(),
-        signInProvider: 'guest',
+        signInProvider: "guest",
         signInSecondFactor: null,
-        token: 'demo-token',
+        token: "demo-token",
         claims: {},
       }),
       reload: async () => {},
@@ -187,7 +187,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       return unsubscribe;
     } catch (error: any) {
-      console.warn("Firebase auth unavailable, using guest mode:", error.message);
+      console.warn(
+        "Firebase auth unavailable, using guest mode:",
+        error.message,
+      );
       // If Firebase auth completely fails, create a guest user
       const guestUser = createGuestUser();
       setCurrentUser(guestUser);
