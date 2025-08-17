@@ -43,9 +43,9 @@ export default function FirebaseDebug() {
       let errorMessage = "Unknown error";
       if (error instanceof Error) {
         errorMessage = error.message;
-      } else if (typeof error === 'object' && error !== null) {
+      } else if (typeof error === "object" && error !== null) {
         errorMessage = JSON.stringify(error, null, 2);
-      } else if (typeof error === 'string') {
+      } else if (typeof error === "string") {
         errorMessage = error;
       }
 

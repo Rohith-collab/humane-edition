@@ -33,14 +33,19 @@ export const checkFirebaseStatus = async () => {
             `Firestore unavailable: Cannot reach Firebase backend. Check domain authorization and internet connection.`,
           );
         } else if (error.code === "permission-denied") {
-          status.errors.push(`Firestore permission denied - this is expected if security rules restrict access. Firestore is working but access is restricted.`);
+          status.errors.push(
+            `Firestore permission denied - this is expected if security rules restrict access. Firestore is working but access is restricted.`,
+          );
           // Mark as success since permission denied means Firebase is reachable
           status.firestore = true;
         } else if (error.code === "failed-precondition") {
-          status.errors.push(`Firestore failed-precondition: ${error.message} - check Firebase project configuration`);
+          status.errors.push(
+            `Firestore failed-precondition: ${error.message} - check Firebase project configuration`,
+          );
         } else {
           // Better error message handling
-          const errorMessage = error?.message || JSON.stringify(error) || 'Unknown error';
+          const errorMessage =
+            error?.message || JSON.stringify(error) || "Unknown error";
           status.errors.push(
             `Firestore error: ${errorMessage} (${error.code || "unknown"})`,
           );
@@ -51,7 +56,10 @@ export const checkFirebaseStatus = async () => {
     }
   } catch (error: any) {
     // Better error message handling
-    const errorMessage = error?.message || (typeof error === 'object' ? JSON.stringify(error) : String(error)) || 'Unknown error';
+    const errorMessage =
+      error?.message ||
+      (typeof error === "object" ? JSON.stringify(error) : String(error)) ||
+      "Unknown error";
     status.errors.push(`General error: ${errorMessage}`);
   }
 
@@ -96,7 +104,9 @@ export const testFirebaseConnectivity = async () => {
     console.log("Created doc reference successfully:", testDoc.path);
 
     // If we can create a doc reference and Firebase is initialized, consider it working
-    console.log("Firebase connectivity test successful - services are reachable");
+    console.log(
+      "Firebase connectivity test successful - services are reachable",
+    );
 
     return true;
   } catch (error: any) {
@@ -108,12 +118,12 @@ export const testFirebaseConnectivity = async () => {
 
     // More detailed error information
     const errorDetails = {
-      message: error?.message || 'No message',
-      code: error?.code || 'No code',
+      message: error?.message || "No message",
+      code: error?.code || "No code",
       hostname: window.location.hostname,
-      stack: error?.stack || 'No stack trace',
-      customData: error?.customData || 'No custom data',
-      details: error?.details || 'No details'
+      stack: error?.stack || "No stack trace",
+      customData: error?.customData || "No custom data",
+      details: error?.details || "No details",
     };
 
     console.error("Error details:", errorDetails);
