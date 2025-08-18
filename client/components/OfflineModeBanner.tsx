@@ -17,7 +17,8 @@ export const OfflineModeBanner: React.FC = () => {
 
   useEffect(() => {
     // Only show banner if explicitly set to offline mode and not dismissed
-    const isOfflineMode = localStorage.getItem("firebase-offline-mode") === "true";
+    const isOfflineMode =
+      localStorage.getItem("firebase-offline-mode") === "true";
 
     // Don't show banner if Firebase is working (we have currentUser) or if dismissed
     if (isOfflineMode && !isDismissed && !currentUser) {
