@@ -27,12 +27,21 @@ export const OfflineModeBanner: React.FC = () => {
     }
   }, [currentUser, isDismissed]);
 
-  // Set offline mode flag when Firebase errors occur
+  // Set offline mode flag when Firebase errors occur (only for critical errors)
   useEffect(() => {
-    const handleFirebaseError = () => {
-      localStorage.setItem("firebase-offline-mode", "true");
-      if (currentUser && !isDismissed) {
-        setShowBanner(true);
+    const handleFirebaseError = (event: any) => {
+      // Only set offline mode for severe connectivity issues, not auth errors
+      const errorCode = event.detail?.code;
+      const isCriticalError =
+        errorCode === "unavailable" ||
+        errorCode === "network-request-failed" ||
+        !navigator.onLine;
+
+      if (isCriticalError) {
+        localStorage.setItem("firebase-offline-mode", "true");
+        if (!isDismissed && !currentUser) {
+          setShowBanner(true);
+        }
       }
     };
 
