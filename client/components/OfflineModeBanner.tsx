@@ -8,25 +8,41 @@ export const OfflineModeBanner: React.FC = () => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
+  // Clear offline mode flags on component initialization and check if previously dismissed
   useEffect(() => {
-    // Show banner if user is logged in but potentially in offline mode
-    // We detect this by checking if we have a user but localStorage has offline flag
+    localStorage.removeItem("firebase-offline-mode");
+    const wasDismissed = localStorage.getItem("banner-dismissed") === "true";
+    setIsDismissed(wasDismissed);
+  }, []);
+
+  useEffect(() => {
+    // Only show banner if explicitly set to offline mode and not dismissed
     const isOfflineMode =
       localStorage.getItem("firebase-offline-mode") === "true";
 
-    if (currentUser && isOfflineMode && !isDismissed) {
+    // Don't show banner if Firebase is working (we have currentUser) or if dismissed
+    if (isOfflineMode && !isDismissed && !currentUser) {
       setShowBanner(true);
     } else {
       setShowBanner(false);
     }
   }, [currentUser, isDismissed]);
 
-  // Set offline mode flag when Firebase errors occur
+  // Set offline mode flag when Firebase errors occur (only for critical errors)
   useEffect(() => {
-    const handleFirebaseError = () => {
-      localStorage.setItem("firebase-offline-mode", "true");
-      if (currentUser && !isDismissed) {
-        setShowBanner(true);
+    const handleFirebaseError = (event: any) => {
+      // Only set offline mode for severe connectivity issues, not auth errors
+      const errorCode = event.detail?.code;
+      const isCriticalError =
+        errorCode === "unavailable" ||
+        errorCode === "network-request-failed" ||
+        !navigator.onLine;
+
+      if (isCriticalError) {
+        localStorage.setItem("firebase-offline-mode", "true");
+        if (!isDismissed && !currentUser) {
+          setShowBanner(true);
+        }
       }
     };
 
