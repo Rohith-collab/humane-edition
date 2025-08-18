@@ -9,6 +9,9 @@ export const OfflineModeBanner: React.FC = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
+    // Clear any existing offline mode flag on component mount
+    localStorage.removeItem("firebase-offline-mode");
+
     // Show banner if user is logged in but potentially in offline mode
     // We detect this by checking if we have a user but localStorage has offline flag
     const isOfflineMode =
