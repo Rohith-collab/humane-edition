@@ -8,6 +8,12 @@ export const OfflineModeBanner: React.FC = () => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
+  // Clear offline mode flags on component initialization
+  useEffect(() => {
+    localStorage.removeItem("firebase-offline-mode");
+    localStorage.removeItem("banner-dismissed");
+  }, []);
+
   useEffect(() => {
     // Clear any existing offline mode flag on component mount
     localStorage.removeItem("firebase-offline-mode");
