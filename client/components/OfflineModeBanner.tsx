@@ -8,22 +8,19 @@ export const OfflineModeBanner: React.FC = () => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
-  // Clear offline mode flags on component initialization
+  // Clear offline mode flags on component initialization and check if previously dismissed
   useEffect(() => {
     localStorage.removeItem("firebase-offline-mode");
-    localStorage.removeItem("banner-dismissed");
+    const wasDismissed = localStorage.getItem("banner-dismissed") === "true";
+    setIsDismissed(wasDismissed);
   }, []);
 
   useEffect(() => {
-    // Clear any existing offline mode flag on component mount
-    localStorage.removeItem("firebase-offline-mode");
+    // Only show banner if explicitly set to offline mode and not dismissed
+    const isOfflineMode = localStorage.getItem("firebase-offline-mode") === "true";
 
-    // Show banner if user is logged in but potentially in offline mode
-    // We detect this by checking if we have a user but localStorage has offline flag
-    const isOfflineMode =
-      localStorage.getItem("firebase-offline-mode") === "true";
-
-    if (currentUser && isOfflineMode && !isDismissed) {
+    // Don't show banner if Firebase is working (we have currentUser) or if dismissed
+    if (isOfflineMode && !isDismissed && !currentUser) {
       setShowBanner(true);
     } else {
       setShowBanner(false);
