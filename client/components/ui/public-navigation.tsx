@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "./button";
-import {
-  Menu,
-  X,
-  LogIn,
-  UserPlus,
-} from "lucide-react";
+import { Menu, X, LogIn, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 

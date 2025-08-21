@@ -275,10 +275,16 @@ export default function HumanoidPractice() {
                         <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 flex-wrap">
-                        <Badge variant="outline" className="text-xs px-2 py-0.5">
+                        <Badge
+                          variant="outline"
+                          className="text-xs px-2 py-0.5"
+                        >
                           {tutor.personality}
                         </Badge>
-                        <Badge variant="secondary" className="text-xs px-2 py-0.5">
+                        <Badge
+                          variant="secondary"
+                          className="text-xs px-2 py-0.5"
+                        >
                           {tutor.expertise}
                         </Badge>
                       </div>
