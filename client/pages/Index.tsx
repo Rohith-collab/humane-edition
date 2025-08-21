@@ -139,6 +139,7 @@ const stats = [
 ];
 
 export default function Index() {
+  const { currentUser } = useAuth();
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
