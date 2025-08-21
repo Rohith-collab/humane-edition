@@ -37,43 +37,7 @@ export function PublicNavigation() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.href;
-
-              const handleClick = (e: React.MouseEvent) => {
-                if (item.href.startsWith('#')) {
-                  e.preventDefault();
-                  const element = document.querySelector(item.href);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }
-              };
-
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={handleClick}
-                  className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 group relative",
-                    isActive
-                      ? "text-nova-400 bg-nova-500/10 glow"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent",
-                  )}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{item.name}</span>
-                  {isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-nova-500/20 via-electric-500/20 to-cyber-500/20 rounded-lg -z-10"></div>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
+          {/* Desktop Navigation - Items removed, home navigation handled by logo */}
 
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
