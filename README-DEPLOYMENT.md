@@ -7,8 +7,8 @@ When deploying to Vercel, you MUST set these environment variables in the Vercel
 ### 🔑 Azure OpenAI (Required for chat functionality)
 
 ```
-AZURE_OPENAI_API_KEY=A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n
-AZURE_OPENAI_ENDPOINT=https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview
+AZURE_OPENAI_API_KEY=EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYeBjFXJ3w3AAABACOGwoQO
+AZURE_OPENAI_ENDPOINT=https://angilambot-api.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2025-01-01-preview
 ```
 
 ## 📝 How to Set Environment Variables in Vercel:
@@ -19,12 +19,12 @@ AZURE_OPENAI_ENDPOINT=https://yogar-mcyatzzl-eastus2.services.ai.azure.com/opena
 4. Add each variable:
 
    - **Variable Name**: `AZURE_OPENAI_API_KEY`
-   - **Value**: `A8JgTwbZlu9NaV4GHr33zkdjYf9GDtrLQwnHtHdlYtoOG4HCYlTSJQQJ99BGACHYHv6XJ3w3AAAAACOGRv2n`
+   - **Value**: `EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYeBjFXJ3w3AAABACOGwoQO`
    - **Environments**: Select "Production", "Preview", and "Development"
 
 5. Add the second variable:
    - **Variable Name**: `AZURE_OPENAI_ENDPOINT`
-   - **Value**: `https://yogar-mcyatzzl-eastus2.services.ai.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2023-07-01-preview`
+   - **Value**: `https://angilambot-api.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2025-01-01-preview`
    - **Environments**: Select "Production", "Preview", and "Development"
 
 ## 🚀 Deployment Steps:
