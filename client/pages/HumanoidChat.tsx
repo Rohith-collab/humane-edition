@@ -244,6 +244,7 @@ const AdvancedHumanoidAvatar = ({
 };
 
 export default function HumanoidChat() {
+  const navigate = useNavigate();
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [typedText, setTypedText] = useState("");
