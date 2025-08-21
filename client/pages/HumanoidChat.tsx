@@ -529,7 +529,7 @@ RESPONSE FORMAT:
               variant="ghost"
               size="sm"
               className="gap-2"
-              onClick={() => window.history.back()}
+              onClick={() => navigate("/humanoid")}
             >
               <ArrowLeft className="w-4 h-4" />
               Back
