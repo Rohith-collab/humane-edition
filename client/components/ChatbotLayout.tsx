@@ -44,6 +44,7 @@ export default function ChatbotLayout({
   avatarType,
   onComplete,
 }: ChatbotLayoutProps) {
+  const navigate = useNavigate();
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [typedText, setTypedText] = useState("");
