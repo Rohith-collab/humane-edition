@@ -12,10 +12,7 @@ import {
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 
-const navigation = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "Features", href: "#features", icon: Play },
-];
+// Navigation items removed - home navigation handled by logo/app name click
 
 export function PublicNavigation() {
   const location = useLocation();
