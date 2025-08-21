@@ -1,9 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 import { Button } from "./button";
 import {
-  Home,
-  Play,
   Menu,
   X,
   LogIn,
