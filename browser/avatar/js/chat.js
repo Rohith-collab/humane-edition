@@ -901,9 +901,9 @@ window.updateCustomAvatarBox = () => {
 //   document.getElementById("APIKey").value = "7d78c805a6a9499e97820bbdbcf47df0";
 
 //   // Pre-fill Azure OpenAI resource config
-//   document.getElementById("azureOpenAIEndpoint").value = "https://yogarohith1858ai878864920350.cognitiveservices.azure.com/";
-//   document.getElementById("azureOpenAIApiKey").value = "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
-//   document.getElementById("azureOpenAIDeploymentName").value = "gpt-35-turbo";
+//   document.getElementById("azureOpenAIEndpoint").value = "https://angilambot-api.openai.azure.com/";
+//   document.getElementById("azureOpenAIApiKey").value = "EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYeBjFXJ3w3AAABACOGwoQO";
+//   document.getElementById("azureOpenAIDeploymentName").value = "gpt-4o-mini";
 
 //   // Optionally, pre-fill system prompt if needed
 //   document.getElementById("prompt").value = "You are an AI assistant that helps people find information.";
@@ -935,9 +935,9 @@ window.updateCustomAvatarBox = () => {
 //   const openAIApiKey = document.getElementById("azureOpenAIApiKey");
 //   const deploymentName = document.getElementById("azureOpenAIDeploymentName");
 
-//   if (openAIEndpoint) openAIEndpoint.value = "https://yogarohith1858ai878864920350.cognitiveservices.azure.com/";
-//   if (openAIApiKey) openAIApiKey.value = "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
-//   if (deploymentName) deploymentName.value = "gpt-35-turbo";
+//   if (openAIEndpoint) openAIEndpoint.value = "https://angilambot-api.openai.azure.com/";
+//   if (openAIApiKey) openAIApiKey.value = "EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYHv6XJ3w3AAABACOGwoQO";
+//   if (deploymentName) deploymentName.value = "gpt-4o-mini";
 
 //   // Leave all other fields and checkboxes as-is (defaults)
 
@@ -973,7 +973,7 @@ window.updateCustomAvatarBox = () => {
 //   if (openAIEndpoint)
 //     openAIEndpoint.value = "https://yogarohith1858ai878864920350.cognitiveservices.azure.com/";
 //   if (openAIApiKey)
-//     openAIApiKey.value = "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
+//     openAIApiKey.value = "EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYeBjFXJ3w3AAABACOGwoQO";
 //   if (deploymentName)
 //     deploymentName.value = "gpt-35-turbo";
 
