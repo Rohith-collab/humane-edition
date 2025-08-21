@@ -12,7 +12,7 @@ import {
   RotateCcw,
   X,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useSessionTracking } from "@/hooks/useSessionTracking";
 
