@@ -10,6 +10,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { UserAnalyticsProvider } from "@/contexts/UserAnalyticsContext";
 import { OfflineModeBanner } from "@/components/OfflineModeBanner";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Practice from "./pages/Practice";
