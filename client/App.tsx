@@ -94,17 +94,8 @@ const App = () => (
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                {/* Protected Routes */}
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Layout>
-                        <Index />
-                      </Layout>
-                    </ProtectedRoute>
-                  }
-                />
+                {/* Home Route - Public for unauthenticated users, redirects to dashboard for authenticated */}
+                <Route path="/" element={<ConditionalHomePage />} />
 
                 <Route
                   path="/dashboard"
