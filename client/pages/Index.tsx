@@ -176,9 +176,9 @@ export default function Index() {
                 className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
                 asChild
               >
-                <Link to="/practice">
+                <Link to={currentUser ? "/practice" : "/register"}>
                   <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                  Start Learning Now
+                  {currentUser ? "Start Learning Now" : "Get Started"}
                 </Link>
               </Button>
               <Button
@@ -187,8 +187,8 @@ export default function Index() {
                 className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg transition-all duration-300 group"
                 asChild
               >
-                <Link to="/dashboard">
-                  View Dashboard
+                <Link to={currentUser ? "/dashboard" : "/login"}>
+                  {currentUser ? "View Dashboard" : "Sign In"}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
