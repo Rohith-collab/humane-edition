@@ -145,9 +145,12 @@ export function Navigation() {
               );
             })}
             <div className="px-2 pt-4 space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-2">
-                <User className="w-4 h-4" />
-                <span>{currentUser?.displayName || currentUser?.email}</span>
+              <div className="flex items-center justify-between px-2">
+                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                  <User className="w-4 h-4" />
+                  <span>{currentUser?.displayName || currentUser?.email}</span>
+                </div>
+                <ThemeToggle />
               </div>
               <Button
                 onClick={handleLogout}
