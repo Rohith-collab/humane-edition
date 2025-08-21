@@ -13,7 +13,7 @@ import { OfflineModeBanner } from "@/components/OfflineModeBanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PublicLayout } from "@/components/PublicLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { useAuth } from "@/contexts/AuthContext";
+import { ConditionalHomePage } from "@/components/ConditionalHomePage";
 import Index from "./pages/Index";
 import Practice from "./pages/Practice";
 import InterviewPractice from "./pages/InterviewPractice";
