@@ -47,7 +47,8 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50/50 via-background to-purple-50/50 flex items-center justify-center p-4">
+    <PublicLayout>
+      <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-indigo-50/50 via-background to-purple-50/50 flex items-center justify-center p-4">
       {/* Background Elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-nova-500/20 to-electric-500/20 rounded-full blur-xl animate-float"></div>
       <div className="absolute top-40 right-20 w-32 h-32 bg-gradient-to-br from-electric-500/20 to-cyber-500/20 rounded-full blur-xl float delay-1000"></div>
@@ -199,6 +200,7 @@ export default function Login() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </PublicLayout>
   );
 }
