@@ -130,11 +130,22 @@ export function PublicNavigation() {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
 
+              const handleMobileClick = (e: React.MouseEvent) => {
+                setIsMobileMenuOpen(false);
+                if (item.href.startsWith('#')) {
+                  e.preventDefault();
+                  const element = document.querySelector(item.href);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
+              };
+
               return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={handleMobileClick}
                   className={cn(
                     "block px-4 py-3 text-sm font-medium transition-all duration-200 flex items-center space-x-3 rounded-lg mx-2",
                     isActive
