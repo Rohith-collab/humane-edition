@@ -176,11 +176,11 @@ export const handleChat: RequestHandler = async (req, res) => {
     // AI Service configuration with fallback options
     const azureApiKey =
       process.env.AZURE_OPENAI_API_KEY ||
-      "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF";
+      "EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYeBjFXJ3w3AAABACOGwoQO";
 
     const azureEndpoint =
       process.env.AZURE_OPENAI_ENDPOINT ||
-      "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/openai/deployments/gpt-4.1-mini/chat/completions?api-version=2025-01-01-preview";
+      "https://angilambot-api.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2025-01-01-preview";
 
     // Alternative OpenAI configuration
     const openaiApiKey = process.env.OPENAI_API_KEY;

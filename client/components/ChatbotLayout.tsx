@@ -12,7 +12,7 @@ import {
   RotateCcw,
   X,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useSessionTracking } from "@/hooks/useSessionTracking";
 
@@ -44,6 +44,7 @@ export default function ChatbotLayout({
   avatarType,
   onComplete,
 }: ChatbotLayoutProps) {
+  const navigate = useNavigate();
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [typedText, setTypedText] = useState("");
@@ -441,7 +442,7 @@ export default function ChatbotLayout({
               variant="ghost"
               size="sm"
               className="gap-2"
-              onClick={() => window.history.back()}
+              onClick={() => navigate(-1)}
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Back</span>

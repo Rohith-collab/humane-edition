@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { ThemeToggle } from "./theme-toggle";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
@@ -84,6 +85,7 @@ export function Navigation() {
 
           {/* User Menu */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <User className="w-4 h-4" />
@@ -143,9 +145,12 @@ export function Navigation() {
               );
             })}
             <div className="px-2 pt-4 space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-2">
-                <User className="w-4 h-4" />
-                <span>{currentUser?.displayName || currentUser?.email}</span>
+              <div className="flex items-center justify-between px-2">
+                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                  <User className="w-4 h-4" />
+                  <span>{currentUser?.displayName || currentUser?.email}</span>
+                </div>
+                <ThemeToggle />
               </div>
               <Button
                 onClick={handleLogout}

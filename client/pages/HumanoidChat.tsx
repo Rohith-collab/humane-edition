@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChatRequest, ChatResponse } from "@shared/api";
+import { useNavigate } from "react-router-dom";
 import {
   Mic,
   MicOff,
@@ -243,6 +244,7 @@ const AdvancedHumanoidAvatar = ({
 };
 
 export default function HumanoidChat() {
+  const navigate = useNavigate();
   const [transcript, setTranscript] = useState("");
   const [reply, setReply] = useState("");
   const [typedText, setTypedText] = useState("");
@@ -527,7 +529,7 @@ RESPONSE FORMAT:
               variant="ghost"
               size="sm"
               className="gap-2"
-              onClick={() => window.history.back()}
+              onClick={() => navigate("/humanoid")}
             >
               <ArrowLeft className="w-4 h-4" />
               Back
