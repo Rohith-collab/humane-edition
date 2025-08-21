@@ -79,7 +79,8 @@ const PlaceholderPage = ({
 );
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
+  <ThemeProvider defaultTheme="system" storageKey="aangilam-ui-theme">
+    <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -352,7 +353,8 @@ const App = () => (
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
-  </QueryClientProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 createRoot(document.getElementById("root")!).render(<App />);
