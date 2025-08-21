@@ -46,10 +46,21 @@ export function PublicNavigation() {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
 
+              const handleClick = (e: React.MouseEvent) => {
+                if (item.href.startsWith('#')) {
+                  e.preventDefault();
+                  const element = document.querySelector(item.href);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
+              };
+
               return (
                 <Link
                   key={item.name}
                   to={item.href}
+                  onClick={handleClick}
                   className={cn(
                     "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 group relative",
                     isActive
