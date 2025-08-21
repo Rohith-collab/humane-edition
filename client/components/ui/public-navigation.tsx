@@ -87,39 +87,6 @@ export function PublicNavigation() {
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div className="md:hidden pb-4 pt-2 space-y-1 bg-gradient-to-b from-background via-background/95 to-background/90 backdrop-blur-lg rounded-b-xl border-x border-b border-border/50">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.href;
-
-              const handleMobileClick = (e: React.MouseEvent) => {
-                setIsMobileMenuOpen(false);
-                if (item.href.startsWith('#')) {
-                  e.preventDefault();
-                  const element = document.querySelector(item.href);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }
-              };
-
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={handleMobileClick}
-                  className={cn(
-                    "block px-4 py-3 text-sm font-medium transition-all duration-200 flex items-center space-x-3 rounded-lg mx-2",
-                    isActive
-                      ? "text-nova-400 bg-nova-500/10 glow"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent",
-                  )}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
-            
             {/* Mobile Auth Buttons */}
             <div className="px-2 pt-4 space-y-3">
               <div className="flex justify-center">
