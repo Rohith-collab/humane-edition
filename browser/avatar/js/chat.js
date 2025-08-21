@@ -80,11 +80,11 @@ function connectAvatar() {
     speechRecognizer = SpeechSDK.SpeechRecognizer.FromConfig(speechRecognitionConfig, autoDetectSourceLanguageConfig, SpeechSDK.AudioConfig.fromDefaultMicrophoneInput())
 
     // const azureOpenAIEndpoint = document.getElementById('azureOpenAIEndpoint').value
-    const azureOpenAIEndpoint = "https://ai-yogarohith1858ai878864920350.cognitiveservices.azure.com/"
+    const azureOpenAIEndpoint = "https://angilambot-api.openai.azure.com/"
     // const azureOpenAIApiKey = document.getElementById('azureOpenAIApiKey').value
-    const azureOpenAIApiKey = "302XvXl4v76U3JzrAuHYkeY5KAnr9KbMx34f9r6DmiPKtLnGetH5JQQJ99BGACHYHv6XJ3w3AAAAACOGHyrF"
+    const azureOpenAIApiKey = "EVAHs6G6shOqjtjtybO8KWFQxbuPdTM4ilgmUX5WidXOqnYS865sJQQJ99BHACYeBjFXJ3w3AAABACOGwoQO"
     // const azureOpenAIDeploymentName = document.getElementById('azureOpenAIDeploymentName').value
-    const azureOpenAIDeploymentName = "gpt-35-turbo"
+    const azureOpenAIDeploymentName = "gpt-4o-mini"
     if (azureOpenAIEndpoint === '' || azureOpenAIApiKey === '' || azureOpenAIDeploymentName === '') {
         alert('Please fill in the Azure OpenAI endpoint, API key and deployment name.')
         return
