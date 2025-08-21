@@ -12,7 +12,6 @@ import { ThemeToggle } from "./theme-toggle";
 // Navigation items removed - home navigation handled by logo/app name click
 
 export function PublicNavigation() {
-  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
