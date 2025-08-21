@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
+import { PublicLayout } from "@/components/PublicLayout";
 import {
   AlertCircle,
   Mail,
@@ -64,7 +65,8 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-electric-50/50 via-background to-cyber-50/50 flex items-center justify-center p-4">
+    <PublicLayout>
+      <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-electric-50/50 via-background to-cyber-50/50 flex items-center justify-center p-4">
       {/* Background Elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-electric-500/20 to-cyber-500/20 rounded-full blur-xl animate-float"></div>
       <div className="absolute top-40 right-20 w-32 h-32 bg-gradient-to-br from-cyber-500/20 to-nova-500/20 rounded-full blur-xl float delay-1000"></div>
@@ -261,6 +263,7 @@ export default function Register() {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </PublicLayout>
   );
 }
