@@ -291,7 +291,9 @@ export default function Index() {
               className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300"
               asChild
             >
-              <Link to="/practice">Begin Your Journey</Link>
+              <Link to={currentUser ? "/practice" : "/register"}>
+                {currentUser ? "Begin Your Journey" : "Sign Up Now"}
+              </Link>
             </Button>
             <Button
               variant="outline"
@@ -299,7 +301,9 @@ export default function Index() {
               className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg"
               asChild
             >
-              <Link to="/dashboard">Explore Features</Link>
+              <Link to={currentUser ? "/dashboard" : "/login"}>
+                {currentUser ? "Explore Features" : "Sign In"}
+              </Link>
             </Button>
           </div>
 
