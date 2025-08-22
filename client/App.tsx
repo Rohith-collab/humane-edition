@@ -39,6 +39,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import GameArena from "./pages/GameArena";
 
 const queryClient = new QueryClient();
 
