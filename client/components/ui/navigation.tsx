@@ -11,6 +11,7 @@ import {
   Bot,
   LogOut,
   User,
+  Gamepad2,
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
