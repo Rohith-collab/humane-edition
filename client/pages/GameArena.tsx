@@ -23,6 +23,10 @@ import {
   Swords,
   Shield,
   Coins,
+  Timer,
+  Puzzle,
+  ArrowDown,
+  HelpCircle,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
