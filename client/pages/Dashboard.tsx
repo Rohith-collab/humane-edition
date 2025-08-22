@@ -988,7 +988,7 @@ const Dashboard = () => {
                         </span>
                         <div className="h-1 w-1 bg-muted-foreground rounded-full"></div>
                         <span>
-                          +{Math.floor(Math.random() * 5) + 1} this week
+                          +{Math.max(1, Math.floor(skill.value * 0.03) + Math.floor(Math.random() * 3))} this week
                         </span>
                       </div>
                     </div>
