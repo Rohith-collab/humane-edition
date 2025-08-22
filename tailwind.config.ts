@@ -158,6 +158,10 @@ export default {
             "animation-timing-function": "cubic-bezier(0, 0, 0.2, 1)",
           },
         },
+        fadeIn: {
+          "0%": { opacity: 0, transform: "translateY(20px)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -167,6 +171,7 @@ export default {
         gradient: "gradient 8s ease infinite",
         shimmer: "shimmer 2s linear infinite",
         "bounce-slow": "bounce-slow 3s infinite",
+        fadeIn: "fadeIn 1s ease-out forwards",
       },
     },
   },

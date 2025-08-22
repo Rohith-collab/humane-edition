@@ -11,6 +11,7 @@ import {
   Bot,
   LogOut,
   User,
+  Gamepad2,
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -20,6 +21,7 @@ const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Practice Mode", href: "/practice", icon: Play },
+  { name: "Game Arena", href: "/game-arena", icon: Gamepad2 },
   { name: "Humanoid Tutor", href: "/humanoid", icon: Bot },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
