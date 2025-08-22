@@ -394,12 +394,12 @@ const GameArena = () => {
               </CardHeader>
               <CardContent className="space-y-3">
                 {leaderboard.map((entry, index) => (
-                  <div 
+                  <div
                     key={entry.rank}
                     className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
-                      entry.isCurrentUser 
-                        ? 'bg-electric-500/20 border border-electric-500/30 glow-electric' 
-                        : 'bg-gray-800/50 hover:bg-gray-700/50'
+                      entry.isCurrentUser
+                        ? 'bg-electric-500/20 border border-electric-500/30 glow-electric'
+                        : 'bg-muted/30 hover:bg-muted/50'
                     }`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
@@ -407,7 +407,7 @@ const GameArena = () => {
                       entry.rank === 1 ? 'bg-yellow-500 text-black' :
                       entry.rank === 2 ? 'bg-gray-300 text-black' :
                       entry.rank === 3 ? 'bg-orange-500 text-white' :
-                      'bg-gray-700 text-gray-300'
+                      'bg-muted text-muted-foreground'
                     }`}>
                       {entry.rank}
                     </div>
