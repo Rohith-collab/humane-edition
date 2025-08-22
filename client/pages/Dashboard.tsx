@@ -657,7 +657,7 @@ const Dashboard = () => {
                       Weekly Goal
                     </p>
                     <p className="text-3xl font-bold text-foreground tabular-nums">
-                      {animatedStats.weeklyProgress}h
+                      {userStats.weeklyProgress.toFixed(1)}h
                     </p>
                     <div className="space-y-1">
                       <Progress
