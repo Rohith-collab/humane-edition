@@ -338,6 +338,16 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/game-arena"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <GameArena />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route
                   path="*"
