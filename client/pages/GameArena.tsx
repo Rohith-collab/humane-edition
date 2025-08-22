@@ -366,10 +366,10 @@ const GameArena = () => {
                       </span>
                     </div>
 
-                    <Button 
+                    <Button
                       className={`w-full ${
-                        mode.isLocked 
-                          ? 'bg-gray-700 hover:bg-gray-600 text-gray-300 cursor-not-allowed' 
+                        mode.isLocked
+                          ? 'bg-muted hover:bg-muted/80 text-muted-foreground cursor-not-allowed'
                           : 'bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white glow-electric'
                       } transition-all duration-300`}
                       disabled={mode.isLocked}
