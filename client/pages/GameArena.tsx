@@ -385,9 +385,9 @@ const GameArena = () => {
 
           {/* Leaderboard */}
           <div className="space-y-6">
-            <Card className="bg-black/60 backdrop-blur-md border-gray-700/50">
+            <Card className="bg-card/80 backdrop-blur-md border-border">
               <CardHeader>
-                <CardTitle className="text-white flex items-center">
+                <CardTitle className="text-foreground flex items-center">
                   <Trophy className="h-5 w-5 text-yellow-400 mr-2" />
                   Global Leaderboard
                 </CardTitle>
