@@ -743,7 +743,10 @@ RESPONSE FORMAT:
                     <span className="text-xs text-white/80">Live AI</span>
                   </div>
                   {userPreferences && (
-                    <Badge variant="outline" className="text-xs border-white/30 text-white/90">
+                    <Badge
+                      variant="outline"
+                      className="text-xs border-white/30 text-white/90"
+                    >
                       {userPreferences.voice}
                     </Badge>
                   )}
@@ -822,12 +825,20 @@ RESPONSE FORMAT:
               {/* AI Status */}
               <div className="bg-black/40 backdrop-blur-md rounded-2xl px-3 py-2 border border-white/10">
                 <div className="flex items-center space-x-2">
-                  <div className={cn(
-                    "w-2 h-2 rounded-full transition-colors",
-                    speaking || isLoading ? "bg-nova-400 animate-pulse" : "bg-green-400"
-                  )} />
+                  <div
+                    className={cn(
+                      "w-2 h-2 rounded-full transition-colors",
+                      speaking || isLoading
+                        ? "bg-nova-400 animate-pulse"
+                        : "bg-green-400",
+                    )}
+                  />
                   <span className="text-white text-xs font-medium">
-                    {isLoading ? "Thinking..." : speaking ? "Speaking" : "Ready"}
+                    {isLoading
+                      ? "Thinking..."
+                      : speaking
+                        ? "Speaking"
+                        : "Ready"}
                   </span>
                 </div>
               </div>
@@ -837,7 +848,9 @@ RESPONSE FORMAT:
                 <div className="bg-nova-500/30 backdrop-blur-md rounded-2xl px-3 py-2 border border-nova-400/30 animate-pulse">
                   <div className="flex items-center space-x-2">
                     <Volume2 className="w-3 h-3 text-nova-300" />
-                    <span className="text-nova-100 text-xs font-medium">Voice Active</span>
+                    <span className="text-nova-100 text-xs font-medium">
+                      Voice Active
+                    </span>
                   </div>
                 </div>
               )}
@@ -847,17 +860,27 @@ RESPONSE FORMAT:
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
               <div className="bg-black/60 backdrop-blur-xl text-white rounded-2xl px-6 py-3 border border-white/20 shadow-2xl">
                 <div className="text-center">
-                  <p className="font-bold text-lg text-gradient-animated">AI Humanoid Tutor</p>
-                  <p className="text-sm opacity-80">Powered by Azure OpenAI & D-ID</p>
+                  <p className="font-bold text-lg text-gradient-animated">
+                    AI Humanoid Tutor
+                  </p>
+                  <p className="text-sm opacity-80">
+                    Powered by Azure OpenAI & D-ID
+                  </p>
                   <div className="flex items-center justify-center space-x-2 mt-2">
-                    <div className={cn(
-                      "w-2 h-2 rounded-full transition-all duration-300",
-                      speaking || isLoading
-                        ? "bg-nova-400 animate-pulse shadow-lg shadow-nova-400/50"
-                        : "bg-green-400 shadow-lg shadow-green-400/50"
-                    )} />
+                    <div
+                      className={cn(
+                        "w-2 h-2 rounded-full transition-all duration-300",
+                        speaking || isLoading
+                          ? "bg-nova-400 animate-pulse shadow-lg shadow-nova-400/50"
+                          : "bg-green-400 shadow-lg shadow-green-400/50",
+                      )}
+                    />
                     <span className="text-xs opacity-70">
-                      {isLoading ? "Processing..." : speaking ? "Speaking" : "Listening"}
+                      {isLoading
+                        ? "Processing..."
+                        : speaking
+                          ? "Speaking"
+                          : "Listening"}
                     </span>
                   </div>
                 </div>
@@ -881,7 +904,9 @@ RESPONSE FORMAT:
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
-                          <span className="text-sm font-semibold text-nova-500">AI Tutor</span>
+                          <span className="text-sm font-semibold text-nova-500">
+                            AI Tutor
+                          </span>
                           <div className="flex space-x-1">
                             <div className="w-1.5 h-1.5 bg-nova-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                             <div className="w-1.5 h-1.5 bg-nova-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
@@ -901,7 +926,9 @@ RESPONSE FORMAT:
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
-                          <span className="text-sm font-semibold text-nova-500">AI Tutor</span>
+                          <span className="text-sm font-semibold text-nova-500">
+                            AI Tutor
+                          </span>
                           <div className="w-2 h-2 bg-nova-400 rounded-full animate-pulse" />
                         </div>
                         <p className="text-foreground leading-relaxed whitespace-pre-wrap text-base">
@@ -926,10 +953,15 @@ RESPONSE FORMAT:
                             You
                           </span>
                           <span className="text-xs text-muted-foreground">
-                            {conv.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            {conv.timestamp.toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
                           </span>
                         </div>
-                        <p className="text-foreground text-base leading-relaxed">{conv.user}</p>
+                        <p className="text-foreground text-base leading-relaxed">
+                          {conv.user}
+                        </p>
                       </div>
                     </div>
 
@@ -945,7 +977,10 @@ RESPONSE FORMAT:
                               AI Tutor
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              {conv.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              {conv.timestamp.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
                             </span>
                           </div>
                           <p className="text-foreground leading-relaxed whitespace-pre-wrap text-base">
