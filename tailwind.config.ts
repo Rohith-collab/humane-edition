@@ -171,6 +171,7 @@ export default {
         gradient: "gradient 8s ease infinite",
         shimmer: "shimmer 2s linear infinite",
         "bounce-slow": "bounce-slow 3s infinite",
+        fadeIn: "fadeIn 1s ease-out forwards",
       },
     },
   },
