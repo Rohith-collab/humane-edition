@@ -876,7 +876,7 @@ const Dashboard = () => {
                   </p>
                   <div className="flex items-center mt-2 text-xs text-green-600">
                     <TrendingUp className="h-3 w-3 mr-1" />
-                    <span>+3 this week</span>
+                    <span>+{Math.max(1, Math.floor(userStats.practiceModulesCompleted * 0.2))} this week</span>
                   </div>
                 </CardContent>
               </Card>
