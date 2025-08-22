@@ -510,8 +510,8 @@ const GameArena = () => {
               <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-electric-500 to-electric-600 rounded-2xl flex items-center justify-center glow-electric group-hover:scale-110 transition-all duration-300">
                 <Zap className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Instant Feedback</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Instant Feedback</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Get immediate corrections and tips as you play. No waiting, no confusion — just rapid improvement through real-time guidance.
               </p>
             </div>
@@ -520,8 +520,8 @@ const GameArena = () => {
               <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-cyber-500 to-cyber-600 rounded-2xl flex items-center justify-center glow-cyber group-hover:scale-110 transition-all duration-300">
                 <Users className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Social Learning</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Social Learning</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Challenge friends and learners worldwide. Competition and collaboration make learning memorable and motivating.
               </p>
             </div>
@@ -530,8 +530,8 @@ const GameArena = () => {
               <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-nova-500 to-nova-600 rounded-2xl flex items-center justify-center glow group-hover:scale-110 transition-all duration-300">
                 <Target className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Adaptive Difficulty</h3>
-              <p className="text-gray-300 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Adaptive Difficulty</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Smart algorithms adjust challenge levels to your skill. Always in the perfect learning zone — never too easy, never overwhelming.
               </p>
             </div>
