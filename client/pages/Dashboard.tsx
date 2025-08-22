@@ -139,7 +139,7 @@ const Dashboard = () => {
         fluencyScore: 78,
         weeklyGoal: 10,
         weeklyProgress: 7.2,
-        lastSessionDate: new Date().toISOString().split('T')[0],
+        lastSessionDate: new Date().toISOString().split("T")[0],
         practiceModulesCompleted: 15,
         conversationsHeld: 34,
         wordsLearned: 245,
@@ -876,7 +876,14 @@ const Dashboard = () => {
                   </p>
                   <div className="flex items-center mt-2 text-xs text-green-600">
                     <TrendingUp className="h-3 w-3 mr-1" />
-                    <span>+{Math.max(1, Math.floor(userStats.practiceModulesCompleted * 0.2))} this week</span>
+                    <span>
+                      +
+                      {Math.max(
+                        1,
+                        Math.floor(userStats.practiceModulesCompleted * 0.2),
+                      )}{" "}
+                      this week
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -897,7 +904,14 @@ const Dashboard = () => {
                   </p>
                   <div className="flex items-center mt-2 text-xs text-green-600">
                     <Coffee className="h-3 w-3 mr-1" />
-                    <span>Avg {Math.round((userStats.totalHours * 60) / Math.max(1, userStats.conversationsHeld))} min each</span>
+                    <span>
+                      Avg{" "}
+                      {Math.round(
+                        (userStats.totalHours * 60) /
+                          Math.max(1, userStats.conversationsHeld),
+                      )}{" "}
+                      min each
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -918,7 +932,10 @@ const Dashboard = () => {
                   </p>
                   <div className="flex items-center mt-2 text-xs text-purple-600">
                     <Sparkles className="h-3 w-3 mr-1" />
-                    <span>+{Math.max(5, Math.floor(userStats.wordsLearned * 0.06))} this week</span>
+                    <span>
+                      +{Math.max(5, Math.floor(userStats.wordsLearned * 0.06))}{" "}
+                      this week
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -988,7 +1005,13 @@ const Dashboard = () => {
                         </span>
                         <div className="h-1 w-1 bg-muted-foreground rounded-full"></div>
                         <span>
-                          +{Math.max(1, Math.floor(skill.value * 0.03) + Math.floor(Math.random() * 3))} this week
+                          +
+                          {Math.max(
+                            1,
+                            Math.floor(skill.value * 0.03) +
+                              Math.floor(Math.random() * 3),
+                          )}{" "}
+                          this week
                         </span>
                       </div>
                     </div>
