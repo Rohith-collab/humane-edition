@@ -293,11 +293,11 @@ const GameArena = () => {
           {/* Game Modes */}
           <div id="game-modes-section" className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white flex items-center">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground flex items-center">
                 <Play className="h-6 w-6 sm:h-8 sm:w-8 text-electric-400 mr-3" />
                 Game Modes
               </h2>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
                 <Settings className="h-4 w-4 mr-2" />
                 Settings
               </Button>
