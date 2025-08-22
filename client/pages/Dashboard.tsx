@@ -631,7 +631,7 @@ const Dashboard = () => {
                       {animatedStats.totalSessions}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {userStats.totalHours}h total practice
+                      {userStats.totalHours.toFixed(1)}h total practice
                     </p>
                   </div>
                   <div className="relative">
