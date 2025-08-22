@@ -299,7 +299,7 @@ const GameArena = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Modes */}
-          <div className="lg:col-span-2 space-y-6">
+          <div id="game-modes-section" className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl sm:text-3xl font-bold text-white flex items-center">
                 <Play className="h-6 w-6 sm:h-8 sm:w-8 text-electric-400 mr-3" />
