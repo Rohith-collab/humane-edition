@@ -897,7 +897,7 @@ const Dashboard = () => {
                   </p>
                   <div className="flex items-center mt-2 text-xs text-green-600">
                     <Coffee className="h-3 w-3 mr-1" />
-                    <span>Avg 8 min each</span>
+                    <span>Avg {Math.round((userStats.totalHours * 60) / Math.max(1, userStats.conversationsHeld))} min each</span>
                   </div>
                 </CardContent>
               </Card>
