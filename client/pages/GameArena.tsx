@@ -179,30 +179,72 @@ const GameArena = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-[60vh] sm:min-h-[80vh] flex items-center">
         <div className={"absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.02\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"2\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"}></div>
-        
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12">
-            <div className="flex justify-center">
+
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 w-full">
+          <div className="text-center space-y-6 sm:space-y-8 mb-8 sm:mb-12">
+            {/* Gaming Icons */}
+            <div className="flex justify-center items-center space-x-6 sm:space-x-8 mb-6 opacity-0 animate-fadeIn" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
               <div className="relative group">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-electric-500 via-cyber-500 to-nova-500 rounded-3xl flex items-center justify-center glow-electric transition-all duration-500 group-hover:scale-110">
-                  <Gamepad2 className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-electric-500 to-electric-600 rounded-2xl flex items-center justify-center glow-electric transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                  <Gamepad2 className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                 </div>
-                <div className="absolute -inset-2 bg-gradient-to-br from-electric-500/30 via-cyber-500/30 to-nova-500/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+                <div className="absolute -inset-2 bg-gradient-to-br from-electric-500/30 to-electric-600/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+              </div>
+
+              <div className="relative group">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-cyber-500 to-cyber-600 rounded-2xl flex items-center justify-center glow-cyber transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                  <Timer className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                </div>
+                <div className="absolute -inset-2 bg-gradient-to-br from-cyber-500/30 to-cyber-600/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+              </div>
+
+              <div className="relative group">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-nova-500 to-nova-600 rounded-2xl flex items-center justify-center glow transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                  <Puzzle className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                </div>
+                <div className="absolute -inset-2 bg-gradient-to-br from-nova-500/30 to-nova-600/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
               </div>
             </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
+
+            {/* Main Heading */}
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight opacity-0 animate-fadeIn" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
               <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent text-gradient-animated">
-                Game Arena
+                Level Up Your Language:
               </span>
+              <br />
+              <span className="text-white">Welcome to the Gaming Arena!</span>
             </h1>
-            
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Challenge yourself and others in exciting English learning games. 
-              <span className="text-electric-400 font-semibold"> Level up your skills</span> while having fun!
+
+            {/* Subtext */}
+            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
+              Sharpen your English through exciting, interactive games.
+              <br className="hidden sm:block" />
+              <span className="text-electric-400 font-semibold">Not your average grammar lesson — it's an adventure!</span>
             </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-8 opacity-0 animate-fadeIn" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+              <Button
+                onClick={scrollToGameModes}
+                size="lg"
+                className="bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 rounded-xl glow-electric transition-all duration-300 hover:scale-105 text-lg w-full sm:w-auto min-w-[200px]"
+              >
+                Enter the Arena
+                <ArrowDown className="h-5 w-5 ml-2" />
+              </Button>
+
+              <Button
+                onClick={scrollToHowItWorks}
+                variant="outline"
+                size="lg"
+                className="border-2 border-gray-600 hover:border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 text-lg w-full sm:w-auto min-w-[200px]"
+              >
+                How It Works
+                <HelpCircle className="h-5 w-5 ml-2" />
+              </Button>
+            </div>
           </div>
 
           {/* User Stats */}
