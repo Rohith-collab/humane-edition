@@ -226,7 +226,7 @@ const GameArena = () => {
             <Card className="bg-black/40 backdrop-blur-md border-gray-700/50 hover:border-red-500/50 transition-all duration-300 hover:scale-105">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
-                  <Fire className="h-5 w-5 text-red-400 mr-2" />
+                  <Flame className="h-5 w-5 text-red-400 mr-2" />
                   <span className="text-lg sm:text-2xl font-bold text-white">12</span>
                 </div>
                 <p className="text-xs sm:text-sm text-gray-400">Streak</p>
