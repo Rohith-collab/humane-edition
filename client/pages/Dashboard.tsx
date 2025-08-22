@@ -918,7 +918,7 @@ const Dashboard = () => {
                   </p>
                   <div className="flex items-center mt-2 text-xs text-purple-600">
                     <Sparkles className="h-3 w-3 mr-1" />
-                    <span>+15 this week</span>
+                    <span>+{Math.max(5, Math.floor(userStats.wordsLearned * 0.06))} this week</span>
                   </div>
                 </CardContent>
               </Card>
