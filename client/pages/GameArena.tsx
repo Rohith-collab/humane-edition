@@ -162,6 +162,20 @@ const GameArena = () => {
     return ((userXP % 1000) / 1000) * 100;
   };
 
+  const scrollToGameModes = () => {
+    const gameModeSection = document.getElementById('game-modes-section');
+    if (gameModeSection) {
+      gameModeSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToHowItWorks = () => {
+    const howItWorksSection = document.getElementById('how-it-works-section');
+    if (howItWorksSection) {
+      howItWorksSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Hero Section */}
