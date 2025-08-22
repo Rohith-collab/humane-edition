@@ -327,19 +327,19 @@ const GameArena = () => {
                           {mode.difficulty}
                         </Badge>
                         {mode.isLocked && (
-                          <Badge variant="outline" className="bg-gray-800/50 text-gray-400 border-gray-600/50">
+                          <Badge variant="outline" className="bg-muted/50 text-muted-foreground border-muted">
                             🔒 Locked
                           </Badge>
                         )}
                       </div>
                     </div>
-                    <CardTitle className="text-white text-lg sm:text-xl mt-4 group-hover:text-electric-400 transition-colors duration-300">
+                    <CardTitle className="text-foreground text-lg sm:text-xl mt-4 group-hover:text-electric-400 transition-colors duration-300">
                       {mode.title}
                     </CardTitle>
                   </CardHeader>
 
                   <CardContent className="space-y-4">
-                    <p className="text-gray-300 text-sm leading-relaxed">
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       {mode.description}
                     </p>
 
@@ -349,7 +349,7 @@ const GameArena = () => {
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between text-sm text-gray-400">
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center space-x-4">
                         <span className="flex items-center">
                           <Users className="h-4 w-4 mr-1" />
