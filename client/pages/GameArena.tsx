@@ -454,12 +454,12 @@ const GameArena = () => {
               <CardContent className="space-y-4">
                 <div className="p-4 bg-gradient-to-r from-nova-500/20 to-electric-500/20 rounded-xl border border-nova-500/30">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-white">Word Master</h3>
+                    <h3 className="font-semibold text-foreground">Word Master</h3>
                     <Badge variant="outline" className="bg-nova-500/20 text-nova-400 border-nova-500/30">
                       2/3 Complete
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-300 mb-3">Complete 3 Word Building Battles today</p>
+                  <p className="text-sm text-muted-foreground mb-3">Complete 3 Word Building Battles today</p>
                   <div className="flex items-center justify-between">
                     <Progress value={66} className="flex-1 mr-3 h-2" />
                     <span className="text-xs text-yellow-400 font-medium flex items-center">
@@ -471,12 +471,12 @@ const GameArena = () => {
 
                 <div className="p-4 bg-gradient-to-r from-cyber-500/20 to-green-500/20 rounded-xl border border-cyber-500/30">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-white">Accent Expert</h3>
+                    <h3 className="font-semibold text-foreground">Accent Expert</h3>
                     <Badge variant="outline" className="bg-cyber-500/20 text-cyber-400 border-cyber-500/30">
                       1/5 Complete
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-300 mb-3">Master 5 different accents in Accent Arena</p>
+                  <p className="text-sm text-muted-foreground mb-3">Master 5 different accents in Accent Arena</p>
                   <div className="flex items-center justify-between">
                     <Progress value={20} className="flex-1 mr-3 h-2" />
                     <span className="text-xs text-yellow-400 font-medium flex items-center">
