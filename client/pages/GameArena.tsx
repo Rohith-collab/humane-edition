@@ -27,6 +27,11 @@ import {
   Puzzle,
   ArrowDown,
   HelpCircle,
+  Type,
+  Search,
+  AlertTriangle,
+  Shuffle,
+  Info,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
