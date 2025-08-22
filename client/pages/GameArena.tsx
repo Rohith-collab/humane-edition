@@ -13,7 +13,7 @@ import {
   Target,
   Users,
   Clock,
-  Fire,
+  Flame,
   Award,
   Play,
   Volume2,
