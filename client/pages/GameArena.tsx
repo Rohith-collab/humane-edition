@@ -305,17 +305,17 @@ const GameArena = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {gameModes.map((mode, index) => (
-                <Card 
+                <Card
                   key={mode.id}
-                  className={`bg-black/60 backdrop-blur-md border transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden ${
-                    mode.isLocked 
-                      ? 'border-gray-700/50 hover:border-gray-600/50 opacity-75' 
-                      : 'border-gray-700/50 hover:border-electric-500/50 glow-electric'
+                  className={`bg-card/80 backdrop-blur-md border transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden ${
+                    mode.isLocked
+                      ? 'border-border hover:border-muted opacity-75'
+                      : 'border-border hover:border-electric-500/50 glow-electric'
                   }`}
                   onClick={() => !mode.isLocked && setSelectedMode(mode.id)}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-foreground/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                   
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
