@@ -498,6 +498,65 @@ const GameArena = () => {
           </div>
         </div>
       </div>
+
+      {/* How It Works Section */}
+      <div id="how-it-works-section" className="bg-gradient-to-br from-black via-gray-900 to-black py-16 sm:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+              <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent">
+                Why Gaming Works
+              </span>
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Transform your learning experience through the power of gamification and interactive challenges.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+            <div className="text-center group">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-electric-500 to-electric-600 rounded-2xl flex items-center justify-center glow-electric group-hover:scale-110 transition-all duration-300">
+                <Zap className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Instant Feedback</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Get immediate corrections and tips as you play. No waiting, no confusion — just rapid improvement through real-time guidance.
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-cyber-500 to-cyber-600 rounded-2xl flex items-center justify-center glow-cyber group-hover:scale-110 transition-all duration-300">
+                <Users className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Social Learning</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Challenge friends and learners worldwide. Competition and collaboration make learning memorable and motivating.
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-nova-500 to-nova-600 rounded-2xl flex items-center justify-center glow group-hover:scale-110 transition-all duration-300">
+                <Target className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Adaptive Difficulty</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Smart algorithms adjust challenge levels to your skill. Always in the perfect learning zone — never too easy, never overwhelming.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 sm:mt-16">
+            <Button
+              onClick={scrollToGameModes}
+              size="lg"
+              className="bg-gradient-to-r from-nova-500 to-electric-500 hover:from-nova-600 hover:to-electric-600 text-white font-semibold px-8 py-4 rounded-xl glow transition-all duration-300 hover:scale-105 text-lg"
+            >
+              Start Your Adventure
+              <ChevronRight className="h-5 w-5 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
