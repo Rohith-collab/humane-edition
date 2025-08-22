@@ -240,47 +240,47 @@ const GameArena = () => {
 
           {/* User Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-            <Card className="bg-black/40 backdrop-blur-md border-gray-700/50 hover:border-electric-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-electric-500/50 transition-all duration-300 hover:scale-105">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Crown className="h-5 w-5 text-yellow-400 mr-2" />
-                  <span className="text-lg sm:text-2xl font-bold text-white">{userLevel}</span>
+                  <span className="text-lg sm:text-2xl font-bold text-foreground">{userLevel}</span>
                 </div>
-                <p className="text-xs sm:text-sm text-gray-400">Level</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Level</p>
                 <div className="mt-2">
                   <Progress value={getLevelProgress()} className="h-1.5" />
-                  <p className="text-xs text-gray-500 mt-1">{userXP}/{nextLevelXP} XP</p>
+                  <p className="text-xs text-muted-foreground mt-1">{userXP}/{nextLevelXP} XP</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-black/40 backdrop-blur-md border-gray-700/50 hover:border-cyber-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-cyber-500/50 transition-all duration-300 hover:scale-105">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Coins className="h-5 w-5 text-yellow-400 mr-2" />
-                  <span className="text-lg sm:text-2xl font-bold text-white">{userCoins.toLocaleString()}</span>
+                  <span className="text-lg sm:text-2xl font-bold text-foreground">{userCoins.toLocaleString()}</span>
                 </div>
-                <p className="text-xs sm:text-sm text-gray-400">Coins</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Coins</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-black/40 backdrop-blur-md border-gray-700/50 hover:border-nova-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-nova-500/50 transition-all duration-300 hover:scale-105">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Trophy className="h-5 w-5 text-electric-400 mr-2" />
-                  <span className="text-lg sm:text-2xl font-bold text-white">47</span>
+                  <span className="text-lg sm:text-2xl font-bold text-foreground">47</span>
                 </div>
-                <p className="text-xs sm:text-sm text-gray-400">Wins</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Wins</p>
               </CardContent>
             </Card>
 
-            <Card className="bg-black/40 backdrop-blur-md border-gray-700/50 hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-red-500/50 transition-all duration-300 hover:scale-105">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Flame className="h-5 w-5 text-red-400 mr-2" />
-                  <span className="text-lg sm:text-2xl font-bold text-white">12</span>
+                  <span className="text-lg sm:text-2xl font-bold text-foreground">12</span>
                 </div>
-                <p className="text-xs sm:text-sm text-gray-400">Streak</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Streak</p>
               </CardContent>
             </Card>
           </div>
