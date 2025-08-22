@@ -230,7 +230,7 @@ const GameArena = () => {
                 onClick={scrollToHowItWorks}
                 variant="outline"
                 size="lg"
-                className="border-2 border-gray-600 hover:border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 text-lg w-full sm:w-auto min-w-[200px]"
+                className="border-2 border-border hover:border-foreground text-foreground hover:bg-foreground hover:text-background font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 text-lg w-full sm:w-auto min-w-[200px]"
               >
                 How It Works
                 <HelpCircle className="h-5 w-5 ml-2" />
