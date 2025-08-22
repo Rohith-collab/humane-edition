@@ -436,7 +436,7 @@ const GameArena = () => {
                   </div>
                 ))}
                 
-                <Button variant="ghost" className="w-full text-gray-400 hover:text-white mt-4">
+                <Button variant="ghost" className="w-full text-muted-foreground hover:text-foreground mt-4">
                   View Full Leaderboard
                   <ChevronRight className="h-4 w-4 ml-2" />
                 </Button>
@@ -444,9 +444,9 @@ const GameArena = () => {
             </Card>
 
             {/* Daily Challenges */}
-            <Card className="bg-black/60 backdrop-blur-md border-gray-700/50">
+            <Card className="bg-card/80 backdrop-blur-md border-border">
               <CardHeader>
-                <CardTitle className="text-white flex items-center">
+                <CardTitle className="text-foreground flex items-center">
                   <Star className="h-5 w-5 text-yellow-400 mr-2" />
                   Daily Challenges
                 </CardTitle>
