@@ -133,13 +133,13 @@ const Dashboard = () => {
       }
     : {
         totalSessions: 47,
-        totalHours: 23.5,
+        totalHours: 35.8,
         currentStreak: 12,
         longestStreak: 25,
         fluencyScore: 78,
         weeklyGoal: 10,
         weeklyProgress: 7.2,
-        lastSessionDate: "2024-01-15",
+        lastSessionDate: new Date().toISOString().split('T')[0],
         practiceModulesCompleted: 15,
         conversationsHeld: 34,
         wordsLearned: 245,
