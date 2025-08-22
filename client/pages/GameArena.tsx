@@ -414,24 +414,24 @@ const GameArena = () => {
                     
                     <Avatar className="h-8 w-8">
                       <AvatarFallback className={`text-sm font-bold ${
-                        entry.isCurrentUser ? 'bg-electric-500 text-white' : 'bg-gray-600 text-gray-200'
+                        entry.isCurrentUser ? 'bg-electric-500 text-white' : 'bg-muted text-muted-foreground'
                       }`}>
                         {entry.avatar}
                       </AvatarFallback>
                     </Avatar>
-                    
+
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm font-medium truncate ${
-                        entry.isCurrentUser ? 'text-electric-400' : 'text-white'
+                        entry.isCurrentUser ? 'text-electric-400' : 'text-foreground'
                       }`}>
                         {entry.name}
                       </p>
-                      <p className="text-xs text-gray-400">Level {entry.level}</p>
+                      <p className="text-xs text-muted-foreground">Level {entry.level}</p>
                     </div>
-                    
+
                     <div className="text-right">
                       <p className="text-sm font-bold text-cyan-400">{entry.score.toLocaleString()}</p>
-                      <p className="text-xs text-gray-500">points</p>
+                      <p className="text-xs text-muted-foreground">points</p>
                     </div>
                   </div>
                 ))}
