@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Brain,
   Mic,
@@ -138,6 +139,7 @@ const stats = [
 ];
 
 export default function Index() {
+  const { currentUser } = useAuth();
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -174,9 +176,9 @@ export default function Index() {
                 className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300 group"
                 asChild
               >
-                <Link to="/practice">
+                <Link to={currentUser ? "/practice" : "/register"}>
                   <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                  Start Learning Now
+                  {currentUser ? "Start Learning Now" : "Get Started"}
                 </Link>
               </Button>
               <Button
@@ -185,8 +187,8 @@ export default function Index() {
                 className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg transition-all duration-300 group"
                 asChild
               >
-                <Link to="/dashboard">
-                  View Dashboard
+                <Link to={currentUser ? "/dashboard" : "/login"}>
+                  {currentUser ? "View Dashboard" : "Sign In"}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
@@ -228,7 +230,7 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
+      <section id="features" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl sm:text-5xl font-bold text-foreground">
@@ -289,7 +291,9 @@ export default function Index() {
               className="bg-gradient-to-r from-nova-500 via-electric-500 to-cyber-500 hover:from-nova-600 hover:via-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 text-lg glow-electric transition-all duration-300"
               asChild
             >
-              <Link to="/practice">Begin Your Journey</Link>
+              <Link to={currentUser ? "/practice" : "/register"}>
+                {currentUser ? "Begin Your Journey" : "Sign Up Now"}
+              </Link>
             </Button>
             <Button
               variant="outline"
@@ -297,7 +301,9 @@ export default function Index() {
               className="border-nova-500/50 text-foreground hover:bg-nova-500/10 px-8 py-4 text-lg"
               asChild
             >
-              <Link to="/dashboard">Explore Features</Link>
+              <Link to={currentUser ? "/dashboard" : "/login"}>
+                {currentUser ? "Explore Features" : "Sign In"}
+              </Link>
             </Button>
           </div>
 

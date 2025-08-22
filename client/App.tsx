@@ -11,7 +11,9 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { UserAnalyticsProvider } from "@/contexts/UserAnalyticsContext";
 import { OfflineModeBanner } from "@/components/OfflineModeBanner";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { PublicLayout } from "@/components/PublicLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { ConditionalHomePage } from "@/components/ConditionalHomePage";
 import Index from "./pages/Index";
 import Practice from "./pages/Practice";
 import InterviewPractice from "./pages/InterviewPractice";
@@ -93,17 +95,8 @@ const App = () => (
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                {/* Protected Routes */}
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Layout>
-                        <Index />
-                      </Layout>
-                    </ProtectedRoute>
-                  }
-                />
+                {/* Home Route - Public for unauthenticated users, redirects to dashboard for authenticated */}
+                <Route path="/" element={<ConditionalHomePage />} />
 
                 <Route
                   path="/dashboard"
