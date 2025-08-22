@@ -200,16 +200,16 @@ const GameArena = () => {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight opacity-0 animate-fadeIn" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-foreground leading-tight opacity-0 animate-fadeIn" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
               <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent text-gradient-animated">
                 Level Up Your Language:
               </span>
               <br />
-              <span className="text-white">Welcome to the Gaming Arena!</span>
+              <span className="text-foreground">Welcome to the Gaming Arena!</span>
             </h1>
 
             {/* Subtext */}
-            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
               Sharpen your English through exciting, interactive games.
               <br className="hidden sm:block" />
               <span className="text-electric-400 font-semibold">Not your average grammar lesson — it's an adventure!</span>
