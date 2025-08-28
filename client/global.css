@@ -1167,20 +1167,7 @@
       inset 0 0 20px rgba(255, 255, 255, 0.1);
   }
 
-  /* Fullscreen HUD corners */
-  .cyberpunk-fullscreen::before {
-    content: '';
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    border-left: 3px solid rgba(0, 191, 255, 0.8);
-    border-top: 3px solid rgba(0, 191, 255, 0.8);
-    z-index: 1000;
-    pointer-events: none;
-    animation: pulse 2s infinite;
-  }
+  /* Top-left corner for fullscreen is handled by the card's before pseudo-element */
 
   /* Pseudo-fullscreen corner elements */
   .cyberpunk-fullscreen-corner-tr {
