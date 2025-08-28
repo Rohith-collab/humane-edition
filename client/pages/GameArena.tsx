@@ -677,6 +677,16 @@ const GameArena = () => {
                           : "bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white glow-electric"
                       } transition-all duration-300`}
                       disabled={mode.isLocked}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (!mode.isLocked) {
+                          if (mode.id === "word-building-battles") {
+                            setShowWordBattles(true);
+                          } else {
+                            setSelectedMode(mode.id);
+                          }
+                        }
+                      }}
                     >
                       {mode.isLocked ? "Locked" : "Play Now"}
                       {!mode.isLocked && (
