@@ -145,18 +145,62 @@ try {
   }
 }
 
-// Connection retry function
-export const retryFirebaseConnection = async () => {
+// Connection status and retry functions
+export const getFirebaseConnectionStatus = () => {
+  return {
+    isConnected: isFirebaseConnected,
+    hasAuth: !!auth,
+    hasFirestore: !!db,
+    hasAnalytics: !!analytics,
+    isOnline: navigator.onLine,
+  };
+};
+
+export const retryFirebaseConnection = async (): Promise<boolean> => {
   try {
-    if (db) {
+    if (!isFirebaseConnected && db) {
       await enableNetwork(db);
+      isFirebaseConnected = true;
+      console.log("Firebase connection restored");
       return true;
     }
+    return isFirebaseConnected;
   } catch (error) {
     console.error("Firebase reconnection failed:", error);
+    isFirebaseConnected = false;
     return false;
   }
-  return false;
+};
+
+// Safe Firebase operations with error handling
+export const safeFirebaseOperation = async <T>(
+  operation: () => Promise<T>,
+  fallbackValue: T,
+  errorMessage: string = "Firebase operation failed"
+): Promise<T> => {
+  try {
+    if (!isFirebaseConnected) {
+      console.warn(`${errorMessage}: Firebase not connected, using fallback`);
+      return fallbackValue;
+    }
+    return await operation();
+  } catch (error) {
+    console.error(`${errorMessage}:`, error);
+
+    // Try to reconnect if it's a network error
+    if (error instanceof Error && error.message.includes("fetch")) {
+      const reconnected = await retryFirebaseConnection();
+      if (reconnected) {
+        try {
+          return await operation();
+        } catch (retryError) {
+          console.error(`${errorMessage} (retry also failed):`, retryError);
+        }
+      }
+    }
+
+    return fallbackValue;
+  }
 };
 
 // Export what the app needs
@@ -169,5 +213,7 @@ if (import.meta.env.DEV) {
     db,
     analytics,
     config: firebaseConfig,
+    connectionStatus: getFirebaseConnectionStatus(),
+    retry: retryFirebaseConnection,
   };
 }
