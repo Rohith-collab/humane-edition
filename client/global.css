@@ -300,7 +300,16 @@
   }
 
   .gaming-octagon {
-    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    clip-path: polygon(
+      30% 0%,
+      70% 0%,
+      100% 30%,
+      100% 70%,
+      70% 100%,
+      30% 100%,
+      0% 70%,
+      0% 30%
+    );
     filter: drop-shadow(0 0 10px currentColor);
   }
 
@@ -342,15 +351,16 @@
   }
 
   .gaming-icon::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -2px;
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, 
-      transparent, 
-      rgba(255, 255, 255, 0.1), 
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
       transparent
     );
     animation: icon-scan 2s linear infinite;
@@ -362,8 +372,12 @@
   }
 
   @keyframes icon-scan {
-    0% { transform: translateX(-100%) rotate(-45deg); }
-    100% { transform: translateX(200%) rotate(-45deg); }
+    0% {
+      transform: translateX(-100%) rotate(-45deg);
+    }
+    100% {
+      transform: translateX(200%) rotate(-45deg);
+    }
   }
 
   .gaming-button {
@@ -374,15 +388,16 @@
   }
 
   .gaming-button::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, 
-      transparent, 
-      rgba(255, 255, 255, 0.3), 
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
       transparent
     );
     transition: left 0.5s;
@@ -394,7 +409,8 @@
 
   .gaming-button-outline {
     position: relative;
-    background: linear-gradient(45deg,
+    background: linear-gradient(
+      45deg,
       rgba(0, 255, 127, 0.2),
       rgba(59, 130, 246, 0.2),
       rgba(138, 43, 226, 0.2)
@@ -404,7 +420,8 @@
   }
 
   .dark .gaming-button-outline {
-    background: linear-gradient(45deg,
+    background: linear-gradient(
+      45deg,
       rgba(0, 255, 127, 0.1),
       rgba(59, 130, 246, 0.1),
       rgba(138, 43, 226, 0.1)
@@ -448,7 +465,8 @@
   }
 
   .gaming-subtext {
-    background: linear-gradient(45deg,
+    background: linear-gradient(
+      45deg,
       rgba(255, 255, 255, 0.9),
       rgba(59, 130, 246, 0.2),
       rgba(255, 255, 255, 0.9)
@@ -461,7 +479,8 @@
   }
 
   .dark .gaming-subtext {
-    background: linear-gradient(45deg,
+    background: linear-gradient(
+      45deg,
       rgba(0, 0, 0, 0.8),
       rgba(59, 130, 246, 0.1),
       rgba(0, 0, 0, 0.8)
@@ -471,7 +490,7 @@
 
   /* HUD Elements */
   .hud-element {
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 0 0 10px currentColor;
@@ -493,20 +512,26 @@
 
   /* Matrix-style text */
   .matrix-text {
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     color: #00ff7f;
     text-shadow: 0 0 10px #00ff7f;
     animation: matrix-flicker 2s infinite alternate;
   }
 
   @keyframes matrix-flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
   }
 
   /* Gaming card effects */
   .gaming-card {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       rgba(255, 255, 255, 0.95),
       rgba(59, 130, 246, 0.2),
       rgba(255, 255, 255, 0.95)
@@ -525,7 +550,8 @@
   }
 
   .dark .gaming-card {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       rgba(0, 0, 0, 0.9),
       rgba(59, 130, 246, 0.1),
       rgba(0, 0, 0, 0.9)

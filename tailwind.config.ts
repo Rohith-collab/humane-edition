@@ -164,20 +164,20 @@ export default {
         },
         "grid-move": {
           "0%": {
-            transform: "translate(0, 0)"
+            transform: "translate(0, 0)",
           },
           "100%": {
-            transform: "translate(50px, 50px)"
+            transform: "translate(50px, 50px)",
           },
         },
         "pulse-scale": {
           "0%, 100%": {
             transform: "scale(1)",
-            opacity: "0.7"
+            opacity: "0.7",
           },
           "50%": {
             transform: "scale(1.1)",
-            opacity: "1"
+            opacity: "1",
           },
         },
         "scan-lines": {
@@ -199,9 +199,18 @@ export default {
         },
         "particle-trail": {
           "0%": { transform: "translateX(0) translateY(0)", opacity: 1 },
-          "25%": { transform: "translateX(50px) translateY(-25px)", opacity: 0.8 },
-          "50%": { transform: "translateX(100px) translateY(25px)", opacity: 0.6 },
-          "75%": { transform: "translateX(150px) translateY(-10px)", opacity: 0.4 },
+          "25%": {
+            transform: "translateX(50px) translateY(-25px)",
+            opacity: 0.8,
+          },
+          "50%": {
+            transform: "translateX(100px) translateY(25px)",
+            opacity: 0.6,
+          },
+          "75%": {
+            transform: "translateX(150px) translateY(-10px)",
+            opacity: 0.4,
+          },
           "100%": { transform: "translateX(200px) translateY(0)", opacity: 0 },
         },
         "particle-bounce": {
@@ -212,9 +221,11 @@ export default {
         },
         "particle-orbit": {
           "0%": { transform: "rotate(0deg) translateX(30px) rotate(0deg)" },
-          "100%": { transform: "rotate(360deg) translateX(30px) rotate(-360deg)" },
+          "100%": {
+            transform: "rotate(360deg) translateX(30px) rotate(-360deg)",
+          },
         },
-        "hologram": {
+        hologram: {
           "0%, 100%": { opacity: 0.3, transform: "scale(1)" },
           "50%": { opacity: 0.8, transform: "scale(1.2)" },
         },
@@ -269,7 +280,7 @@ export default {
         "particle-trail": "particle-trail 6s ease-in-out infinite",
         "particle-bounce": "particle-bounce 3s ease-in-out infinite",
         "particle-orbit": "particle-orbit 8s linear infinite",
-        "hologram": "hologram 4s ease-in-out infinite",
+        hologram: "hologram 4s ease-in-out infinite",
         "light-sweep": "light-sweep 8s ease-in-out infinite",
         "light-sweep-reverse": "light-sweep-reverse 10s ease-in-out infinite",
         "vertical-sweep": "vertical-sweep 12s ease-in-out infinite",

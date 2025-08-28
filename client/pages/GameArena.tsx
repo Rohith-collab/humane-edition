@@ -210,7 +210,7 @@ const GameArena = () => {
                   rgba(59, 130, 246, 0.08) 4px
                 )
               `,
-              animation: 'scan-lines 3s linear infinite'
+              animation: "scan-lines 3s linear infinite",
             }}
           ></div>
         </div>
@@ -228,8 +228,9 @@ const GameArena = () => {
                 linear-gradient(rgba(0, 255, 127, 0.4) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 127, 0.4) 1px, transparent 1px)
               `,
-              backgroundSize: '40px 40px, 40px 40px, 80px 80px, 80px 80px, 160px 160px, 160px 160px',
-              animation: 'matrix-rain 25s linear infinite'
+              backgroundSize:
+                "40px 40px, 40px 40px, 80px 80px, 80px 80px, 160px 160px, 160px 160px",
+              animation: "matrix-rain 25s linear infinite",
             }}
           ></div>
         </div>
@@ -238,29 +239,62 @@ const GameArena = () => {
         <div className="absolute inset-0 pointer-events-none">
           {/* Corner HUD elements */}
           <div className="absolute top-4 left-4 w-20 h-20 border-l-2 border-t-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse"></div>
-          <div className="absolute top-4 right-4 w-20 h-20 border-r-2 border-t-2 border-cyber-500/80 dark:border-cyber-400/60 animate-pulse" style={{animationDelay: '0.5s'}}></div>
-          <div className="absolute bottom-4 left-4 w-20 h-20 border-l-2 border-b-2 border-nova-500/80 dark:border-nova-400/60 animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-4 right-4 w-20 h-20 border-r-2 border-b-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse" style={{animationDelay: '1.5s'}}></div>
+          <div
+            className="absolute top-4 right-4 w-20 h-20 border-r-2 border-t-2 border-cyber-500/80 dark:border-cyber-400/60 animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 left-4 w-20 h-20 border-l-2 border-b-2 border-nova-500/80 dark:border-nova-400/60 animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 right-4 w-20 h-20 border-r-2 border-b-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse"
+            style={{ animationDelay: "1.5s" }}
+          ></div>
 
           {/* Floating cyberpunk shapes */}
           <div className="absolute top-20 left-10 w-32 h-32 border-2 border-electric-600/60 dark:border-electric-500/40 transform rotate-45 animate-spin-slow opacity-60 dark:opacity-40 gaming-hexagon"></div>
           <div className="absolute top-40 right-20 w-24 h-24 border-2 border-cyber-600/70 dark:border-cyber-500/50 transform rotate-12 animate-float opacity-70 dark:opacity-50 gaming-diamond"></div>
-          <div className="absolute bottom-40 left-1/4 w-40 h-40 border-2 border-nova-600/50 dark:border-nova-500/30 transform -rotate-12 animate-pulse-scale opacity-60 dark:opacity-40 gaming-triangle" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-20 right-1/3 w-28 h-28 border-2 border-electric-600/65 dark:border-electric-400/45 transform rotate-45 animate-float opacity-70 dark:opacity-50 gaming-octagon" style={{animationDelay: '2s'}}></div>
+          <div
+            className="absolute bottom-40 left-1/4 w-40 h-40 border-2 border-nova-600/50 dark:border-nova-500/30 transform -rotate-12 animate-pulse-scale opacity-60 dark:opacity-40 gaming-triangle"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-20 right-1/3 w-28 h-28 border-2 border-electric-600/65 dark:border-electric-400/45 transform rotate-45 animate-float opacity-70 dark:opacity-50 gaming-octagon"
+            style={{ animationDelay: "2s" }}
+          ></div>
 
           {/* Neon circuit patterns */}
           <div className="absolute top-1/3 left-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-cyber-500 dark:via-cyber-400/80 to-transparent animate-circuit-flow"></div>
-          <div className="absolute top-1/2 left-1/4 w-1 h-32 bg-gradient-to-b from-transparent via-electric-500 dark:via-electric-400/80 to-transparent animate-circuit-flow" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-1/3 right-1/3 w-28 h-1 bg-gradient-to-l from-transparent via-nova-500 dark:via-nova-400/80 to-transparent animate-circuit-flow" style={{animationDelay: '2s'}}></div>
+          <div
+            className="absolute top-1/2 left-1/4 w-1 h-32 bg-gradient-to-b from-transparent via-electric-500 dark:via-electric-400/80 to-transparent animate-circuit-flow"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-1/3 right-1/3 w-28 h-1 bg-gradient-to-l from-transparent via-nova-500 dark:via-nova-400/80 to-transparent animate-circuit-flow"
+            style={{ animationDelay: "2s" }}
+          ></div>
 
           {/* Gaming particles with trails */}
-          <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-electric-500 dark:bg-electric-400 rounded-full animate-particle-trail gaming-particle" style={{animationDelay: '0.5s'}}></div>
-          <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-cyber-500 dark:bg-cyber-400 rounded-full animate-particle-bounce gaming-particle" style={{animationDelay: '1.5s'}}></div>
-          <div className="absolute bottom-1/4 left-2/3 w-4 h-4 bg-nova-500 dark:bg-nova-400 rounded-full animate-particle-orbit gaming-particle" style={{animationDelay: '2.5s'}}></div>
+          <div
+            className="absolute top-1/4 left-1/3 w-3 h-3 bg-electric-500 dark:bg-electric-400 rounded-full animate-particle-trail gaming-particle"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
+          <div
+            className="absolute top-2/3 right-1/3 w-2 h-2 bg-cyber-500 dark:bg-cyber-400 rounded-full animate-particle-bounce gaming-particle"
+            style={{ animationDelay: "1.5s" }}
+          ></div>
+          <div
+            className="absolute bottom-1/4 left-2/3 w-4 h-4 bg-nova-500 dark:bg-nova-400 rounded-full animate-particle-orbit gaming-particle"
+            style={{ animationDelay: "2.5s" }}
+          ></div>
 
           {/* Holographic effects */}
           <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-radial from-electric-500/30 dark:from-electric-400/20 via-electric-500/15 dark:via-electric-400/10 to-transparent animate-hologram"></div>
-          <div className="absolute bottom-1/2 left-1/5 w-32 h-32 rounded-full bg-gradient-radial from-cyber-500/25 dark:from-cyber-400/15 via-cyber-500/12 dark:via-cyber-400/8 to-transparent animate-hologram" style={{animationDelay: '3s'}}></div>
+          <div
+            className="absolute bottom-1/2 left-1/5 w-32 h-32 rounded-full bg-gradient-radial from-cyber-500/25 dark:from-cyber-400/15 via-cyber-500/12 dark:via-cyber-400/8 to-transparent animate-hologram"
+            style={{ animationDelay: "3s" }}
+          ></div>
         </div>
 
         {/* Dynamic light sweeps */}
@@ -282,10 +316,16 @@ const GameArena = () => {
           <div className="absolute top-8 left-8 text-electric-600 dark:text-electric-400/60 font-mono text-xs animate-pulse hud-element">
             [ARENA INITIALIZED]
           </div>
-          <div className="absolute top-8 right-8 text-cyber-600 dark:text-cyber-400/60 font-mono text-xs animate-pulse hud-element" style={{animationDelay: '1s'}}>
+          <div
+            className="absolute top-8 right-8 text-cyber-600 dark:text-cyber-400/60 font-mono text-xs animate-pulse hud-element"
+            style={{ animationDelay: "1s" }}
+          >
             [SYSTEMS ONLINE]
           </div>
-          <div className="absolute bottom-8 left-8 text-nova-600 dark:text-nova-400/60 font-mono text-xs animate-pulse hud-element" style={{animationDelay: '2s'}}>
+          <div
+            className="absolute bottom-8 left-8 text-nova-600 dark:text-nova-400/60 font-mono text-xs animate-pulse hud-element"
+            style={{ animationDelay: "2s" }}
+          >
             [READY FOR COMBAT]
           </div>
         </div>
@@ -307,18 +347,36 @@ const GameArena = () => {
 
               <div className="relative group">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-cyber-500 to-cyber-600 rounded-2xl flex items-center justify-center glow-cyber transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 gaming-icon border-2 border-cyber-400/50">
-                  <Timer className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse" style={{animationDelay: '0.5s'}} />
+                  <Timer
+                    className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  />
                 </div>
-                <div className="absolute -inset-3 bg-gradient-to-br from-cyber-500/40 to-cyber-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                <div className="absolute top-0 left-0 w-full h-1 bg-cyber-400/80 rounded-t-2xl animate-loading-bar" style={{animationDelay: '1s'}}></div>
+                <div
+                  className="absolute -inset-3 bg-gradient-to-br from-cyber-500/40 to-cyber-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"
+                  style={{ animationDelay: "0.5s" }}
+                ></div>
+                <div
+                  className="absolute top-0 left-0 w-full h-1 bg-cyber-400/80 rounded-t-2xl animate-loading-bar"
+                  style={{ animationDelay: "1s" }}
+                ></div>
               </div>
 
               <div className="relative group">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-nova-500 to-nova-600 rounded-2xl flex items-center justify-center glow transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 gaming-icon border-2 border-nova-400/50">
-                  <Puzzle className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse" style={{animationDelay: '1s'}} />
+                  <Puzzle
+                    className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse"
+                    style={{ animationDelay: "1s" }}
+                  />
                 </div>
-                <div className="absolute -inset-3 bg-gradient-to-br from-nova-500/40 to-nova-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" style={{animationDelay: '1s'}}></div>
-                <div className="absolute top-0 left-0 w-full h-1 bg-nova-400/80 rounded-t-2xl animate-loading-bar" style={{animationDelay: '2s'}}></div>
+                <div
+                  className="absolute -inset-3 bg-gradient-to-br from-nova-500/40 to-nova-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                ></div>
+                <div
+                  className="absolute top-0 left-0 w-full h-1 bg-nova-400/80 rounded-t-2xl animate-loading-bar"
+                  style={{ animationDelay: "2s" }}
+                ></div>
               </div>
             </div>
 
@@ -335,7 +393,9 @@ const GameArena = () => {
               </span>
               <br />
               <span className="relative inline-block text-foreground gaming-subtitle">
-                <span className="relative z-10">WELCOME TO THE GAMING ARENA!</span>
+                <span className="relative z-10">
+                  WELCOME TO THE GAMING ARENA!
+                </span>
                 <div className="absolute -inset-1 bg-gradient-to-r from-foreground/10 to-foreground/10 blur-md animate-subtitle-pulse"></div>
               </span>
             </h1>
@@ -346,15 +406,30 @@ const GameArena = () => {
               style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
             >
               <p className="text-muted-foreground mb-2">
-                <span className="font-mono text-electric-600 dark:text-electric-400">[MISSION BRIEFING]</span> Sharpen your English through exciting, interactive games.
+                <span className="font-mono text-electric-600 dark:text-electric-400">
+                  [MISSION BRIEFING]
+                </span>{" "}
+                Sharpen your English through exciting, interactive games.
               </p>
               <p className="text-cyber-600 dark:text-cyber-400 font-bold text-xl animate-pulse">
                 NOT YOUR AVERAGE GRAMMAR LESSON — IT'S AN ADVENTURE!
               </p>
               <div className="flex justify-center mt-4 space-x-4 text-sm font-mono">
-                <span className="text-nova-600 dark:text-nova-400 animate-pulse hud-element">[READY]</span>
-                <span className="text-electric-600 dark:text-electric-400 animate-pulse hud-element" style={{animationDelay: '0.5s'}}>[AIM]</span>
-                <span className="text-cyber-600 dark:text-cyber-400 animate-pulse hud-element" style={{animationDelay: '1s'}}>[FIRE]</span>
+                <span className="text-nova-600 dark:text-nova-400 animate-pulse hud-element">
+                  [READY]
+                </span>
+                <span
+                  className="text-electric-600 dark:text-electric-400 animate-pulse hud-element"
+                  style={{ animationDelay: "0.5s" }}
+                >
+                  [AIM]
+                </span>
+                <span
+                  className="text-cyber-600 dark:text-cyber-400 animate-pulse hud-element"
+                  style={{ animationDelay: "1s" }}
+                >
+                  [FIRE]
+                </span>
               </div>
             </div>
 
@@ -727,7 +802,7 @@ const GameArena = () => {
                 radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%)
               `,
-              animation: 'gradient 15s ease infinite'
+              animation: "gradient 15s ease infinite",
             }}
           ></div>
         </div>
