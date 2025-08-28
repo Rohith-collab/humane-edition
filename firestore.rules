@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Game sessions - users can create their own sessions and read all sessions
+    match /game_sessions/{sessionId} {
+      allow create: if request.auth != null && 
+                   request.auth.uid == request.resource.data.uid;
+      allow read: if request.auth != null;
+    }
+    
+    // Leaderboard - users can read all entries and update their own
+    match /leaderboard/{userId} {
+      allow read: if true; // Public leaderboard
+      allow write, update: if request.auth != null && 
+                          request.auth.uid == userId &&
+                          // Ensure required fields are present
+                          request.resource.data.keys().hasAll(['points', 'lastPlayed']) &&
+                          // Ensure points is a number and not negative
+                          request.resource.data.points is number &&
+                          request.resource.data.points >= 0;
+    }
+    
+    // User profiles (optional - for extended user data)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
