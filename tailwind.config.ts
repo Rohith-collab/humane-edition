@@ -180,6 +180,76 @@ export default {
             opacity: "1"
           },
         },
+        "scan-lines": {
+          "0%": { transform: "translateY(-100vh)" },
+          "100%": { transform: "translateY(100vh)" },
+        },
+        "matrix-rain": {
+          "0%": { transform: "translate(0, -100px)" },
+          "100%": { transform: "translate(100px, 100px)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "circuit-flow": {
+          "0%": { opacity: 0.3, transform: "scaleX(0)" },
+          "50%": { opacity: 1, transform: "scaleX(1)" },
+          "100%": { opacity: 0.3, transform: "scaleX(0)" },
+        },
+        "particle-trail": {
+          "0%": { transform: "translateX(0) translateY(0)", opacity: 1 },
+          "25%": { transform: "translateX(50px) translateY(-25px)", opacity: 0.8 },
+          "50%": { transform: "translateX(100px) translateY(25px)", opacity: 0.6 },
+          "75%": { transform: "translateX(150px) translateY(-10px)", opacity: 0.4 },
+          "100%": { transform: "translateX(200px) translateY(0)", opacity: 0 },
+        },
+        "particle-bounce": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "25%": { transform: "translateY(-20px) rotate(90deg)" },
+          "50%": { transform: "translateY(0) rotate(180deg)" },
+          "75%": { transform: "translateY(-10px) rotate(270deg)" },
+        },
+        "particle-orbit": {
+          "0%": { transform: "rotate(0deg) translateX(30px) rotate(0deg)" },
+          "100%": { transform: "rotate(360deg) translateX(30px) rotate(-360deg)" },
+        },
+        "hologram": {
+          "0%, 100%": { opacity: 0.3, transform: "scale(1)" },
+          "50%": { opacity: 0.8, transform: "scale(1.2)" },
+        },
+        "light-sweep": {
+          "0%": { transform: "translateX(-100vw) skewX(-10deg)" },
+          "100%": { transform: "translateX(100vw) skewX(-10deg)" },
+        },
+        "light-sweep-reverse": {
+          "0%": { transform: "translateX(100vw) skewX(10deg)" },
+          "100%": { transform: "translateX(-100vw) skewX(10deg)" },
+        },
+        "vertical-sweep": {
+          "0%": { transform: "translateY(-100vh)" },
+          "100%": { transform: "translateY(100vh)" },
+        },
+        "arena-pulse": {
+          "0%, 100%": { opacity: 0.2 },
+          "50%": { opacity: 0.6 },
+        },
+        "loading-bar": {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
+        "title-glow": {
+          "0%, 100%": { opacity: 0.5, transform: "scale(1)" },
+          "50%": { opacity: 1, transform: "scale(1.05)" },
+        },
+        "subtitle-pulse": {
+          "0%, 100%": { opacity: 0.8 },
+          "50%": { opacity: 1 },
+        },
+        "button-shine": {
+          "0%": { transform: "translateX(-100%) skewX(-10deg)" },
+          "100%": { transform: "translateX(200%) skewX(-10deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -192,6 +262,22 @@ export default {
         fadeIn: "fadeIn 1s ease-out forwards",
         "grid-move": "grid-move 20s linear infinite",
         "pulse-scale": "pulse-scale 3s ease-in-out infinite",
+        "scan-lines": "scan-lines 8s linear infinite",
+        "matrix-rain": "matrix-rain 30s linear infinite",
+        "spin-slow": "spin-slow 8s linear infinite",
+        "circuit-flow": "circuit-flow 4s ease-in-out infinite",
+        "particle-trail": "particle-trail 6s ease-in-out infinite",
+        "particle-bounce": "particle-bounce 3s ease-in-out infinite",
+        "particle-orbit": "particle-orbit 8s linear infinite",
+        "hologram": "hologram 4s ease-in-out infinite",
+        "light-sweep": "light-sweep 8s ease-in-out infinite",
+        "light-sweep-reverse": "light-sweep-reverse 10s ease-in-out infinite",
+        "vertical-sweep": "vertical-sweep 12s ease-in-out infinite",
+        "arena-pulse": "arena-pulse 3s ease-in-out infinite",
+        "loading-bar": "loading-bar 2s ease-in-out infinite",
+        "title-glow": "title-glow 2s ease-in-out infinite",
+        "subtitle-pulse": "subtitle-pulse 1.5s ease-in-out infinite",
+        "button-shine": "button-shine 3s ease-in-out infinite",
       },
     },
   },
