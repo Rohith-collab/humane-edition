@@ -34,6 +34,7 @@ import {
   Info,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import WordBuildingBattles from "@/components/WordBuildingBattles";
 
 interface GameMode {
   id: string;
