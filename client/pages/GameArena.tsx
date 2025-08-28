@@ -380,23 +380,43 @@ const GameArena = () => {
               </div>
             </div>
 
-            {/* Main Heading with Gaming Effects */}
+            {/* Main Heading with Enhanced Cyberpunk Effects */}
             <h1
               className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight opacity-0 animate-fadeIn gaming-title"
               style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
             >
               <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent text-gradient-animated gaming-glow-text">
+                {/* Enhanced cyberpunk title with multiple effects */}
+                <span
+                  className="cyberpunk-title matrix-title neon-border p-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyber-600 to-nova-600 dark:from-electric-400 dark:via-cyber-400 dark:to-nova-400 bg-clip-text text-transparent gaming-glow-text"
+                  data-text="LEVEL UP YOUR LANGUAGE:"
+                >
                   LEVEL UP YOUR LANGUAGE:
                 </span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/20 via-cyber-500/20 to-nova-500/20 blur-sm animate-title-glow"></div>
+
+                {/* Multiple glow layers for enhanced cyberpunk effect */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-electric-500/40 via-cyan-500/40 to-nova-500/40 blur-lg animate-title-glow rounded-xl"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-electric-400/60 via-cyber-400/60 to-nova-400/60 blur-md animate-pulse rounded-xl"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/30 via-blue-500/30 to-purple-500/30 blur-sm animate-title-glow rounded-xl" style={{ animationDelay: "0.5s" }}></div>
+
+                {/* Scanning line effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent w-full h-1 top-1/2 animate-light-sweep"></div>
+
+                {/* Corner brackets for HUD effect */}
+                <div className="absolute -top-2 -left-2 w-8 h-8 border-l-3 border-t-3 border-electric-400 opacity-80"></div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 border-r-3 border-t-3 border-cyber-400 opacity-80"></div>
+                <div className="absolute -bottom-2 -left-2 w-8 h-8 border-l-3 border-b-3 border-nova-400 opacity-80"></div>
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-r-3 border-b-3 border-pink-400 opacity-80"></div>
               </span>
               <br />
-              <span className="relative inline-block text-foreground gaming-subtitle">
-                <span className="relative z-10">
+              <span className="relative inline-block text-foreground gaming-subtitle mt-4">
+                <span className="relative z-10 bg-gradient-to-r from-foreground to-electric-600 dark:to-electric-400 bg-clip-text text-transparent font-extrabold">
                   WELCOME TO THE GAMING ARENA!
                 </span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-foreground/10 to-foreground/10 blur-md animate-subtitle-pulse"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/20 via-cyber-500/20 to-nova-500/20 blur-md animate-subtitle-pulse rounded"></div>
+
+                {/* Subtitle glow effects */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-electric-400/30 to-cyber-400/30 blur-lg animate-pulse rounded" style={{ animationDelay: "1s" }}></div>
               </span>
             </h1>
 
