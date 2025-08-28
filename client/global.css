@@ -430,9 +430,10 @@
 
   .gaming-title {
     text-shadow:
-      0 0 10px rgba(59, 130, 246, 0.7),
-      0 0 20px rgba(0, 255, 127, 0.5),
-      0 0 30px rgba(138, 43, 226, 0.4);
+      0 0 15px rgba(59, 130, 246, 1),
+      0 0 30px rgba(0, 255, 127, 0.8),
+      0 0 45px rgba(138, 43, 226, 0.6),
+      0 0 60px rgba(59, 130, 246, 0.4);
   }
 
   .dark .gaming-title {
@@ -443,11 +444,161 @@
   }
 
   .gaming-glow-text {
-    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 1));
+    filter:
+      drop-shadow(0 0 8px rgba(59, 130, 246, 1))
+      drop-shadow(0 0 16px rgba(0, 255, 127, 0.8))
+      drop-shadow(0 0 24px rgba(138, 43, 226, 0.6));
   }
 
   .dark .gaming-glow-text {
     filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8));
+  }
+
+  /* Enhanced cyberpunk title styling */
+  .cyberpunk-title {
+    position: relative;
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cyberpunk-title::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      #ff0080,
+      #00ffff,
+      #ff8000,
+      #8000ff
+    );
+    background-size: 400% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: cyberpunk-glow 2s ease-in-out infinite alternate;
+    z-index: -1;
+  }
+
+  .cyberpunk-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 100%;
+    height: 100%;
+    color: rgba(255, 0, 128, 0.3);
+    z-index: -2;
+    animation: cyberpunk-glitch 3s infinite;
+  }
+
+  @keyframes cyberpunk-glow {
+    0% {
+      background-position: 0% 50%;
+      filter:
+        drop-shadow(0 0 20px #ff0080)
+        drop-shadow(0 0 40px #00ffff)
+        drop-shadow(0 0 60px #8000ff);
+    }
+    100% {
+      background-position: 100% 50%;
+      filter:
+        drop-shadow(0 0 30px #00ffff)
+        drop-shadow(0 0 50px #ff8000)
+        drop-shadow(0 0 70px #ff0080);
+    }
+  }
+
+  @keyframes cyberpunk-glitch {
+    0%, 90%, 100% {
+      transform: translate(0, 0);
+    }
+    92% {
+      transform: translate(-2px, 1px);
+    }
+    94% {
+      transform: translate(2px, -1px);
+    }
+    96% {
+      transform: translate(-1px, 2px);
+    }
+    98% {
+      transform: translate(1px, -2px);
+    }
+  }
+
+  /* Neon border effect */
+  .neon-border {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, #ff0080, #00ffff, #ff8000, #8000ff) border-box;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+  }
+
+  .neon-border::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(45deg, #ff0080, #00ffff, #ff8000, #8000ff);
+    border-radius: inherit;
+    opacity: 0.7;
+    filter: blur(8px);
+    z-index: -1;
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes neon-pulse {
+    0% {
+      opacity: 0.7;
+      filter: blur(8px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(12px);
+    }
+  }
+
+  /* Matrix text effect */
+  .matrix-title {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 127, 0.6),
+      transparent
+    );
+    animation: matrix-scan 3s infinite;
+  }
+
+  @keyframes matrix-scan {
+    0% {
+      left: -100%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
   }
 
   .gaming-subtitle {
