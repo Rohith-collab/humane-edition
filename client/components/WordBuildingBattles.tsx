@@ -364,10 +364,10 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={toggleFullscreen}
-                className="text-muted-foreground hover:text-foreground"
-                title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+                className={`${isFullscreen ? 'text-electric-400 hover:text-electric-300 glow-electric' : 'text-muted-foreground hover:text-foreground'} transition-all duration-300`}
+                title={isFullscreen ? "Exit Fullscreen (Press ESC)" : "Enter Fullscreen"}
               >
-                {isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+                {isFullscreen ? <Minimize className="h-5 w-5 animate-pulse" /> : <Maximize className="h-5 w-5" />}
               </Button>
               <Button
                 variant="ghost"
@@ -487,6 +487,15 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
               </Button>
             </div>
           </div>
+
+          {/* Fullscreen Notification */}
+          {isFullscreen && (
+            <div className="p-3 bg-cyber-500/20 border border-cyber-500/30 rounded-lg text-center glow-cyber">
+              <p className="text-cyber-400 font-semibold animate-pulse">
+                🎮 FULLSCREEN MODE ACTIVE - Press ESC to exit
+              </p>
+            </div>
+          )}
 
           {/* Message */}
           {gameState.message && (
