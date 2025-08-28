@@ -183,71 +183,257 @@ const GameArena = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
+    <div className="min-h-screen relative overflow-hidden bg-background">
+      {/* Intense Gaming Background */}
+      <div className="fixed inset-0 z-0">
+        {/* Theme-aware cyberpunk base */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-nova-950/20 dark:via-nova-950/80 to-electric-950/20 dark:to-electric-950/60"></div>
+
+        {/* HUD-style scanning lines */}
+        <div className="absolute inset-0 opacity-10 dark:opacity-20">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                repeating-linear-gradient(
+                  0deg,
+                  transparent,
+                  transparent 2px,
+                  rgba(0, 255, 127, 0.08) 2px,
+                  rgba(0, 255, 127, 0.08) 4px
+                ),
+                repeating-linear-gradient(
+                  90deg,
+                  transparent,
+                  transparent 2px,
+                  rgba(59, 130, 246, 0.08) 2px,
+                  rgba(59, 130, 246, 0.08) 4px
+                )
+              `,
+              animation: "scan-lines 3s linear infinite",
+            }}
+          ></div>
+        </div>
+
+        {/* Cyberpunk grid matrix */}
+        <div className="absolute inset-0 opacity-15 dark:opacity-30">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(138, 43, 226, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(138, 43, 226, 0.6) 1px, transparent 1px),
+                linear-gradient(rgba(0, 191, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 191, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 127, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 127, 0.4) 1px, transparent 1px)
+              `,
+              backgroundSize:
+                "40px 40px, 40px 40px, 80px 80px, 80px 80px, 160px 160px, 160px 160px",
+              animation: "matrix-rain 25s linear infinite",
+            }}
+          ></div>
+        </div>
+
+        {/* Gaming HUD elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Corner HUD elements */}
+          <div className="absolute top-4 left-4 w-20 h-20 border-l-2 border-t-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse"></div>
+          <div
+            className="absolute top-4 right-4 w-20 h-20 border-r-2 border-t-2 border-cyber-500/80 dark:border-cyber-400/60 animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 left-4 w-20 h-20 border-l-2 border-b-2 border-nova-500/80 dark:border-nova-400/60 animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 right-4 w-20 h-20 border-r-2 border-b-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse"
+            style={{ animationDelay: "1.5s" }}
+          ></div>
+
+          {/* Floating cyberpunk shapes */}
+          <div className="absolute top-20 left-10 w-32 h-32 border-2 border-electric-600/60 dark:border-electric-500/40 transform rotate-45 animate-spin-slow opacity-60 dark:opacity-40 gaming-hexagon"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 border-2 border-cyber-600/70 dark:border-cyber-500/50 transform rotate-12 animate-float opacity-70 dark:opacity-50 gaming-diamond"></div>
+          <div
+            className="absolute bottom-40 left-1/4 w-40 h-40 border-2 border-nova-600/50 dark:border-nova-500/30 transform -rotate-12 animate-pulse-scale opacity-60 dark:opacity-40 gaming-triangle"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-20 right-1/3 w-28 h-28 border-2 border-electric-600/65 dark:border-electric-400/45 transform rotate-45 animate-float opacity-70 dark:opacity-50 gaming-octagon"
+            style={{ animationDelay: "2s" }}
+          ></div>
+
+          {/* Neon circuit patterns */}
+          <div className="absolute top-1/3 left-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-cyber-500 dark:via-cyber-400/80 to-transparent animate-circuit-flow"></div>
+          <div
+            className="absolute top-1/2 left-1/4 w-1 h-32 bg-gradient-to-b from-transparent via-electric-500 dark:via-electric-400/80 to-transparent animate-circuit-flow"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-1/3 right-1/3 w-28 h-1 bg-gradient-to-l from-transparent via-nova-500 dark:via-nova-400/80 to-transparent animate-circuit-flow"
+            style={{ animationDelay: "2s" }}
+          ></div>
+
+          {/* Gaming particles with trails */}
+          <div
+            className="absolute top-1/4 left-1/3 w-3 h-3 bg-electric-500 dark:bg-electric-400 rounded-full animate-particle-trail gaming-particle"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
+          <div
+            className="absolute top-2/3 right-1/3 w-2 h-2 bg-cyber-500 dark:bg-cyber-400 rounded-full animate-particle-bounce gaming-particle"
+            style={{ animationDelay: "1.5s" }}
+          ></div>
+          <div
+            className="absolute bottom-1/4 left-2/3 w-4 h-4 bg-nova-500 dark:bg-nova-400 rounded-full animate-particle-orbit gaming-particle"
+            style={{ animationDelay: "2.5s" }}
+          ></div>
+
+          {/* Holographic effects */}
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-radial from-electric-500/30 dark:from-electric-400/20 via-electric-500/15 dark:via-electric-400/10 to-transparent animate-hologram"></div>
+          <div
+            className="absolute bottom-1/2 left-1/5 w-32 h-32 rounded-full bg-gradient-radial from-cyber-500/25 dark:from-cyber-400/15 via-cyber-500/12 dark:via-cyber-400/8 to-transparent animate-hologram"
+            style={{ animationDelay: "3s" }}
+          ></div>
+        </div>
+
+        {/* Dynamic light sweeps */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-electric-500/20 dark:via-electric-500/15 to-transparent animate-light-sweep"></div>
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-cyber-500/15 dark:via-cyber-500/10 to-transparent animate-light-sweep-reverse"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-nova-500/20 dark:from-nova-500/15 via-transparent to-electric-500/20 dark:to-electric-500/15 animate-vertical-sweep"></div>
+
+        {/* Gaming atmosphere overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-nova-200/20 dark:from-nova-900/40 via-transparent to-electric-200/20 dark:to-electric-900/30"></div>
+      </div>
+
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-background via-muted/20 to-background min-h-[60vh] sm:min-h-[80vh] flex items-center">
-        <div
-          className={
-            'absolute inset-0 bg-[url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')] opacity-20'
-          }
-        ></div>
+      <div className="relative z-10 overflow-hidden min-h-[60vh] sm:min-h-[80vh] flex items-center">
+        {/* Gaming arena atmosphere */}
+        <div className="absolute inset-0 bg-gradient-to-br from-nova-500/30 dark:from-nova-500/20 via-transparent to-electric-500/30 dark:to-electric-500/20 animate-arena-pulse"></div>
+
+        {/* HUD overlay */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-8 left-8 text-electric-600 dark:text-electric-400/60 font-mono text-xs animate-pulse hud-element">
+            [ARENA INITIALIZED]
+          </div>
+          <div
+            className="absolute top-8 right-8 text-cyber-600 dark:text-cyber-400/60 font-mono text-xs animate-pulse hud-element"
+            style={{ animationDelay: "1s" }}
+          >
+            [SYSTEMS ONLINE]
+          </div>
+          <div
+            className="absolute bottom-8 left-8 text-nova-600 dark:text-nova-400/60 font-mono text-xs animate-pulse hud-element"
+            style={{ animationDelay: "2s" }}
+          >
+            [READY FOR COMBAT]
+          </div>
+        </div>
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 w-full">
           <div className="text-center space-y-6 sm:space-y-8 mb-8 sm:mb-12">
-            {/* Gaming Icons */}
+            {/* Cyberpunk Gaming Icons */}
             <div
               className="flex justify-center items-center space-x-6 sm:space-x-8 mb-6 opacity-0 animate-fadeIn"
               style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
             >
               <div className="relative group">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-electric-500 to-electric-600 rounded-2xl flex items-center justify-center glow-electric transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
-                  <Gamepad2 className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-electric-500 to-electric-600 rounded-2xl flex items-center justify-center glow-electric transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 gaming-icon border-2 border-electric-400/50">
+                  <Gamepad2 className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse" />
                 </div>
-                <div className="absolute -inset-2 bg-gradient-to-br from-electric-500/30 to-electric-600/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+                <div className="absolute -inset-3 bg-gradient-to-br from-electric-500/40 to-electric-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-electric-400/80 rounded-t-2xl animate-loading-bar"></div>
               </div>
 
               <div className="relative group">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-cyber-500 to-cyber-600 rounded-2xl flex items-center justify-center glow-cyber transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
-                  <Timer className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-cyber-500 to-cyber-600 rounded-2xl flex items-center justify-center glow-cyber transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 gaming-icon border-2 border-cyber-400/50">
+                  <Timer
+                    className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  />
                 </div>
-                <div className="absolute -inset-2 bg-gradient-to-br from-cyber-500/30 to-cyber-600/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+                <div
+                  className="absolute -inset-3 bg-gradient-to-br from-cyber-500/40 to-cyber-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"
+                  style={{ animationDelay: "0.5s" }}
+                ></div>
+                <div
+                  className="absolute top-0 left-0 w-full h-1 bg-cyber-400/80 rounded-t-2xl animate-loading-bar"
+                  style={{ animationDelay: "1s" }}
+                ></div>
               </div>
 
               <div className="relative group">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-nova-500 to-nova-600 rounded-2xl flex items-center justify-center glow transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
-                  <Puzzle className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-nova-500 to-nova-600 rounded-2xl flex items-center justify-center glow transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 gaming-icon border-2 border-nova-400/50">
+                  <Puzzle
+                    className="h-8 w-8 sm:h-10 sm:w-10 text-white animate-pulse"
+                    style={{ animationDelay: "1s" }}
+                  />
                 </div>
-                <div className="absolute -inset-2 bg-gradient-to-br from-nova-500/30 to-nova-600/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+                <div
+                  className="absolute -inset-3 bg-gradient-to-br from-nova-500/40 to-nova-600/40 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                ></div>
+                <div
+                  className="absolute top-0 left-0 w-full h-1 bg-nova-400/80 rounded-t-2xl animate-loading-bar"
+                  style={{ animationDelay: "2s" }}
+                ></div>
               </div>
             </div>
 
-            {/* Main Heading */}
+            {/* Main Heading with Gaming Effects */}
             <h1
-              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-foreground leading-tight opacity-0 animate-fadeIn"
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight opacity-0 animate-fadeIn gaming-title"
               style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
             >
-              <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent text-gradient-animated">
-                Level Up Your Language:
+              <span className="relative inline-block">
+                <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent text-gradient-animated gaming-glow-text">
+                  LEVEL UP YOUR LANGUAGE:
+                </span>
+                <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/20 via-cyber-500/20 to-nova-500/20 blur-sm animate-title-glow"></div>
               </span>
               <br />
-              <span className="text-foreground">
-                Welcome to the Gaming Arena!
+              <span className="relative inline-block text-foreground gaming-subtitle">
+                <span className="relative z-10">
+                  WELCOME TO THE GAMING ARENA!
+                </span>
+                <div className="absolute -inset-1 bg-gradient-to-r from-foreground/10 to-foreground/10 blur-md animate-subtitle-pulse"></div>
               </span>
             </h1>
 
-            {/* Subtext */}
-            <p
-              className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn"
+            {/* Gaming Subtext */}
+            <div
+              className="text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn gaming-subtext"
               style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
             >
-              Sharpen your English through exciting, interactive games.
-              <br className="hidden sm:block" />
-              <span className="text-electric-400 font-semibold">
-                Not your average grammar lesson — it's an adventure!
-              </span>
-            </p>
+              <p className="text-muted-foreground mb-2">
+                <span className="font-mono text-electric-600 dark:text-electric-400">
+                  [MISSION BRIEFING]
+                </span>{" "}
+                Sharpen your English through exciting, interactive games.
+              </p>
+              <p className="text-cyber-600 dark:text-cyber-400 font-bold text-xl animate-pulse">
+                NOT YOUR AVERAGE GRAMMAR LESSON — IT'S AN ADVENTURE!
+              </p>
+              <div className="flex justify-center mt-4 space-x-4 text-sm font-mono">
+                <span className="text-nova-600 dark:text-nova-400 animate-pulse hud-element">
+                  [READY]
+                </span>
+                <span
+                  className="text-electric-600 dark:text-electric-400 animate-pulse hud-element"
+                  style={{ animationDelay: "0.5s" }}
+                >
+                  [AIM]
+                </span>
+                <span
+                  className="text-cyber-600 dark:text-cyber-400 animate-pulse hud-element"
+                  style={{ animationDelay: "1s" }}
+                >
+                  [FIRE]
+                </span>
+              </div>
+            </div>
 
-            {/* Action Buttons */}
+            {/* Gaming Action Buttons */}
             <div
               className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-8 opacity-0 animate-fadeIn"
               style={{ animationDelay: "0.8s", animationFillMode: "forwards" }}
@@ -255,27 +441,35 @@ const GameArena = () => {
               <Button
                 onClick={scrollToGameModes}
                 size="lg"
-                className="bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white font-semibold px-8 py-4 rounded-xl glow-electric transition-all duration-300 hover:scale-105 text-lg w-full sm:w-auto min-w-[200px]"
+                className="relative bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-400 hover:to-cyber-400 text-white font-bold px-8 py-4 rounded-xl glow-electric transition-all duration-300 hover:scale-110 text-lg w-full sm:w-auto min-w-[220px] gaming-button border-2 border-electric-400/50 overflow-hidden"
               >
-                Enter the Arena
-                <ArrowDown className="h-5 w-5 ml-2" />
+                <span className="relative z-10 flex items-center">
+                  <Swords className="h-5 w-5 mr-2 animate-pulse" />
+                  ENTER THE ARENA
+                  <ArrowDown className="h-5 w-5 ml-2 animate-bounce" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 animate-button-shine"></div>
               </Button>
 
               <Button
                 onClick={scrollToHowItWorks}
                 variant="outline"
                 size="lg"
-                className="border-2 border-border hover:border-foreground text-foreground hover:bg-foreground hover:text-background font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 text-lg w-full sm:w-auto min-w-[200px]"
+                className="relative border-2 border-cyber-500/80 dark:border-cyber-400/60 hover:border-cyber-600 dark:hover:border-cyber-400 text-cyber-600 dark:text-cyber-400 hover:bg-cyber-500/20 dark:hover:bg-cyber-400/20 hover:text-background dark:hover:text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-110 text-lg w-full sm:w-auto min-w-[220px] gaming-button-outline backdrop-blur-sm bg-background/30 dark:bg-black/30"
               >
-                How It Works
-                <HelpCircle className="h-5 w-5 ml-2" />
+                <span className="relative z-10 flex items-center">
+                  <Shield className="h-5 w-5 mr-2 animate-pulse" />
+                  HOW IT WORKS
+                  <HelpCircle className="h-5 w-5 ml-2" />
+                </span>
+                <div className="absolute inset-0 bg-cyber-500/15 dark:bg-cyber-400/10 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
               </Button>
             </div>
           </div>
 
           {/* User Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-electric-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-electric-500/70 dark:hover:border-electric-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Crown className="h-5 w-5 text-yellow-400 mr-2" />
@@ -295,7 +489,7 @@ const GameArena = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-cyber-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-cyber-500/70 dark:hover:border-cyber-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Coins className="h-5 w-5 text-yellow-400 mr-2" />
@@ -309,7 +503,7 @@ const GameArena = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-nova-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-nova-500/70 dark:hover:border-nova-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Trophy className="h-5 w-5 text-electric-400 mr-2" />
@@ -321,7 +515,7 @@ const GameArena = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-red-500/70 dark:hover:border-red-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Flame className="h-5 w-5 text-red-400 mr-2" />
@@ -338,8 +532,10 @@ const GameArena = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Gaming section background overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 dark:via-background/80 to-background z-0 rounded-3xl"></div>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Modes */}
           <div id="game-modes-section" className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
@@ -361,10 +557,10 @@ const GameArena = () => {
               {gameModes.map((mode, index) => (
                 <Card
                   key={mode.id}
-                  className={`bg-card/80 backdrop-blur-md border transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden ${
+                  className={`bg-card/90 dark:bg-card/80 backdrop-blur-md border transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden gaming-card ${
                     mode.isLocked
                       ? "border-border hover:border-muted opacity-75"
-                      : "border-border hover:border-electric-500/50 glow-electric"
+                      : "border-border hover:border-electric-500/70 dark:hover:border-electric-500/50 glow-electric"
                   }`}
                   onClick={() => !mode.isLocked && setSelectedMode(mode.id)}
                   style={{ animationDelay: `${index * 100}ms` }}
@@ -450,7 +646,7 @@ const GameArena = () => {
 
           {/* Leaderboard */}
           <div className="space-y-6">
-            <Card className="bg-card/80 backdrop-blur-md border-border">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border gaming-card">
               <CardHeader>
                 <CardTitle className="text-foreground flex items-center">
                   <Trophy className="h-5 w-5 text-yellow-400 mr-2" />
@@ -529,7 +725,7 @@ const GameArena = () => {
             </Card>
 
             {/* Daily Challenges */}
-            <Card className="bg-card/80 backdrop-blur-md border-border">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border gaming-card">
               <CardHeader>
                 <CardTitle className="text-foreground flex items-center">
                   <Star className="h-5 w-5 text-yellow-400 mr-2" />
@@ -537,14 +733,14 @@ const GameArena = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-nova-500/20 to-electric-500/20 rounded-xl border border-nova-500/30">
+                <div className="p-4 bg-gradient-to-r from-nova-500/30 dark:from-nova-500/20 to-electric-500/30 dark:to-electric-500/20 rounded-xl border border-nova-500/50 dark:border-nova-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-semibold text-foreground">
                       Word Master
                     </h3>
                     <Badge
                       variant="outline"
-                      className="bg-nova-500/20 text-nova-400 border-nova-500/30"
+                      className="bg-nova-500/30 dark:bg-nova-500/20 text-nova-600 dark:text-nova-400 border-nova-500/50 dark:border-nova-500/30"
                     >
                       2/3 Complete
                     </Badge>
@@ -561,14 +757,14 @@ const GameArena = () => {
                   </div>
                 </div>
 
-                <div className="p-4 bg-gradient-to-r from-cyber-500/20 to-green-500/20 rounded-xl border border-cyber-500/30">
+                <div className="p-4 bg-gradient-to-r from-cyber-500/30 dark:from-cyber-500/20 to-green-500/30 dark:to-green-500/20 rounded-xl border border-cyber-500/50 dark:border-cyber-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-semibold text-foreground">
                       Accent Expert
                     </h3>
                     <Badge
                       variant="outline"
-                      className="bg-cyber-500/20 text-cyber-400 border-cyber-500/30"
+                      className="bg-cyber-500/30 dark:bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 border-cyber-500/50 dark:border-cyber-500/30"
                     >
                       1/5 Complete
                     </Badge>
@@ -593,8 +789,23 @@ const GameArena = () => {
       {/* How It Works Section */}
       <div
         id="how-it-works-section"
-        className="bg-gradient-to-br from-background via-muted/20 to-background py-16 sm:py-24"
+        className="relative py-16 sm:py-24 overflow-hidden"
       >
+        {/* Section background with gaming effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-nova-100/20 dark:via-nova-900/10 to-background"></div>
+        <div className="absolute inset-0 opacity-15 dark:opacity-10">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 25% 25%, rgba(138, 43, 226, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%)
+              `,
+              animation: "gradient 15s ease infinite",
+            }}
+          ></div>
+        </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
