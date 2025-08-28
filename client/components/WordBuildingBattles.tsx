@@ -373,6 +373,14 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
 
   return (
     <div className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center ${isFullscreen ? 'p-0' : 'p-4'}`}>
+      {/* Cyberpunk HUD corners for fullscreen */}
+      {isFullscreen && (
+        <>
+          <div className="cyberpunk-fullscreen-corner-tr"></div>
+          <div className="cyberpunk-fullscreen-corner-bl"></div>
+          <div className="cyberpunk-fullscreen-corner-br"></div>
+        </>
+      )}
       <Card className={`w-full ${isFullscreen ? 'max-w-none h-screen rounded-none' : 'max-w-4xl max-h-[90vh]'} overflow-auto bg-card/95 backdrop-blur-sm border-2 border-electric-500/50 ${isFullscreen ? 'cyberpunk-fullscreen' : ''}`}>
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
