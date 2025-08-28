@@ -293,12 +293,12 @@ const GameArena = () => {
           <div className="absolute top-20 left-20 text-4xl font-bold text-electric-500/60 dark:text-electric-400/40 animate-float cyberpunk-alphabet" style={{ animationDelay: "0s" }}>A</div>
           <div className="absolute top-32 right-24 text-3xl font-bold text-cyber-500/50 dark:text-cyber-400/30 animate-particle-bounce cyberpunk-alphabet" style={{ animationDelay: "1s" }}>B</div>
           <div className="absolute top-48 left-1/4 text-5xl font-bold text-nova-500/70 dark:text-nova-400/50 animate-particle-orbit cyberpunk-alphabet" style={{ animationDelay: "2s" }}>C</div>
-          <div className="absolute top-64 right-1/3 text-2xl font-bold text-pink-500/60 dark:text-pink-400/40 animate-pulse cyberpunk-alphabet" style={{ animationDelay: "0.5s" }}>D</div>
+          <div className="absolute top-64 right-1/3 text-2xl font-bold text-pink-500/60 dark:text-pink-400/40 animate-particle-trail cyberpunk-alphabet" style={{ animationDelay: "0.5s" }}>D</div>
           <div className="absolute top-80 left-1/2 text-4xl font-bold text-cyan-500/50 dark:text-cyan-400/30 animate-float cyberpunk-alphabet" style={{ animationDelay: "1.5s" }}>E</div>
 
           <div className="absolute bottom-80 left-16 text-3xl font-bold text-electric-500/60 dark:text-electric-400/40 animate-particle-trail cyberpunk-alphabet" style={{ animationDelay: "3s" }}>F</div>
           <div className="absolute bottom-64 right-20 text-4xl font-bold text-cyber-500/70 dark:text-cyber-400/50 animate-particle-bounce cyberpunk-alphabet" style={{ animationDelay: "2.5s" }}>G</div>
-          <div className="absolute bottom-48 left-1/3 text-2xl font-bold text-nova-500/50 dark:text-nova-400/30 animate-pulse cyberpunk-alphabet" style={{ animationDelay: "4s" }}>H</div>
+          <div className="absolute bottom-48 left-1/3 text-2xl font-bold text-nova-500/50 dark:text-nova-400/30 animate-particle-orbit cyberpunk-alphabet" style={{ animationDelay: "4s" }}>H</div>
           <div className="absolute bottom-32 right-1/4 text-5xl font-bold text-purple-500/60 dark:text-purple-400/40 animate-float cyberpunk-alphabet" style={{ animationDelay: "3.5s" }}>I</div>
           <div className="absolute bottom-16 left-2/3 text-3xl font-bold text-yellow-500/50 dark:text-yellow-400/30 animate-particle-orbit cyberpunk-alphabet" style={{ animationDelay: "5s" }}>J</div>
 
@@ -316,7 +316,7 @@ const GameArena = () => {
 
           <div className="absolute bottom-1/8 right-3/4 text-5xl font-bold text-lime-500/70 dark:text-lime-400/50 animate-float cyberpunk-alphabet" style={{ animationDelay: "1.8s" }}>U</div>
           <div className="absolute top-7/8 left-1/8 text-3xl font-bold text-sky-500/60 dark:text-sky-400/40 animate-particle-bounce cyberpunk-alphabet" style={{ animationDelay: "4.5s" }}>V</div>
-          <div className="absolute top-3/8 right-1/8 text-4xl font-bold text-fuchsia-500/50 dark:text-fuchsia-400/30 animate-pulse cyberpunk-alphabet" style={{ animationDelay: "6.2s" }}>W</div>
+          <div className="absolute top-3/8 right-1/8 text-4xl font-bold text-fuchsia-500/50 dark:text-fuchsia-400/30 animate-float cyberpunk-alphabet" style={{ animationDelay: "6.2s" }}>W</div>
           <div className="absolute bottom-3/8 left-7/8 text-2xl font-bold text-zinc-500/60 dark:text-zinc-400/40 animate-particle-trail cyberpunk-alphabet" style={{ animationDelay: "2.9s" }}>X</div>
           <div className="absolute top-5/8 right-7/8 text-5xl font-bold text-slate-500/70 dark:text-slate-400/50 animate-particle-orbit cyberpunk-alphabet" style={{ animationDelay: "5.3s" }}>Y</div>
           <div className="absolute bottom-5/8 left-5/8 text-3xl font-bold text-stone-500/50 dark:text-stone-400/30 animate-float cyberpunk-alphabet" style={{ animationDelay: "3.7s" }}>Z</div>
