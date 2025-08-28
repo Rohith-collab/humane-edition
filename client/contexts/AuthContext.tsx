@@ -7,7 +7,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth, retryFirebaseConnection } from "@/lib/firebase";
+import { auth, retryFirebaseConnection, getFirebaseConnectionStatus, safeFirebaseOperation } from "@/lib/firebase";
 
 interface AuthContextType {
   currentUser: User | null;
