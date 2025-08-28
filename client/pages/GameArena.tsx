@@ -394,7 +394,7 @@ const GameArena = () => {
 
           {/* User Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-electric-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-electric-500/70 dark:hover:border-electric-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Crown className="h-5 w-5 text-yellow-400 mr-2" />
@@ -414,7 +414,7 @@ const GameArena = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-cyber-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-cyber-500/70 dark:hover:border-cyber-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Coins className="h-5 w-5 text-yellow-400 mr-2" />
@@ -428,7 +428,7 @@ const GameArena = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-nova-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-nova-500/70 dark:hover:border-nova-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Trophy className="h-5 w-5 text-electric-400 mr-2" />
@@ -440,7 +440,7 @@ const GameArena = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-md border-border hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border hover:border-red-500/70 dark:hover:border-red-500/50 transition-all duration-300 hover:scale-105 gaming-card">
               <CardContent className="p-4 text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Flame className="h-5 w-5 text-red-400 mr-2" />
@@ -459,7 +459,7 @@ const GameArena = () => {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Gaming section background overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-background z-0 rounded-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 dark:via-background/80 to-background z-0 rounded-3xl"></div>
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Modes */}
           <div id="game-modes-section" className="lg:col-span-2 space-y-6">
@@ -482,10 +482,10 @@ const GameArena = () => {
               {gameModes.map((mode, index) => (
                 <Card
                   key={mode.id}
-                  className={`bg-card/80 backdrop-blur-md border transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden ${
+                  className={`bg-card/90 dark:bg-card/80 backdrop-blur-md border transition-all duration-500 hover:scale-105 cursor-pointer group relative overflow-hidden gaming-card ${
                     mode.isLocked
                       ? "border-border hover:border-muted opacity-75"
-                      : "border-border hover:border-electric-500/50 glow-electric"
+                      : "border-border hover:border-electric-500/70 dark:hover:border-electric-500/50 glow-electric"
                   }`}
                   onClick={() => !mode.isLocked && setSelectedMode(mode.id)}
                   style={{ animationDelay: `${index * 100}ms` }}
