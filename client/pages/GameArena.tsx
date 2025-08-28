@@ -388,7 +388,7 @@ const GameArena = () => {
               <span className="relative inline-block">
                 {/* Enhanced cyberpunk title with multiple effects */}
                 <span
-                  className="cyberpunk-title matrix-title neon-border p-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyber-600 to-nova-600 dark:from-electric-400 dark:via-cyber-400 dark:to-nova-400 bg-clip-text text-transparent gaming-glow-text"
+                  className="cyberpunk-title matrix-title digital-distortion holographic-text cyberpunk-gradient-text cyberpunk-strong-glow p-4 rounded-xl font-black tracking-wider"
                   data-text="LEVEL UP YOUR LANGUAGE:"
                 >
                   LEVEL UP YOUR LANGUAGE:
