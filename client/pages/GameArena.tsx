@@ -304,7 +304,7 @@ const GameArena = () => {
 
           <div className="absolute top-1/3 left-12 text-4xl font-bold text-red-500/60 dark:text-red-400/40 animate-particle-bounce cyberpunk-alphabet" style={{ animationDelay: "1.2s" }}>K</div>
           <div className="absolute top-1/2 right-12 text-2xl font-bold text-green-500/50 dark:text-green-400/30 animate-float cyberpunk-alphabet" style={{ animationDelay: "2.7s" }}>L</div>
-          <div className="absolute top-2/3 left-8 text-5xl font-bold text-blue-500/70 dark:text-blue-400/50 animate-pulse cyberpunk-alphabet" style={{ animationDelay: "4.2s" }}>M</div>
+          <div className="absolute top-2/3 left-8 text-5xl font-bold text-blue-500/70 dark:text-blue-400/50 animate-particle-bounce cyberpunk-alphabet" style={{ animationDelay: "4.2s" }}>M</div>
           <div className="absolute bottom-1/3 right-8 text-3xl font-bold text-indigo-500/60 dark:text-indigo-400/40 animate-particle-trail cyberpunk-alphabet" style={{ animationDelay: "3.8s" }}>N</div>
           <div className="absolute top-1/4 right-1/2 text-4xl font-bold text-teal-500/50 dark:text-teal-400/30 animate-particle-orbit cyberpunk-alphabet" style={{ animationDelay: "5.5s" }}>O</div>
 
