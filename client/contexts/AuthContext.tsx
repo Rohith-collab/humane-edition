@@ -7,7 +7,12 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth, retryFirebaseConnection, getFirebaseConnectionStatus, safeFirebaseOperation } from "@/lib/firebase";
+import {
+  auth,
+  retryFirebaseConnection,
+  getFirebaseConnectionStatus,
+  safeFirebaseOperation,
+} from "@/lib/firebase";
 
 interface AuthContextType {
   currentUser: User | null;
@@ -49,11 +54,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const connectionStatus = getFirebaseConnectionStatus();
 
     if (!connectionStatus.isOnline) {
-      throw new Error("You appear to be offline. Please check your internet connection and try again.");
+      throw new Error(
+        "You appear to be offline. Please check your internet connection and try again.",
+      );
     }
 
     if (!connectionStatus.hasAuth) {
-      throw new Error("Authentication service is not available. Please try again later.");
+      throw new Error(
+        "Authentication service is not available. Please try again later.",
+      );
     }
 
     try {
@@ -80,12 +89,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       // Handle specific Firebase errors
-      if (error.code === "auth/network-request-failed" || error.message?.includes("fetch")) {
+      if (
+        error.code === "auth/network-request-failed" ||
+        error.message?.includes("fetch")
+      ) {
         const reconnected = await retryFirebaseConnection();
         if (reconnected) {
-          throw new Error("Network connection restored. Please try registering again.");
+          throw new Error(
+            "Network connection restored. Please try registering again.",
+          );
         } else {
-          throw new Error("Network connection failed. Please check your internet connection and try again.");
+          throw new Error(
+            "Network connection failed. Please check your internet connection and try again.",
+          );
         }
       } else if (error.code === "auth/email-already-in-use") {
         throw new Error("An account with this email already exists.");
@@ -96,7 +112,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         const debugCode = import.meta.env.DEV ? ` (Error: ${error.code})` : "";
         throw new Error(
-          (error.message || "Registration failed. Please try again.") + debugCode,
+          (error.message || "Registration failed. Please try again.") +
+            debugCode,
         );
       }
     }
@@ -108,11 +125,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const connectionStatus = getFirebaseConnectionStatus();
 
     if (!connectionStatus.isOnline) {
-      throw new Error("You appear to be offline. Please check your internet connection and try again.");
+      throw new Error(
+        "You appear to be offline. Please check your internet connection and try again.",
+      );
     }
 
     if (!connectionStatus.hasAuth) {
-      throw new Error("Authentication service is not available. Please try again later.");
+      throw new Error(
+        "Authentication service is not available. Please try again later.",
+      );
     }
 
     try {
@@ -130,11 +151,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       // Handle specific Firebase errors
-      if (error.code === "auth/network-request-failed" || error.message?.includes("fetch")) {
+      if (
+        error.code === "auth/network-request-failed" ||
+        error.message?.includes("fetch")
+      ) {
         // Try to reconnect
         const reconnected = await retryFirebaseConnection();
         const isOnline = navigator.onLine;
-        const baseMessage = "Network connection to authentication service failed.";
+        const baseMessage =
+          "Network connection to authentication service failed.";
         const debugInfo = import.meta.env.DEV
           ? ` (Debug: hostname=${window.location.hostname}, online=${isOnline}, reconnected=${reconnected}, authDomain=${auth?.config?.authDomain})`
           : "";
@@ -146,10 +171,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             return; // Success on retry
           } catch (retryError: any) {
             console.error("Login retry failed:", retryError);
-            throw new Error(`${baseMessage} Retry failed. Please try again.${debugInfo}`);
+            throw new Error(
+              `${baseMessage} Retry failed. Please try again.${debugInfo}`,
+            );
           }
         } else {
-          throw new Error(`${baseMessage} Please check your internet connection and try again.${debugInfo}`);
+          throw new Error(
+            `${baseMessage} Please check your internet connection and try again.${debugInfo}`,
+          );
         }
       } else if (error.code === "auth/invalid-email") {
         throw new Error("Invalid email address.");

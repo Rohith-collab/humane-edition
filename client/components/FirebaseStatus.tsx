@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { getFirebaseConnectionStatus, retryFirebaseConnection } from "@/lib/firebase";
+import {
+  getFirebaseConnectionStatus,
+  retryFirebaseConnection,
+} from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, Wifi, WifiOff, RefreshCw, CheckCircle, XCircle } from "lucide-react";
+import {
+  AlertTriangle,
+  Wifi,
+  WifiOff,
+  RefreshCw,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
 
 interface ConnectionStatus {
   isConnected: boolean;
@@ -39,16 +49,16 @@ const FirebaseStatus: React.FC = () => {
 
   useEffect(() => {
     updateStatus();
-    
+
     // Update status every 10 seconds
     const interval = setInterval(updateStatus, 10000);
-    
+
     // Listen for network changes
     const handleOnline = () => {
       console.log("Network came online");
       setTimeout(updateStatus, 1000);
     };
-    
+
     const handleOffline = () => {
       console.log("Network went offline");
       updateStatus();
@@ -102,16 +112,18 @@ const FirebaseStatus: React.FC = () => {
             )}
             <span>Network: {status.isOnline ? "Online" : "Offline"}</span>
           </div>
-          
+
           <div className="flex items-center gap-2">
             {status.isConnected ? (
               <CheckCircle className="h-3 w-3 text-green-500" />
             ) : (
               <XCircle className="h-3 w-3 text-red-500" />
             )}
-            <span>Firebase: {status.isConnected ? "Connected" : "Disconnected"}</span>
+            <span>
+              Firebase: {status.isConnected ? "Connected" : "Disconnected"}
+            </span>
           </div>
-          
+
           <div className="flex items-center gap-2">
             {status.hasAuth ? (
               <CheckCircle className="h-3 w-3 text-green-500" />
@@ -120,7 +132,7 @@ const FirebaseStatus: React.FC = () => {
             )}
             <span>Auth: {status.hasAuth ? "Ready" : "Failed"}</span>
           </div>
-          
+
           <div className="flex items-center gap-2">
             {status.hasFirestore ? (
               <CheckCircle className="h-3 w-3 text-green-500" />

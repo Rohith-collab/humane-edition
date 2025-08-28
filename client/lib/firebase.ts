@@ -101,7 +101,6 @@ try {
       }
     });
   }
-
 } catch (error) {
   console.error("Firebase initialization error:", error);
   isFirebaseConnected = false;
@@ -176,7 +175,7 @@ export const retryFirebaseConnection = async (): Promise<boolean> => {
 export const safeFirebaseOperation = async <T>(
   operation: () => Promise<T>,
   fallbackValue: T,
-  errorMessage: string = "Firebase operation failed"
+  errorMessage: string = "Firebase operation failed",
 ): Promise<T> => {
   try {
     if (!isFirebaseConnected) {
