@@ -571,7 +571,7 @@ const GameArena = () => {
 
           {/* Leaderboard */}
           <div className="space-y-6">
-            <Card className="bg-card/80 backdrop-blur-md border-border">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border gaming-card">
               <CardHeader>
                 <CardTitle className="text-foreground flex items-center">
                   <Trophy className="h-5 w-5 text-yellow-400 mr-2" />
@@ -650,7 +650,7 @@ const GameArena = () => {
             </Card>
 
             {/* Daily Challenges */}
-            <Card className="bg-card/80 backdrop-blur-md border-border">
+            <Card className="bg-card/90 dark:bg-card/80 backdrop-blur-md border-border gaming-card">
               <CardHeader>
                 <CardTitle className="text-foreground flex items-center">
                   <Star className="h-5 w-5 text-yellow-400 mr-2" />
@@ -717,15 +717,15 @@ const GameArena = () => {
         className="relative py-16 sm:py-24 overflow-hidden"
       >
         {/* Section background with gaming effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-nova-900/10 to-background"></div>
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-nova-100/20 dark:via-nova-900/10 to-background"></div>
+        <div className="absolute inset-0 opacity-15 dark:opacity-10">
           <div
             className="w-full h-full"
             style={{
               backgroundImage: `
-                radial-gradient(circle at 25% 25%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%)
+                radial-gradient(circle at 25% 25%, rgba(138, 43, 226, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%)
               `,
               animation: 'gradient 15s ease infinite'
             }}
