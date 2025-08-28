@@ -386,13 +386,13 @@ const GameArena = () => {
               style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
             >
               <span className="relative inline-block mb-4">
-                {/* Clear, readable cyberpunk title */}
-                <span className="relative z-10 block cyberpunk-clean-title text-center px-6 py-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyan-500 to-cyber-600 dark:from-electric-400 dark:via-cyan-400 dark:to-cyber-400 bg-clip-text text-transparent">
+                {/* Clear, sharp cyberpunk title */}
+                <span className="relative z-10 block font-black text-center px-6 py-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyan-500 to-cyber-600 dark:from-electric-400 dark:via-cyan-400 dark:to-cyber-400 bg-clip-text text-transparent tracking-wide">
                   LEVEL UP YOUR LANGUAGE:
                 </span>
 
-                {/* Single clean glow effect */}
-                <div className="absolute -inset-3 bg-gradient-to-r from-electric-500/30 via-cyan-500/40 to-cyber-500/30 blur-xl animate-pulse rounded-xl"></div>
+                {/* Reduced glow effect - no blur on text layer */}
+                <div className="absolute -inset-6 bg-gradient-to-r from-electric-500/20 via-cyan-500/25 to-cyber-500/20 blur-2xl animate-pulse rounded-xl -z-10"></div>
 
                 {/* Subtle corner brackets */}
                 <div className="absolute -top-1 -left-1 w-6 h-6 border-l-2 border-t-2 border-electric-400/70 dark:border-electric-300/50"></div>
