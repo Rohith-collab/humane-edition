@@ -469,6 +469,129 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Cyberpunk floating alphabets */
+  .cyberpunk-alphabet {
+    font-family: 'Inter', 'Courier New', monospace;
+    font-weight: 900;
+    text-shadow:
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor;
+    filter: drop-shadow(0 0 8px currentColor);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .cyberpunk-alphabet:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    text-shadow:
+      0 0 15px currentColor,
+      0 0 30px currentColor,
+      0 0 45px currentColor;
+  }
+
+  .dark .cyberpunk-alphabet {
+    text-shadow:
+      0 0 8px currentColor,
+      0 0 16px currentColor,
+      0 0 24px currentColor;
+    filter: drop-shadow(0 0 6px currentColor);
+    opacity: 0.5;
+  }
+
+  .dark .cyberpunk-alphabet:hover {
+    opacity: 0.8;
+    text-shadow:
+      0 0 12px currentColor,
+      0 0 24px currentColor,
+      0 0 36px currentColor;
+  }
+
+  /* Enhanced floating animation for alphabets */
+  @keyframes alphabet-float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-15px) rotate(2deg);
+    }
+    50% {
+      transform: translateY(-30px) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-15px) rotate(-2deg);
+    }
+  }
+
+  .cyberpunk-alphabet.animate-float {
+    animation: alphabet-float 6s ease-in-out infinite;
+  }
+
+  /* Alphabet particle trail effect */
+  @keyframes alphabet-trail {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 0.7;
+    }
+    25% {
+      transform: translateX(30px) translateY(-15px) rotate(90deg);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(60px) translateY(15px) rotate(180deg);
+      opacity: 1;
+    }
+    75% {
+      transform: translateX(90px) translateY(-5px) rotate(270deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateX(120px) translateY(0) rotate(360deg);
+      opacity: 0.5;
+    }
+  }
+
+  .cyberpunk-alphabet.animate-particle-trail {
+    animation: alphabet-trail 8s ease-in-out infinite;
+  }
+
+  /* Alphabet orbit animation */
+  @keyframes alphabet-orbit {
+    0% {
+      transform: rotate(0deg) translateX(40px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    }
+  }
+
+  .cyberpunk-alphabet.animate-particle-orbit {
+    animation: alphabet-orbit 10s linear infinite;
+  }
+
+  /* Alphabet bounce with rotation */
+  @keyframes alphabet-bounce {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-20px) rotate(15deg);
+    }
+    50% {
+      transform: translateY(0) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-10px) rotate(-15deg);
+    }
+  }
+
+  .cyberpunk-alphabet.animate-particle-bounce {
+    animation: alphabet-bounce 4s ease-in-out infinite;
+  }
+
   /* Enhanced cyberpunk title styling */
   .cyberpunk-title {
     position: relative;
