@@ -354,6 +354,7 @@ const App = () => (
                   }
                 />
               </Routes>
+              <FirebaseStatus />
             </UserAnalyticsProvider>
           </AuthProvider>
         </BrowserRouter>
