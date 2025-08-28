@@ -183,14 +183,56 @@ const GameArena = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-muted/10 to-background">
+      {/* Animated Gaming Background */}
+      <div className="fixed inset-0 z-0">
+        {/* Primary gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-nova-900/20 via-background to-electric-900/20"></div>
+
+        {/* Animated grid pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px, 50px 50px, 100px 100px, 100px 100px',
+              animation: 'grid-move 20s linear infinite'
+            }}
+          ></div>
+        </div>
+
+        {/* Floating geometric shapes */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Large floating hexagons */}
+          <div className="absolute top-20 left-10 w-32 h-32 border border-electric-500/20 transform rotate-45 animate-bounce-slow opacity-30"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 border border-cyber-500/20 transform rotate-12 animate-float opacity-25"></div>
+          <div className="absolute bottom-40 left-1/4 w-40 h-40 border border-nova-500/15 transform -rotate-12 animate-bounce-slow opacity-20" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-20 right-1/3 w-28 h-28 border border-electric-400/25 transform rotate-45 animate-float opacity-30" style={{animationDelay: '2s'}}></div>
+
+          {/* Animated circles */}
+          <div className="absolute top-1/3 left-1/2 w-16 h-16 rounded-full border-2 border-cyber-400/30 animate-pulse opacity-40"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-20 h-20 rounded-full border border-nova-500/25 animate-glow opacity-35"></div>
+
+          {/* Moving particles */}
+          <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-electric-400/60 rounded-full animate-float" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute top-2/3 right-1/3 w-1.5 h-1.5 bg-cyber-400/50 rounded-full animate-bounce-slow" style={{animationDelay: '1.5s'}}></div>
+          <div className="absolute bottom-1/4 left-2/3 w-2.5 h-2.5 bg-nova-400/40 rounded-full animate-float" style={{animationDelay: '2.5s'}}></div>
+        </div>
+
+        {/* Animated gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-electric-500/5 to-transparent animate-shimmer"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-500/10 via-transparent to-nova-500/10 opacity-50"></div>
+      </div>
+
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-background via-muted/20 to-background min-h-[60vh] sm:min-h-[80vh] flex items-center">
-        <div
-          className={
-            'absolute inset-0 bg-[url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')] opacity-20'
-          }
-        ></div>
+      <div className="relative z-10 overflow-hidden min-h-[60vh] sm:min-h-[80vh] flex items-center">
+        {/* Additional gaming effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-nova-500/10 via-transparent to-electric-500/10 animate-gradient"></div>
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 w-full">
           <div className="text-center space-y-6 sm:space-y-8 mb-8 sm:mb-12">
@@ -338,8 +380,10 @@ const GameArena = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Gaming section background overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-background z-0 rounded-3xl"></div>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Game Modes */}
           <div id="game-modes-section" className="lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
@@ -593,8 +637,23 @@ const GameArena = () => {
       {/* How It Works Section */}
       <div
         id="how-it-works-section"
-        className="bg-gradient-to-br from-background via-muted/20 to-background py-16 sm:py-24"
+        className="relative py-16 sm:py-24 overflow-hidden"
       >
+        {/* Section background with gaming effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-nova-900/10 to-background"></div>
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 25% 25%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%)
+              `,
+              animation: 'gradient 15s ease infinite'
+            }}
+          ></div>
+        </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
