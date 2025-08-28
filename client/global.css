@@ -1182,44 +1182,44 @@
     animation: pulse 2s infinite;
   }
 
-  /* Additional fullscreen corner elements */
+  /* Pseudo-fullscreen corner elements */
   .cyberpunk-fullscreen-corner-tr {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
     width: 40px;
     height: 40px;
     border-right: 3px solid rgba(0, 255, 127, 0.8);
     border-top: 3px solid rgba(0, 255, 127, 0.8);
-    z-index: 1000;
+    z-index: 1001;
     pointer-events: none;
     animation: pulse 2s infinite;
     animation-delay: 0.5s;
   }
 
   .cyberpunk-fullscreen-corner-bl {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     left: 20px;
     width: 40px;
     height: 40px;
     border-left: 3px solid rgba(138, 43, 226, 0.8);
     border-bottom: 3px solid rgba(138, 43, 226, 0.8);
-    z-index: 1000;
+    z-index: 1001;
     pointer-events: none;
     animation: pulse 2s infinite;
     animation-delay: 1s;
   }
 
   .cyberpunk-fullscreen-corner-br {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     right: 20px;
     width: 40px;
     height: 40px;
     border-right: 3px solid rgba(255, 0, 128, 0.8);
     border-bottom: 3px solid rgba(255, 0, 128, 0.8);
-    z-index: 1000;
+    z-index: 1001;
     pointer-events: none;
     animation: pulse 2s infinite;
     animation-delay: 1.5s;
