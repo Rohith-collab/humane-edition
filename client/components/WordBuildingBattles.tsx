@@ -318,52 +318,24 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
     resetGame();
   }, [resetGame]);
 
-  // Fullscreen functionality
-  const toggleFullscreen = useCallback(async () => {
-    try {
-      if (!document.fullscreenElement) {
-        // Enter fullscreen
-        const element = document.documentElement;
-        if (element.requestFullscreen) {
-          await element.requestFullscreen();
-        } else if ((element as any).webkitRequestFullscreen) {
-          await (element as any).webkitRequestFullscreen();
-        } else if ((element as any).msRequestFullscreen) {
-          await (element as any).msRequestFullscreen();
-        }
-        setIsFullscreen(true);
-      } else {
-        // Exit fullscreen
-        if (document.exitFullscreen) {
-          await document.exitFullscreen();
-        } else if ((document as any).webkitExitFullscreen) {
-          await (document as any).webkitExitFullscreen();
-        } else if ((document as any).msExitFullscreen) {
-          await (document as any).msExitFullscreen();
-        }
+  // Pseudo-fullscreen functionality (iframe-safe)
+  const toggleFullscreen = useCallback(() => {
+    setIsFullscreen(prev => !prev);
+  }, []);
+
+  // Handle escape key to exit pseudo-fullscreen
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isFullscreen) {
         setIsFullscreen(false);
       }
-    } catch (error) {
-      console.error('Fullscreen toggle failed:', error);
-    }
-  }, []);
-
-  // Listen for fullscreen changes
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
     };
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-    document.addEventListener('msfullscreenchange', handleFullscreenChange);
-
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('msfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [isFullscreen]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -372,7 +344,7 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
   };
 
   return (
-    <div className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center ${isFullscreen ? 'p-0' : 'p-4'}`}>
+    <div className={`fixed inset-0 z-50 ${isFullscreen ? 'bg-black cyberpunk-fullscreen-overlay' : 'bg-black/50 backdrop-blur-sm'} flex items-center justify-center ${isFullscreen ? 'p-0' : 'p-4'}`}>
       {/* Cyberpunk HUD corners for fullscreen */}
       {isFullscreen && (
         <>
@@ -381,7 +353,7 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
           <div className="cyberpunk-fullscreen-corner-br"></div>
         </>
       )}
-      <Card className={`w-full ${isFullscreen ? 'max-w-none h-screen rounded-none' : 'max-w-4xl max-h-[90vh]'} overflow-auto bg-card/95 backdrop-blur-sm border-2 border-electric-500/50 ${isFullscreen ? 'cyberpunk-fullscreen' : ''}`}>
+      <Card className={`w-full ${isFullscreen ? 'max-w-none h-screen rounded-none border-0' : 'max-w-4xl max-h-[90vh] border-2 border-electric-500/50'} overflow-auto bg-card/95 backdrop-blur-sm ${isFullscreen ? 'cyberpunk-fullscreen' : ''}`}>
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className={`${isFullscreen ? 'text-3xl' : 'text-2xl'} font-bold bg-gradient-to-r from-electric-400 to-cyber-400 bg-clip-text text-transparent`}>
