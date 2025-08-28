@@ -4,18 +4,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  Shuffle, 
-  Trash2, 
-  Delete, 
-  Trophy, 
-  Timer, 
+import {
+  Play,
+  Pause,
+  RotateCcw,
+  Shuffle,
+  Trash2,
+  Delete,
+  Trophy,
+  Timer,
   Zap,
   Bot,
-  X
+  X,
+  Maximize,
+  Minimize
 } from "lucide-react";
 import { safeFirebaseOperation } from "@/lib/firebase";
 import { db } from "@/lib/firebase";
@@ -69,6 +71,7 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
 }) => {
   const { currentUser } = useAuth();
   const [dictionary, setDictionary] = useState<Set<string>>(new Set());
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [gameState, setGameState] = useState<GameState>({
     status: 'idle',
     timeLeft: duration,
@@ -315,6 +318,53 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
     resetGame();
   }, [resetGame]);
 
+  // Fullscreen functionality
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      if (!document.fullscreenElement) {
+        // Enter fullscreen
+        const element = document.documentElement;
+        if (element.requestFullscreen) {
+          await element.requestFullscreen();
+        } else if ((element as any).webkitRequestFullscreen) {
+          await (element as any).webkitRequestFullscreen();
+        } else if ((element as any).msRequestFullscreen) {
+          await (element as any).msRequestFullscreen();
+        }
+        setIsFullscreen(true);
+      } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          await (document as any).webkitExitFullscreen();
+        } else if ((document as any).msExitFullscreen) {
+          await (document as any).msExitFullscreen();
+        }
+        setIsFullscreen(false);
+      }
+    } catch (error) {
+      console.error('Fullscreen toggle failed:', error);
+    }
+  }, []);
+
+  // Listen for fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('msfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -322,25 +372,36 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-card/95 backdrop-blur-sm border-2 border-electric-500/50">
+    <div className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center ${isFullscreen ? 'p-0' : 'p-4'}`}>
+      <Card className={`w-full ${isFullscreen ? 'max-w-none h-screen rounded-none' : 'max-w-4xl max-h-[90vh]'} overflow-auto bg-card/95 backdrop-blur-sm border-2 border-electric-500/50 ${isFullscreen ? 'cyberpunk-fullscreen' : ''}`}>
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-electric-400 to-cyber-400 bg-clip-text text-transparent">
+            <CardTitle className={`${isFullscreen ? 'text-3xl' : 'text-2xl'} font-bold bg-gradient-to-r from-electric-400 to-cyber-400 bg-clip-text text-transparent`}>
               Word Building Battles
             </CardTitle>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleFullscreen}
+                className="text-muted-foreground hover:text-foreground"
+                title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+              >
+                {isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
           
           {/* Game Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-4">
+          <div className={`grid grid-cols-3 gap-4 mt-4 ${isFullscreen ? 'scale-110' : ''}`}>
             <div className="flex items-center gap-2 p-3 bg-electric-500/10 rounded-lg border border-electric-500/20">
               <Timer className="h-5 w-5 text-electric-400" />
               <div>
@@ -369,9 +430,9 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className={`space-y-6 ${isFullscreen ? 'p-8' : ''}`}>
           {/* Letter Rack */}
-          <div className="space-y-2">
+          <div className={`space-y-2 ${isFullscreen ? 'scale-110' : ''}`}>
             <h3 className="text-lg font-semibold">Your Rack</h3>
             <div className="flex flex-wrap gap-2">
               {gameState.rack.map((letter, index) => (
@@ -381,10 +442,10 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
                   size="lg"
                   onClick={() => addLetter(letter)}
                   disabled={gameState.status !== 'running'}
-                  className="w-12 h-12 text-xl font-bold bg-gradient-to-br from-electric-500/20 to-cyber-500/20 hover:from-electric-500/30 hover:to-cyber-500/30 border-electric-500/50 cyberpunk-alphabet"
+                  className={`${isFullscreen ? 'w-16 h-16 text-2xl' : 'w-12 h-12 text-xl'} font-bold bg-gradient-to-br from-electric-500/20 to-cyber-500/20 hover:from-electric-500/30 hover:to-cyber-500/30 border-electric-500/50 cyberpunk-alphabet`}
                 >
                   {letter.toUpperCase()}
-                  <span className="absolute -bottom-1 -right-1 text-xs bg-electric-500 text-white rounded-full w-4 h-4 flex items-center justify-center">
+                  <span className={`absolute -bottom-1 -right-1 ${isFullscreen ? 'text-sm w-5 h-5' : 'text-xs w-4 h-4'} bg-electric-500 text-white rounded-full flex items-center justify-center`}>
                     {LETTER_POINTS[letter]}
                   </span>
                 </Button>
@@ -403,7 +464,7 @@ const WordBuildingBattles: React.FC<WordBuildingBattlesProps> = ({
                   if (e.key === 'Backspace' && !gameState.input) e.preventDefault();
                 }}
                 placeholder="Type your word here..."
-                className="text-xl font-bold text-center tracking-widest bg-card/50 border-electric-500/30"
+                className={`${isFullscreen ? 'text-2xl' : 'text-xl'} font-bold text-center tracking-widest bg-card/50 border-electric-500/30`}
                 disabled={gameState.status !== 'running'}
               />
               <Button
