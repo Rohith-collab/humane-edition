@@ -928,6 +928,17 @@ const GameArena = () => {
           </div>
         </div>
       </div>
+
+      {/* Word Building Battles Game Modal */}
+      {showWordBattles && (
+        <WordBuildingBattles
+          onClose={() => setShowWordBattles(false)}
+          duration={60}
+          rackSize={7}
+          minLength={3}
+          aiEnabled={false}
+        />
+      )}
     </div>
   );
 };
