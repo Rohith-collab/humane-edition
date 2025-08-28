@@ -34,6 +34,7 @@ import {
   Info,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import WordBuildingBattles from "@/components/WordBuildingBattles";
 
 interface GameMode {
   id: string;
@@ -61,6 +62,7 @@ interface LeaderboardEntry {
 const GameArena = () => {
   const { currentUser } = useAuth();
   const [selectedMode, setSelectedMode] = useState<string>("");
+  const [showWordBattles, setShowWordBattles] = useState(false);
   const [userLevel, setUserLevel] = useState(15);
   const [userCoins, setUserCoins] = useState(2450);
   const [userXP, setUserXP] = useState(3680);
@@ -289,6 +291,168 @@ const GameArena = () => {
             style={{ animationDelay: "2.5s" }}
           ></div>
 
+          {/* Floating Cyberpunk English Alphabets */}
+          <div
+            className="absolute top-20 left-20 text-4xl font-bold text-electric-500/60 dark:text-electric-400/40 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "0s" }}
+          >
+            A
+          </div>
+          <div
+            className="absolute top-32 right-24 text-3xl font-bold text-cyber-500/50 dark:text-cyber-400/30 animate-particle-bounce cyberpunk-alphabet"
+            style={{ animationDelay: "1s" }}
+          >
+            B
+          </div>
+          <div
+            className="absolute top-48 left-1/4 text-5xl font-bold text-nova-500/70 dark:text-nova-400/50 animate-particle-orbit cyberpunk-alphabet"
+            style={{ animationDelay: "2s" }}
+          >
+            C
+          </div>
+          <div
+            className="absolute top-64 right-1/3 text-2xl font-bold text-pink-500/60 dark:text-pink-400/40 animate-particle-trail cyberpunk-alphabet"
+            style={{ animationDelay: "0.5s" }}
+          >
+            D
+          </div>
+          <div
+            className="absolute top-80 left-1/2 text-4xl font-bold text-cyan-500/50 dark:text-cyan-400/30 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "1.5s" }}
+          >
+            E
+          </div>
+
+          <div
+            className="absolute bottom-80 left-16 text-3xl font-bold text-electric-500/60 dark:text-electric-400/40 animate-particle-trail cyberpunk-alphabet"
+            style={{ animationDelay: "3s" }}
+          >
+            F
+          </div>
+          <div
+            className="absolute bottom-64 right-20 text-4xl font-bold text-cyber-500/70 dark:text-cyber-400/50 animate-particle-bounce cyberpunk-alphabet"
+            style={{ animationDelay: "2.5s" }}
+          >
+            G
+          </div>
+          <div
+            className="absolute bottom-48 left-1/3 text-2xl font-bold text-nova-500/50 dark:text-nova-400/30 animate-particle-orbit cyberpunk-alphabet"
+            style={{ animationDelay: "4s" }}
+          >
+            H
+          </div>
+          <div
+            className="absolute bottom-32 right-1/4 text-5xl font-bold text-purple-500/60 dark:text-purple-400/40 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "3.5s" }}
+          >
+            I
+          </div>
+          <div
+            className="absolute bottom-16 left-2/3 text-3xl font-bold text-yellow-500/50 dark:text-yellow-400/30 animate-particle-orbit cyberpunk-alphabet"
+            style={{ animationDelay: "5s" }}
+          >
+            J
+          </div>
+
+          <div
+            className="absolute top-1/3 left-12 text-4xl font-bold text-red-500/60 dark:text-red-400/40 animate-particle-bounce cyberpunk-alphabet"
+            style={{ animationDelay: "1.2s" }}
+          >
+            K
+          </div>
+          <div
+            className="absolute top-1/2 right-12 text-2xl font-bold text-green-500/50 dark:text-green-400/30 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "2.7s" }}
+          >
+            L
+          </div>
+          <div
+            className="absolute top-2/3 left-8 text-5xl font-bold text-blue-500/70 dark:text-blue-400/50 animate-particle-bounce cyberpunk-alphabet"
+            style={{ animationDelay: "4.2s" }}
+          >
+            M
+          </div>
+          <div
+            className="absolute bottom-1/3 right-8 text-3xl font-bold text-indigo-500/60 dark:text-indigo-400/40 animate-particle-trail cyberpunk-alphabet"
+            style={{ animationDelay: "3.8s" }}
+          >
+            N
+          </div>
+          <div
+            className="absolute top-1/4 right-1/2 text-4xl font-bold text-teal-500/50 dark:text-teal-400/30 animate-particle-orbit cyberpunk-alphabet"
+            style={{ animationDelay: "5.5s" }}
+          >
+            O
+          </div>
+
+          <div
+            className="absolute top-3/4 left-1/4 text-2xl font-bold text-orange-500/60 dark:text-orange-400/40 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "6s" }}
+          >
+            P
+          </div>
+          <div
+            className="absolute top-1/6 right-1/6 text-5xl font-bold text-emerald-500/70 dark:text-emerald-400/50 animate-particle-bounce cyberpunk-alphabet"
+            style={{ animationDelay: "2.3s" }}
+          >
+            Q
+          </div>
+          <div
+            className="absolute bottom-1/6 left-1/6 text-3xl font-bold text-rose-500/50 dark:text-rose-400/30 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "4.7s" }}
+          >
+            R
+          </div>
+          <div
+            className="absolute top-5/6 right-2/3 text-4xl font-bold text-violet-500/60 dark:text-violet-400/40 animate-particle-trail cyberpunk-alphabet"
+            style={{ animationDelay: "3.2s" }}
+          >
+            S
+          </div>
+          <div
+            className="absolute top-1/8 left-3/4 text-2xl font-bold text-amber-500/50 dark:text-amber-400/30 animate-particle-orbit cyberpunk-alphabet"
+            style={{ animationDelay: "5.8s" }}
+          >
+            T
+          </div>
+
+          <div
+            className="absolute bottom-1/8 right-3/4 text-5xl font-bold text-lime-500/70 dark:text-lime-400/50 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "1.8s" }}
+          >
+            U
+          </div>
+          <div
+            className="absolute top-7/8 left-1/8 text-3xl font-bold text-sky-500/60 dark:text-sky-400/40 animate-particle-bounce cyberpunk-alphabet"
+            style={{ animationDelay: "4.5s" }}
+          >
+            V
+          </div>
+          <div
+            className="absolute top-3/8 right-1/8 text-4xl font-bold text-fuchsia-500/50 dark:text-fuchsia-400/30 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "6.2s" }}
+          >
+            W
+          </div>
+          <div
+            className="absolute bottom-3/8 left-7/8 text-2xl font-bold text-zinc-500/60 dark:text-zinc-400/40 animate-particle-trail cyberpunk-alphabet"
+            style={{ animationDelay: "2.9s" }}
+          >
+            X
+          </div>
+          <div
+            className="absolute top-5/8 right-7/8 text-5xl font-bold text-slate-500/70 dark:text-slate-400/50 animate-particle-orbit cyberpunk-alphabet"
+            style={{ animationDelay: "5.3s" }}
+          >
+            Y
+          </div>
+          <div
+            className="absolute bottom-5/8 left-5/8 text-3xl font-bold text-stone-500/50 dark:text-stone-400/30 animate-float cyberpunk-alphabet"
+            style={{ animationDelay: "3.7s" }}
+          >
+            Z
+          </div>
+
           {/* Holographic effects */}
           <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-radial from-electric-500/30 dark:from-electric-400/20 via-electric-500/15 dark:via-electric-400/10 to-transparent animate-hologram"></div>
           <div
@@ -380,23 +544,34 @@ const GameArena = () => {
               </div>
             </div>
 
-            {/* Main Heading with Gaming Effects */}
+            {/* Main Heading with Clear Cyberpunk Effects */}
             <h1
-              className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight opacity-0 animate-fadeIn gaming-title"
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight opacity-0 animate-fadeIn"
               style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
             >
-              <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-electric-400 via-cyber-400 to-nova-400 bg-clip-text text-transparent text-gradient-animated gaming-glow-text">
+              <span className="relative inline-block mb-4">
+                {/* Clear, sharp cyberpunk title */}
+                <span className="relative z-10 block font-black text-center px-6 py-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyan-500 to-cyber-600 dark:from-electric-400 dark:via-cyan-400 dark:to-cyber-400 bg-clip-text text-transparent tracking-wide sharp-text">
                   LEVEL UP YOUR LANGUAGE:
                 </span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/20 via-cyber-500/20 to-nova-500/20 blur-sm animate-title-glow"></div>
+
+                {/* Reduced glow effect - no blur on text layer */}
+                <div className="absolute -inset-6 bg-gradient-to-r from-electric-500/20 via-cyan-500/25 to-cyber-500/20 blur-2xl animate-pulse rounded-xl -z-10"></div>
+
+                {/* Subtle corner brackets */}
+                <div className="absolute -top-1 -left-1 w-6 h-6 border-l-2 border-t-2 border-electric-400/70 dark:border-electric-300/50"></div>
+                <div className="absolute -top-1 -right-1 w-6 h-6 border-r-2 border-t-2 border-cyber-400/70 dark:border-cyber-300/50"></div>
+                <div className="absolute -bottom-1 -left-1 w-6 h-6 border-l-2 border-b-2 border-electric-400/70 dark:border-electric-300/50"></div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 border-r-2 border-b-2 border-cyber-400/70 dark:border-cyber-300/50"></div>
               </span>
+
               <br />
-              <span className="relative inline-block text-foreground gaming-subtitle">
-                <span className="relative z-10">
-                  WELCOME TO THE GAMING ARENA!
+
+              <span className="relative inline-block mt-4">
+                <span className="relative z-10 font-bold text-foreground dark:text-foreground text-center block gaming-subtitle">
+                  WELCOME TO THE GAME ARENA!
                 </span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-foreground/10 to-foreground/10 blur-md animate-subtitle-pulse"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/15 to-cyber-500/15 blur-md rounded"></div>
               </span>
             </h1>
 
@@ -632,6 +807,16 @@ const GameArena = () => {
                           : "bg-gradient-to-r from-electric-500 to-cyber-500 hover:from-electric-600 hover:to-cyber-600 text-white glow-electric"
                       } transition-all duration-300`}
                       disabled={mode.isLocked}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (!mode.isLocked) {
+                          if (mode.id === "word-building-battles") {
+                            setShowWordBattles(true);
+                          } else {
+                            setSelectedMode(mode.id);
+                          }
+                        }
+                      }}
                     >
                       {mode.isLocked ? "Locked" : "Play Now"}
                       {!mode.isLocked && (
@@ -873,6 +1058,17 @@ const GameArena = () => {
           </div>
         </div>
       </div>
+
+      {/* Word Building Battles Game Modal */}
+      {showWordBattles && (
+        <WordBuildingBattles
+          onClose={() => setShowWordBattles(false)}
+          duration={60}
+          rackSize={7}
+          minLength={3}
+          aiEnabled={false}
+        />
+      )}
     </div>
   );
 };
