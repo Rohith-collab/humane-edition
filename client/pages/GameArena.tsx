@@ -403,10 +403,24 @@ const GameArena = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent w-full h-1 top-1/2 animate-light-sweep"></div>
 
                 {/* Corner brackets for HUD effect */}
-                <div className="absolute -top-2 -left-2 w-8 h-8 border-l-3 border-t-3 border-electric-400 opacity-80"></div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 border-r-3 border-t-3 border-cyber-400 opacity-80"></div>
-                <div className="absolute -bottom-2 -left-2 w-8 h-8 border-l-3 border-b-3 border-nova-400 opacity-80"></div>
-                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-r-3 border-b-3 border-pink-400 opacity-80"></div>
+                <div className="absolute -top-2 -left-2 w-8 h-8 border-l-4 border-t-4 border-electric-400 opacity-80 animate-pulse"></div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 border-r-4 border-t-4 border-cyber-400 opacity-80 animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+                <div className="absolute -bottom-2 -left-2 w-8 h-8 border-l-4 border-b-4 border-nova-400 opacity-80 animate-pulse" style={{ animationDelay: "1s" }}></div>
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-r-4 border-b-4 border-pink-400 opacity-80 animate-pulse" style={{ animationDelay: "1.5s" }}></div>
+
+                {/* Additional cyberpunk elements */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {/* Digital noise overlay */}
+                  <div className="absolute inset-0 opacity-20 dark:opacity-10 bg-gradient-to-r from-transparent via-electric-500/20 to-transparent animate-shimmer"></div>
+
+                  {/* Holographic interference */}
+                  <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-light-sweep"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-pink-400 to-transparent animate-light-sweep-reverse"></div>
+
+                  {/* Side scan lines */}
+                  <div className="absolute left-0 top-0 w-0.5 h-full bg-gradient-to-b from-transparent via-electric-400 to-transparent animate-vertical-sweep"></div>
+                  <div className="absolute right-0 top-0 w-0.5 h-full bg-gradient-to-b from-transparent via-nova-400 to-transparent animate-vertical-sweep" style={{ animationDelay: "1s" }}></div>
+                </div>
               </span>
               <br />
               <span className="relative inline-block text-foreground gaming-subtitle mt-4">
