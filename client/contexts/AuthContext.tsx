@@ -45,6 +45,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     password: string,
     displayName: string,
   ) => {
+    // Check Firebase connection status first
+    const connectionStatus = getFirebaseConnectionStatus();
+
+    if (!connectionStatus.isOnline) {
+      throw new Error("You appear to be offline. Please check your internet connection and try again.");
+    }
+
+    if (!connectionStatus.hasAuth) {
+      throw new Error("Authentication service is not available. Please try again later.");
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -62,11 +73,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setCurrentUser(userCredential.user);
       }
     } catch (error: any) {
+      console.error("Firebase Registration Error:", {
+        code: error.code,
+        message: error.message,
+        connectionStatus,
+      });
+
       // Handle specific Firebase errors
-      if (error.code === "auth/network-request-failed") {
-        throw new Error(
-          "Network connection failed. Please check your internet connection and try again.",
-        );
+      if (error.code === "auth/network-request-failed" || error.message?.includes("fetch")) {
+        const reconnected = await retryFirebaseConnection();
+        if (reconnected) {
+          throw new Error("Network connection restored. Please try registering again.");
+        } else {
+          throw new Error("Network connection failed. Please check your internet connection and try again.");
+        }
       } else if (error.code === "auth/email-already-in-use") {
         throw new Error("An account with this email already exists.");
       } else if (error.code === "auth/invalid-email") {
@@ -74,8 +94,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else if (error.code === "auth/weak-password") {
         throw new Error("Password should be at least 6 characters long.");
       } else {
+        const debugCode = import.meta.env.DEV ? ` (Error: ${error.code})` : "";
         throw new Error(
-          error.message || "Registration failed. Please try again.",
+          (error.message || "Registration failed. Please try again.") + debugCode,
         );
       }
     }
