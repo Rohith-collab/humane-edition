@@ -658,14 +658,14 @@ const GameArena = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-nova-500/20 to-electric-500/20 rounded-xl border border-nova-500/30">
+                <div className="p-4 bg-gradient-to-r from-nova-500/30 dark:from-nova-500/20 to-electric-500/30 dark:to-electric-500/20 rounded-xl border border-nova-500/50 dark:border-nova-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-semibold text-foreground">
                       Word Master
                     </h3>
                     <Badge
                       variant="outline"
-                      className="bg-nova-500/20 text-nova-400 border-nova-500/30"
+                      className="bg-nova-500/30 dark:bg-nova-500/20 text-nova-600 dark:text-nova-400 border-nova-500/50 dark:border-nova-500/30"
                     >
                       2/3 Complete
                     </Badge>
@@ -682,14 +682,14 @@ const GameArena = () => {
                   </div>
                 </div>
 
-                <div className="p-4 bg-gradient-to-r from-cyber-500/20 to-green-500/20 rounded-xl border border-cyber-500/30">
+                <div className="p-4 bg-gradient-to-r from-cyber-500/30 dark:from-cyber-500/20 to-green-500/30 dark:to-green-500/20 rounded-xl border border-cyber-500/50 dark:border-cyber-500/30">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-semibold text-foreground">
                       Accent Expert
                     </h3>
                     <Badge
                       variant="outline"
-                      className="bg-cyber-500/20 text-cyber-400 border-cyber-500/30"
+                      className="bg-cyber-500/30 dark:bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 border-cyber-500/50 dark:border-cyber-500/30"
                     >
                       1/5 Complete
                     </Badge>
