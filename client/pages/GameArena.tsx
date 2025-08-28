@@ -405,7 +405,7 @@ const GameArena = () => {
 
               <span className="relative inline-block mt-4">
                 <span className="relative z-10 font-bold text-foreground dark:text-foreground text-center block gaming-subtitle">
-                  WELCOME TO THE GAMING ARENA!
+                  WELCOME TO THE GAME ARENA!
                 </span>
                 <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/15 to-cyber-500/15 blur-md rounded"></div>
               </span>
