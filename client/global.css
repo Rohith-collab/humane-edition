@@ -450,22 +450,23 @@
     filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
   }
 
-  /* Clean cyberpunk title styling */
+  /* Clean cyberpunk title styling - no blur effects */
   .cyberpunk-clean-title {
-    text-shadow:
-      0 0 10px rgba(59, 130, 246, 1),
-      0 0 20px rgba(0, 255, 255, 0.8),
-      2px 2px 4px rgba(0, 0, 0, 0.5);
     font-family: 'Inter', system-ui, sans-serif;
     font-weight: 900;
     letter-spacing: 0.05em;
+    /* Removed text-shadow to prevent blur */
   }
 
   .dark .cyberpunk-clean-title {
-    text-shadow:
-      0 0 8px rgba(59, 130, 246, 0.8),
-      0 0 16px rgba(0, 255, 255, 0.6),
-      2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* Removed text-shadow to prevent blur */
+  }
+
+  /* Sharp text class for crisp rendering */
+  .sharp-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   /* Enhanced cyberpunk title styling */
