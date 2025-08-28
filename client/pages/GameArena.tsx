@@ -183,14 +183,14 @@ const GameArena = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black">
+    <div className="min-h-screen relative overflow-hidden bg-background">
       {/* Intense Gaming Background */}
       <div className="fixed inset-0 z-0">
-        {/* Dark cyberpunk base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-nova-950/80 to-electric-950/60"></div>
+        {/* Theme-aware cyberpunk base */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-nova-950/20 dark:via-nova-950/80 to-electric-950/20 dark:to-electric-950/60"></div>
 
         {/* HUD-style scanning lines */}
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-10 dark:opacity-20">
           <div
             className="w-full h-full"
             style={{
@@ -199,15 +199,15 @@ const GameArena = () => {
                   0deg,
                   transparent,
                   transparent 2px,
-                  rgba(0, 255, 127, 0.03) 2px,
-                  rgba(0, 255, 127, 0.03) 4px
+                  rgba(0, 255, 127, 0.08) 2px,
+                  rgba(0, 255, 127, 0.08) 4px
                 ),
                 repeating-linear-gradient(
                   90deg,
                   transparent,
                   transparent 2px,
-                  rgba(59, 130, 246, 0.03) 2px,
-                  rgba(59, 130, 246, 0.03) 4px
+                  rgba(59, 130, 246, 0.08) 2px,
+                  rgba(59, 130, 246, 0.08) 4px
                 )
               `,
               animation: 'scan-lines 3s linear infinite'
@@ -216,17 +216,17 @@ const GameArena = () => {
         </div>
 
         {/* Cyberpunk grid matrix */}
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-15 dark:opacity-30">
           <div
             className="w-full h-full"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(138, 43, 226, 0.4) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(138, 43, 226, 0.4) 1px, transparent 1px),
-                linear-gradient(rgba(0, 191, 255, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 191, 255, 0.3) 1px, transparent 1px),
-                linear-gradient(rgba(0, 255, 127, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 127, 0.2) 1px, transparent 1px)
+                linear-gradient(rgba(138, 43, 226, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(138, 43, 226, 0.6) 1px, transparent 1px),
+                linear-gradient(rgba(0, 191, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 191, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 127, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 127, 0.4) 1px, transparent 1px)
               `,
               backgroundSize: '40px 40px, 40px 40px, 80px 80px, 80px 80px, 160px 160px, 160px 160px',
               animation: 'matrix-rain 25s linear infinite'
@@ -237,55 +237,55 @@ const GameArena = () => {
         {/* Gaming HUD elements */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Corner HUD elements */}
-          <div className="absolute top-4 left-4 w-20 h-20 border-l-2 border-t-2 border-electric-400/60 animate-pulse"></div>
-          <div className="absolute top-4 right-4 w-20 h-20 border-r-2 border-t-2 border-cyber-400/60 animate-pulse" style={{animationDelay: '0.5s'}}></div>
-          <div className="absolute bottom-4 left-4 w-20 h-20 border-l-2 border-b-2 border-nova-400/60 animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-4 right-4 w-20 h-20 border-r-2 border-b-2 border-electric-400/60 animate-pulse" style={{animationDelay: '1.5s'}}></div>
+          <div className="absolute top-4 left-4 w-20 h-20 border-l-2 border-t-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse"></div>
+          <div className="absolute top-4 right-4 w-20 h-20 border-r-2 border-t-2 border-cyber-500/80 dark:border-cyber-400/60 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute bottom-4 left-4 w-20 h-20 border-l-2 border-b-2 border-nova-500/80 dark:border-nova-400/60 animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-4 right-4 w-20 h-20 border-r-2 border-b-2 border-electric-500/80 dark:border-electric-400/60 animate-pulse" style={{animationDelay: '1.5s'}}></div>
 
           {/* Floating cyberpunk shapes */}
-          <div className="absolute top-20 left-10 w-32 h-32 border-2 border-electric-500/40 transform rotate-45 animate-spin-slow opacity-40 gaming-hexagon"></div>
-          <div className="absolute top-40 right-20 w-24 h-24 border-2 border-cyber-500/50 transform rotate-12 animate-float opacity-50 gaming-diamond"></div>
-          <div className="absolute bottom-40 left-1/4 w-40 h-40 border-2 border-nova-500/30 transform -rotate-12 animate-pulse-scale opacity-40 gaming-triangle" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-20 right-1/3 w-28 h-28 border-2 border-electric-400/45 transform rotate-45 animate-float opacity-50 gaming-octagon" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-20 left-10 w-32 h-32 border-2 border-electric-600/60 dark:border-electric-500/40 transform rotate-45 animate-spin-slow opacity-60 dark:opacity-40 gaming-hexagon"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 border-2 border-cyber-600/70 dark:border-cyber-500/50 transform rotate-12 animate-float opacity-70 dark:opacity-50 gaming-diamond"></div>
+          <div className="absolute bottom-40 left-1/4 w-40 h-40 border-2 border-nova-600/50 dark:border-nova-500/30 transform -rotate-12 animate-pulse-scale opacity-60 dark:opacity-40 gaming-triangle" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-20 right-1/3 w-28 h-28 border-2 border-electric-600/65 dark:border-electric-400/45 transform rotate-45 animate-float opacity-70 dark:opacity-50 gaming-octagon" style={{animationDelay: '2s'}}></div>
 
           {/* Neon circuit patterns */}
-          <div className="absolute top-1/3 left-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-cyber-400/80 to-transparent animate-circuit-flow"></div>
-          <div className="absolute top-1/2 left-1/4 w-1 h-32 bg-gradient-to-b from-transparent via-electric-400/80 to-transparent animate-circuit-flow" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-1/3 right-1/3 w-28 h-1 bg-gradient-to-l from-transparent via-nova-400/80 to-transparent animate-circuit-flow" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/3 left-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-cyber-500 dark:via-cyber-400/80 to-transparent animate-circuit-flow"></div>
+          <div className="absolute top-1/2 left-1/4 w-1 h-32 bg-gradient-to-b from-transparent via-electric-500 dark:via-electric-400/80 to-transparent animate-circuit-flow" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-1/3 right-1/3 w-28 h-1 bg-gradient-to-l from-transparent via-nova-500 dark:via-nova-400/80 to-transparent animate-circuit-flow" style={{animationDelay: '2s'}}></div>
 
           {/* Gaming particles with trails */}
-          <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-electric-400 rounded-full animate-particle-trail gaming-particle" style={{animationDelay: '0.5s'}}></div>
-          <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-cyber-400 rounded-full animate-particle-bounce gaming-particle" style={{animationDelay: '1.5s'}}></div>
-          <div className="absolute bottom-1/4 left-2/3 w-4 h-4 bg-nova-400 rounded-full animate-particle-orbit gaming-particle" style={{animationDelay: '2.5s'}}></div>
+          <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-electric-500 dark:bg-electric-400 rounded-full animate-particle-trail gaming-particle" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute top-2/3 right-1/3 w-2 h-2 bg-cyber-500 dark:bg-cyber-400 rounded-full animate-particle-bounce gaming-particle" style={{animationDelay: '1.5s'}}></div>
+          <div className="absolute bottom-1/4 left-2/3 w-4 h-4 bg-nova-500 dark:bg-nova-400 rounded-full animate-particle-orbit gaming-particle" style={{animationDelay: '2.5s'}}></div>
 
           {/* Holographic effects */}
-          <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-radial from-electric-400/20 via-electric-400/10 to-transparent animate-hologram"></div>
-          <div className="absolute bottom-1/2 left-1/5 w-32 h-32 rounded-full bg-gradient-radial from-cyber-400/15 via-cyber-400/8 to-transparent animate-hologram" style={{animationDelay: '3s'}}></div>
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-radial from-electric-500/30 dark:from-electric-400/20 via-electric-500/15 dark:via-electric-400/10 to-transparent animate-hologram"></div>
+          <div className="absolute bottom-1/2 left-1/5 w-32 h-32 rounded-full bg-gradient-radial from-cyber-500/25 dark:from-cyber-400/15 via-cyber-500/12 dark:via-cyber-400/8 to-transparent animate-hologram" style={{animationDelay: '3s'}}></div>
         </div>
 
         {/* Dynamic light sweeps */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-electric-500/15 to-transparent animate-light-sweep"></div>
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-cyber-500/10 to-transparent animate-light-sweep-reverse"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-nova-500/15 via-transparent to-electric-500/15 animate-vertical-sweep"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-electric-500/20 dark:via-electric-500/15 to-transparent animate-light-sweep"></div>
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-cyber-500/15 dark:via-cyber-500/10 to-transparent animate-light-sweep-reverse"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-nova-500/20 dark:from-nova-500/15 via-transparent to-electric-500/20 dark:to-electric-500/15 animate-vertical-sweep"></div>
 
         {/* Gaming atmosphere overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-nova-900/40 via-transparent to-electric-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-nova-200/20 dark:from-nova-900/40 via-transparent to-electric-200/20 dark:to-electric-900/30"></div>
       </div>
 
       {/* Hero Section */}
       <div className="relative z-10 overflow-hidden min-h-[60vh] sm:min-h-[80vh] flex items-center">
         {/* Gaming arena atmosphere */}
-        <div className="absolute inset-0 bg-gradient-to-br from-nova-500/20 via-transparent to-electric-500/20 animate-arena-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-nova-500/30 dark:from-nova-500/20 via-transparent to-electric-500/30 dark:to-electric-500/20 animate-arena-pulse"></div>
 
         {/* HUD overlay */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-8 left-8 text-electric-400/60 font-mono text-xs animate-pulse">
+          <div className="absolute top-8 left-8 text-electric-600 dark:text-electric-400/60 font-mono text-xs animate-pulse hud-element">
             [ARENA INITIALIZED]
           </div>
-          <div className="absolute top-8 right-8 text-cyber-400/60 font-mono text-xs animate-pulse" style={{animationDelay: '1s'}}>
+          <div className="absolute top-8 right-8 text-cyber-600 dark:text-cyber-400/60 font-mono text-xs animate-pulse hud-element" style={{animationDelay: '1s'}}>
             [SYSTEMS ONLINE]
           </div>
-          <div className="absolute bottom-8 left-8 text-nova-400/60 font-mono text-xs animate-pulse" style={{animationDelay: '2s'}}>
+          <div className="absolute bottom-8 left-8 text-nova-600 dark:text-nova-400/60 font-mono text-xs animate-pulse hud-element" style={{animationDelay: '2s'}}>
             [READY FOR COMBAT]
           </div>
         </div>
@@ -334,9 +334,9 @@ const GameArena = () => {
                 <div className="absolute -inset-1 bg-gradient-to-r from-electric-500/20 via-cyber-500/20 to-nova-500/20 blur-sm animate-title-glow"></div>
               </span>
               <br />
-              <span className="relative inline-block text-white gaming-subtitle">
+              <span className="relative inline-block text-foreground gaming-subtitle">
                 <span className="relative z-10">WELCOME TO THE GAMING ARENA!</span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-white/10 to-white/10 blur-md animate-subtitle-pulse"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-foreground/10 to-foreground/10 blur-md animate-subtitle-pulse"></div>
               </span>
             </h1>
 
@@ -345,16 +345,16 @@ const GameArena = () => {
               className="text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn gaming-subtext"
               style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
             >
-              <p className="text-gray-300 mb-2">
-                <span className="font-mono text-electric-400">[MISSION BRIEFING]</span> Sharpen your English through exciting, interactive games.
+              <p className="text-muted-foreground mb-2">
+                <span className="font-mono text-electric-600 dark:text-electric-400">[MISSION BRIEFING]</span> Sharpen your English through exciting, interactive games.
               </p>
-              <p className="text-cyber-400 font-bold text-xl animate-pulse">
+              <p className="text-cyber-600 dark:text-cyber-400 font-bold text-xl animate-pulse">
                 NOT YOUR AVERAGE GRAMMAR LESSON — IT'S AN ADVENTURE!
               </p>
               <div className="flex justify-center mt-4 space-x-4 text-sm font-mono">
-                <span className="text-nova-400 animate-pulse">[READY]</span>
-                <span className="text-electric-400 animate-pulse" style={{animationDelay: '0.5s'}}>[AIM]</span>
-                <span className="text-cyber-400 animate-pulse" style={{animationDelay: '1s'}}>[FIRE]</span>
+                <span className="text-nova-600 dark:text-nova-400 animate-pulse hud-element">[READY]</span>
+                <span className="text-electric-600 dark:text-electric-400 animate-pulse hud-element" style={{animationDelay: '0.5s'}}>[AIM]</span>
+                <span className="text-cyber-600 dark:text-cyber-400 animate-pulse hud-element" style={{animationDelay: '1s'}}>[FIRE]</span>
               </div>
             </div>
 
@@ -380,14 +380,14 @@ const GameArena = () => {
                 onClick={scrollToHowItWorks}
                 variant="outline"
                 size="lg"
-                className="relative border-2 border-cyber-400/60 hover:border-cyber-400 text-cyber-400 hover:bg-cyber-400/20 hover:text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-110 text-lg w-full sm:w-auto min-w-[220px] gaming-button-outline backdrop-blur-sm bg-black/30"
+                className="relative border-2 border-cyber-500/80 dark:border-cyber-400/60 hover:border-cyber-600 dark:hover:border-cyber-400 text-cyber-600 dark:text-cyber-400 hover:bg-cyber-500/20 dark:hover:bg-cyber-400/20 hover:text-background dark:hover:text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-110 text-lg w-full sm:w-auto min-w-[220px] gaming-button-outline backdrop-blur-sm bg-background/30 dark:bg-black/30"
               >
                 <span className="relative z-10 flex items-center">
                   <Shield className="h-5 w-5 mr-2 animate-pulse" />
                   HOW IT WORKS
                   <HelpCircle className="h-5 w-5 ml-2" />
                 </span>
-                <div className="absolute inset-0 bg-cyber-400/10 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                <div className="absolute inset-0 bg-cyber-500/15 dark:bg-cyber-400/10 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
               </Button>
             </div>
           </div>
