@@ -387,7 +387,7 @@ const GameArena = () => {
             >
               <span className="relative inline-block mb-4">
                 {/* Clear, sharp cyberpunk title */}
-                <span className="relative z-10 block font-black text-center px-6 py-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyan-500 to-cyber-600 dark:from-electric-400 dark:via-cyan-400 dark:to-cyber-400 bg-clip-text text-transparent tracking-wide">
+                <span className="relative z-10 block font-black text-center px-6 py-4 rounded-xl bg-gradient-to-r from-electric-600 via-cyan-500 to-cyber-600 dark:from-electric-400 dark:via-cyan-400 dark:to-cyber-400 bg-clip-text text-transparent tracking-wide sharp-text">
                   LEVEL UP YOUR LANGUAGE:
                 </span>
 
